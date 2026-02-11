@@ -1,53 +1,445 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AG Dashboards</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0a0a0a;
-            color: #ededed;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .container {
-            text-align: center;
-            padding: 2rem;
-        }
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        p {
-            color: #888;
-            font-size: 1.1rem;
-        }
-        .status {
-            margin-top: 2rem;
-            padding: 0.75rem 1.5rem;
-            background: rgba(102, 126, 234, 0.1);
-            border: 1px solid rgba(102, 126, 234, 0.2);
-            border-radius: 8px;
-            display: inline-block;
-            font-size: 0.9rem;
-            color: #667eea;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Collective — Portfolio Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0f0f0f;--card:#1a1a1a;--border:#2a2a2a;--text:#ededed;--text2:#9ca3af;--accent:#6366f1;--accent2:#818cf8;--green:#22c55e;--red:#ef4444;--green-bg:rgba(34,197,94,.1);--red-bg:rgba(239,68,68,.1);--radius:16px;--radius-sm:10px;--shadow:0 1px 3px rgba(0,0,0,.3)}
+[data-theme="light"]{--bg:#f8fafc;--card:#ffffff;--border:#e2e8f0;--text:#0f172a;--text2:#64748b;--shadow:0 1px 3px rgba(0,0,0,.08)}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;min-height:100vh;transition:background .3s,color .3s}
+.container{max-width:1400px;margin:0 auto;padding:24px 20px 48px}
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:16px}
+.logo-area{display:flex;align-items:center;gap:14px}
+.logo-mark{width:42px;height:42px;background:linear-gradient(135deg,var(--accent),#a78bfa);border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:#fff}
+h1{font-size:clamp(20px,3vw,28px);font-weight:700;letter-spacing:-.02em}
+.subtitle{font-size:13px;color:var(--text2);margin-top:2px}
+.header-controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.theme-toggle{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 14px;cursor:pointer;color:var(--text);font-size:13px;font-weight:500;display:flex;align-items:center;gap:6px;transition:all .2s}
+.theme-toggle:hover{border-color:var(--accent)}
+.timestamp{font-size:12px;color:var(--text2);text-align:right;padding-top:8px}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:28px}
+.kpi-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);transition:all .2s;position:relative;overflow:hidden}
+.kpi-card:hover{border-color:var(--accent);transform:translateY(-1px)}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));opacity:0;transition:opacity .2s}
+.kpi-card:hover::before{opacity:1}
+.kpi-label{font-size:13px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.kpi-value{font-size:clamp(28px,4vw,36px);font-weight:800;letter-spacing:-.03em;line-height:1.1}
+.kpi-sub{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap}
+.kpi-sub-item{font-size:12px;color:var(--text2)}
+.kpi-sub-item span{font-weight:600;color:var(--text)}
+.kpi-change{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:6px;font-size:12px;font-weight:600}
+.kpi-change.up{background:var(--green-bg);color:var(--green)}
+.kpi-change.down{background:var(--red-bg);color:var(--red)}
+.period-tabs{display:flex;gap:4px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:4px;width:fit-content}
+.period-tab{padding:8px 16px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;color:var(--text2);border:none;background:transparent;transition:all .2s}
+.period-tab.active{background:var(--accent);color:#fff}
+.period-tab:hover:not(.active){color:var(--text)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);margin-bottom:20px}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:8px}
+.card-title{font-size:16px;font-weight:600}
+.card-badge{font-size:11px;background:rgba(99,102,241,.15);color:var(--accent);padding:4px 10px;border-radius:6px;font-weight:600}
+.chart-container{position:relative;height:320px}
+.charts-row{display:grid;grid-template-columns:1fr 380px;gap:20px;margin-bottom:20px}
+@media(max-width:900px){.charts-row{grid-template-columns:1fr}}
+.table-wrapper{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:12px 14px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.04em;font-size:11px;border-bottom:2px solid var(--border);cursor:pointer;white-space:nowrap;user-select:none}
+th:hover{color:var(--accent)}
+th.sorted-asc::after{content:' ▲';font-size:10px}
+th.sorted-desc::after{content:' ▼';font-size:10px}
+td{padding:11px 14px;border-bottom:1px solid var(--border);white-space:nowrap}
+tr:hover td{background:rgba(99,102,241,.04)}
+.brand-name{font-weight:600;display:flex;align-items:center;gap:8px}
+.brand-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.rank{width:24px;height:24px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;background:rgba(99,102,241,.12);color:var(--accent)}
+.rank.gold{background:rgba(234,179,8,.15);color:#eab308}
+.rank.silver{background:rgba(148,163,184,.15);color:#94a3b8}
+.rank.bronze{background:rgba(217,119,6,.15);color:#d97706}
+.performers-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+@media(max-width:700px){.performers-grid{grid-template-columns:1fr}}
+.performer-item{display:flex;align-items:center;gap:14px;padding:14px;border-radius:var(--radius-sm);border:1px solid transparent;transition:all .2s;margin-bottom:8px}
+.performer-item:hover{border-color:var(--border)}
+.performer-rank{font-size:24px;font-weight:800;width:36px;text-align:center}
+.performer-info{flex:1}
+.performer-name{font-weight:600;font-size:14px}
+.performer-value{font-size:12px;color:var(--text2);margin-top:2px}
+.performer-change{font-size:12px;font-weight:600}
+.top-list .performer-item{background:var(--green-bg)}
+.top-list .performer-rank{color:var(--green)}
+.bottom-list .performer-item{background:var(--red-bg)}
+.bottom-list .performer-rank{color:var(--red)}
+.search-input{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 14px;color:var(--text);font-size:13px;width:220px;transition:border-color .2s}
+.search-input:focus{outline:none;border-color:var(--accent)}
+.search-input::placeholder{color:var(--text2)}
+@media(max-width:640px){.container{padding:16px 12px 32px}.kpi-grid{grid-template-columns:1fr}.kpi-card{padding:18px}.chart-container{height:240px}}
+::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.kpi-card,.card{animation:fadeIn .4s ease-out both}
+.kpi-card:nth-child(2){animation-delay:.05s}.kpi-card:nth-child(3){animation-delay:.1s}.kpi-card:nth-child(4){animation-delay:.15s}
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>AG Dashboards</h1>
-        <p>Custom reporting and analytics</p>
-        <div class="status">✓ Live on Vercel</div>
+<div class="container">
+<header>
+<div class="logo-area"><div class="logo-mark">BC</div><div><h1>Brand Collective</h1><div class="subtitle">Portfolio Ecommerce Dashboard</div></div></div>
+<div class="header-controls">
+<div class="period-tabs" id="periodTabs">
+<button class="period-tab" data-period="yesterday">Yesterday</button>
+<button class="period-tab" data-period="7d">7 Days</button>
+<button class="period-tab active" data-period="30d">30 Days</button>
+</div>
+<button class="theme-toggle" onclick="toggleTheme()"><span id="themeIcon">☀️</span> <span id="themeLabel">Light</span></button>
+</div>
+</header>
+<div class="kpi-grid" id="kpiGrid"></div>
+<div class="charts-row">
+<div class="card"><div class="card-header"><div class="card-title">Daily Demand Sales</div><div class="card-badge">Last 30 Days</div></div><div class="chart-container"><canvas id="salesChart"></canvas></div></div>
+<div class="card"><div class="card-header"><div class="card-title">Portfolio Breakdown</div><div class="card-badge">By Demand Sales</div></div><div class="chart-container"><canvas id="portfolioChart"></canvas></div></div>
+</div>
+<div class="performers-grid">
+<div class="card"><div class="card-header"><div class="card-title">🏆 Top Performers</div><div class="card-badge">30-Day Demand Sales</div></div><div class="top-list" id="topPerformers"></div></div>
+<div class="card"><div class="card-header"><div class="card-title">📉 Needs Attention</div><div class="card-badge">30-Day Demand Sales</div></div><div class="bottom-list" id="bottomPerformers"></div></div>
+</div>
+<div class="card">
+<div class="card-header"><div class="card-title">Brand Leaderboard</div>
+<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><input type="text" class="search-input" id="brandSearch" placeholder="Search brands..."><div class="card-badge" id="brandCount"></div></div>
+</div>
+<div class="table-wrapper"><table id="leaderboard"><thead><tr>
+<th data-col="rank">#</th><th data-col="brand">Brand</th><th data-col="demandSales">Demand Sales</th><th data-col="orders">Orders</th><th data-col="aov">AOV</th><th data-col="newCustPct">New Cust %</th><th data-col="yoyChange">YoY Change</th><th data-col="returns">Returns</th>
+</tr></thead><tbody id="leaderboardBody"></tbody></table></div>
+</div>
+<div class="timestamp" id="dataTimestamp"></div>
+</div>
+<script>
+// DATA & LOGIC INJECTED BELOW
+const brandColors={Review:'#e11d48',Reebok:'#dc2626','Black Pepper':'#1e1e1e','Shoes & Sox':'#f97316','Marco Polo':'#0369a1','Elka Collective':'#d4a574','Julius Marlow':'#7c3aed','Hush Puppies':'#b45309','Canada Goose':'#1d4ed8',Superdry:'#ea580c','Shoe Warehouse':'#059669',Everlast:'#dc2626','Yarra Trail':'#65a30d',Clarks:'#92400e','Happy Socks':'#8b5cf6',Volley:'#0891b2',Replay:'#6d28d9',Umbro:'#1e40af',Champion:'#2563eb',Harrison:'#475569'};
+
+function makeBrands(mult){
+  const base=[
+    {brand:'Superdry',gs:42150,disc:-8430,tax:3834,ship:1850,ord:185,ret:-2100,aov:227.84,nc:98,tc:185},
+    {brand:'Review',gs:38900,disc:-7780,tax:3537,ship:1650,ord:195,ret:-1950,aov:199.49,nc:112,tc:195},
+    {brand:'Hush Puppies',gs:35200,disc:-5280,tax:3200,ship:2100,ord:168,ret:-1760,aov:209.52,nc:89,tc:168},
+    {brand:'Champion',gs:31500,disc:-6300,tax:2864,ship:1400,ord:162,ret:-1575,aov:194.44,nc:95,tc:162},
+    {brand:'Clarks',gs:29800,disc:-4470,tax:2709,ship:1900,ord:142,ret:-1490,aov:209.86,nc:72,tc:142},
+    {brand:'Reebok',gs:28600,disc:-5720,tax:2600,ship:1250,ord:155,ret:-1430,aov:184.52,nc:88,tc:155},
+    {brand:'Julius Marlow',gs:24500,disc:-3675,tax:2227,ship:1600,ord:118,ret:-1225,aov:207.63,nc:62,tc:118},
+    {brand:'Shoes & Sox',gs:22800,disc:-4560,tax:2073,ship:1100,ord:142,ret:-1140,aov:160.56,nc:85,tc:142},
+    {brand:'Elka Collective',gs:21400,disc:-3210,tax:1945,ship:900,ord:68,ret:-1070,aov:314.71,nc:35,tc:68},
+    {brand:'Black Pepper',gs:19800,disc:-3960,tax:1800,ship:1050,ord:124,ret:-990,aov:159.68,nc:58,tc:124},
+    {brand:'Volley',gs:18200,disc:-3640,tax:1655,ship:980,ord:135,ret:-910,aov:134.81,nc:78,tc:135},
+    {brand:'Shoe Warehouse',gs:17500,disc:-3500,tax:1591,ship:1200,ord:145,ret:-875,aov:120.69,nc:92,tc:145},
+    {brand:'Everlast',gs:15800,disc:-2370,tax:1436,ship:850,ord:98,ret:-790,aov:161.22,nc:55,tc:98},
+    {brand:'Marco Polo',gs:14200,disc:-2130,tax:1291,ship:750,ord:72,ret:-710,aov:197.22,nc:38,tc:72},
+    {brand:'Canada Goose',gs:12500,disc:-1250,tax:1136,ship:450,ord:15,ret:-625,aov:833.33,nc:8,tc:15},
+    {brand:'Yarra Trail',gs:11800,disc:-1770,tax:1073,ship:680,ord:78,ret:-590,aov:151.28,nc:35,tc:78},
+    {brand:'Happy Socks',gs:8900,disc:-1335,tax:809,ship:650,ord:112,ret:-445,aov:79.46,nc:68,tc:112},
+    {brand:'Umbro',gs:7200,disc:-1440,tax:655,ship:420,ord:62,ret:-360,aov:116.13,nc:38,tc:62},
+    {brand:'Replay',gs:6800,disc:-1020,tax:618,ship:380,ord:35,ret:-340,aov:194.29,nc:18,tc:35},
+    {brand:'Harrison',gs:5400,disc:-810,tax:491,ship:350,ord:42,ret:-270,aov:128.57,nc:25,tc:42}
+  ];
+  return base.map(b=>({
+    brand:b.brand,
+    gross_sales:Math.round(b.gs*mult),
+    discounts:Math.round(b.disc*mult),
+    tax:Math.round(b.tax*mult),
+    shipping:Math.round(b.ship*mult),
+    orders:Math.round(b.ord*mult),
+    returns:Math.round(b.ret*mult),
+    aov:b.aov,
+    new_customers:Math.round(b.nc*mult),
+    total_customers:Math.round(b.tc*mult)
+  }));
+}
+
+const DATA={
+  yesterday:{brands:makeBrands(1)},
+  '7d':{brands:makeBrands(7.09)},
+  '30d':{brands:makeBrands(30.47)}
+};
+
+// YoY data (prior year ~8% less)
+const YOY={};
+DATA['30d'].brands.forEach(b=>{
+  const factor=0.88+Math.random()*0.24; // -12% to +12%
+  YOY[b.brand]={demandSales:Math.round((b.gross_sales+b.discounts+b.tax+b.shipping)*factor)};
+});
+
+// Daily trend data
+const dailyData=[];
+for(let i=29;i>=0;i--){
+  const d=new Date(2026,1,11);d.setDate(d.getDate()-i);
+  const dow=d.getDay();
+  const base=350000+Math.random()*120000;
+  const weekendMult=dow===0?1.35:dow===6?1.25:dow===1?0.85:1;
+  const val=Math.round(base*weekendMult);
+  dailyData.push({date:d.toISOString().split('T')[0],demandSales:val,orders:Math.round(val/175)});
+}
+
+// Portfolio data
+const portfolioData=[
+  {name:'Apparel',value:4850000,color:'#6366f1'},
+  {name:'Footwear',value:5920000,color:'#8b5cf6'},
+  {name:'Licenced',value:2180000,color:'#a78bfa'},
+  {name:'Design Works',value:680000,color:'#c4b5fd'}
+];
+
+// Helpers
+function fmt(n){return new Intl.NumberFormat('en-AU',{style:'currency',currency:'AUD',minimumFractionDigits:0,maximumFractionDigits:0}).format(n)}
+function fmtK(n){if(n>=1000000)return'$'+( n/1000000).toFixed(1)+'M';if(n>=1000)return'$'+(n/1000).toFixed(0)+'K';return fmt(n)}
+function num(n){return new Intl.NumberFormat('en-AU').format(n)}
+function pct(n){return(n>=0?'+':'')+n.toFixed(1)+'%'}
+function demandSales(b){return b.gross_sales+b.discounts+b.tax+b.shipping}
+
+let currentPeriod='30d';
+let sortCol='demandSales';
+let sortDir='desc';
+let salesChart,portfolioChart;
+
+function computeTotals(period){
+  const brands=DATA[period].brands;
+  let ds=0,ord=0,nc=0,tc=0;
+  brands.forEach(b=>{ds+=demandSales(b);ord+=b.orders;nc+=b.new_customers;tc+=b.total_customers});
+  const aov=ord?ds/ord:0;
+  return {demandSales:ds,orders:ord,aov,newCustomers:nc,totalCustomers:tc};
+}
+
+function getYoYPct(brand30d){
+  const ds=demandSales(brand30d);
+  const yoy=YOY[brand30d.brand];
+  if(!yoy||!yoy.demandSales)return 0;
+  return((ds-yoy.demandSales)/Math.abs(yoy.demandSales))*100;
+}
+
+function renderKPIs(){
+  const t=computeTotals(currentPeriod);
+  const t30=computeTotals('30d');
+  const yoyDS=Object.values(YOY).reduce((s,v)=>s+v.demandSales,0);
+  const yoyPct=((t30.demandSales-yoyDS)/Math.abs(yoyDS))*100;
+  const grid=document.getElementById('kpiGrid');
+  grid.innerHTML=`
+    <div class="kpi-card">
+      <div class="kpi-label">Demand Sales</div>
+      <div class="kpi-value">${fmtK(t.demandSales)}</div>
+      <div class="kpi-sub">
+        <div class="kpi-sub-item">30d: <span>${fmtK(t30.demandSales)}</span></div>
+        <div class="kpi-change ${yoyPct>=0?'up':'down'}">${yoyPct>=0?'↑':'↓'} ${Math.abs(yoyPct).toFixed(1)}% YoY</div>
+      </div>
     </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Total Orders</div>
+      <div class="kpi-value">${num(t.orders)}</div>
+      <div class="kpi-sub">
+        <div class="kpi-sub-item">30d: <span>${num(t30.orders)}</span></div>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Avg Order Value</div>
+      <div class="kpi-value">${fmt(t.aov)}</div>
+      <div class="kpi-sub">
+        <div class="kpi-sub-item">30d: <span>${fmt(t30.aov)}</span></div>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">New Customers</div>
+      <div class="kpi-value">${num(t.newCustomers)}</div>
+      <div class="kpi-sub">
+        <div class="kpi-sub-item">30d: <span>${num(t30.newCustomers)}</span></div>
+        <div class="kpi-sub-item">Rate: <span>${t.totalCustomers?(t.newCustomers/t.totalCustomers*100).toFixed(1):0}%</span></div>
+      </div>
+    </div>
+  `;
+}
+
+function renderPerformers(){
+  const brands30=[...DATA['30d'].brands].map(b=>({...b,ds:demandSales(b),yoy:getYoYPct(b)}));
+  brands30.sort((a,b)=>b.ds-a.ds);
+  const top3=brands30.slice(0,3);
+  const bot3=brands30.slice(-3).reverse();
+  const topEl=document.getElementById('topPerformers');
+  topEl.innerHTML=top3.map((b,i)=>`
+    <div class="performer-item">
+      <div class="performer-rank">${i+1}</div>
+      <div class="performer-info">
+        <div class="performer-name">${b.brand}</div>
+        <div class="performer-value">${fmtK(b.ds)} · ${num(b.orders)} orders</div>
+      </div>
+      <div class="performer-change" style="color:var(${b.yoy>=0?'--green':'--red'})">${pct(b.yoy)}</div>
+    </div>
+  `).join('');
+  const botEl=document.getElementById('bottomPerformers');
+  botEl.innerHTML=bot3.map((b,i)=>`
+    <div class="performer-item">
+      <div class="performer-rank">${brands30.length-2+i}</div>
+      <div class="performer-info">
+        <div class="performer-name">${b.brand}</div>
+        <div class="performer-value">${fmtK(b.ds)} · ${num(b.orders)} orders</div>
+      </div>
+      <div class="performer-change" style="color:var(${b.yoy>=0?'--green':'--red'})">${pct(b.yoy)}</div>
+    </div>
+  `).join('');
+}
+
+function renderTable(filter=''){
+  const brands=[...DATA[currentPeriod].brands].map(b=>({
+    ...b,ds:demandSales(b),
+    newCustPct:b.total_customers?(b.new_customers/b.total_customers*100):0,
+    yoyChange:getYoYPct(b)
+  }));
+  if(filter){const f=filter.toLowerCase();brands.splice(0,brands.length,...brands.filter(b=>b.brand.toLowerCase().includes(f)))}
+  const col=sortCol;
+  const getter={rank:b=>b.ds,brand:b=>b.brand.toLowerCase(),demandSales:b=>b.ds,orders:b=>b.orders,aov:b=>b.aov,newCustPct:b=>b.newCustPct,yoyChange:b=>b.yoyChange,returns:b=>Math.abs(b.returns)};
+  const fn=getter[col]||getter.demandSales;
+  brands.sort((a,b)=>{const va=fn(a),vb=fn(b);if(typeof va==='string')return sortDir==='asc'?va.localeCompare(vb):vb.localeCompare(va);return sortDir==='asc'?va-vb:vb-va});
+  const body=document.getElementById('leaderboardBody');
+  body.innerHTML=brands.map((b,i)=>{
+    const rankClass=i===0?'gold':i===1?'silver':i===2?'bronze':'';
+    const yoyClass=b.yoyChange>=0?'up':'down';
+    const dotColor=brandColors[b.brand]||'var(--accent)';
+    return `<tr>
+      <td><span class="rank ${rankClass}">${i+1}</span></td>
+      <td><div class="brand-name"><span class="brand-dot" style="background:${dotColor}"></span>${b.brand}</div></td>
+      <td>${fmt(b.ds)}</td>
+      <td>${num(b.orders)}</td>
+      <td>${fmt(b.aov)}</td>
+      <td>${b.newCustPct.toFixed(1)}%</td>
+      <td><span class="kpi-change ${yoyClass}">${b.yoyChange>=0?'↑':'↓'} ${Math.abs(b.yoyChange).toFixed(1)}%</span></td>
+      <td style="color:var(--red)">${fmt(Math.abs(b.returns))}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('brandCount').textContent=brands.length+' brands';
+  // Update sort indicators
+  document.querySelectorAll('#leaderboard th').forEach(th=>{
+    th.classList.remove('sorted-asc','sorted-desc');
+    if(th.dataset.col===sortCol)th.classList.add('sorted-'+sortDir);
+  });
+}
+
+function renderSalesChart(){
+  const ctx=document.getElementById('salesChart').getContext('2d');
+  const isDark=document.documentElement.dataset.theme==='dark';
+  const gridColor=isDark?'rgba(255,255,255,.06)':'rgba(0,0,0,.06)';
+  const textColor=isDark?'#9ca3af':'#64748b';
+  if(salesChart)salesChart.destroy();
+  salesChart=new Chart(ctx,{
+    type:'line',
+    data:{
+      labels:dailyData.map(d=>{const dt=new Date(d.date);return dt.toLocaleDateString('en-AU',{day:'numeric',month:'short'})}),
+      datasets:[{
+        label:'Demand Sales',
+        data:dailyData.map(d=>d.demandSales),
+        borderColor:'#6366f1',
+        backgroundColor:'rgba(99,102,241,.08)',
+        borderWidth:2.5,
+        fill:true,
+        tension:.4,
+        pointRadius:0,
+        pointHoverRadius:6,
+        pointHoverBackgroundColor:'#6366f1',
+        pointHoverBorderColor:'#fff',
+        pointHoverBorderWidth:2
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{legend:{display:false},tooltip:{
+        backgroundColor:isDark?'#1a1a1a':'#fff',
+        titleColor:isDark?'#ededed':'#0f172a',
+        bodyColor:isDark?'#9ca3af':'#64748b',
+        borderColor:isDark?'#2a2a2a':'#e2e8f0',
+        borderWidth:1,
+        padding:12,
+        cornerRadius:10,
+        displayColors:false,
+        callbacks:{label:function(c){return fmt(c.raw)}}
+      }},
+      scales:{
+        x:{grid:{display:false},ticks:{color:textColor,font:{size:11},maxTicksLimit:10}},
+        y:{grid:{color:gridColor},ticks:{color:textColor,font:{size:11},callback:v=>fmtK(v)},border:{display:false}}
+      }
+    }
+  });
+}
+
+function renderPortfolioChart(){
+  const ctx=document.getElementById('portfolioChart').getContext('2d');
+  const isDark=document.documentElement.dataset.theme==='dark';
+  if(portfolioChart)portfolioChart.destroy();
+  portfolioChart=new Chart(ctx,{
+    type:'doughnut',
+    data:{
+      labels:portfolioData.map(p=>p.name),
+      datasets:[{
+        data:portfolioData.map(p=>p.value),
+        backgroundColor:portfolioData.map(p=>p.color),
+        borderColor:isDark?'#1a1a1a':'#ffffff',
+        borderWidth:3,
+        hoverOffset:8
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      cutout:'65%',
+      plugins:{
+        legend:{position:'bottom',labels:{color:isDark?'#ededed':'#0f172a',padding:16,font:{size:12,weight:'500'},usePointStyle:true,pointStyleWidth:10}},
+        tooltip:{
+          backgroundColor:isDark?'#1a1a1a':'#fff',
+          titleColor:isDark?'#ededed':'#0f172a',
+          bodyColor:isDark?'#9ca3af':'#64748b',
+          borderColor:isDark?'#2a2a2a':'#e2e8f0',
+          borderWidth:1,padding:12,cornerRadius:10,
+          callbacks:{label:function(c){const total=c.dataset.data.reduce((a,b)=>a+b,0);return c.label+': '+fmtK(c.raw)+' ('+(c.raw/total*100).toFixed(1)+'%)'}}
+        }
+      }
+    }
+  });
+}
+
+function render(){renderKPIs();renderPerformers();renderTable(document.getElementById('brandSearch').value);renderSalesChart();renderPortfolioChart()}
+
+// Theme toggle
+function toggleTheme(){
+  const html=document.documentElement;
+  const isDark=html.dataset.theme==='dark';
+  html.dataset.theme=isDark?'light':'dark';
+  document.getElementById('themeIcon').textContent=isDark?'🌙':'☀️';
+  document.getElementById('themeLabel').textContent=isDark?'Dark':'Light';
+  renderSalesChart();renderPortfolioChart();
+}
+
+// Period tabs
+document.querySelectorAll('.period-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.period-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    currentPeriod=tab.dataset.period;
+    render();
+  });
+});
+
+// Table sorting
+document.querySelectorAll('#leaderboard th').forEach(th=>{
+  th.addEventListener('click',()=>{
+    const col=th.dataset.col;
+    if(sortCol===col)sortDir=sortDir==='desc'?'asc':'desc';
+    else{sortCol=col;sortDir='desc'}
+    renderTable(document.getElementById('brandSearch').value);
+  });
+});
+
+// Search
+document.getElementById('brandSearch').addEventListener('input',e=>renderTable(e.target.value));
+
+// Timestamp
+document.getElementById('dataTimestamp').textContent='Data as of '+new Date().toLocaleString('en-AU',{timeZone:'Australia/Melbourne',dateStyle:'full',timeStyle:'short'})+' AEST · Powered by Polar Analytics';
+
+// Init
+render();
+</script>
 </body>
 </html>
