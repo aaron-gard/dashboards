@@ -4,7 +4,64 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Brand Collective | Portfolio Dashboard</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js">
+const BRAND_SERIES={"Replay": {"sales": [0, 561, 264, 377, 0, 0, 274, -13, -19, 769, 1088, 798, 965, 69, 786, -40, 411, -9, 919, 456, -6, 180, 287, 117, 160, 100, 718, 160, 509, 145], "orders": [0, 3, 1, 2, 0, 0, 2, 0, 0, 5, 4, 5, 5, 1, 4, 0, 4, 0, 3, 3, 0, 2, 3, 1, 1, 1, 3, 1, 2, 1]}, "Julius Marlow": {"sales": [1894, 2987, 1162, 2862, 2734, 3703, 2262, 1847, 4402, 2019, 1005, 1710, 1960, 3834, 1623, 2122, 1728, 1259, 1931, 1924, 3334, 1747, 2509, 2960, 2133, 2748, 2036, 1200, 2186, 1903], "orders": [13, 21, 10, 14, 16, 19, 14, 12, 16, 12, 8, 9, 13, 16, 13, 12, 9, 8, 10, 13, 16, 13, 14, 15, 15, 15, 16, 7, 13, 13]}, "Harrison": {"sales": [685, 1569, 1429, 1720, 2056, 2219, 2968, 2481, 2759, 1800, 1500, 1376, 1627, 1385, 1875, 2481, 1128, 735, 1212, 592, 538, 925, 774, 316, 634, 704, 496, 428, 468, 82], "orders": [6, 12, 10, 14, 19, 19, 24, 20, 20, 11, 12, 12, 13, 12, 17, 22, 9, 7, 12, 5, 6, 7, 6, 2, 6, 5, 5, 3, 4, 1]}, "Volley": {"sales": [3505, 3749, 3703, 3259, 3185, 3315, 3530, 3791, 4140, 4421, 5387, 2695, 1187, 3818, 2563, 2470, 4377, 4625, 2483, 4999, 4598, 3074, 3103, 4151, 4771, 7274, 7561, 4580, 3593, 3867], "orders": [32, 35, 35, 27, 26, 30, 27, 41, 37, 39, 51, 28, 12, 38, 27, 28, 40, 37, 24, 47, 41, 28, 25, 35, 36, 51, 63, 37, 33, 34]}, "Black Pepper": {"sales": [34299, 37804, 29932, 27314, 25948, 27875, 24211, 34548, 32612, 40433, 28462, 24119, 26983, 24527, 26927, 23583, 25217, 20807, 22905, 22162, 22417, 19389, 23884, 28186, 20224, 19691, 18750, 23710, 18134, 25845], "orders": [269, 276, 224, 194, 199, 200, 195, 251, 252, 319, 214, 187, 189, 187, 198, 178, 209, 169, 164, 176, 187, 164, 190, 218, 158, 146, 130, 166, 133, 182]}, "Reebok": {"sales": [23057, 26363, 31798, 26477, 28881, 30172, 33779, 27778, 25595, 24307, 23924, 31880, 25990, 27236, 27242, 26521, 23512, 21557, 24837, 26219, 24078, 22858, 24455, 24739, 22652, 27559, 24754, 28810, 23307, 30416], "orders": [187, 206, 245, 198, 215, 226, 217, 215, 209, 180, 171, 239, 175, 200, 211, 188, 168, 168, 174, 189, 175, 173, 185, 193, 160, 193, 163, 188, 161, 213]}, "Elka Collective": {"sales": [9028, 12555, 10804, 11088, 9662, 13589, 13078, 19346, 19859, 11088, 9625, 14742, 11520, 12468, 13994, 11623, 12667, 9771, 9316, 14436, 11489, 9398, 8669, 9515, 5866, 8557, 7440, 8393, 8746, 9780], "orders": [31, 47, 37, 41, 38, 46, 46, 78, 91, 54, 46, 53, 44, 51, 50, 44, 50, 40, 34, 49, 47, 31, 34, 37, 25, 36, 34, 38, 42, 32]}, "Happy Socks": {"sales": [998, 539, 637, 638, 656, 1441, 1048, 886, 904, 670, 1175, 679, 1411, 1577, 950, 950, 1164, 367, 751, 966, 373, 401, 1486, 1276, 650, 505, 1472, 2270, 306, 645], "orders": [12, 6, 10, 8, 7, 18, 13, 11, 11, 9, 14, 7, 19, 20, 11, 9, 12, 6, 12, 13, 7, 6, 18, 15, 9, 6, 16, 18, 4, 9]}, "Everlast": {"sales": [6039, 3371, 2723, 1888, 2606, 2746, 514, 2173, 1650, 1253, 2875, 1242, 439, 1680, 1595, 2000, 4955, 2246, 2759, 660, 1851, 3347, 2922, 2522, 2814, 2093, 3119, 2212, 2906, 2526], "orders": [28, 19, 20, 12, 13, 15, 5, 18, 13, 14, 8, 10, 6, 11, 10, 15, 11, 15, 18, 4, 14, 18, 17, 24, 21, 19, 24, 28, 29, 24]}, "Shoes & Sox": {"sales": [78438, 84399, 83662, 79073, 66249, 96066, 101100, 94252, 93444, 82893, 80204, 71642, 74977, 93749, 84386, 74723, 63995, 49959, 50775, 63349, 49128, 33100, 31444, 36497, 29040, 28490, 51119, 26200, 28874, 33256], "orders": [675, 687, 692, 679, 578, 772, 836, 762, 766, 710, 666, 620, 627, 796, 727, 673, 579, 485, 501, 595, 497, 338, 315, 369, 313, 291, 497, 283, 301, 351]}, "Yarra Trail": {"sales": [4725, 5453, 4970, 6131, 5545, 5315, 10875, 9896, 4568, 6377, 6520, 6311, 9534, 5824, 3176, 3546, 2873, 3949, 2775, 3425, 3564, 3860, 5592, 3826, 4477, 3252, 2694, 2479, 5730, 6641], "orders": [38, 48, 35, 44, 38, 38, 90, 86, 36, 50, 48, 46, 72, 50, 22, 21, 23, 28, 18, 24, 24, 21, 34, 23, 24, 18, 18, 19, 36, 35]}, "Clarks": {"sales": [17285, 15339, 18958, 17021, 17864, 22626, 29182, 23821, 22834, 20207, 18785, 16150, 17367, 18735, 12654, 10716, 24390, 17312, 16202, 18795, 17078, 16519, 15066, 14124, 13001, 12865, 15858, 9028, 11258, 8398], "orders": [139, 124, 151, 135, 140, 177, 235, 187, 180, 166, 140, 128, 132, 143, 111, 100, 212, 141, 135, 159, 149, 146, 122, 118, 115, 108, 129, 83, 87, 81]}, "Champion": {"sales": [3159, 2919, 2977, 2996, 2839, 3445, 3572, 2357, 4508, 3847, 3022, 2977, 4330, 3951, 3866, 5298, 3740, 2897, 5592, 4886, 3906, 3204, 2700, 3257, 2721, 2597, 4148, 3282, 3654, 2676], "orders": [37, 32, 35, 32, 27, 32, 29, 25, 47, 42, 27, 33, 37, 35, 39, 48, 41, 36, 48, 45, 36, 34, 28, 34, 26, 22, 34, 33, 30, 26]}, "Hush Puppies": {"sales": [29869, 32803, 25351, 24036, 21961, 31815, 18809, 20319, 19181, 20516, 23378, 18307, 23875, 24390, 14924, 21736, 21764, 21074, 29984, 28849, 24619, 23827, 26596, 27602, 24425, 27207, 37735, 19898, 19145, 26390], "orders": [205, 228, 179, 171, 148, 218, 126, 140, 134, 147, 159, 123, 157, 156, 115, 150, 148, 155, 197, 175, 163, 166, 182, 193, 163, 183, 236, 143, 133, 177]}, "Superdry": {"sales": [13857, 15119, 17115, 12363, 19935, 22177, 13170, 12624, 14269, 14058, 13227, 15865, 12492, 16566, 11157, 10850, 10861, 12240, 16967, 17733, 19647, 21425, 14885, 35913, 27078, 54128, 129873, 46068, 30050, 25636], "orders": [106, 111, 122, 79, 132, 126, 100, 89, 109, 91, 97, 121, 95, 122, 82, 83, 84, 81, 120, 111, 127, 161, 126, 269, 218, 477, 1198, 412, 260, 209]}, "Review": {"sales": [10778, 10007, 16945, 18559, 15696, 21235, 15766, 14079, 19864, 42566, 18151, 18459, 20280, 23880, 28048, 35952, 33748, 21808, 31915, 41682, 15643, 14120, 14874, 18863, 24779, 21310, 23237, 15074, 25807, 20070], "orders": [55, 59, 80, 93, 78, 99, 74, 62, 68, 256, 112, 88, 108, 126, 170, 171, 162, 115, 129, 196, 84, 69, 76, 89, 129, 89, 117, 76, 128, 82]}, "Umbro": {"sales": [658, 1254, 401, 368, 1039, 515, 915, 604, 528, 1036, 940, 644, 1128, 1734, 597, 544, 731, 271, 830, 1004, 789, 623, 1538, 409, 1237, 1504, 1645, 595, 1546, 575], "orders": [6, 11, 5, 2, 9, 5, 6, 8, 7, 10, 7, 6, 11, 16, 5, 6, 7, 2, 10, 10, 7, 7, 14, 5, 7, 11, 9, 7, 9, 5]}, "Shoe Warehouse": {"sales": [13562, 12191, 14336, 12675, 14091, 16839, 14051, 14830, 16722, 16655, 17387, 14671, 13990, 14633, 11981, 14744, 17527, 13960, 13533, 20534, 16674, 15261, 14631, 12141, 11355, 17479, 66182, 22251, 13118, 15018], "orders": [136, 122, 143, 128, 143, 159, 136, 150, 156, 172, 163, 137, 127, 142, 124, 149, 162, 143, 136, 182, 150, 154, 141, 126, 120, 172, 834, 224, 137, 145]}, "Canada Goose": {"sales": [7064, -300, 6400, 3364, 0, 5700, 200, 1300, 1300, 7100, 7000, 1500, 3200, 6200, -118, 2200, 7400, 4282, 1300, 2100, 2500, 2800, 3200, 1800, 0, 4800, 5800, 1609, 218, 2300], "orders": [5, 0, 4, 2, 0, 5, 1, 1, 1, 4, 1, 1, 2, 4, 0, 2, 5, 2, 1, 1, 1, 2, 2, 1, 0, 4, 3, 1, 1, 1]}, "Marco Polo": {"sales": [3902, 2872, 2264, 1038, 792, 967, 4629, 3636, 1641, 1685, 1601, 3733, 2736, 1854, 1113, 297, 904, 35, 446, 513, 1464, 620, 653, 2301, 2252, 1557, 1591, 1351, 1126, 810], "orders": [31, 21, 18, 13, 5, 8, 36, 25, 15, 15, 13, 31, 26, 15, 10, 4, 7, 3, 5, 5, 13, 6, 6, 19, 20, 17, 11, 12, 10, 8]}};
+const PORTFOLIO_MAP={"Review": "Apparel", "Black Pepper": "Apparel", "Elka Collective": "Apparel", "Marco Polo": "Apparel", "Yarra Trail": "Apparel", "Shoes & Sox": "Footwear", "Hush Puppies": "Footwear", "Clarks": "Footwear", "Julius Marlow": "Footwear", "Shoe Warehouse": "Footwear", "Harrison": "Footwear", "Superdry": "Licenced", "Reebok": "Licenced", "Champion": "Licenced", "Canada Goose": "Licenced", "Happy Socks": "Licenced", "Replay": "Licenced", "Everlast": "Design Works", "Volley": "Design Works", "Umbro": "Design Works"};
+let bpTrendChart=null,bpOrderChart=null;
+
+function openPanel(name){
+    const panel=document.getElementById('brandPanel'),overlay=document.getElementById('panelOverlay');
+    const brand=DATA.brands.find(b=>b.name===name);
+    if(!brand||!BRAND_SERIES[name])return;
+    const s=BRAND_SERIES[name],totalSales=DATA.kpis.month.demand_sales;
+    
+    document.getElementById('bpName').textContent=name;
+    document.getElementById('bpPortfolio').textContent=PORTFOLIO_MAP[name]||'Other';
+    document.getElementById('bpSales30').textContent=fmt(brand.demand_sales);
+    document.getElementById('bpOrders30').textContent=fmtNum(brand.orders);
+    document.getElementById('bpAov').textContent='$'+brand.aov;
+    document.getElementById('bpYestSales').textContent=fmtFull(brand.yesterday_sales);
+    document.getElementById('bpYestOrders').textContent=fmtNum(brand.yesterday_orders);
+    document.getElementById('bpWeekSales').textContent=fmtFull(brand.week_sales);
+    document.getElementById('bpWeekOrders').textContent=fmtNum(brand.week_orders);
+    document.getElementById('bpAvgDaily').textContent=fmtFull(Math.round(brand.demand_sales/30));
+    document.getElementById('bpShare').textContent=((brand.demand_sales/totalSales)*100).toFixed(1)+'%';
+    document.getElementById('bpRank').textContent='#'+brand.rank+' of '+DATA.brands.length;
+    
+    // Last 7 days table
+    const last7=s.sales.slice(-7),last7o=s.orders.slice(-7),last7l=DATE_LABELS.slice(-7);
+    const maxS=Math.max(...last7);
+    let tbody='';
+    for(let i=6;i>=0;i--){
+        const barW=maxS>0?Math.round((last7[i]/maxS)*100):0;
+        tbody+='<tr><td>'+last7l[i]+'</td><td style="font-weight:600">'+fmtFull(last7[i])+'</td><td>'+last7o[i]+'</td><td><div class="bp-bar" style="width:'+barW+'%"></div></td></tr>';
+    }
+    document.getElementById('bpDailyTable').innerHTML=tbody;
+    
+    // Charts
+    if(bpTrendChart){bpTrendChart.destroy();}
+    if(bpOrderChart){bpOrderChart.destroy();}
+    
+    const ctx1=document.getElementById('bpTrendChart').getContext('2d');
+    const g1=ctx1.createLinearGradient(0,0,0,180);g1.addColorStop(0,'rgba(99,102,241,0.3)');g1.addColorStop(1,'rgba(99,102,241,0)');
+    bpTrendChart=new Chart(ctx1,{type:'line',data:{labels:DATE_LABELS,datasets:[{data:s.sales,borderColor:'#6366f1',backgroundColor:g1,fill:true,tension:.35,pointRadius:0,pointHoverRadius:4,borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:(c)=>fmtFull(c.raw)}}},scales:{x:{display:false},y:{grid:{color:'rgba(139,139,149,0.08)'},ticks:{color:'#8b8b95',font:{size:10},callback:(v)=>fmt(v)}}}}});
+    
+    const ctx2=document.getElementById('bpOrderChart').getContext('2d');
+    bpOrderChart=new Chart(ctx2,{type:'bar',data:{labels:DATE_LABELS,datasets:[{data:s.orders,backgroundColor:'rgba(34,197,94,0.6)',borderRadius:3,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:(c)=>c.raw+' orders'}}},scales:{x:{display:false},y:{grid:{color:'rgba(139,139,149,0.08)'},ticks:{color:'#8b8b95',font:{size:10}}}}}});
+    
+    panel.classList.add('open');overlay.classList.add('open');
+    document.body.style.overflow='hidden';
+}
+
+function closePanel(){
+    document.getElementById('brandPanel').classList.remove('open');
+    document.getElementById('panelOverlay').classList.remove('open');
+    document.body.style.overflow='';
+}
+
+document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closePanel();});
+
+</script>
 <style>
 :root {
     --bg: #0a0a0b; --surface: #141416; --surface-hover: #1a1a1e;
@@ -78,9 +135,56 @@ tr:hover { background:var(--surface-hover); }
 .legend-dot { width:12px; height:12px; border-radius:3px; }
 .legend-value { font-weight:600; margin-left:auto; }
 .sort-arrow { font-size:10px; margin-left:3px; }
+.brand-panel{position:fixed;top:0;right:-520px;width:520px;height:100vh;background:var(--surface);border-left:1px solid var(--border);z-index:1000;transition:right .3s ease;overflow-y:auto;box-shadow:-8px 0 30px rgba(0,0,0,.3)}
+.brand-panel.open{right:0}
+.bp-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:999;opacity:0;pointer-events:none;transition:opacity .3s}
+.bp-overlay.open{opacity:1;pointer-events:auto}
+.bp-header{padding:24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start}
+.bp-brand-name{font-size:24px;font-weight:700;letter-spacing:-.5px}
+.bp-close{width:36px;height:36px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text-muted);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center}
+.bp-close:hover{color:var(--text);background:var(--surface-hover)}
+.bp-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:20px 24px}
+.bp-kpi{background:var(--bg);border-radius:10px;padding:14px}
+.bp-kpi-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:4px}
+.bp-kpi-value{font-size:22px;font-weight:700;letter-spacing:-.5px}
+.bp-section{padding:20px 24px}
+.bp-section-title{font-size:14px;font-weight:600;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.bp-chart{height:180px;position:relative}
+.bp-metric-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px}
+.bp-metric-label{color:var(--text-muted)}
+.bp-metric-value{font-weight:600}
+.bp-daily-table{width:100%;font-size:12px}
+.bp-daily-table th{font-size:10px;padding:6px 8px}
+.bp-daily-table td{padding:6px 8px;font-size:12px}
+tr.brand-row{cursor:pointer;transition:background .1s}
+tr.brand-row:hover{background:var(--surface-hover)}
+.perf-item{cursor:pointer}
+.bp-bar{height:4px;border-radius:2px;background:var(--primary);display:inline-block;vertical-align:middle}
+@media(max-width:600px){.brand-panel{width:100%!important;right:-100%!important}.brand-panel.open{right:0!important}}
 </style>
 </head>
 <body>
+<div class="bp-overlay" id="panelOverlay" onclick="closePanel()"></div>
+<div class="brand-panel" id="brandPanel">
+<div class="bp-header"><div><div class="bp-brand-name" id="bpName"></div><div style="margin-top:4px"><span class="port-label" id="bpPortfolio"></span></div></div><button class="bp-close" onclick="closePanel()">&times;</button></div>
+<div class="bp-kpis">
+<div class="bp-kpi"><div class="bp-kpi-label">30d Sales</div><div class="bp-kpi-value" id="bpSales30"></div></div>
+<div class="bp-kpi"><div class="bp-kpi-label">30d Orders</div><div class="bp-kpi-value" id="bpOrders30"></div></div>
+<div class="bp-kpi"><div class="bp-kpi-label">AOV</div><div class="bp-kpi-value" id="bpAov"></div></div>
+</div>
+<div class="bp-section"><div class="bp-section-title">Daily Demand Sales <span class="port-label">30 Days</span></div><div class="bp-chart"><canvas id="bpTrendChart"></canvas></div></div>
+<div class="bp-section"><div class="bp-section-title">Daily Orders <span class="port-label">30 Days</span></div><div class="bp-chart"><canvas id="bpOrderChart"></canvas></div></div>
+<div class="bp-section"><div class="bp-section-title">Key Metrics</div>
+<div class="bp-metric-row"><span class="bp-metric-label">Yesterday Sales</span><span class="bp-metric-value" id="bpYestSales"></span></div>
+<div class="bp-metric-row"><span class="bp-metric-label">Yesterday Orders</span><span class="bp-metric-value" id="bpYestOrders"></span></div>
+<div class="bp-metric-row"><span class="bp-metric-label">7-Day Sales</span><span class="bp-metric-value" id="bpWeekSales"></span></div>
+<div class="bp-metric-row"><span class="bp-metric-label">7-Day Orders</span><span class="bp-metric-value" id="bpWeekOrders"></span></div>
+<div class="bp-metric-row"><span class="bp-metric-label">Avg Daily Sales</span><span class="bp-metric-value" id="bpAvgDaily"></span></div>
+<div class="bp-metric-row"><span class="bp-metric-label">Portfolio Share</span><span class="bp-metric-value" id="bpShare"></span></div>
+<div class="bp-metric-row"><span class="bp-metric-label">Rank</span><span class="bp-metric-value" id="bpRank"></span></div>
+</div>
+<div class="bp-section"><div class="bp-section-title">Last 7 Days</div><table class="bp-daily-table"><thead><tr><th>Date</th><th>Sales</th><th>Orders</th><th style="width:40%"></th></tr></thead><tbody id="bpDailyTable"></tbody></table></div>
+</div>
 <div class="container">
 <header>
 <div class="logo">
@@ -289,13 +393,13 @@ function renderPerformers() {
     
     let topHtml = '';
     top.forEach((b, i) => {
-        topHtml += '<div class="perf-item"><div class="perf-rank">'+(i+1)+'</div><div class="perf-info"><div class="perf-name">'+b.name+'</div><div class="perf-detail">'+fmtFull(b.demand_sales)+' · '+fmtNum(b.orders)+' orders</div></div></div>';
+        topHtml += '<div class="perf-item" onclick="openPanel(\''+b.name+'\')"><div class="perf-rank">'+(i+1)+'</div><div class="perf-info"><div class="perf-name">'+b.name+'</div><div class="perf-detail">'+fmtFull(b.demand_sales)+' · '+fmtNum(b.orders)+' orders</div></div></div>';
     });
     document.getElementById('topPerformers').innerHTML = topHtml;
     
     let bottomHtml = '';
     bottom.forEach((b) => {
-        bottomHtml += '<div class="perf-item"><div class="perf-rank bottom">'+b.rank+'</div><div class="perf-info"><div class="perf-name">'+b.name+'</div><div class="perf-detail">'+fmtFull(b.demand_sales)+' · '+fmtNum(b.orders)+' orders</div></div></div>';
+        bottomHtml += '<div class="perf-item" onclick="openPanel(\''+b.name+'\')"><div class="perf-rank bottom">'+b.rank+'</div><div class="perf-info"><div class="perf-name">'+b.name+'</div><div class="perf-detail">'+fmtFull(b.demand_sales)+' · '+fmtNum(b.orders)+' orders</div></div></div>';
     });
     document.getElementById('bottomPerformers').innerHTML = bottomHtml;
 }
@@ -317,7 +421,7 @@ function renderBrandTable(filter) {
     let html = '';
     brands.forEach((b, i) => {
         const rankClass = b.rank === 1 ? 'gold' : b.rank === 2 ? 'silver' : b.rank === 3 ? 'bronze' : 'normal';
-        html += '<tr><td><span class="rank '+rankClass+'">'+b.rank+'</span></td><td style="font-weight:600">'+b.name+'</td><td>'+fmtFull(b.demand_sales)+'</td><td>'+fmtNum(b.orders)+'</td><td>$'+b.aov+'</td><td><span class="port-label" style="font-size:10px">'+b.portfolio+'</span></td></tr>';
+        html += '<tr class="brand-row" onclick="openPanel(\''+b.name+'\')"><td><span class="rank '+rankClass+'">'+b.rank+'</span></td><td style="font-weight:600">'+b.name+'</td><td>'+fmtFull(b.demand_sales)+'</td><td>'+fmtNum(b.orders)+'</td><td>$'+b.aov+'</td><td><span class="port-label" style="font-size:10px">'+b.portfolio+'</span></td></tr>';
     });
     tbody.innerHTML = html;
     document.getElementById('brandCount').textContent = brands.length + ' brands';
@@ -342,6 +446,63 @@ createTrendChart();
 createPortfolioChart();
 renderPerformers();
 renderBrandTable();
+
+const BRAND_SERIES={"Replay": {"sales": [0, 561, 264, 377, 0, 0, 274, -13, -19, 769, 1088, 798, 965, 69, 786, -40, 411, -9, 919, 456, -6, 180, 287, 117, 160, 100, 718, 160, 509, 145], "orders": [0, 3, 1, 2, 0, 0, 2, 0, 0, 5, 4, 5, 5, 1, 4, 0, 4, 0, 3, 3, 0, 2, 3, 1, 1, 1, 3, 1, 2, 1]}, "Julius Marlow": {"sales": [1894, 2987, 1162, 2862, 2734, 3703, 2262, 1847, 4402, 2019, 1005, 1710, 1960, 3834, 1623, 2122, 1728, 1259, 1931, 1924, 3334, 1747, 2509, 2960, 2133, 2748, 2036, 1200, 2186, 1903], "orders": [13, 21, 10, 14, 16, 19, 14, 12, 16, 12, 8, 9, 13, 16, 13, 12, 9, 8, 10, 13, 16, 13, 14, 15, 15, 15, 16, 7, 13, 13]}, "Harrison": {"sales": [685, 1569, 1429, 1720, 2056, 2219, 2968, 2481, 2759, 1800, 1500, 1376, 1627, 1385, 1875, 2481, 1128, 735, 1212, 592, 538, 925, 774, 316, 634, 704, 496, 428, 468, 82], "orders": [6, 12, 10, 14, 19, 19, 24, 20, 20, 11, 12, 12, 13, 12, 17, 22, 9, 7, 12, 5, 6, 7, 6, 2, 6, 5, 5, 3, 4, 1]}, "Volley": {"sales": [3505, 3749, 3703, 3259, 3185, 3315, 3530, 3791, 4140, 4421, 5387, 2695, 1187, 3818, 2563, 2470, 4377, 4625, 2483, 4999, 4598, 3074, 3103, 4151, 4771, 7274, 7561, 4580, 3593, 3867], "orders": [32, 35, 35, 27, 26, 30, 27, 41, 37, 39, 51, 28, 12, 38, 27, 28, 40, 37, 24, 47, 41, 28, 25, 35, 36, 51, 63, 37, 33, 34]}, "Black Pepper": {"sales": [34299, 37804, 29932, 27314, 25948, 27875, 24211, 34548, 32612, 40433, 28462, 24119, 26983, 24527, 26927, 23583, 25217, 20807, 22905, 22162, 22417, 19389, 23884, 28186, 20224, 19691, 18750, 23710, 18134, 25845], "orders": [269, 276, 224, 194, 199, 200, 195, 251, 252, 319, 214, 187, 189, 187, 198, 178, 209, 169, 164, 176, 187, 164, 190, 218, 158, 146, 130, 166, 133, 182]}, "Reebok": {"sales": [23057, 26363, 31798, 26477, 28881, 30172, 33779, 27778, 25595, 24307, 23924, 31880, 25990, 27236, 27242, 26521, 23512, 21557, 24837, 26219, 24078, 22858, 24455, 24739, 22652, 27559, 24754, 28810, 23307, 30416], "orders": [187, 206, 245, 198, 215, 226, 217, 215, 209, 180, 171, 239, 175, 200, 211, 188, 168, 168, 174, 189, 175, 173, 185, 193, 160, 193, 163, 188, 161, 213]}, "Elka Collective": {"sales": [9028, 12555, 10804, 11088, 9662, 13589, 13078, 19346, 19859, 11088, 9625, 14742, 11520, 12468, 13994, 11623, 12667, 9771, 9316, 14436, 11489, 9398, 8669, 9515, 5866, 8557, 7440, 8393, 8746, 9780], "orders": [31, 47, 37, 41, 38, 46, 46, 78, 91, 54, 46, 53, 44, 51, 50, 44, 50, 40, 34, 49, 47, 31, 34, 37, 25, 36, 34, 38, 42, 32]}, "Happy Socks": {"sales": [998, 539, 637, 638, 656, 1441, 1048, 886, 904, 670, 1175, 679, 1411, 1577, 950, 950, 1164, 367, 751, 966, 373, 401, 1486, 1276, 650, 505, 1472, 2270, 306, 645], "orders": [12, 6, 10, 8, 7, 18, 13, 11, 11, 9, 14, 7, 19, 20, 11, 9, 12, 6, 12, 13, 7, 6, 18, 15, 9, 6, 16, 18, 4, 9]}, "Everlast": {"sales": [6039, 3371, 2723, 1888, 2606, 2746, 514, 2173, 1650, 1253, 2875, 1242, 439, 1680, 1595, 2000, 4955, 2246, 2759, 660, 1851, 3347, 2922, 2522, 2814, 2093, 3119, 2212, 2906, 2526], "orders": [28, 19, 20, 12, 13, 15, 5, 18, 13, 14, 8, 10, 6, 11, 10, 15, 11, 15, 18, 4, 14, 18, 17, 24, 21, 19, 24, 28, 29, 24]}, "Shoes & Sox": {"sales": [78438, 84399, 83662, 79073, 66249, 96066, 101100, 94252, 93444, 82893, 80204, 71642, 74977, 93749, 84386, 74723, 63995, 49959, 50775, 63349, 49128, 33100, 31444, 36497, 29040, 28490, 51119, 26200, 28874, 33256], "orders": [675, 687, 692, 679, 578, 772, 836, 762, 766, 710, 666, 620, 627, 796, 727, 673, 579, 485, 501, 595, 497, 338, 315, 369, 313, 291, 497, 283, 301, 351]}, "Yarra Trail": {"sales": [4725, 5453, 4970, 6131, 5545, 5315, 10875, 9896, 4568, 6377, 6520, 6311, 9534, 5824, 3176, 3546, 2873, 3949, 2775, 3425, 3564, 3860, 5592, 3826, 4477, 3252, 2694, 2479, 5730, 6641], "orders": [38, 48, 35, 44, 38, 38, 90, 86, 36, 50, 48, 46, 72, 50, 22, 21, 23, 28, 18, 24, 24, 21, 34, 23, 24, 18, 18, 19, 36, 35]}, "Clarks": {"sales": [17285, 15339, 18958, 17021, 17864, 22626, 29182, 23821, 22834, 20207, 18785, 16150, 17367, 18735, 12654, 10716, 24390, 17312, 16202, 18795, 17078, 16519, 15066, 14124, 13001, 12865, 15858, 9028, 11258, 8398], "orders": [139, 124, 151, 135, 140, 177, 235, 187, 180, 166, 140, 128, 132, 143, 111, 100, 212, 141, 135, 159, 149, 146, 122, 118, 115, 108, 129, 83, 87, 81]}, "Champion": {"sales": [3159, 2919, 2977, 2996, 2839, 3445, 3572, 2357, 4508, 3847, 3022, 2977, 4330, 3951, 3866, 5298, 3740, 2897, 5592, 4886, 3906, 3204, 2700, 3257, 2721, 2597, 4148, 3282, 3654, 2676], "orders": [37, 32, 35, 32, 27, 32, 29, 25, 47, 42, 27, 33, 37, 35, 39, 48, 41, 36, 48, 45, 36, 34, 28, 34, 26, 22, 34, 33, 30, 26]}, "Hush Puppies": {"sales": [29869, 32803, 25351, 24036, 21961, 31815, 18809, 20319, 19181, 20516, 23378, 18307, 23875, 24390, 14924, 21736, 21764, 21074, 29984, 28849, 24619, 23827, 26596, 27602, 24425, 27207, 37735, 19898, 19145, 26390], "orders": [205, 228, 179, 171, 148, 218, 126, 140, 134, 147, 159, 123, 157, 156, 115, 150, 148, 155, 197, 175, 163, 166, 182, 193, 163, 183, 236, 143, 133, 177]}, "Superdry": {"sales": [13857, 15119, 17115, 12363, 19935, 22177, 13170, 12624, 14269, 14058, 13227, 15865, 12492, 16566, 11157, 10850, 10861, 12240, 16967, 17733, 19647, 21425, 14885, 35913, 27078, 54128, 129873, 46068, 30050, 25636], "orders": [106, 111, 122, 79, 132, 126, 100, 89, 109, 91, 97, 121, 95, 122, 82, 83, 84, 81, 120, 111, 127, 161, 126, 269, 218, 477, 1198, 412, 260, 209]}, "Review": {"sales": [10778, 10007, 16945, 18559, 15696, 21235, 15766, 14079, 19864, 42566, 18151, 18459, 20280, 23880, 28048, 35952, 33748, 21808, 31915, 41682, 15643, 14120, 14874, 18863, 24779, 21310, 23237, 15074, 25807, 20070], "orders": [55, 59, 80, 93, 78, 99, 74, 62, 68, 256, 112, 88, 108, 126, 170, 171, 162, 115, 129, 196, 84, 69, 76, 89, 129, 89, 117, 76, 128, 82]}, "Umbro": {"sales": [658, 1254, 401, 368, 1039, 515, 915, 604, 528, 1036, 940, 644, 1128, 1734, 597, 544, 731, 271, 830, 1004, 789, 623, 1538, 409, 1237, 1504, 1645, 595, 1546, 575], "orders": [6, 11, 5, 2, 9, 5, 6, 8, 7, 10, 7, 6, 11, 16, 5, 6, 7, 2, 10, 10, 7, 7, 14, 5, 7, 11, 9, 7, 9, 5]}, "Shoe Warehouse": {"sales": [13562, 12191, 14336, 12675, 14091, 16839, 14051, 14830, 16722, 16655, 17387, 14671, 13990, 14633, 11981, 14744, 17527, 13960, 13533, 20534, 16674, 15261, 14631, 12141, 11355, 17479, 66182, 22251, 13118, 15018], "orders": [136, 122, 143, 128, 143, 159, 136, 150, 156, 172, 163, 137, 127, 142, 124, 149, 162, 143, 136, 182, 150, 154, 141, 126, 120, 172, 834, 224, 137, 145]}, "Canada Goose": {"sales": [7064, -300, 6400, 3364, 0, 5700, 200, 1300, 1300, 7100, 7000, 1500, 3200, 6200, -118, 2200, 7400, 4282, 1300, 2100, 2500, 2800, 3200, 1800, 0, 4800, 5800, 1609, 218, 2300], "orders": [5, 0, 4, 2, 0, 5, 1, 1, 1, 4, 1, 1, 2, 4, 0, 2, 5, 2, 1, 1, 1, 2, 2, 1, 0, 4, 3, 1, 1, 1]}, "Marco Polo": {"sales": [3902, 2872, 2264, 1038, 792, 967, 4629, 3636, 1641, 1685, 1601, 3733, 2736, 1854, 1113, 297, 904, 35, 446, 513, 1464, 620, 653, 2301, 2252, 1557, 1591, 1351, 1126, 810], "orders": [31, 21, 18, 13, 5, 8, 36, 25, 15, 15, 13, 31, 26, 15, 10, 4, 7, 3, 5, 5, 13, 6, 6, 19, 20, 17, 11, 12, 10, 8]}};
+const PORTFOLIO_MAP={"Review": "Apparel", "Black Pepper": "Apparel", "Elka Collective": "Apparel", "Marco Polo": "Apparel", "Yarra Trail": "Apparel", "Shoes & Sox": "Footwear", "Hush Puppies": "Footwear", "Clarks": "Footwear", "Julius Marlow": "Footwear", "Shoe Warehouse": "Footwear", "Harrison": "Footwear", "Superdry": "Licenced", "Reebok": "Licenced", "Champion": "Licenced", "Canada Goose": "Licenced", "Happy Socks": "Licenced", "Replay": "Licenced", "Everlast": "Design Works", "Volley": "Design Works", "Umbro": "Design Works"};
+let bpTrendChart=null,bpOrderChart=null;
+
+function openPanel(name){
+    const panel=document.getElementById('brandPanel'),overlay=document.getElementById('panelOverlay');
+    const brand=DATA.brands.find(b=>b.name===name);
+    if(!brand||!BRAND_SERIES[name])return;
+    const s=BRAND_SERIES[name],totalSales=DATA.kpis.month.demand_sales;
+    
+    document.getElementById('bpName').textContent=name;
+    document.getElementById('bpPortfolio').textContent=PORTFOLIO_MAP[name]||'Other';
+    document.getElementById('bpSales30').textContent=fmt(brand.demand_sales);
+    document.getElementById('bpOrders30').textContent=fmtNum(brand.orders);
+    document.getElementById('bpAov').textContent='$'+brand.aov;
+    document.getElementById('bpYestSales').textContent=fmtFull(brand.yesterday_sales);
+    document.getElementById('bpYestOrders').textContent=fmtNum(brand.yesterday_orders);
+    document.getElementById('bpWeekSales').textContent=fmtFull(brand.week_sales);
+    document.getElementById('bpWeekOrders').textContent=fmtNum(brand.week_orders);
+    document.getElementById('bpAvgDaily').textContent=fmtFull(Math.round(brand.demand_sales/30));
+    document.getElementById('bpShare').textContent=((brand.demand_sales/totalSales)*100).toFixed(1)+'%';
+    document.getElementById('bpRank').textContent='#'+brand.rank+' of '+DATA.brands.length;
+    
+    // Last 7 days table
+    const last7=s.sales.slice(-7),last7o=s.orders.slice(-7),last7l=DATE_LABELS.slice(-7);
+    const maxS=Math.max(...last7);
+    let tbody='';
+    for(let i=6;i>=0;i--){
+        const barW=maxS>0?Math.round((last7[i]/maxS)*100):0;
+        tbody+='<tr><td>'+last7l[i]+'</td><td style="font-weight:600">'+fmtFull(last7[i])+'</td><td>'+last7o[i]+'</td><td><div class="bp-bar" style="width:'+barW+'%"></div></td></tr>';
+    }
+    document.getElementById('bpDailyTable').innerHTML=tbody;
+    
+    // Charts
+    if(bpTrendChart){bpTrendChart.destroy();}
+    if(bpOrderChart){bpOrderChart.destroy();}
+    
+    const ctx1=document.getElementById('bpTrendChart').getContext('2d');
+    const g1=ctx1.createLinearGradient(0,0,0,180);g1.addColorStop(0,'rgba(99,102,241,0.3)');g1.addColorStop(1,'rgba(99,102,241,0)');
+    bpTrendChart=new Chart(ctx1,{type:'line',data:{labels:DATE_LABELS,datasets:[{data:s.sales,borderColor:'#6366f1',backgroundColor:g1,fill:true,tension:.35,pointRadius:0,pointHoverRadius:4,borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:(c)=>fmtFull(c.raw)}}},scales:{x:{display:false},y:{grid:{color:'rgba(139,139,149,0.08)'},ticks:{color:'#8b8b95',font:{size:10},callback:(v)=>fmt(v)}}}}});
+    
+    const ctx2=document.getElementById('bpOrderChart').getContext('2d');
+    bpOrderChart=new Chart(ctx2,{type:'bar',data:{labels:DATE_LABELS,datasets:[{data:s.orders,backgroundColor:'rgba(34,197,94,0.6)',borderRadius:3,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:(c)=>c.raw+' orders'}}},scales:{x:{display:false},y:{grid:{color:'rgba(139,139,149,0.08)'},ticks:{color:'#8b8b95',font:{size:10}}}}}});
+    
+    panel.classList.add('open');overlay.classList.add('open');
+    document.body.style.overflow='hidden';
+}
+
+function closePanel(){
+    document.getElementById('brandPanel').classList.remove('open');
+    document.getElementById('panelOverlay').classList.remove('open');
+    document.body.style.overflow='';
+}
+
+document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closePanel();});
+
 </script>
 </body>
 </html>
