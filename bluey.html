@@ -323,8 +323,8 @@ function animate(){
   player.position.y+=velY*dt;
   if(player.position.y<=0){player.position.y=0;velY=0;onGround=true}
 
-  // bounce when moving on ground
-  if(moving&&onGround)player.position.y=Math.abs(Math.sin(clock.elapsedTime*10))*.1;
+  // bounce when moving on ground (not while jumping)
+  if(onGround&&velY<=0)player.position.y=Math.abs(Math.sin(clock.elapsedTime*10))*.1;
 
   // boundary - wrap around
   if(player.position.x>BOUND)player.position.x=-BOUND;
