@@ -29,6 +29,10 @@ canvas{display:block;width:100%;height:100%}
 .big-btn:active{transform:translateY(2px);box-shadow:0 2px 0 #D4A017}
 #final-score{font-size:clamp(48px,10vw,80px);color:#FFD93D;text-shadow:3px 3px 6px rgba(0,0,0,.3)}
 #final-msg{font-size:clamp(16px,3vw,24px);color:rgba(255,255,255,.8);margin:8px 0 28px}
+.time-pick{display:flex;gap:12px;margin-bottom:28px}
+.time-btn{font-family:'Fredoka One',cursive;font-size:clamp(16px,3vw,22px);background:rgba(255,255,255,.15);color:rgba(255,255,255,.8);border:3px solid rgba(255,255,255,.25);padding:12px 24px;border-radius:14px;cursor:pointer;transition:all .2s}
+.time-btn:hover{background:rgba(255,255,255,.25)}
+.time-btn.sel{background:#FFD93D;color:#2C3E50;border-color:#FFD93D}
 .combo-pop{position:fixed;pointer-events:none;z-index:150;font-size:32px;color:#FFD93D;text-shadow:2px 2px 4px rgba(0,0,0,.4);animation:comboUp .8s ease-out forwards}
 @keyframes comboUp{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-60px) scale(1.3)}}
 </style>
@@ -37,6 +41,12 @@ canvas{display:block;width:100%;height:100%}
 <div class="screen" id="start-screen">
   <h1>🎈 Grace's Balloon Pop! 🎈</h1>
   <h2>Pop as many balloons as you can!</h2>
+  <div class="time-pick">
+    <button class="time-btn" data-t="30">30s</button>
+    <button class="time-btn sel" data-t="60">60s</button>
+    <button class="time-btn" data-t="90">90s</button>
+    <button class="time-btn" data-t="0">∞</button>
+  </div>
   <button class="big-btn" id="start-btn">Play!</button>
 </div>
 <div class="screen hidden" id="end-screen">
@@ -96,7 +106,7 @@ const CHARS=[
   {name:'Anthony',body:'#3498DB',accent:'#2980B9',type:'wiggle'},
 ];
 
-let balloons=[],particles=[],score=0,timeLeft=60,running=false;
+let balloons=[],particles=[],score=0,timeLeft=60,gameDuration=60,running=false;
 let timerInt=null,spawnInt=null;
 let mouseX=0,mouseY=0,speedMult=1,speedIdx=0;
 const SPEEDS=[{label:'🐢 Normal',mult:1,col:'#4D96FF'},{label:'🐇 Fast',mult:2,col:'#FF6B6B'},{label:'🚀 Super!',mult:3.5,col:'#9B59B6'}];
@@ -275,18 +285,22 @@ function startGame(){
   document.getElementById('start-screen').classList.add('hidden');
   document.getElementById('end-screen').classList.add('hidden');
   document.getElementById('hud').style.display='block';
-  balloons=[];particles=[];score=0;timeLeft=60;combo=0;running=true;
+  balloons=[];particles=[];score=0;timeLeft=gameDuration;combo=0;running=true;
   document.getElementById('score').textContent='0';
-  document.getElementById('timer').textContent='60';
+  const timerEl=document.getElementById('timer');
+  if(gameDuration===0){timerEl.parentElement.style.display='none'}
+  else{timerEl.parentElement.style.display='';timerEl.textContent=gameDuration}
   // Clear old intervals
   clearInterval(timerInt);clearInterval(spawnInt);
   // Spawn initial batch
   for(let i=0;i<6;i++)balloons.push(new Balloon());
   spawnInt=setInterval(()=>{if(running&&balloons.length<18)balloons.push(new Balloon())},700);
-  timerInt=setInterval(()=>{
-    timeLeft--;document.getElementById('timer').textContent=timeLeft;
-    if(timeLeft<=0)endGame();
-  },1000);
+  if(gameDuration>0){
+    timerInt=setInterval(()=>{
+      timeLeft--;document.getElementById('timer').textContent=timeLeft;
+      if(timeLeft<=0)endGame();
+    },1000);
+  }
 }
 
 function endGame(){
@@ -319,6 +333,15 @@ document.getElementById('speed-btn').onclick=()=>{
   const btn=document.getElementById('speed-btn');
   btn.textContent=SPEEDS[speedIdx].label;btn.style.background=SPEEDS[speedIdx].col;
 };
+
+// Time picker
+document.querySelectorAll('.time-btn').forEach(btn=>{
+  btn.onclick=()=>{
+    document.querySelectorAll('.time-btn').forEach(b=>b.classList.remove('sel'));
+    btn.classList.add('sel');
+    gameDuration=parseInt(btn.dataset.t);
+  };
+});
 
 // Buttons
 document.getElementById('start-btn').onclick=startGame;
