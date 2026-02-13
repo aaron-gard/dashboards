@@ -296,12 +296,17 @@ function animate(){
   if(!gameStarted){renderer.render(scene,camera);return}
 
   // player movement
-  let mx=0,mz=0;
-  if(keys['ArrowUp']||keys['KeyW'])mz=1;
-  if(keys['ArrowDown']||keys['KeyS'])mz=-1;
-  if(keys['ArrowLeft']||keys['KeyA'])mx=-1;
-  if(keys['ArrowRight']||keys['KeyD'])mx=1;
-  mx+=touchDir.x;mz-=touchDir.y;
+  let ix=0,iz=0;
+  if(keys['ArrowUp']||keys['KeyW'])iz=1;
+  if(keys['ArrowDown']||keys['KeyS'])iz=-1;
+  if(keys['ArrowLeft']||keys['KeyA'])ix=-1;
+  if(keys['ArrowRight']||keys['KeyD'])ix=1;
+  ix+=touchDir.x;iz-=touchDir.y;
+  // camera-relative movement
+  const camDir=new THREE.Vector3();camera.getWorldDirection(camDir);camDir.y=0;camDir.normalize();
+  const camRight=new THREE.Vector3().crossVectors(camDir,new THREE.Vector3(0,1,0)).normalize();
+  const mx=camRight.x*ix+camDir.x*iz;
+  const mz=camRight.z*ix+camDir.z*iz;
   const moving=Math.abs(mx)>.1||Math.abs(mz)>.1;
 
   if(moving){
