@@ -26,11 +26,10 @@ canvas{display:block}
 </style>
 </head>
 <body>
-<div id="title"><h1>Bluey's Backyard Adventure</h1><h2>Help Bluey collect all the bones!</h2><button id="playBtn" onclick="startGame()">Play!</button></div>
+<div id="title"><h1>Bluey's Backyard Adventure</h1><h2>Move the mouse to steer! Collect all the bones!</h2><button id="playBtn" onclick="startGame()">Play!</button></div>
 <div id="hud" class="hidden">&#x1F9B4; <span id="score">0</span> / <span id="total">20</span></div>
 <div id="msg"></div>
-<div id="touch-left"><div id="touch-knob"></div></div>
-<div id="touch-jump">Jump</div>
+<!-- touch: tap left/right side of screen to steer -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 // --- GLOBALS ---
@@ -269,22 +268,24 @@ function init(){
     scene.add(c);
   }
 
-  // input
+  // input - mouse/touch steers, character auto-moves forward
+  let mouseX=innerWidth/2;
+  addEventListener('mousemove',e=>{mouseX=e.clientX});
   addEventListener('keydown',e=>{keys[e.code]=true;if(e.code==='Space')e.preventDefault()});
   addEventListener('keyup',e=>{keys[e.code]=false});
   addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
 
-  // touch
-  if('ontouchstart' in window){
-    const jl=document.getElementById('touch-left'),knob=document.getElementById('touch-knob'),jb=document.getElementById('touch-jump');
-    jl.style.display='block';jb.style.display='block';
-    let jId=null,jCx=0,jCy=0;
-    jl.addEventListener('touchstart',e=>{e.preventDefault();const t=e.touches[0],r=jl.getBoundingClientRect();jId=t.identifier;jCx=r.left+60;jCy=r.top+60},{passive:false});
-    jl.addEventListener('touchmove',e=>{e.preventDefault();for(const t of e.touches){if(t.identifier===jId){let dx=t.clientX-jCx,dy=t.clientY-jCy;const d=Math.sqrt(dx*dx+dy*dy),max=45;if(d>max){dx=dx/d*max;dy=dy/d*max}knob.style.transform=`translate(calc(-50% + ${dx}px),calc(-50% + ${dy}px))`;touchDir.x=dx/max;touchDir.y=dy/max}}},{passive:false});
-    jl.addEventListener('touchend',e=>{for(const t of e.changedTouches){if(t.identifier===jId){jId=null;touchDir.x=0;touchDir.y=0;knob.style.transform='translate(-50%,-50%)'}}},{passive:false});
-    jb.addEventListener('touchstart',e=>{e.preventDefault();touchJump=true},{passive:false});
-    jb.addEventListener('touchend',e=>{touchJump=false},{passive:false});
-  }
+  // touch - tap left/right half to steer, character always moves forward
+  let touchSteer=0;
+  addEventListener('touchstart',e=>{
+    const x=e.touches[0].clientX;
+    touchSteer=x<innerWidth/2?-1:1;
+  },{passive:true});
+  addEventListener('touchmove',e=>{
+    const x=e.touches[0].clientX;
+    touchSteer=x<innerWidth/2?-1:1;
+  },{passive:true});
+  addEventListener('touchend',()=>{touchSteer=0},{passive:true});
 
   document.getElementById('total').textContent=totalBones;
 }
@@ -295,30 +296,26 @@ function animate(){
   const dt=Math.min(clock.getDelta(),.05);
   if(!gameStarted){renderer.render(scene,camera);return}
 
-  // player movement
-  let ix=0,iz=0;
-  if(keys['ArrowUp']||keys['KeyW'])iz=1;
-  if(keys['ArrowDown']||keys['KeyS'])iz=-1;
-  if(keys['ArrowLeft']||keys['KeyA'])ix=-1;
-  if(keys['ArrowRight']||keys['KeyD'])ix=1;
-  ix+=touchDir.x;iz-=touchDir.y;
-  // camera-relative movement
-  const camDir=new THREE.Vector3();camera.getWorldDirection(camDir);camDir.y=0;camDir.normalize();
-  const camRight=new THREE.Vector3().crossVectors(camDir,new THREE.Vector3(0,1,0)).normalize();
-  const mx=camRight.x*ix+camDir.x*iz;
-  const mz=camRight.z*ix+camDir.z*iz;
-  const moving=Math.abs(mx)>.1||Math.abs(mz)>.1;
+  // player movement - auto-forward, mouse/touch steers
+  const TURN=2.5;
+  // mouse steering: left side of screen = turn left, right = turn right
+  const screenCenter=innerWidth/2;
+  const mouseDelta=(mouseX-screenCenter)/screenCenter; // -1 to 1
+  let steer=mouseDelta+touchSteer;
+  // keyboard can also steer
+  if(keys['ArrowLeft']||keys['KeyA'])steer-=1;
+  if(keys['ArrowRight']||keys['KeyD'])steer+=1;
+  steer=Math.max(-1,Math.min(1,steer));
 
-  if(moving){
-    const angle=Math.atan2(mx,mz);
-    player.rotation.y=angle;
-    player.position.x+=Math.sin(angle)*SPEED*dt;
-    player.position.z+=Math.cos(angle)*SPEED*dt;
-    // walk anim
-    const legs=player.children.filter(c=>c.userData.isLeg);
-    legs.forEach((l,i)=>{l.rotation.x=Math.sin(clock.elapsedTime*10+i*Math.PI*.5)*.4});
-    player.userData.tail.rotation.z=Math.sin(clock.elapsedTime*8)*.5;
-  }
+  player.rotation.y-=steer*TURN*dt;
+  // always move forward
+  player.position.x+=Math.sin(player.rotation.y)*SPEED*dt;
+  player.position.z+=Math.cos(player.rotation.y)*SPEED*dt;
+  const moving=true;
+  // walk anim
+  const legs=player.children.filter(c=>c.userData.isLeg);
+  legs.forEach((l,i)=>{l.rotation.x=Math.sin(clock.elapsedTime*10+i*Math.PI*.5)*.4});
+  player.userData.tail.rotation.z=Math.sin(clock.elapsedTime*8)*.5;
 
   // jump
   if((keys['Space']||touchJump)&&onGround){velY=JUMP;onGround=false;touchJump=false}
@@ -329,9 +326,11 @@ function animate(){
   // bounce when moving on ground
   if(moving&&onGround)player.position.y=Math.abs(Math.sin(clock.elapsedTime*10))*.1;
 
-  // boundary
-  player.position.x=Math.max(-BOUND,Math.min(BOUND,player.position.x));
-  player.position.z=Math.max(-BOUND,Math.min(BOUND,player.position.z));
+  // boundary - wrap around
+  if(player.position.x>BOUND)player.position.x=-BOUND;
+  if(player.position.x<-BOUND)player.position.x=BOUND;
+  if(player.position.z>BOUND)player.position.z=-BOUND;
+  if(player.position.z<-BOUND)player.position.z=BOUND;
 
   // bingo
   updateBingo(dt);
