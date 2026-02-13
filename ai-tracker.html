@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Initiatives — Brand Collective</title>
+<style>
+:root {
+  --bg: #0a0a0a; --bg2: #141414; --bg3: #1a1a1a; --bg4: #222;
+  --text: #f0f0f0; --text2: rgba(255,255,255,.7); --text3: rgba(255,255,255,.4);
+  --border: rgba(255,255,255,.08); --border2: rgba(255,255,255,.15);
+  --accent: #6366f1; --accent2: #818cf8; --accent-bg: rgba(99,102,241,.12);
+  --green: #22c55e; --green-bg: rgba(34,197,94,.12);
+  --amber: #f59e0b; --amber-bg: rgba(245,158,11,.12);
+  --blue: #3b82f6; --blue-bg: rgba(59,130,246,.12);
+  --red: #ef4444; --red-bg: rgba(239,68,68,.12);
+  --pink: #ec4899; --pink-bg: rgba(236,72,153,.12);
+  --shadow: 0 4px 24px rgba(0,0,0,.4);
+  --radius: 12px; --radius-sm: 8px;
+}
+[data-theme="light"] {
+  --bg: #f8f9fa; --bg2: #fff; --bg3: #f0f1f3; --bg4: #e8e9eb;
+  --text: #111; --text2: rgba(0,0,0,.65); --text3: rgba(0,0,0,.35);
+  --border: rgba(0,0,0,.08); --border2: rgba(0,0,0,.15);
+  --accent-bg: rgba(99,102,241,.08); --green-bg: rgba(34,197,94,.08);
+  --amber-bg: rgba(245,158,11,.08); --blue-bg: rgba(59,130,246,.08);
+  --red-bg: rgba(239,68,68,.08); --pink-bg: rgba(236,72,153,.08);
+  --shadow: 0 4px 24px rgba(0,0,0,.08);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter',sans-serif; min-height:100vh; }
+button { cursor:pointer; font-family:inherit; }
+input,textarea,select { font-family:inherit; }
+
+/* Layout */
+.app { display:flex; height:100vh; }
+.sidebar { width:260px; background:var(--bg2); border-right:1px solid var(--border); display:flex; flex-direction:column; flex-shrink:0; }
+.sidebar-header { padding:24px 20px 16px; border-bottom:1px solid var(--border); }
+.sidebar-logo { font-size:13px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--accent2); }
+.sidebar-title { font-size:18px; font-weight:700; margin-top:4px; }
+.sidebar-nav { flex:1; padding:12px 8px; overflow-y:auto; }
+.nav-section { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--text3); padding:16px 12px 6px; }
+.nav-item { display:flex; align-items:center; gap:10px; padding:8px 12px; border-radius:var(--radius-sm); color:var(--text2); font-size:14px; border:none; background:none; width:100%; text-align:left; transition:all .15s; }
+.nav-item:hover { background:var(--bg3); color:var(--text); }
+.nav-item.active { background:var(--accent-bg); color:var(--accent2); font-weight:600; }
+.nav-item .icon { font-size:16px; width:20px; text-align:center; }
+.nav-item .badge { margin-left:auto; background:var(--bg4); padding:2px 8px; border-radius:10px; font-size:11px; font-weight:600; color:var(--text3); }
+.sidebar-footer { padding:12px; border-top:1px solid var(--border); display:flex; gap:8px; }
+.theme-toggle { flex:1; padding:8px; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--bg3); color:var(--text2); font-size:12px; font-weight:500; transition:all .15s; }
+.theme-toggle:hover { background:var(--bg4); color:var(--text); }
+
+/* Main */
+.main { flex:1; overflow-y:auto; }
+.main-header { padding:24px 32px 0; display:flex; align-items:center; gap:16px; }
+.main-title { font-size:24px; font-weight:700; flex:1; }
+.btn { padding:8px 16px; border-radius:var(--radius-sm); border:none; font-size:13px; font-weight:600; transition:all .15s; }
+.btn-primary { background:var(--accent); color:#fff; }
+.btn-primary:hover { background:var(--accent2); }
+.btn-ghost { background:transparent; color:var(--text2); border:1px solid var(--border2); }
+.btn-ghost:hover { background:var(--bg3); color:var(--text); }
+.view-tabs { display:flex; gap:4px; padding:16px 32px 0; }
+.view-tab { padding:8px 16px; border-radius:var(--radius-sm); border:none; background:transparent; color:var(--text3); font-size:13px; font-weight:500; transition:all .15s; }
+.view-tab:hover { color:var(--text2); }
+.view-tab.active { background:var(--bg3); color:var(--text); font-weight:600; }
+
+/* Feed View */
+.feed { padding:20px 32px; }
+.feed-card { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); padding:20px 24px; margin-bottom:12px; cursor:pointer; transition:all .2s; }
+.feed-card:hover { border-color:var(--border2); box-shadow:var(--shadow); transform:translateY(-1px); }
+.feed-card-header { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+.feed-dept { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; padding:3px 10px; border-radius:20px; }
+.dept-digital { color:var(--accent); background:var(--accent-bg); }
+.dept-it { color:var(--green); background:var(--green-bg); }
+.dept-supply-chain { color:var(--amber); background:var(--amber-bg); }
+.dept-marketing { color:var(--pink); background:var(--pink-bg); }
+.feed-status { font-size:11px; font-weight:600; padding:3px 10px; border-radius:20px; margin-left:auto; }
+.status-initiated { color:var(--blue); background:var(--blue-bg); }
+.status-in-progress { color:var(--amber); background:var(--amber-bg); }
+.status-complete { color:var(--green); background:var(--green-bg); }
+.feed-title { font-size:17px; font-weight:700; margin-bottom:6px; }
+.feed-summary { font-size:14px; color:var(--text2); line-height:1.6; }
+.feed-meta { display:flex; gap:16px; margin-top:12px; font-size:12px; color:var(--text3); }
+.feed-meta-item { display:flex; align-items:center; gap:4px; }
+.feed-value { display:inline-flex; align-items:center; gap:4px; padding:2px 8px; border-radius:4px; font-weight:600; font-size:11px; }
+.value-high { color:var(--green); background:var(--green-bg); }
+.value-med { color:var(--amber); background:var(--amber-bg); }
+
+/* Kanban */
+.kanban { display:flex; gap:16px; padding:20px 32px; height:calc(100vh - 140px); overflow-x:auto; }
+.kanban-col { flex:1; min-width:280px; background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); display:flex; flex-direction:column; }
+.kanban-col-header { padding:16px 16px 12px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:8px; }
+.kanban-col-title { font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:1px; }
+.kanban-col-count { font-size:11px; color:var(--text3); background:var(--bg4); padding:2px 8px; border-radius:10px; }
+.kanban-col-body { flex:1; padding:8px; overflow-y:auto; }
+.kanban-card { background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px; margin-bottom:8px; cursor:pointer; transition:all .15s; }
+.kanban-card:hover { border-color:var(--border2); transform:translateY(-1px); }
+.kanban-card-title { font-size:14px; font-weight:600; margin-bottom:6px; }
+.kanban-card-dept { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1px; padding:2px 8px; border-radius:10px; display:inline-block; }
+.kanban-card-summary { font-size:12px; color:var(--text3); margin-top:6px; line-height:1.5; }
+
+/* Detail Modal */
+.modal-overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,.6); z-index:2000; display:none; align-items:center; justify-content:center; padding:40px; backdrop-filter:blur(4px); }
+.modal-overlay.active { display:flex; }
+.modal { background:var(--bg2); border:1px solid var(--border2); border-radius:16px; width:100%; max-width:780px; max-height:90vh; overflow-y:auto; box-shadow:0 24px 64px rgba(0,0,0,.4); }
+.modal-header { padding:24px 28px 0; display:flex; align-items:start; gap:16px; }
+.modal-close { background:none; border:none; color:var(--text3); font-size:24px; padding:4px; line-height:1; margin-left:auto; }
+.modal-close:hover { color:var(--text); }
+.modal-body { padding:20px 28px 28px; }
+.modal-title { font-size:22px; font-weight:700; flex:1; }
+.modal-dept-status { display:flex; gap:8px; margin:12px 0 16px; }
+.modal-section { margin-bottom:20px; }
+.modal-section-title { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--text3); margin-bottom:8px; }
+.modal-text { font-size:14px; line-height:1.7; color:var(--text2); }
+.modal-media { width:100%; border-radius:var(--radius-sm); border:1px solid var(--border); margin-top:8px; max-height:400px; object-fit:cover; }
+.modal-value-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.modal-value-card { background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px; }
+.modal-value-label { font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--text3); margin-bottom:4px; }
+.modal-value-num { font-size:20px; font-weight:700; }
+.audit-log { margin-top:8px; }
+.audit-entry { font-size:12px; color:var(--text3); padding:6px 0; border-bottom:1px solid var(--border); display:flex; gap:8px; }
+.audit-entry:last-child { border-bottom:none; }
+.audit-date { color:var(--text3); font-variant-numeric:tabular-nums; white-space:nowrap; }
+.audit-action { color:var(--text2); }
+
+/* Edit Modal */
+.form-group { margin-bottom:16px; }
+.form-label { display:block; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--text3); margin-bottom:6px; }
+.form-input,.form-textarea,.form-select { width:100%; padding:10px 14px; background:var(--bg3); border:1px solid var(--border2); border-radius:var(--radius-sm); color:var(--text); font-size:14px; }
+.form-input:focus,.form-textarea:focus,.form-select:focus { outline:none; border-color:var(--accent); }
+.form-textarea { min-height:80px; resize:vertical; }
+.form-actions { display:flex; gap:8px; justify-content:flex-end; margin-top:20px; }
+.btn-danger { background:var(--red); color:#fff; }
+.btn-danger:hover { opacity:.85; }
+
+/* AI Summary */
+.ai-badge { display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:700; color:var(--accent); background:var(--accent-bg); padding:2px 8px; border-radius:10px; text-transform:uppercase; letter-spacing:.5px; }
+.ai-summary-box { background:var(--accent-bg); border:1px solid rgba(99,102,241,.2); border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:20px; }
+.ai-summary-box p { font-size:13px; line-height:1.6; color:var(--text2); }
+
+/* Dept Manager */
+.dept-list { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
+.dept-chip { display:flex; align-items:center; gap:6px; padding:6px 12px; border-radius:20px; font-size:13px; font-weight:500; border:1px solid var(--border2); background:var(--bg3); }
+.dept-chip-remove { background:none; border:none; color:var(--text3); font-size:14px; line-height:1; }
+.dept-chip-remove:hover { color:var(--red); }
+
+/* Responsive */
+@media(max-width:900px) {
+  .sidebar { display:none; }
+  .kanban { padding:12px; }
+  .feed { padding:12px; }
+  .main-header { padding:16px; }
+  .view-tabs { padding:8px 16px; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">Brand Collective</div>
+      <div class="sidebar-title">AI Initiatives</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">Views</div>
+      <button class="nav-item active" data-view="feed"><span class="icon">📋</span>Feed<span class="badge" id="totalCount">0</span></button>
+      <button class="nav-item" data-view="kanban"><span class="icon">📊</span>Board</button>
+      <div class="nav-section">Departments</div>
+      <div id="deptNav"></div>
+      <button class="nav-item" data-view="departments" style="margin-top:8px"><span class="icon">⚙️</span>Manage Departments</button>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="theme-toggle" id="themeToggle">🌙 Dark</button>
+    </div>
+  </div>
+  <div class="main">
+    <div class="main-header">
+      <div class="main-title" id="viewTitle">All Initiatives</div>
+      <button class="btn btn-primary" id="addBtn">+ New Initiative</button>
+    </div>
+    <div class="view-tabs" id="viewTabs">
+      <button class="view-tab active" data-view="feed">Feed</button>
+      <button class="view-tab" data-view="kanban">Board</button>
+    </div>
+    <div id="content"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="detailModal">
+  <div class="modal" id="detailContent"></div>
+</div>
+<div class="modal-overlay" id="editModal">
+  <div class="modal" id="editContent"></div>
+</div>
+
+<script>
+// ===== STATE =====
+const DEFAULT_DEPTS = [
+  {id:'digital',name:'Digital',color:'accent'},
+  {id:'it',name:'IT',color:'green'},
+  {id:'supply-chain',name:'Supply Chain',color:'amber'},
+  {id:'marketing',name:'Marketing',color:'pink'}
+];
+
+const SEED_DATA = [
+  {
+    id:'sns-app',title:'SNS Codex Mobile App',dept:'digital',status:'complete',
+    description:'Built a native iOS mobile shopping app for Shoes & Sox using OpenAI Codex in SwiftUI. Real product data, brand identity, full catalogue browsing with size/colour selection.',
+    howAchieved:'Designed prompt architecture for Codex code generation. Iterated through v1 (rejected as too generic) to v2 with real Shopify product data, SVG logos, and brand colour palette (#FF4B0F, #FDC145, #3398FF). Complete build from concept to board demo in 4 days.',
+    valueAdd:'Demonstrated that a project typically quoted at $200-300K over 6-12 months by agencies can be prototyped for near-zero cost in days. Board response was overwhelmingly positive. Opens pathway for all 20 brands to have native apps.',
+    impact:'high',impactLabel:'$200-300K saved vs agency',
+    mediaUrl:'https://i.imgur.com/pqiUzTG.gif',mediaType:'image',
+    createdAt:'2026-02-09T09:00:00',updatedAt:'2026-02-11T16:00:00',
+    createdBy:'Aaron Gard',
+    audit:[{date:'2026-02-09',action:'Initiative created'},{date:'2026-02-09',action:'v1 prototype built — rejected (too generic)'},{date:'2026-02-10',action:'v2 rebuilt with real product data + brand identity'},{date:'2026-02-11',action:'Demonstrated to board — approved for development'},{date:'2026-02-11',action:'Status → Complete'}]
+  },
+  {
+    id:'omneo-security',title:'Omneo Security Vulnerability Detection',dept:'it',status:'in-progress',
+    description:'AI-driven security audit of Omneo (customer identity platform) discovered 8 critical vulnerabilities exposing customer PII across 25+ major Australian retail brands — including children\'s parent data from Shoes & Sox.',
+    howAchieved:'Automated penetration testing of Omneo portal APIs and authentication flows. Identified broken access controls, insecure direct object references, and unprotected API endpoints that expose customer names, emails, addresses, and order histories.',
+    valueAdd:'Prevented potential large-scale data breach affecting customers of Brand Collective and ~25 other major AU retailers (Country Road Group, Mecca, Zimmermann, RM Williams, etc). Proactive detection vs reactive incident response.',
+    impact:'high',impactLabel:'25+ brands protected',
+    mediaUrl:'',mediaType:'',
+    createdAt:'2026-02-06T14:00:00',updatedAt:'2026-02-13T10:00:00',
+    createdBy:'The Claw',
+    audit:[{date:'2026-02-06',action:'Initial security audit triggered'},{date:'2026-02-07',action:'8 vulnerabilities confirmed'},{date:'2026-02-10',action:'Disclosure email drafted'},{date:'2026-02-13',action:'Re-audit: all 8 vulns still open + 2 new findings'},{date:'2026-02-13',action:'Escalation pending with Omneo'}]
+  },
+  {
+    id:'scout-seo',title:'Scout — AI SEO Coworker',dept:'digital',status:'initiated',
+    description:'Autonomous AI agent replacing StudioHawk SEO agency ($26,622+GST/month, ~$320K/year) across all 19 brand websites. Scout will handle technical SEO audits, content optimisation, keyword research, and performance monitoring.',
+    howAchieved:'Designed instruction set (v0.1) for autonomous SEO agent. Architecture: Google Search Console + GA4 + Shopify + PageSpeed APIs feeding into agentic workflow. Per-brand URL mapping, automated audit scheduling, Slack reporting (#seo-bot channel).',
+    valueAdd:'Direct cost elimination: $320K/year agency fees. Beyond cost, Scout operates 24/7 across all 19 brands simultaneously — something no agency can match. Continuous optimisation vs monthly reporting cycles.',
+    impact:'high',impactLabel:'$320K/yr agency replaced',
+    mediaUrl:'',mediaType:'',
+    createdAt:'2026-02-06T10:00:00',updatedAt:'2026-02-13T12:00:00',
+    createdBy:'Aaron Gard',
+    audit:[{date:'2026-02-06',action:'Initiative created — instruction set v0.1 drafted'},{date:'2026-02-07',action:'Brand URL mapping started (19 brands)'},{date:'2026-02-10',action:'Ahrefs Enterprise contract signed ($1,499 USD/mo)'},{date:'2026-02-13',action:'Pending: GSC service account access for 19 brands'}]
+  },
+  {
+    id:'picjam-poc',title:'PicJam — AI Content Production',dept:'marketing',status:'in-progress',
+    description:'Proof of concept for AI-generated product imagery and video content across Volley, Happy Socks, and Review. Evaluating multiple AI models for commercial-grade content production at scale.',
+    howAchieved:'Tested leading AI image and video generation models against brand style guides. Identified licensing constraints with certain video models (flagged by Boris Rozenvasser). Evaluating commercial-safe alternatives that allow full ownership of generated assets.',
+    valueAdd:'Potential to reduce content production costs by 60-80% while increasing output volume 10x. A single campaign shoot currently costs $20-50K — AI generation could deliver equivalent assets in hours for near-zero marginal cost.',
+    impact:'med',impactLabel:'60-80% content cost reduction',
+    mediaUrl:'',mediaType:'',
+    createdAt:'2026-02-10T11:00:00',updatedAt:'2026-02-13T15:00:00',
+    createdBy:'Aaron Gard',
+    audit:[{date:'2026-02-10',action:'POC initiated with Volley, Happy Socks, Review'},{date:'2026-02-11',action:'Initial model testing — image generation'},{date:'2026-02-12',action:'Video model licensing constraints identified (Boris R.)'},{date:'2026-02-13',action:'Evaluating alternative models with commercial licensing'}]
+  }
+];
+
+function loadState() {
+  try {
+    const s = localStorage.getItem('ai-tracker-state');
+    if (s) return JSON.parse(s);
+  } catch(e) {}
+  return { items: SEED_DATA, depts: DEFAULT_DEPTS, theme: 'dark', currentView: 'feed', currentDept: 'all' };
+}
+function saveState() { localStorage.setItem('ai-tracker-state', JSON.stringify(state)); }
+
+let state = loadState();
+if (!state.items || state.items.length === 0) state.items = SEED_DATA;
+if (!state.depts || state.depts.length === 0) state.depts = DEFAULT_DEPTS;
+
+// ===== THEME =====
+function applyTheme() {
+  document.documentElement.setAttribute('data-theme', state.theme);
+  document.getElementById('themeToggle').textContent = state.theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+}
+document.getElementById('themeToggle').addEventListener('click', () => {
+  state.theme = state.theme === 'dark' ? 'light' : 'dark';
+  applyTheme(); saveState();
+});
+applyTheme();
+
+// ===== HELPERS =====
+function deptClass(deptId) { return 'dept-' + deptId; }
+function deptName(deptId) { const d = state.depts.find(d => d.id === deptId); return d ? d.name : deptId; }
+function statusLabel(s) { return s === 'in-progress' ? 'In Progress' : s.charAt(0).toUpperCase() + s.slice(1); }
+function timeAgo(dateStr) {
+  const d = new Date(dateStr), now = new Date(), diff = (now - d) / 1000;
+  if (diff < 3600) return Math.floor(diff/60) + 'm ago';
+  if (diff < 86400) return Math.floor(diff/3600) + 'h ago';
+  if (diff < 604800) return Math.floor(diff/86400) + 'd ago';
+  return d.toLocaleDateString('en-AU', {month:'short',day:'numeric'});
+}
+function genId() { return 'i-' + Date.now() + '-' + Math.random().toString(36).slice(2,6); }
+function aiSummary(item) {
+  const impact = item.impact === 'high' ? 'High-impact' : 'Medium-impact';
+  const status = statusLabel(item.status).toLowerCase();
+  return `${impact} ${deptName(item.dept)} initiative — currently ${status}. ${item.description.split('.')[0]}.`;
+}
+
+// ===== RENDER NAV =====
+function renderNav() {
+  const container = document.getElementById('deptNav');
+  const counts = {};
+  state.items.forEach(i => { counts[i.dept] = (counts[i.dept]||0) + 1; });
+  container.innerHTML = `<button class="nav-item ${state.currentDept==='all'?'active':''}" data-dept="all"><span class="icon">🏢</span>All<span class="badge">${state.items.length}</span></button>` +
+    state.depts.map(d => `<button class="nav-item ${state.currentDept===d.id?'active':''}" data-dept="${d.id}"><span class="icon">📁</span>${d.name}<span class="badge">${counts[d.id]||0}</span></button>`).join('');
+  document.getElementById('totalCount').textContent = state.items.length;
+  container.querySelectorAll('.nav-item').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.currentDept = btn.dataset.dept;
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`.nav-item[data-view="${state.currentView}"]`).classList.add('active');
+      document.getElementById('viewTitle').textContent = state.currentDept === 'all' ? 'All Initiatives' : deptName(state.currentDept);
+      render(); saveState();
+    });
+  });
+}
+
+// ===== RENDER FEED =====
+function getFiltered() {
+  let items = state.items;
+  if (state.currentDept !== 'all') items = items.filter(i => i.dept === state.currentDept);
+  return items.sort((a,b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+}
+
+function renderFeed() {
+  const items = getFiltered();
+  const aiSum = items.length > 0 ? `<div class="ai-summary-box"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span class="ai-badge">✨ AI Summary</span></div><p>${items.length} initiative${items.length!==1?'s':''} across ${new Set(items.map(i=>i.dept)).size} department${new Set(items.map(i=>i.dept)).size!==1?'s':''}. ${items.filter(i=>i.status==='complete').length} complete, ${items.filter(i=>i.status==='in-progress').length} in progress, ${items.filter(i=>i.status==='initiated').length} initiated. Combined estimated impact: ${items.filter(i=>i.impact==='high').length} high-value, ${items.filter(i=>i.impact==='med').length} medium-value.</p></div>` : '';
+  document.getElementById('content').innerHTML = `<div class="feed">${aiSum}${items.map(item => `
+    <div class="feed-card" data-id="${item.id}">
+      <div class="feed-card-header">
+        <span class="feed-dept ${deptClass(item.dept)}">${deptName(item.dept)}</span>
+        <span class="feed-status status-${item.status}">${statusLabel(item.status)}</span>
+      </div>
+      <div class="feed-title">${item.title}</div>
+      <div class="feed-summary">${aiSummary(item)}</div>
+      <div class="feed-meta">
+        <span class="feed-meta-item">🕐 ${timeAgo(item.updatedAt)}</span>
+        <span class="feed-meta-item">👤 ${item.createdBy||'—'}</span>
+        ${item.impactLabel ? `<span class="feed-value ${item.impact==='high'?'value-high':'value-med'}">💎 ${item.impactLabel}</span>` : ''}
+      </div>
+    </div>
+  `).join('')}</div>`;
+  document.querySelectorAll('.feed-card').forEach(c => c.addEventListener('click', () => openDetail(c.dataset.id)));}
+
+// ===== RENDER KANBAN =====
+function renderKanban() {
+  const items = getFiltered();
+  const cols = ['initiated','in-progress','complete'];
+  const colLabels = {initiated:'Initiated','in-progress':'In Progress',complete:'Complete'};
+  const colColors = {initiated:'var(--blue)','in-progress':'var(--amber)',complete:'var(--green)'};
+  document.getElementById('content').innerHTML = `<div class="kanban">${cols.map(col => {
+    const colItems = items.filter(i => i.status === col);
+    return `<div class="kanban-col" data-status="${col}">
+      <div class="kanban-col-header">
+        <div style="width:8px;height:8px;border-radius:50%;background:${colColors[col]}"></div>
+        <div class="kanban-col-title">${colLabels[col]}</div>
+        <span class="kanban-col-count">${colItems.length}</span>
+      </div>
+      <div class="kanban-col-body" data-status="${col}">
+        ${colItems.map(item => `<div class="kanban-card" data-id="${item.id}" draggable="true">
+          <div class="kanban-card-title">${item.title}</div>
+          <span class="kanban-card-dept ${deptClass(item.dept)}">${deptName(item.dept)}</span>
+          ${item.impactLabel ? `<div style="margin-top:6px"><span class="feed-value ${item.impact==='high'?'value-high':'value-med'}" style="font-size:10px">💎 ${item.impactLabel}</span></div>` : ''}
+          <div class="kanban-card-summary">${item.description.substring(0,100)}...</div>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  }).join('')}</div>`;
+  // Drag and drop
+  document.querySelectorAll('.kanban-card').forEach(card => {
+    card.addEventListener('click', () => openDetail(card.dataset.id));
+    card.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', card.dataset.id); card.style.opacity = '.5'; });
+    card.addEventListener('dragend', e => { card.style.opacity = '1'; });
+  });
+  document.querySelectorAll('.kanban-col-body').forEach(col => {
+    col.addEventListener('dragover', e => { e.preventDefault(); col.style.background = 'var(--bg4)'; });
+    col.addEventListener('dragleave', () => { col.style.background = ''; });
+    col.addEventListener('drop', e => {
+      e.preventDefault(); col.style.background = '';
+      const id = e.dataTransfer.getData('text/plain');
+      const newStatus = col.dataset.status;
+      const item = state.items.find(i => i.id === id);
+      if (item && item.status !== newStatus) {
+        item.audit.push({date:new Date().toISOString().split('T')[0], action:`Status → ${statusLabel(newStatus)}`});
+        item.status = newStatus;
+        item.updatedAt = new Date().toISOString();
+        saveState(); render();
+      }
+    });
+  });
+}
+
+// ===== RENDER DEPARTMENTS =====
+function renderDepts() {
+  document.getElementById('content').innerHTML = `<div class="feed">
+    <h3 style="margin-bottom:16px;font-size:16px">Manage Departments</h3>
+    <div class="dept-list" id="deptList">
+      ${state.depts.map(d => `<div class="dept-chip"><span class="feed-dept ${deptClass(d.id)}">${d.name}</span><button class="dept-chip-remove" data-dept="${d.id}">&times;</button></div>`).join('')}
+    </div>
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <input class="form-input" id="newDeptName" placeholder="New department name" style="max-width:240px">
+      <button class="btn btn-primary" id="addDeptBtn">Add</button>
+    </div>
+  </div>`;
+  document.querySelectorAll('.dept-chip-remove').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (state.items.some(i => i.dept === btn.dataset.dept)) { alert('Remove or reassign initiatives in this department first.'); return; }
+      state.depts = state.depts.filter(d => d.id !== btn.dataset.dept);
+      saveState(); renderNav(); renderDepts();
+    });
+  });
+  document.getElementById('addDeptBtn').addEventListener('click', () => {
+    const name = document.getElementById('newDeptName').value.trim();
+    if (!name) return;
+    const id = name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    if (state.depts.find(d => d.id === id)) { alert('Department already exists'); return; }
+    state.depts.push({id, name, color:'blue'});
+    saveState(); renderNav(); renderDepts();
+  });
+}
+
+// ===== DETAIL MODAL =====
+function openDetail(id) {
+  const item = state.items.find(i => i.id === id);
+  if (!item) return;
+  document.getElementById('detailContent').innerHTML = `
+    <div class="modal-header">
+      <div class="modal-title">${item.title}</div>
+      <button class="modal-close" id="closeDetail">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-dept-status">
+        <span class="feed-dept ${deptClass(item.dept)}">${deptName(item.dept)}</span>
+        <span class="feed-status status-${item.status}">${statusLabel(item.status)}</span>
+        ${item.impactLabel ? `<span class="feed-value ${item.impact==='high'?'value-high':'value-med'}">💎 ${item.impactLabel}</span>` : ''}
+      </div>
+      <div class="ai-summary-box"><span class="ai-badge">✨ AI Summary</span><p style="margin-top:6px">${aiSummary(item)}</p></div>
+      <div class="modal-section">
+        <div class="modal-section-title">Description</div>
+        <div class="modal-text">${item.description}</div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">How It Was Achieved</div>
+        <div class="modal-text">${item.howAchieved||'—'}</div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Value Add</div>
+        <div class="modal-text">${item.valueAdd||'—'}</div>
+      </div>
+      ${item.mediaUrl ? `<div class="modal-section"><div class="modal-section-title">Demo</div>${item.mediaType==='video'?`<video class="modal-media" controls src="${item.mediaUrl}"></video>`:`<img class="modal-media" src="${item.mediaUrl}" alt="Demo">`}</div>` : ''}
+      <div class="modal-section">
+        <div class="modal-section-title">Change Log</div>
+        <div class="audit-log">
+          ${(item.audit||[]).slice().reverse().map(a => `<div class="audit-entry"><span class="audit-date">${a.date}</span><span class="audit-action">${a.action}</span></div>`).join('')}
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-ghost" id="editItemBtn" data-id="${item.id}">✏️ Edit</button>
+        <button class="btn btn-danger" id="deleteItemBtn" data-id="${item.id}">🗑 Delete</button>
+      </div>
+    </div>`;
+  document.getElementById('detailModal').classList.add('active');
+  document.getElementById('closeDetail').addEventListener('click', closeModals);
+  document.getElementById('editItemBtn').addEventListener('click', () => { closeModals(); openEdit(id); });
+  document.getElementById('deleteItemBtn').addEventListener('click', () => {
+    if (confirm('Delete this initiative?')) {
+      state.items = state.items.filter(i => i.id !== id);
+      saveState(); closeModals(); renderNav(); render();
+    }
+  });
+}
+
+// ===== EDIT / CREATE MODAL =====
+function openEdit(id) {
+  const item = id ? state.items.find(i => i.id === id) : null;
+  const isNew = !item;
+  document.getElementById('editContent').innerHTML = `
+    <div class="modal-header">
+      <div class="modal-title">${isNew ? 'New Initiative' : 'Edit Initiative'}</div>
+      <button class="modal-close" id="closeEdit">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label">Title</label><input class="form-input" id="f_title" value="${item?item.title:''}"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+        <div class="form-group"><label class="form-label">Department</label><select class="form-select" id="f_dept">${state.depts.map(d=>`<option value="${d.id}" ${item&&item.dept===d.id?'selected':''}>${d.name}</option>`).join('')}</select></div>
+        <div class="form-group"><label class="form-label">Status</label><select class="form-select" id="f_status"><option value="initiated" ${item&&item.status==='initiated'?'selected':''}>Initiated</option><option value="in-progress" ${item&&item.status==='in-progress'?'selected':''}>In Progress</option><option value="complete" ${item&&item.status==='complete'?'selected':''}>Complete</option></select></div>
+        <div class="form-group"><label class="form-label">Impact</label><select class="form-select" id="f_impact"><option value="high" ${item&&item.impact==='high'?'selected':''}>High</option><option value="med" ${!item||item.impact==='med'?'selected':''}>Medium</option></select></div>
+      </div>
+      <div class="form-group"><label class="form-label">Impact Label</label><input class="form-input" id="f_impactLabel" value="${item?item.impactLabel||'':''}" placeholder="e.g. $320K/yr saved"></div>
+      <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" id="f_desc">${item?item.description:''}</textarea></div>
+      <div class="form-group"><label class="form-label">How It Was Achieved</label><textarea class="form-textarea" id="f_how">${item?item.howAchieved||'':''}</textarea></div>
+      <div class="form-group"><label class="form-label">Value Add</label><textarea class="form-textarea" id="f_value">${item?item.valueAdd||'':''}</textarea></div>
+      <div class="form-group"><label class="form-label">Media URL (image or video)</label><input class="form-input" id="f_media" value="${item?item.mediaUrl||'':''}" placeholder="https://..."></div>
+      <div class="form-group"><label class="form-label">Media Type</label><select class="form-select" id="f_mediaType"><option value="image" ${item&&item.mediaType==='image'?'selected':''}>Image / GIF</option><option value="video" ${item&&item.mediaType==='video'?'selected':''}>Video</option></select></div>
+      <div class="form-group"><label class="form-label">Author</label><input class="form-input" id="f_author" value="${item?item.createdBy||'':'Aaron Gard'}"></div>
+      <div class="form-actions">
+        <button class="btn btn-ghost" id="cancelEdit">Cancel</button>
+        <button class="btn btn-primary" id="saveEdit">${isNew ? 'Create' : 'Save Changes'}</button>
+      </div>
+    </div>`;
+  document.getElementById('editModal').classList.add('active');
+  document.getElementById('closeEdit').addEventListener('click', closeModals);
+  document.getElementById('cancelEdit').addEventListener('click', closeModals);
+  document.getElementById('saveEdit').addEventListener('click', () => {
+    const data = {
+      title: document.getElementById('f_title').value.trim(),
+      dept: document.getElementById('f_dept').value,
+      status: document.getElementById('f_status').value,
+      impact: document.getElementById('f_impact').value,
+      impactLabel: document.getElementById('f_impactLabel').value.trim(),
+      description: document.getElementById('f_desc').value.trim(),
+      howAchieved: document.getElementById('f_how').value.trim(),
+      valueAdd: document.getElementById('f_value').value.trim(),
+      mediaUrl: document.getElementById('f_media').value.trim(),
+      mediaType: document.getElementById('f_mediaType').value,
+      createdBy: document.getElementById('f_author').value.trim()
+    };
+    if (!data.title) { alert('Title required'); return; }
+    const now = new Date().toISOString();
+    if (isNew) {
+      data.id = genId();
+      data.createdAt = now;
+      data.updatedAt = now;
+      data.audit = [{date:now.split('T')[0], action:'Initiative created'}];
+      state.items.unshift(data);
+    } else {
+      const changes = [];
+      if (item.status !== data.status) changes.push(`Status → ${statusLabel(data.status)}`);
+      if (item.dept !== data.dept) changes.push(`Dept → ${deptName(data.dept)}`);
+      if (item.title !== data.title) changes.push('Title updated');
+      if (item.description !== data.description) changes.push('Description updated');
+      if (item.howAchieved !== data.howAchieved) changes.push('How achieved updated');
+      if (item.valueAdd !== data.valueAdd) changes.push('Value add updated');
+      if (item.mediaUrl !== data.mediaUrl) changes.push('Media updated');
+      Object.assign(item, data);
+      item.updatedAt = now;
+      if (changes.length) changes.forEach(c => item.audit.push({date:now.split('T')[0], action:c}));
+    }
+    saveState(); closeModals(); renderNav(); render();
+  });
+}
+
+function closeModals() {
+  document.getElementById('detailModal').classList.remove('active');
+  document.getElementById('editModal').classList.remove('active');
+}
+
+// Close on overlay click
+document.getElementById('detailModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModals(); });
+document.getElementById('editModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModals(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModals(); });
+
+// ===== VIEW SWITCHING =====
+function render() {
+  if (state.currentView === 'feed') renderFeed();
+  else if (state.currentView === 'kanban') renderKanban();
+  else if (state.currentView === 'departments') renderDepts();
+}
+
+document.querySelectorAll('[data-view]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    state.currentView = btn.dataset.view;
+    document.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    btn.classList.add('active');
+    const matching = document.querySelector(`.nav-item[data-view="${state.currentView}"]`);
+    if (matching) matching.classList.add('active');
+    if (state.currentDept !== 'all') {
+      const deptBtn = document.querySelector(`.nav-item[data-dept="${state.currentDept}"]`);
+      if (deptBtn) deptBtn.classList.add('active');
+    }
+    const vtab = document.querySelector(`.view-tab[data-view="${state.currentView}"]`);
+    if (vtab) vtab.classList.add('active');
+    document.getElementById('viewTitle').textContent = state.currentView === 'departments' ? 'Manage Departments' : (state.currentDept === 'all' ? 'All Initiatives' : deptName(state.currentDept));
+    render(); saveState();
+  });
+});
+
+document.getElementById('addBtn').addEventListener('click', () => openEdit(null));
+
+// ===== INIT =====
+renderNav();
+render();
+</script>
+</body>
+</html>
