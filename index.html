@@ -171,7 +171,16 @@
       'linear-gradient(155deg, #3a3528 0%, #2e2a1e 35%, #201e16 65%, #342f24 100%)',
     ];
 
-    document.body.style.background = gradients[Math.floor(Math.random() * gradients.length)];
+    let currentIdx = Math.floor(Math.random() * gradients.length);
+    document.body.style.background = gradients[currentIdx];
+
+    document.body.addEventListener('click', (e) => {
+      if (e.target.closest('a, button, input, form')) return;
+      let next;
+      do { next = Math.floor(Math.random() * gradients.length); } while (next === currentIdx && gradients.length > 1);
+      currentIdx = next;
+      document.body.style.background = gradients[currentIdx];
+    });
 
     async function sha256(str) {
       const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
