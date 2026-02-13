@@ -16,22 +16,193 @@
       align-items: center;
       justify-content: center;
     }
-    .container {
+
+    /* Password screen */
+    .auth-screen {
       text-align: center;
       padding: 2rem;
     }
-    h1 {
+    .auth-screen h1 {
       font-size: 1.4rem;
       font-weight: 300;
       letter-spacing: 0.3em;
       text-transform: uppercase;
       color: #666;
+      margin-bottom: 2rem;
     }
+    .auth-form {
+      display: flex;
+      gap: 0;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+    .auth-form input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      background: #151515;
+      border: 1px solid #2a2a2a;
+      border-right: none;
+      border-radius: 6px 0 0 6px;
+      color: #e0e0e0;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .auth-form input:focus { border-color: #444; }
+    .auth-form input::placeholder { color: #444; }
+    .auth-form button {
+      padding: 0.75rem 1.25rem;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 0 6px 6px 0;
+      color: #888;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .auth-form button:hover { background: #222; color: #ccc; }
+    .auth-error {
+      color: #ff4444;
+      font-size: 0.8rem;
+      margin-top: 1rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .auth-error.visible { opacity: 1; }
+
+    /* Dashboard screen */
+    .dashboard-screen {
+      display: none;
+      padding: 3rem 2rem;
+      width: 100%;
+      max-width: 520px;
+    }
+    .dashboard-screen h1 {
+      font-size: 1.2rem;
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+    .project-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .project-list a {
+      display: block;
+      padding: 1rem 1.25rem;
+      background: #111;
+      border: 1px solid #1e1e1e;
+      border-radius: 8px;
+      color: #ccc;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .project-list a:hover {
+      background: #161616;
+      border-color: #333;
+      color: #fff;
+    }
+    .project-name {
+      font-size: 1rem;
+      font-weight: 500;
+    }
+    .project-desc {
+      font-size: 0.78rem;
+      color: #555;
+      margin-top: 0.3rem;
+    }
+    .logout {
+      display: block;
+      margin: 2.5rem auto 0;
+      background: none;
+      border: none;
+      color: #333;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .logout:hover { color: #666; }
   </style>
 </head>
 <body>
-  <div class="container">
+
+  <!-- Password screen -->
+  <div class="auth-screen" id="authScreen">
     <h1>AG Projects</h1>
+    <form class="auth-form" id="authForm">
+      <input type="password" id="passInput" placeholder="Password" autocomplete="off" autofocus>
+      <button type="submit">→</button>
+    </form>
+    <div class="auth-error" id="authError">Incorrect password</div>
   </div>
+
+  <!-- Dashboard screen -->
+  <div class="dashboard-screen" id="dashScreen">
+    <h1>AG Projects</h1>
+    <div class="project-list">
+      <a href="/portfolio.html">
+        <div class="project-name">Portfolio Dashboard</div>
+        <div class="project-desc">Brand performance, KPIs, trends</div>
+      </a>
+      <a href="/review-heatmap.html">
+        <div class="project-name">Review Heatmap</div>
+        <div class="project-desc">CY2025 demand by postcode, store halo analysis</div>
+      </a>
+      <a href="/ai-tracker.html">
+        <div class="project-name">AI Initiatives Tracker</div>
+        <div class="project-desc">Project pipeline, status, department view</div>
+      </a>
+    </div>
+    <button class="logout" id="logoutBtn">Sign out</button>
+  </div>
+
+  <script>
+    const HASH = '538e8521b3e5660df5a25e5bc8f54505e6f7d0265e84d09e9d14840d5c3ed0ed';
+    const KEY = 'ag_auth';
+
+    async function sha256(str) {
+      const buf = await crypto.subtle.digest('SHA-256',
+        new TextEncoder().encode(str));
+      return Array.from(new Uint8Array(buf))
+        .map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    function unlock() {
+      document.getElementById('authScreen').style.display = 'none';
+      document.getElementById('dashScreen').style.display = 'block';
+      localStorage.setItem(KEY, Date.now().toString());
+    }
+
+    // Check existing session (expires after 30 days)
+    const saved = localStorage.getItem(KEY);
+    if (saved && (Date.now() - parseInt(saved)) < 30 * 24 * 60 * 60 * 1000) {
+      unlock();
+    }
+
+    document.getElementById('authForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const val = document.getElementById('passInput').value;
+      if (await sha256(val) === HASH) {
+        unlock();
+      } else {
+        const err = document.getElementById('authError');
+        err.classList.add('visible');
+        document.getElementById('passInput').value = '';
+        setTimeout(() => err.classList.remove('visible'), 2000);
+      }
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.removeItem(KEY);
+      document.getElementById('dashScreen').style.display = 'none';
+      document.getElementById('authScreen').style.display = 'flex';
+      document.getElementById('passInput').focus();
+    });
+  </script>
 </body>
 </html>
