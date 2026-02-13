@@ -29,9 +29,12 @@
       text-transform: uppercase;
       color: #666;
       margin-bottom: 2rem;
+      cursor: default;
+      user-select: none;
+      -webkit-user-select: none;
     }
     .auth-form {
-      display: flex;
+      display: none;
       gap: 0;
       max-width: 320px;
       margin: 0 auto;
@@ -183,6 +186,16 @@
     if (saved && (Date.now() - parseInt(saved)) < 30 * 24 * 60 * 60 * 1000) {
       unlock();
     }
+
+    document.querySelector('.auth-screen h1').addEventListener('click', () => {
+      const form = document.getElementById('authForm');
+      if (form.style.display === 'flex') {
+        form.style.display = 'none';
+      } else {
+        form.style.display = 'flex';
+        document.getElementById('passInput').focus();
+      }
+    });
 
     document.getElementById('authForm').addEventListener('submit', async (e) => {
       e.preventDefault();
