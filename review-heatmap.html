@@ -23,6 +23,10 @@ body.panel-open .header{right:420px}
 .stat-value{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums}
 .stat-value.orders{font-size:20px;color:rgba(255,255,255,.7)}
 .week-label{font-size:15px;color:rgba(255,255,255,.8);margin-bottom:12px;font-weight:500}
+.month-select{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:6px;color:#fff;font-size:13px;padding:6px 12px;cursor:pointer;outline:none;font-family:inherit;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23fff' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:30px}
+.month-select:hover{background:rgba(255,255,255,.2)}
+.month-select option{background:#1a1a1a;color:#fff}
+.controls-top{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .slider-row{display:flex;align-items:center;gap:16px}
 .play-btn{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .play-btn:hover{background:rgba(255,255,255,.2)}
@@ -140,10 +144,30 @@ body.panel-open .insights-panel{right:0}
   </div>
 </div>
 <div class="controls">
-  <div class="stats">
-    <div><div class="stat-label">Demand Sales</div><div class="stat-value" id="totalSales">$0</div></div>
-    <div><div class="stat-label">Orders</div><div class="stat-value orders" id="totalOrders">0</div></div>
-    <div><div class="stat-label">Postcodes</div><div class="stat-value orders" id="totalPostcodes">0</div></div>
+  <div class="controls-top">
+    <div class="stats">
+      <div><div class="stat-label">Demand Sales</div><div class="stat-value" id="totalSales">$0</div></div>
+      <div><div class="stat-label">Orders</div><div class="stat-value orders" id="totalOrders">0</div></div>
+      <div><div class="stat-label">Postcodes</div><div class="stat-value orders" id="totalPostcodes">0</div></div>
+    </div>
+    <div>
+      <div class="stat-label" style="margin-bottom:6px">Period</div>
+      <select id="monthFilter" class="month-select">
+        <option value="-1">All Year</option>
+        <option value="0">January</option>
+        <option value="1">February</option>
+        <option value="2">March</option>
+        <option value="3">April</option>
+        <option value="4">May</option>
+        <option value="5">June</option>
+        <option value="6">July</option>
+        <option value="7">August</option>
+        <option value="8">September</option>
+        <option value="9">October</option>
+        <option value="10">November</option>
+        <option value="11">December</option>
+      </select>
+    </div>
   </div>
   <div class="week-label" id="weekLabel">Week 1</div>
   <div class="slider-row">
@@ -175,6 +199,7 @@ document.getElementById('closePanel').onclick=()=>{document.body.classList.remov
 
 const map=L.map('map',{center:[-28.5,134],zoom:5,zoomControl:true,attributionControl:false,minZoom:4,maxZoom:18,scrollWheelZoom:true});
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:20}).addTo(map);
+setTimeout(()=>{map.flyTo([-37.81,144.96],10,{duration:2.0,easeLinearity:0.25});},1500);
 
 const sC={Boutique:'#e74c3c',Concession:'#3498db',Outlet:'#2ecc71'};
 STORES.forEach(s=>{
@@ -190,7 +215,7 @@ function uMk(){
   mL.clearLayers();const z=map.getZoom(),h=document.getElementById('zoomHint');
   if(z>=8)h.style.opacity='0';else{h.style.opacity='1';h.textContent='\u{1F50D} Scroll to zoom \u00B7 Postcode detail '+(8-z)+' zoom levels away';}
   if(z<8||!cP.length)return;
-  const br=z>=12?12:z>=10?8:5;
+  const br=z>=14?16:z>=12?14:z>=10?10:7;
   cP.forEach(p=>{
     const la=p[0],ln=p[1],v=p[2],r=cM>0?v/cM:0,pc=gPC(la,ln);
     const mk=L.circleMarker([la,ln],{radius:br,fillColor:gCol(Math.min(r,1)),fillOpacity:.85,color:'rgba(255,255,255,.4)',weight:1});
@@ -212,21 +237,123 @@ function uWk(i){
   let mx=0;pts.forEach(p=>{if(p[2]>mx)mx=p[2];});cM=mx;
   const nm=pts.map(p=>[p[0],p[1],mx>0?p[2]/mx:0]);
   if(hL)hL.setLatLngs(nm);
-  else{hL=L.heatLayer(nm,{radius:22,blur:18,maxZoom:10,max:1,gradient:{0:'#000004',0.1:'#160b39',0.2:'#420a68',0.3:'#6a176e',0.4:'#932667',0.5:'#bc3754',0.6:'#dd513a',0.7:'#f37819',0.8:'#fca50a',0.9:'#f6d746',1:'#fcffa4'}}).addTo(map);}
+  else{hL=L.heatLayer(nm,{radius:30,blur:25,maxZoom:12,max:0.6,minOpacity:0.15,gradient:{0:'rgba(0,0,0,0)',0.05:'#0d0829',0.15:'#2a0a5e',0.25:'#6a0d83',0.35:'#a8226a',0.45:'#d63a4a',0.55:'#f05a24',0.65:'#ff8c00',0.75:'#ffb800',0.85:'#ffe030',0.95:'#ffff6e',1:'#ffffcc'}}).addTo(map);}
   uMk();
 }
 
-map.on('zoomend',()=>{if(hL){const z=map.getZoom();hL.setOptions({radius:z>=10?15:z>=8?18:22,blur:z>=10?12:z>=8?15:18});}uMk();});
+map.on('zoomend',()=>{if(hL){const z=map.getZoom();hL.setOptions({radius:z>=12?22:z>=10?26:z>=8?28:30,blur:z>=12?18:z>=10?22:z>=8?24:25});}uMk();});
 
 const sl=document.getElementById('weekSlider'),pb=document.getElementById('playBtn'),sb=document.getElementById('speedBtn');
-sl.addEventListener('input',()=>uWk(parseInt(sl.value)));
+sl.addEventListener('input',function(){ if(typeof currentMonth!=='undefined'&&typeof getWeeksForMonth==='function'){const indices=getWeeksForMonth(currentMonth);const li=parseInt(sl.value);if(li>=0&&li<indices.length){uWk(indices[li]);}}else{uWk(parseInt(sl.value));}});
 let pl=false,pi=null,sp=[1,2,4],si=0;
 function gD(){return[800,400,150][si];}
 function tP(){pl=!pl;pb.textContent=pl?'\u23F8':'\u25B6';if(pl)pi=setInterval(()=>{let v=(parseInt(sl.value)+1)%DATA.length;sl.value=v;uWk(v);},gD());else clearInterval(pi);}
 pb.addEventListener('click',tP);
 sb.addEventListener('click',()=>{si=(si+1)%3;sb.textContent=sp[si]+'\u00D7';if(pl){clearInterval(pi);pi=setInterval(()=>{let v=(parseInt(sl.value)+1)%DATA.length;sl.value=v;uWk(v);},gD());}});
 document.addEventListener('keydown',e=>{if(e.key===' '){e.preventDefault();tP();}else if(e.key==='ArrowRight'){let v=Math.min(parseInt(sl.value)+1,DATA.length-1);sl.value=v;uWk(v);}else if(e.key==='ArrowLeft'){let v=Math.max(parseInt(sl.value)-1,0);sl.value=v;uWk(v);}});
-uWk(0);
+
+// Month filter logic
+const monthFilter = document.getElementById('monthFilter');
+const weekSliderRow = document.querySelector('.slider-row');
+const weekTicksEl = document.querySelector('.week-ticks');
+const weekLabelEl = document.getElementById('weekLabel');
+
+function getMonthFromDate(dateStr) {
+  return new Date(dateStr + 'T00:00:00').getMonth();
+}
+
+function getWeeksForMonth(monthIdx) {
+  if (monthIdx === -1) return DATA.map((_, i) => i);
+  return DATA.map((w, i) => [w, i]).filter(([w]) => getMonthFromDate(w[0]) === monthIdx).map(([_, i]) => i);
+}
+
+function aggregateWeeks(indices) {
+  const merged = {};
+  let totalSales = 0, totalOrders = 0;
+  indices.forEach(i => {
+    const w = DATA[i];
+    totalSales += w[2];
+    totalOrders += w[3];
+    w[4].forEach(p => {
+      const key = p[0] + ',' + p[1];
+      if (!merged[key]) merged[key] = [p[0], p[1], 0];
+      merged[key][2] += p[2];
+    });
+  });
+  const pts = Object.values(merged);
+  return { totalSales, totalOrders, pts, count: indices.length };
+}
+
+function showAggregated(monthIdx) {
+  const indices = getWeeksForMonth(monthIdx);
+  if (!indices.length) return;
+  const agg = aggregateWeeks(indices);
+  cP = agg.pts;
+
+  if (monthIdx === -1) {
+    weekLabelEl.textContent = 'All Year \u2014 ' + DATA.length + ' weeks aggregated';
+  } else {
+    weekLabelEl.textContent = MONTHS[monthIdx] + ' \u2014 ' + agg.count + ' weeks aggregated';
+  }
+  document.getElementById('totalSales').textContent = fC(agg.totalSales);
+  document.getElementById('totalOrders').textContent = fN(agg.totalOrders);
+  document.getElementById('totalPostcodes').textContent = fN(agg.pts.length);
+
+  let mx = 0;
+  agg.pts.forEach(p => { if (p[2] > mx) mx = p[2]; });
+  cM = mx;
+  const nm = agg.pts.map(p => [p[0], p[1], mx > 0 ? p[2] / mx : 0]);
+  if (hL) hL.setLatLngs(nm);
+  else {
+    hL = L.heatLayer(nm, {radius:30,blur:25,maxZoom:12,max:0.6,minOpacity:0.15,gradient:{0:'rgba(0,0,0,0)',0.05:'#0d0829',0.15:'#2a0a5e',0.25:'#6a0d83',0.35:'#a8226a',0.45:'#d63a4a',0.55:'#f05a24',0.65:'#ff8c00',0.75:'#ffb800',0.85:'#ffe030',0.95:'#ffff6e',1:'#ffffcc'}}).addTo(map);
+  }
+  uMk();
+}
+
+let currentMonth = -1;
+let weekMode = false;
+
+function setSliderForMonth(monthIdx) {
+  const indices = getWeeksForMonth(monthIdx);
+  if (monthIdx === -1) {
+    sl.min = 0; sl.max = DATA.length - 1; sl.value = 0;
+  } else {
+    sl.min = 0; sl.max = indices.length - 1; sl.value = 0;
+  }
+}
+
+monthFilter.addEventListener('change', function() {
+  currentMonth = parseInt(this.value);
+  if (pl) tP(); // stop playback
+  showAggregated(currentMonth);
+  // Show slider for drilling into individual weeks
+  weekSliderRow.style.display = 'flex';
+  weekTicksEl.style.display = 'flex';
+  const indices = getWeeksForMonth(currentMonth);
+  sl.min = 0;
+  sl.max = indices.length - 1;
+  sl.value = 0;
+  weekMode = false;
+});
+
+// Override slider input to work with filtered weeks
+const origSlInput = sl.oninput;
+sl.addEventListener('input', function(e) {
+  e.stopImmediatePropagation();
+  const indices = getWeeksForMonth(currentMonth);
+  const localIdx = parseInt(sl.value);
+  if (localIdx >= 0 && localIdx < indices.length) {
+    weekMode = true;
+    uWk(indices[localIdx]);
+  }
+}, true);
+
+// Override play to work within month
+const origTp = tP;
+
+// Show aggregated "All Year" on load
+showAggregated(-1);
+
 </script>
 </body>
 </html>
