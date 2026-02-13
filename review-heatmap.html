@@ -136,7 +136,7 @@ body.panel-open .insights-panel{right:0}
   <h3>&#128205; Store Location Recommendations</h3>
   <p style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:12px">Ranked by 15km catchment demand — total online spend across all surrounding postcodes within a potential store&rsquo;s trade area. This captures the full addressable opportunity, not just the centre postcode.</p>
 
-  <div class="insight-card" style="border-left:3px solid #ff4444;cursor:pointer" onclick="map.flyTo([-33.71,150.87],12,{duration:1.5})">
+  <div class="insight-card" style="border-left:3px solid #ff4444;cursor:pointer" onclick="showCatchment(-33.71,150.87,'NW Sydney')">
     <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#ff6666">1. NW Sydney Corridor &mdash; NSW</div>
     <div class="metric-row"><span class="metric-label">Catchment demand (15km)</span><span class="metric-val highlight">$280,369</span></div>
     <div class="metric-row"><span class="metric-label">Catchment orders</span><span class="metric-val">948</span></div>
@@ -147,7 +147,7 @@ body.panel-open .insights-panel{right:0}
     <p style="font-size:12px"><strong>Rationale:</strong> By far the largest untapped catchment in Australia. 18 postcodes generating $280K across 948 orders. The NW Growth Corridor (The Ponds, Schofields, Box Hill) is Sydney&rsquo;s fastest-growing residential zone. Castle Hill is technically 15km away but sits in a different trade area — NW corridor customers face traffic and toll barriers to reach it. A Rouse Hill or Marsden Park presence would unlock this entire catchment.</p>
   </div>
 
-  <div class="insight-card" style="border-left:3px solid #ff5544;cursor:pointer" onclick="map.flyTo([-37.88,144.66],12,{duration:1.5})">
+  <div class="insight-card" style="border-left:3px solid #ff5544;cursor:pointer" onclick="showCatchment(-37.88,144.66,'Western Melbourne')">
     <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#ff7766">2. Western Melbourne Corridor &mdash; VIC</div>
     <div class="metric-row"><span class="metric-label">Catchment demand (15km)</span><span class="metric-val highlight">$194,129</span></div>
     <div class="metric-row"><span class="metric-label">Catchment orders</span><span class="metric-val">657</span></div>
@@ -158,7 +158,7 @@ body.panel-open .insights-panel{right:0}
     <p style="font-size:12px"><strong>Rationale:</strong> Melbourne&rsquo;s largest physical retail gap. 15 postcodes, $194K demand, zero Review presence. Wyndham is Australia&rsquo;s fastest-growing LGA. Werribee alone ($57K, 51/53 active weeks, $408 AOV) signals affluent, consistent buying. Highpoint is technically 18km but the West Gate Bridge creates a hard psychological barrier. <span class="highlight">Pacific Werribee</span> is the clear anchor — it would serve the entire 3029/3030/3024 corridor in one location.</p>
   </div>
 
-  <div class="insight-card" style="border-left:3px solid #ff7744;cursor:pointer" onclick="map.flyTo([-38.10,145.28],12,{duration:1.5})">
+  <div class="insight-card" style="border-left:3px solid #ff7744;cursor:pointer" onclick="showCatchment(-38.10,145.28,'SE Melbourne')">
     <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#ff9966">3. SE Melbourne / Cranbourne &mdash; VIC</div>
     <div class="metric-row"><span class="metric-label">Catchment demand (15km)</span><span class="metric-val highlight">$181,751</span></div>
     <div class="metric-row"><span class="metric-label">Catchment orders</span><span class="metric-val">608</span></div>
@@ -169,7 +169,7 @@ body.panel-open .insights-panel{right:0}
     <p style="font-size:12px"><strong>Rationale:</strong> 16 postcodes generating $182K. Fountain Gate exists but is 13km north and serves a different catchment (Berwick/Pakenham axis). The Cranbourne/Clyde growth zone ($37K centre, $426 AOV — highest in any catchment centre) is expanding south into Clyde North. <span class="highlight">Cranbourne Park</span> or the upcoming Casey Central expansion would capture the fastest-growing edge of this zone. The $15K from Frankston (3199) at 22km from any store shows demand bleeding south with no anchor.</p>
   </div>
 
-  <div class="insight-card" style="border-left:3px solid #ff9944;cursor:pointer" onclick="map.flyTo([-27.67,152.91],12,{duration:1.5})">
+  <div class="insight-card" style="border-left:3px solid #ff9944;cursor:pointer" onclick="showCatchment(-27.67,152.91,'Springfield')">
     <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#ffbb66">4. Springfield / Greater Ipswich &mdash; QLD</div>
     <div class="metric-row"><span class="metric-label">Catchment demand (15km)</span><span class="metric-val highlight">$124,148</span></div>
     <div class="metric-row"><span class="metric-label">Catchment orders</span><span class="metric-val">396</span></div>
@@ -180,7 +180,7 @@ body.panel-open .insights-panel{right:0}
     <p style="font-size:12px"><strong>Rationale:</strong> 14 postcodes, $124K, 22km to nearest store. Springfield is QLD&rsquo;s master-planned growth corridor — now one of Brisbane&rsquo;s largest suburban centres. The catchment extends into Ipswich ($13K, 26km to nearest store) creating a combined SW Brisbane gap. <span class="highlight">Orion Springfield Central</span> is the obvious anchor — already a major regional centre with direct train connection.</p>
   </div>
 
-  <div class="insight-card" style="border-left:3px solid #ffbb44;cursor:pointer" onclick="map.flyTo([-31.77,116.02],12,{duration:1.5})">
+  <div class="insight-card" style="border-left:3px solid #ffbb44;cursor:pointer" onclick="showCatchment(-31.77,116.02,'Ellenbrook')">
     <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#ffdd66">5. Ellenbrook / Swan &mdash; WA</div>
     <div class="metric-row"><span class="metric-label">Catchment demand (15km)</span><span class="metric-val highlight">$65,232</span></div>
     <div class="metric-row"><span class="metric-label">Catchment orders</span><span class="metric-val">183</span></div>
@@ -260,6 +260,15 @@ document.getElementById('closePanel').onclick=()=>{document.body.classList.remov
 
 const map=L.map('map',{center:[-28.5,134],zoom:5,zoomControl:true,attributionControl:false,minZoom:4,maxZoom:18,scrollWheelZoom:true});
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:20}).addTo(map);
+let catchCircle=null,catchPin=null;
+function showCatchment(lat,lng,label){
+  if(catchCircle){map.removeLayer(catchCircle);catchCircle=null;}
+  if(catchPin){map.removeLayer(catchPin);catchPin=null;}
+  catchCircle=L.circle([lat,lng],{radius:15000,color:'#fca50a',weight:2,opacity:.8,fillColor:'#fca50a',fillOpacity:.1,dashArray:'8 6'}).addTo(map);
+  catchPin=L.marker([lat,lng],{icon:L.divIcon({className:'',html:'<div style="background:#fca50a;color:#000;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.4);transform:translate(-50%,-100%)">'+label+'<div style="width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid #fca50a;margin:0 auto"></div></div>',iconSize:[0,0],iconAnchor:[0,0]})}).addTo(map);
+  map.flyTo([lat,lng],11,{duration:1.5});
+}
+function clearCatchment(){if(catchCircle){map.removeLayer(catchCircle);catchCircle=null;}if(catchPin){map.removeLayer(catchPin);catchPin=null;}}
 /* flyTo removed */
 
 const sC={Boutique:'#e74c3c',Concession:'#3498db',Outlet:'#2ecc71'};
