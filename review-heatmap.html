@@ -199,7 +199,7 @@ document.getElementById('closePanel').onclick=()=>{document.body.classList.remov
 
 const map=L.map('map',{center:[-28.5,134],zoom:5,zoomControl:true,attributionControl:false,minZoom:4,maxZoom:18,scrollWheelZoom:true});
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:20}).addTo(map);
-setTimeout(()=>{map.flyTo([-37.81,144.96],10,{duration:2.0,easeLinearity:0.25});},1500);
+/* flyTo removed */
 
 const sC={Boutique:'#e74c3c',Concession:'#3498db',Outlet:'#2ecc71'};
 STORES.forEach(s=>{
