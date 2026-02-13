@@ -10,26 +10,19 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #0a0a0a;
-      color: #e0e0e0;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: background 0.5s ease;
     }
-
-    /* Password screen */
-    .auth-screen {
-      text-align: center;
-      padding: 2rem;
-    }
-    .auth-screen h1 {
+    .container { text-align: center; padding: 2rem; }
+    h1 {
       font-size: 1.4rem;
       font-weight: 300;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: #666;
-      margin-bottom: 2rem;
+      color: rgba(255,255,255,0.25);
       cursor: default;
       user-select: none;
       -webkit-user-select: none;
@@ -38,35 +31,37 @@
       display: none;
       gap: 0;
       max-width: 320px;
-      margin: 0 auto;
+      margin: 2rem auto 0;
     }
     .auth-form input {
       flex: 1;
       padding: 0.75rem 1rem;
-      background: #151515;
-      border: 1px solid #2a2a2a;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
       border-right: none;
       border-radius: 6px 0 0 6px;
-      color: #e0e0e0;
+      color: rgba(255,255,255,0.7);
       font-size: 0.95rem;
       outline: none;
       transition: border-color 0.2s;
+      backdrop-filter: blur(10px);
     }
-    .auth-form input:focus { border-color: #444; }
-    .auth-form input::placeholder { color: #444; }
+    .auth-form input:focus { border-color: rgba(255,255,255,0.2); }
+    .auth-form input::placeholder { color: rgba(255,255,255,0.15); }
     .auth-form button {
       padding: 0.75rem 1.25rem;
-      background: #1a1a1a;
-      border: 1px solid #2a2a2a;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
       border-radius: 0 6px 6px 0;
-      color: #888;
+      color: rgba(255,255,255,0.3);
       font-size: 0.85rem;
       cursor: pointer;
       transition: all 0.2s;
+      backdrop-filter: blur(10px);
     }
-    .auth-form button:hover { background: #222; color: #ccc; }
+    .auth-form button:hover { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); }
     .auth-error {
-      color: #ff4444;
+      color: rgba(239,68,68,0.7);
       font-size: 0.8rem;
       margin-top: 1rem;
       opacity: 0;
@@ -74,7 +69,6 @@
     }
     .auth-error.visible { opacity: 1; }
 
-    /* Dashboard screen */
     .dashboard-screen {
       display: none;
       padding: 3rem 2rem;
@@ -86,7 +80,7 @@
       font-weight: 300;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: #555;
+      color: rgba(255,255,255,0.25);
       margin-bottom: 2.5rem;
       text-align: center;
     }
@@ -99,53 +93,47 @@
     .project-list a {
       display: block;
       padding: 1rem 1.25rem;
-      background: #111;
-      border: 1px solid #1e1e1e;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
       border-radius: 8px;
-      color: #ccc;
+      color: rgba(255,255,255,0.65);
       text-decoration: none;
       transition: all 0.2s;
+      backdrop-filter: blur(10px);
     }
     .project-list a:hover {
-      background: #161616;
-      border-color: #333;
-      color: #fff;
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.85);
     }
-    .project-name {
-      font-size: 1rem;
-      font-weight: 500;
-    }
-    .project-desc {
-      font-size: 0.78rem;
-      color: #555;
-      margin-top: 0.3rem;
-    }
+    .project-name { font-size: 1rem; font-weight: 500; }
+    .project-desc { font-size: 0.78rem; color: rgba(255,255,255,0.3); margin-top: 0.3rem; }
     .logout {
       display: block;
       margin: 2.5rem auto 0;
       background: none;
       border: none;
-      color: #333;
+      color: rgba(255,255,255,0.12);
       font-size: 0.75rem;
       cursor: pointer;
       transition: color 0.2s;
     }
-    .logout:hover { color: #666; }
+    .logout:hover { color: rgba(255,255,255,0.3); }
   </style>
 </head>
 <body>
 
-  <!-- Password screen -->
   <div class="auth-screen" id="authScreen">
-    <h1>AG Projects</h1>
-    <form class="auth-form" id="authForm">
-      <input type="password" id="passInput" placeholder="Password" autocomplete="off" autofocus>
-      <button type="submit">→</button>
-    </form>
-    <div class="auth-error" id="authError">Incorrect password</div>
+    <div class="container">
+      <h1 id="title">AG Projects</h1>
+      <form class="auth-form" id="authForm">
+        <input type="password" id="passInput" placeholder="Password" autocomplete="off">
+        <button type="submit">→</button>
+      </form>
+      <div class="auth-error" id="authError">Incorrect password</div>
+    </div>
   </div>
 
-  <!-- Dashboard screen -->
   <div class="dashboard-screen" id="dashScreen">
     <h1>AG Projects</h1>
     <div class="project-list">
@@ -169,11 +157,24 @@
     const HASH = '538e8521b3e5660df5a25e5bc8f54505e6f7d0265e84d09e9d14840d5c3ed0ed';
     const KEY = 'ag_auth';
 
+    const gradients = [
+      'linear-gradient(145deg, #3a3a2a 0%, #2a2a1e 30%, #1f1f18 60%, #2d2b24 100%)',
+      'linear-gradient(155deg, #2b2f2a 0%, #1e2420 35%, #1a1d1a 65%, #252b25 100%)',
+      'linear-gradient(140deg, #352f28 0%, #2a2420 30%, #1c1a17 60%, #302a24 100%)',
+      'linear-gradient(150deg, #2a2d33 0%, #1e2028 35%, #191a20 65%, #24262e 100%)',
+      'linear-gradient(135deg, #33302a 0%, #28251e 30%, #1b1a16 60%, #2e2c25 100%)',
+      'linear-gradient(160deg, #2d3330 0%, #202825 35%, #1a1e1c 65%, #262d2a 100%)',
+      'linear-gradient(145deg, #38332a 0%, #2c2820 30%, #1e1c17 60%, #332f27 100%)',
+      'linear-gradient(150deg, #2f2a2a 0%, #231f1f 35%, #1a1818 65%, #2b2525 100%)',
+      'linear-gradient(140deg, #2a3030 0%, #1e2525 30%, #181d1d 60%, #252c2c 100%)',
+      'linear-gradient(155deg, #3a3528 0%, #2e2a1e 35%, #201e16 65%, #342f24 100%)',
+    ];
+
+    document.body.style.background = gradients[Math.floor(Math.random() * gradients.length)];
+
     async function sha256(str) {
-      const buf = await crypto.subtle.digest('SHA-256',
-        new TextEncoder().encode(str));
-      return Array.from(new Uint8Array(buf))
-        .map(b => b.toString(16).padStart(2, '0')).join('');
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
     }
 
     function unlock() {
@@ -182,28 +183,20 @@
       localStorage.setItem(KEY, Date.now().toString());
     }
 
-    // Check existing session (expires after 30 days)
     const saved = localStorage.getItem(KEY);
-    if (saved && (Date.now() - parseInt(saved)) < 30 * 24 * 60 * 60 * 1000) {
-      unlock();
-    }
+    if (saved && (Date.now() - parseInt(saved)) < 30 * 24 * 60 * 60 * 1000) unlock();
 
-    document.querySelector('.auth-screen h1').addEventListener('click', () => {
+    document.getElementById('title').addEventListener('click', () => {
       const form = document.getElementById('authForm');
-      if (form.style.display === 'flex') {
-        form.style.display = 'none';
-      } else {
-        form.style.display = 'flex';
-        document.getElementById('passInput').focus();
-      }
+      if (form.style.display === 'flex') { form.style.display = 'none'; }
+      else { form.style.display = 'flex'; document.getElementById('passInput').focus(); }
     });
 
     document.getElementById('authForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const val = document.getElementById('passInput').value;
-      if (await sha256(val) === HASH) {
-        unlock();
-      } else {
+      if (await sha256(val) === HASH) { unlock(); }
+      else {
         const err = document.getElementById('authError');
         err.classList.add('visible');
         document.getElementById('passInput').value = '';
