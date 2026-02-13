@@ -36,6 +36,7 @@ canvas{display:block}
 let scene,camera,renderer,clock,player,bingo,bones=[],collected=0,totalBones=20;
 let keys={},velY=0,onGround=true,gameStarted=false;
 let touchDir={x:0,y:0},touchJump=false;
+let mouseX=innerWidth/2,touchSteer=0;
 const SPEED=8,JUMP=10,GRAV=25,BOUND=25;
 let audioCtx;
 
@@ -269,14 +270,14 @@ function init(){
   }
 
   // input - mouse/touch steers, character auto-moves forward
-  let mouseX=innerWidth/2;
+  mouseX=innerWidth/2;
   addEventListener('mousemove',e=>{mouseX=e.clientX});
   addEventListener('keydown',e=>{keys[e.code]=true;if(e.code==='Space')e.preventDefault()});
   addEventListener('keyup',e=>{keys[e.code]=false});
   addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
 
   // touch - tap left/right half to steer, character always moves forward
-  let touchSteer=0;
+  touchSteer=0;
   addEventListener('touchstart',e=>{
     const x=e.touches[0].clientX;
     touchSteer=x<innerWidth/2?-1:1;
