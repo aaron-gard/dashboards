@@ -215,10 +215,10 @@ function uMk(){
   mL.clearLayers();const z=map.getZoom(),h=document.getElementById('zoomHint');
   if(z>=8)h.style.opacity='0';else{h.style.opacity='1';h.textContent='\u{1F50D} Scroll to zoom \u00B7 Postcode detail '+(8-z)+' zoom levels away';}
   if(z<8||!cP.length)return;
-  const br=z>=14?16:z>=12?14:z>=10?10:7;
+  const br=z>=14?10:z>=12?8:z>=10?6:4;
   cP.forEach(p=>{
     const la=p[0],ln=p[1],v=p[2],r=cM>0?v/cM:0,pc=gPC(la,ln);
-    const mk=L.circleMarker([la,ln],{radius:br,fillColor:gCol(Math.min(r,1)),fillOpacity:.85,color:'rgba(255,255,255,.4)',weight:1});
+    const mk=L.circleMarker([la,ln],{radius:br,fillColor:gCol(Math.min(r,1)),fillOpacity:.35,color:'rgba(255,255,255,.15)',weight:.5});
     let tt='<div class="postcode-tooltip">'+(pc?'<div class="pc-code">'+pc+'</div>':'')+'<div class="pc-sales">'+fC(v)+' this week</div>';
     if(pc&&PC_DETAIL[pc]){const d=PC_DETAIL[pc];tt+='<div class="pc-meta">'+d.d+'km to '+d.ns+' ('+d.nt+')</div><div class="pc-meta">CY2025: '+fC(d.dem)+' \u00B7 '+d.ord+' orders \u00B7 AOV $'+d.aov.toFixed(0)+'</div>';if(d.rpt!==null)tt+='<div class="pc-meta">Repeat: '+d.rpt+'% \u00B7 '+d.opc+' ord/cust</div>';}
     tt+='</div>';
