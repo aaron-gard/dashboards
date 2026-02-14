@@ -803,6 +803,13 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
 
 <script>
 
+// ===== FORMATTING HELPERS =====
+function fC(n) { return '$' + Math.round(n).toLocaleString(); }
+function fN(n) { return Math.round(n).toLocaleString(); }
+function fD(s) { var d = new Date(s + 'T00:00:00'); return d.toLocaleDateString('en-AU', {day:'numeric',month:'short'}); }
+function gPC(la, ln) { return REVIEW_PC_LOOKUP[la+','+ln] || ''; }
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
 // ===== GLOBAL STATE =====
 const viewTabs = document.querySelectorAll('.view-tab');
 const summaryView = document.getElementById('summaryView');
