@@ -1373,31 +1373,32 @@ try { buildSummaryCards(); } catch(e) { document.getElementById('locationCards')
     var mv = document.getElementById('mapView');
     var smv = document.getElementById('snsMapView');
     var ymv = document.getElementById('ytMapView');
+    // Reset body state classes
+    document.body.classList.remove('summary-active', 'sns-active', 'yt-active');
     if (view === 'summary') {
       sv.classList.add('active'); mv.classList.add('hidden'); smv.classList.add('hidden'); ymv.classList.add('hidden');
       document.body.classList.add('summary-active');
     } else if (view === 'map') {
       sv.classList.remove('active'); mv.classList.remove('hidden'); smv.classList.add('hidden'); ymv.classList.add('hidden');
-      document.body.classList.remove('summary-active');
       if (!mapInitialized) { initMap(); mapInitialized = true; }
       if (window._map) setTimeout(function(){ window._map.invalidateSize(); }, 100);
     } else if (view === 'sns-map') {
       sv.classList.remove('active'); mv.classList.add('hidden'); smv.classList.remove('hidden'); ymv.classList.add('hidden');
-      document.body.classList.remove('summary-active');
+      document.body.classList.add('sns-active');
       if (!snsMapInitialized) { initSnsMap(); snsMapInitialized = true; }
       if (window._snsMap) setTimeout(function(){ window._snsMap.invalidateSize(); }, 100);
     } else if (view === 'yt-map') {
       sv.classList.remove('active'); mv.classList.add('hidden'); smv.classList.add('hidden'); ymv.classList.remove('hidden');
-      document.body.classList.remove('summary-active');
+      document.body.classList.add('yt-active');
       if (!ytMapInitialized) { initYtMap(); ytMapInitialized = true; }
       if (window._ytMap) setTimeout(function(){ window._ytMap.invalidateSize(); }, 100);
     }
-    // Toggle insights columns
+    // Toggle insights panels - use explicit 'block' to override CSS defaults
     document.querySelectorAll('.insights-column .ins').forEach(function(el) {
       if (view === 'summary') { el.style.display = 'none'; }
-      else if (view === 'map') { el.style.display = el.classList.contains('review-ins') ? '' : 'none'; }
-      else if (view === 'sns-map') { el.style.display = el.classList.contains('sns-ins') ? '' : 'none'; }
-      else if (view === 'yt-map') { el.style.display = el.classList.contains('yt-ins') ? '' : 'none'; }
+      else if (view === 'map') { el.style.display = el.classList.contains('review-ins') ? 'block' : 'none'; }
+      else if (view === 'sns-map') { el.style.display = el.classList.contains('sns-ins') ? 'block' : 'none'; }
+      else if (view === 'yt-map') { el.style.display = el.classList.contains('yt-ins') ? 'block' : 'none'; }
     });
   }
   // Tab clicks
