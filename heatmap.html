@@ -792,7 +792,6 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
     </div>
   </div>
 </div>
-<script src="https://unpkg.com/leaflet  </div>
 </div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
@@ -805,6 +804,370 @@ const PC_DETAIL={"2155":{"d":7.1,"ns":"Myer Castle Hill","nt":"Concession","dem"
 
 
 // ===== YARRA TRAIL MAP INITIALIZATION (deferred) =====
+function showOnBrandMap(lat, lng, label, targetView) {
+  // Switch to the correct brand map view
+  viewTabs.forEach(t => t.classList.remove('active'));
+  document.querySelector('[data-view="'+targetView+'"]').classList.add('active');
+  summaryView.classList.remove('active');
+  document.body.classList.remove('summary-active');
+
+  if (targetView === 'map') {
+    mapView.classList.remove('hidden');
+    document.getElementById('snsMapView').classList.add('hidden');
+    document.getElementById('ytMapView').classList.add('hidden');
+    document.body.classList.remove('sns-active');
+    document.body.classList.remove('yt-active');
+    if (!mapInitialized) { initMap(); mapInitialized = true; }
+    setTimeout(() => { window._map.invalidateSize(); showCatchment(lat, lng, label); }, 100);
+  } else if (targetView === 'sns-map') {
+    mapView.classList.add('hidden');
+    document.getElementById('snsMapView').classList.remove('hidden');
+    document.getElementById('ytMapView').classList.add('hidden');
+    document.body.classList.add('sns-active');
+    document.body.classList.remove('yt-active');
+    if (!snsMapInitialized) { initSnsMap(); snsMapInitialized = true; }
+    setTimeout(() => { window._snsMap.invalidateSize(); window._snsMap.flyTo([lat, lng], 11, {duration:1.5}); }, 100);
+  }
+  else if (targetView === 'yt-map') {
+    mapView.classList.add('hidden');
+    document.getElementById('snsMapView').classList.add('hidden');
+    document.getElementById('ytMapView').classList.remove('hidden');
+    document.body.classList.add('yt-active');
+    document.body.classList.remove('sns-active');
+    if (!ytMapInitialized) { initYtMap(); ytMapInitialized = true; }
+    setTimeout(() => { window._ytMap.invalidateSize(); window._ytMap.flyTo([lat, lng], 11, {duration:1.5}); }, 100);
+  }
+}
+
+// Keep legacy function for onclick handlers in insights panel
+function showOnMap(lat, lng, label) {
+  showOnBrandMap(lat, lng, label, 'map');
+}
+
+// ===== MAP INITIALIZATION (deferred) =====
+let catchCircle = null, catchPin = null;
+
+function showCatchment(lat, lng, label) {
+  if (!window._map) return;
+  if (catchCircle) { window._map.removeLayer(catchCircle); catchCircle = null; }
+  if (catchPin) { window._map.removeLayer(catchPin); catchPin = null; }
+  catchCircle = L.circle([lat, lng], {radius:15000, color:'#fca50a', weight:2, opacity:.8, fillColor:'#fca50a', fillOpacity:.1, dashArray:'8 6'}).addTo(window._map);
+  catchPin = L.marker([lat, lng], {icon:L.divIcon({className:'', html:'<div style="background:#fca50a;color:#000;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.4);transform:translate(-50%,-100%)">'+label+'<div style="width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid #fca50a;margin:0 auto"></div></div>', iconSize:[0,0], iconAnchor:[0,0]})}).addTo(window._map);
+  window._map.flyTo([lat, lng], 11, {duration:1.5});
+}
+
+function clearCatchment() {
+  if (catchCircle) { window._map.removeLayer(catchCircle); catchCircle = null; }
+  if (catchPin) { window._map.removeLayer(catchPin); catchPin = null; }
+}
+
+let snsCatchCircle = null, snsCatchPin = null;
+function showSnsCatchment(lat, lng, label) {
+  if (!window._snsMap) return;
+  if (snsCatchCircle) { window._snsMap.removeLayer(snsCatchCircle); snsCatchCircle = null; }
+  if (snsCatchPin) { window._snsMap.removeLayer(snsCatchPin); snsCatchPin = null; }
+  snsCatchCircle = L.circle([lat, lng], {radius:15000, color:'#FF4B0F', weight:2, opacity:.8, fillColor:'#FF4B0F', fillOpacity:.1, dashArray:'8 6'}).addTo(window._snsMap);
+  snsCatchPin = L.marker([lat, lng], {icon:L.divIcon({className:'', html:'<div style="background:#FF4B0F;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.4);transform:translate(-50%,-100%)">'+label+'<div style="width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid #FF4B0F;margin:0 auto"></div></div>', iconSize:[0,0], iconAnchor:[0,0]})}).addTo(window._snsMap);
+  window._snsMap.flyTo([lat, lng], 11, {duration:1.5});
+}
+function clearSnsCatchment() {
+  if (snsCatchCircle) { window._snsMap.removeLayer(snsCatchCircle); snsCatchCircle = null; }
+  if (snsCatchPin) { window._snsMap.removeLayer(snsCatchPin); snsCatchPin = null; }
+}
+
+function initMap() {
+  const isDark = document.body.classList.contains('dark-mode');
+  const tileUrl = isDark
+    ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+    : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+
+  const map = L.map('map', {center:[-28.5,134], zoom:5, zoomControl:true, attributionControl:false, minZoom:4, maxZoom:18, scrollWheelZoom:true});
+  tileLayer = L.tileLayer(tileUrl, {subdomains:'abcd', maxZoom:20}).addTo(map);
+  window._map = map;
+
+  const sC = {Boutique:'#e74c3c', Concession:'#3498db', Outlet:'#2ecc71'};
+  STORES.forEach(s => {
+    const m = L.circleMarker([s.la, s.ln], {radius:7, fillColor:sC[s.t]||'#fff', fillOpacity:.9, color:'#fff', weight:2, zIndexOffset:1000});
+    m.bindTooltip('<div style="font-weight:700;font-size:14px">'+s.n+'</div><div style="font-size:11px;color:var(--tx2)">'+s.t+' &middot; '+s.c+', '+s.s+'</div>', {className:'postcode-tooltip', direction:'top', offset:[0,-10]});
+    m.addTo(map);
+  });
+
+  // Competitor stores
+  const COMP_COLORS = {'Country Road':'#a855f7','Witchery':'#ec4899','Mimco':'#f59e0b','Trenery':'#14b8a6','Seed Heritage':'#f97316','Gorman':'#06b6d4','Cue':'#8b5cf6','Sportscraft':'#10b981','Portmans':'#ef4444','Forever New':'#84cc16'};
+  const compLayer = L.layerGroup();
+  COMP_STORES.forEach(s => {
+    const col = COMP_COLORS[s.b] || '#a855f7';
+    const m = L.circleMarker([s.la, s.ln], {radius:5, fillColor:col, fillOpacity:.85, color:'rgba(255,255,255,.6)', weight:1.5, zIndexOffset:900});
+    m.bindTooltip('<div style="font-weight:700;font-size:13px">'+s.b+'</div><div style="font-size:12px">'+s.n+'</div><div style="font-size:10px;color:var(--tx2)">'+s.c+'</div>', {className:'postcode-tooltip', direction:'top', offset:[0,-8]});
+    compLayer.addLayer(m);
+  });
+  document.getElementById('compToggle').addEventListener('change', function() {
+    if (this.checked) { compLayer.addTo(map); document.getElementById('compBrandLegend').classList.add('visible'); }
+    else { map.removeLayer(compLayer); document.getElementById('compBrandLegend').classList.remove('visible'); }
+  });
+
+  let hL = null, mL = L.layerGroup().addTo(map), cP = [], cM = 0;
+  function gCol(r){const S=[[0,[0,0,4]],[.1,[22,11,57]],[.2,[66,10,104]],[.3,[106,23,110]],[.4,[147,38,103]],[.5,[188,55,84]],[.6,[221,81,58]],[.7,[243,120,25]],[.8,[252,165,10]],[.9,[246,215,70]],[1,[252,255,164]]];let lo=S[0],hi=S[S.length-1];for(let i=0;i<S.length-1;i++){if(r>=S[i][0]&&r<=S[i+1][0]){lo=S[i];hi=S[i+1];break;}}const t=(r-lo[0])/(hi[0]-lo[0]||1);const c=lo[1].map((v,i)=>Math.round(v+(hi[1][i]-v)*t));return 'rgb('+c[0]+','+c[1]+','+c[2]+')';}
+
+  function uMk() {
+    mL.clearLayers();
+    const z = map.getZoom(), h = document.getElementById('zoomHint');
+    if (z >= 8) h.style.opacity = '0';
+    else { h.style.opacity = '1'; h.textContent = '\u{1F50D} Scroll to zoom \u00B7 Postcode detail '+(8-z)+' zoom levels away'; }
+    if (z < 8 || !cP.length) return;
+    const br = z >= 14 ? 10 : z >= 12 ? 8 : z >= 10 ? 6 : 4;
+    cP.forEach(p => {
+      const la=p[0], ln=p[1], v=p[2], r=cM>0?v/cM:0, pc=gPC(la,ln);
+      const mk = L.circleMarker([la,ln], {radius:br, fillColor:gCol(Math.min(r,1)), fillOpacity:.35, color:'rgba(255,255,255,.15)', weight:.5});
+      let tt = '<div class="postcode-tooltip">'+(pc?'<div class="pc-code">'+pc+'</div>':'')+'<div class="pc-sales">'+fC(v)+' this week</div>';
+      if (pc && PC_DETAIL[pc]) { const d=PC_DETAIL[pc]; tt+='<div class="pc-meta">'+d.d+'km to '+d.ns+' ('+d.nt+')</div><div class="pc-meta">CY2025: '+fC(d.dem)+' \u00B7 '+d.ord+' orders \u00B7 AOV $'+d.aov.toFixed(0)+'</div>'; if(d.rpt!==null) tt+='<div class="pc-meta">Repeat: '+d.rpt+'% \u00B7 '+d.opc+' ord/cust</div>'; }
+      tt += '</div>';
+      mk.bindTooltip(tt, {permanent:false, direction:'top', offset:[0,-8], className:'pc-tooltip-wrapper'});
+      mL.addLayer(mk);
+    });
+  }
+
+  function uWk(i) {
+    const w=DATA[i], pts=w[4]; cP=pts;
+    document.getElementById('weekLabel').textContent = 'Week '+(i+1)+': '+fD(w[0])+' \u2014 '+fD(w[1]);
+    document.getElementById('totalSales').textContent = fC(w[2]);
+    document.getElementById('totalOrders').textContent = fN(w[3]);
+    document.getElementById('totalPostcodes').textContent = fN(pts.length);
+    const _ws=document.getElementById('weekSlider'); if(_ws) _ws.value = i;
+    let mx=0; pts.forEach(p => { if(p[2]>mx) mx=p[2]; }); cM=mx;
+    const nm = pts.map(p => [p[0], p[1], mx>0 ? p[2]/mx : 0]);
+    if (hL) hL.setLatLngs(nm);
+    else { hL=L.heatLayer(nm, {radius:30, blur:25, maxZoom:12, max:0.6, minOpacity:0.15, gradient:{0:'rgba(0,0,0,0)',0.05:'#0d0829',0.15:'#2a0a5e',0.25:'#6a0d83',0.35:'#a8226a',0.45:'#d63a4a',0.55:'#f05a24',0.65:'#f3781e',0.75:'#fca50a',0.85:'#f6d746',0.95:'#fcffa4',1:'#fcffa4'}}).addTo(map); }
+    uMk();
+  }
+
+  map.on('zoomend', () => { if(hL){ const z=map.getZoom(); hL.setOptions({radius:z>=12?22:z>=10?26:z>=8?28:30, blur:z>=12?18:z>=10?22:z>=8?24:25}); } uMk(); });
+
+  const sl=document.getElementById('weekSlider'), pb=document.getElementById('playBtn'), sb=document.getElementById('speedBtn');
+  let pl=false, pi=null, sp=[1,2,4], si=0;
+  function gD(){return[800,400,150][si];}
+  function tP(){if(!sl)return;pl=!pl;pb.textContent=pl?'\u23F8':'\u25B6';if(pl)pi=setInterval(()=>{let v=(parseInt(sl.value)+1)%DATA.length;sl.value=v;uWk(v);},gD());else clearInterval(pi);}
+  if(sl){
+    sl.addEventListener('input', function(){ if(typeof currentMonth!=='undefined'&&typeof getWeeksForMonth==='function'){const indices=getWeeksForMonth(currentMonth);const li=parseInt(sl.value);if(li>=0&&li<indices.length){weekMode=true;uWk(indices[li]);}}});
+    pb.addEventListener('click', tP);
+    sb.addEventListener('click', ()=>{si=(si+1)%3;sb.textContent=sp[si]+'\u00D7';if(pl){clearInterval(pi);pi=setInterval(()=>{let v=(parseInt(sl.value)+1)%DATA.length;sl.value=v;uWk(v);},gD());}});
+    document.addEventListener('keydown', e=>{if(e.key===' '){e.preventDefault();tP();}else if(e.key==='ArrowRight'){let v=Math.min(parseInt(sl.value)+1,DATA.length-1);sl.value=v;uWk(v);}else if(e.key==='ArrowLeft'){let v=Math.max(parseInt(sl.value)-1,0);sl.value=v;uWk(v);}});
+  }
+
+  // Month filter
+  const monthFilter = document.getElementById('monthFilter');
+  const weekSliderRow = document.querySelector('.slider-row'); // removed from DOM
+  const weekTicksEl = document.querySelector('.week-ticks');
+  const weekLabelEl = document.getElementById('weekLabel');
+
+  function getMonthFromDate(dateStr) { return new Date(dateStr+'T00:00:00').getMonth(); }
+  function getWeeksForMonth(monthIdx) {
+    if (monthIdx === -1) return DATA.map((_, i) => i);
+    return DATA.map((w, i) => [w, i]).filter(([w]) => getMonthFromDate(w[0]) === monthIdx).map(([_, i]) => i);
+  }
+  // Make accessible for slider
+  window.getWeeksForMonth = getWeeksForMonth;
+
+  function aggregateWeeks(indices) {
+    const merged = {};
+    let totalSales = 0, totalOrders = 0;
+    indices.forEach(i => {
+      const w = DATA[i];
+      totalSales += w[2];
+      totalOrders += w[3];
+      w[4].forEach(p => {
+        const key = p[0]+','+p[1];
+        if (!merged[key]) merged[key] = [p[0], p[1], 0];
+        merged[key][2] += p[2];
+      });
+    });
+    return { totalSales, totalOrders, pts: Object.values(merged), count: indices.length };
+  }
+
+  function showAggregated(monthIdx) {
+    const indices = getWeeksForMonth(monthIdx);
+    if (!indices.length) return;
+    const agg = aggregateWeeks(indices);
+    cP = agg.pts;
+    if (weekLabelEl) { if (monthIdx === -1) weekLabelEl.textContent = 'All Year \u2014 '+DATA.length+' weeks aggregated'; else weekLabelEl.textContent = MONTHS[monthIdx]+' \u2014 '+agg.count+' weeks aggregated'; }
+    document.getElementById('totalSales').textContent = fC(agg.totalSales);
+    document.getElementById('totalOrders').textContent = fN(agg.totalOrders);
+    document.getElementById('totalPostcodes').textContent = fN(agg.pts.length);
+    const aovEl = document.getElementById('totalAOV');
+    if (aovEl && agg.totalOrders > 0) aovEl.textContent = '$' + (agg.totalSales / agg.totalOrders).toFixed(0);
+    let mx=0; agg.pts.forEach(p => { if(p[2]>mx) mx=p[2]; }); cM=mx;
+    const nm = agg.pts.map(p => [p[0], p[1], mx>0 ? p[2]/mx : 0]);
+    if (hL) hL.setLatLngs(nm);
+    else { hL=L.heatLayer(nm, {radius:30, blur:25, maxZoom:12, max:0.6, minOpacity:0.15, gradient:{0:'rgba(0,0,0,0)',0.05:'#0d0829',0.15:'#2a0a5e',0.25:'#6a0d83',0.35:'#a8226a',0.45:'#d63a4a',0.55:'#f05a24',0.65:'#f3781e',0.75:'#fca50a',0.85:'#f6d746',0.95:'#fcffa4',1:'#fcffa4'}}).addTo(map); }
+    uMk();
+  }
+
+  let currentMonth = -1;
+  let weekMode = false;
+  // Make accessible
+  window.currentMonth = currentMonth;
+
+  monthFilter.addEventListener('change', function() {
+    currentMonth = parseInt(this.value);
+    window.currentMonth = currentMonth;
+    if (pl) tP();
+    showAggregated(currentMonth);
+    if(weekSliderRow) weekSliderRow.style.display = 'flex';
+    if(weekTicksEl) weekTicksEl.style.display = 'flex';
+    if(sl){
+      const indices = getWeeksForMonth(currentMonth);
+      sl.min = 0;
+      sl.max = indices.length - 1;
+      sl.value = 0;
+    }
+    weekMode = false;
+  });
+
+  if(sl){
+    sl.addEventListener('input', function(e) {
+      e.stopImmediatePropagation();
+      const indices = getWeeksForMonth(currentMonth);
+      const localIdx = parseInt(sl.value);
+      if (localIdx >= 0 && localIdx < indices.length) {
+        weekMode = true;
+        uWk(indices[localIdx]);
+      }
+    }, true);
+  }
+
+  // Show aggregated on load
+  showAggregated(-1);
+}
+
+
+// ===== SNS MAP INITIALIZATION (deferred) =====
+function initSnsMap() {
+  const isDark = document.body.classList.contains('dark-mode');
+  const tileUrl = isDark
+    ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+    : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+
+  const snsMap = L.map('snsMap', {center:[-28.5,134], zoom:5, zoomControl:true, attributionControl:false, minZoom:4, maxZoom:18, scrollWheelZoom:true});
+  let snsTileLayer = L.tileLayer(tileUrl, {subdomains:'abcd', maxZoom:20}).addTo(snsMap);
+  window._snsMap = snsMap;
+  window._snsTileLayer = snsTileLayer;
+
+  // Heatmap layer
+  const hmPts = SNS_HM.map(p => {
+    const maxDem = 107547; // max demand for normalization
+    return [p[0], p[1], p[4] / maxDem];
+  });
+  const snsHeatLayer = L.heatLayer(hmPts, {
+    radius:30, blur:25, maxZoom:12, max:0.6, minOpacity:0.15,
+    gradient:{0:'rgba(0,0,0,0)',0.1:'rgba(255,75,15,0.1)',0.25:'rgba(255,75,15,0.3)',0.4:'rgba(255,75,15,0.5)',0.55:'#FF4B0F',0.7:'#FD8C33',0.85:'#FDC145',0.95:'#fff',1:'#fff'}
+  }).addTo(snsMap);
+
+  // Store markers
+  const snsStoreColors = {'SNS Store':'#FF4B0F', 'Myer Concession':'#3398FF'};
+  SNS_STORES.forEach(s => {
+    const col = snsStoreColors[s.t] || '#FF4B0F';
+    const m = L.circleMarker([s.lat, s.lng], {radius:7, fillColor:col, fillOpacity:.9, color:'#fff', weight:2, zIndexOffset:1000});
+    m.bindTooltip('<div style="font-weight:700;font-size:14px">'+s.n+'</div><div style="font-size:11px;color:#999">'+s.t+'</div>
+    <div class="ins yt-ins">
+      <h2>Store Halo Analysis</h2>
+      <div class="subtitle">Yarra Trail &middot; Physical stores &times; online demand</div>
+      <h3 style="color:#6B4C3B">&#128293; The Halo Effect</h3>
+      <p><span class="highlight" style="color:#6B4C3B">49.0%</span> of online demand ($918K) comes from postcodes within <span class="highlight" style="color:#6B4C3B">10km of a store</span>. With 109 locations (2 boutiques, 15 concessions, 89 stockists), the physical network captures nearly half of online demand.</p>
+      <div class="insight-card">
+        <div style="font-weight:600;margin-bottom:8px">Online demand by distance to nearest store</div>
+        <div class="metric-row"><span class="metric-label">0-5km</span><span class="metric-val">$480K (25.6%)</span></div><div class="bar-container"><div class="bar-fill" style="width:100%;background:linear-gradient(90deg,#6B4C3B,#C4956A)"></div></div>
+        <div class="metric-row"><span class="metric-label">5-10km</span><span class="metric-val">$438K (23.4%)</span></div><div class="bar-container"><div class="bar-fill" style="width:91%;background:linear-gradient(90deg,#6B4C3B,#C4956A)"></div></div>
+        <div class="metric-row"><span class="metric-label">10-20km</span><span class="metric-val">$356K (19.0%)</span></div><div class="bar-container"><div class="bar-fill" style="width:74%;background:linear-gradient(90deg,#6B4C3B,#C4956A)"></div></div>
+        <div class="metric-row"><span class="metric-label">20-50km</span><span class="metric-val">$301K (16.1%)</span></div><div class="bar-container"><div class="bar-fill" style="width:62%;background:linear-gradient(90deg,#6B4C3B,#C4956A)"></div></div>
+        <div class="metric-row"><span class="metric-label">50-100km</span><span class="metric-val">$175K (9.3%)</span></div><div class="bar-container"><div class="bar-fill" style="width:36%;background:linear-gradient(90deg,#6B4C3B,#C4956A)"></div></div>
+        <div class="metric-row"><span class="metric-label">100km+</span><span class="metric-val">$124K (6.6%)</span></div><div class="bar-container"><div class="bar-fill" style="width:25%;background:linear-gradient(90deg,#6B4C3B,#C4956A)"></div></div>
+      </div>
+      <h3 style="color:#6B4C3B">&#127793; Brand Profile</h3>
+      <p>Yarra Trail serves a <span class="highlight" style="color:#6B4C3B">mature female demographic</span> with premium casual wear. AOV of <span class="highlight" style="color:#6B4C3B">$165.39</span> reflects considered purchasing.</p>
+      <h3 style="color:#6B4C3B">&#128205; Opportunity Clusters</h3>
+      <p>Toggle "Opportunity Zones" on the map to see <span class="highlight" style="color:#6B4C3B">25 clusters</span> of high-demand postcodes far from current stores. These represent potential for pop-ups, events, or new stockist partnerships.</p>
+    </div><div style="font-size:10px;color:#666">'+s.a+'</div>', {className:'postcode-tooltip', direction:'top', offset:[0,-10]});
+    m.addTo(snsMap);
+  });
+
+  // Opportunity cluster circles (toggle)
+  const snsClusterLayer = L.layerGroup();
+  SNS_CLUSTERS.forEach(c => {
+    const radius = Math.max(8000, Math.min(25000, c.avg_dist * 800));
+    const circle = L.circle([c.lat, c.lng], {radius:radius, color:'#FDC145', weight:2, opacity:.7, fillColor:'#FDC145', fillOpacity:.08, dashArray:'8 6'});
+    let tooltipHtml = '<div style="font-weight:700;font-size:13px">'+c.locality+', '+c.state+'</div>';
+    tooltipHtml += '<div style="font-size:12px;color:#FF4B0F;font-weight:600">'+fC(c.demand)+' demand</div>';
+    tooltipHtml += '<div style="font-size:11px">'+c.orders+' orders &middot; '+c.n+' postcodes</div>';
+    tooltipHtml += '<div style="font-size:10px;color:#999">Avg '+c.avg_dist.toFixed(1)+'km from nearest store</div>';
+    circle.bindTooltip(tooltipHtml, {className:'postcode-tooltip', direction:'top'});
+    snsClusterLayer.addLayer(circle);
+  });
+
+  document.getElementById('snsOppToggle').addEventListener('change', function() {
+    if (this.checked) snsClusterLayer.addTo(snsMap);
+    else snsMap.removeLayer(snsClusterLayer);
+  });
+
+  // Postcode bubbles at zoom 8+
+  const snsMarkerLayer = L.layerGroup().addTo(snsMap);
+  function snsGCol(r){
+    const t = Math.min(r, 1);
+    const r1 = Math.round(255 * (1 - t * 0.3));
+    const g1 = Math.round(75 + (193 - 75) * t);
+    const b1 = Math.round(15 + (69 - 15) * t);
+    return 'rgb('+r1+','+g1+','+b1+')';
+  }
+
+  function updateSnsMarkers() {
+    snsMarkerLayer.clearLayers();
+    const z = snsMap.getZoom();
+    const h = document.getElementById('snsZoomHint');
+    if (z >= 8) h.style.opacity = '0';
+    else { h.style.opacity = '1'; h.textContent = '\u{1F50D} Scroll to zoom \u00B7 Postcode detail '+(8-z)+' zoom levels away'; }
+    if (z < 8) return;
+    const maxDem = 107547;
+    const br = z >= 14 ? 10 : z >= 12 ? 8 : z >= 10 ? 6 : 4;
+    SNS_HM.forEach(p => {
+      const [la,ln,_,pc,dem,ord,aov,dist,loc,yoy] = p;
+      const r = dem / maxDem;
+      const mk = L.circleMarker([la,ln], {radius:br, fillColor:snsGCol(r), fillOpacity:.4, color:'rgba(255,255,255,.15)', weight:.5});
+      let tt = '<div class="postcode-tooltip"><div class="pc-code">'+pc+'</div>';
+      tt += '<div style="font-size:11px;color:#999">'+loc+'</div>';
+      tt += '<div class="pc-sales" style="color:#FF4B0F">'+fC(dem)+' demand</div>';
+      tt += '<div class="pc-meta">'+ord+' orders &middot; AOV $'+aov.toFixed(2)+'</div>';
+      tt += '<div class="pc-meta">'+dist.toFixed(1)+'km to nearest store</div>';
+      tt += '</div>';
+      mk.bindTooltip(tt, {permanent:false, direction:'top', offset:[0,-8], className:'pc-tooltip-wrapper'});
+      snsMarkerLayer.addLayer(mk);
+    });
+  }
+
+  snsMap.on('zoomend', () => {
+    if(snsHeatLayer){
+      const z=snsMap.getZoom();
+      snsHeatLayer.setOptions({radius:z>=12?22:z>=10?26:z>=8?28:30, blur:z>=12?18:z>=10?22:z>=8?24:25});
+    }
+    updateSnsMarkers();
+  });
+  updateSnsMarkers();
+
+  // Theme reactivity: observe dark-mode class changes
+  const snsThemeObs = new MutationObserver(() => {
+    if (window._snsMap && window._snsTileLayer) {
+      const dark = document.body.classList.contains('dark-mode');
+      window._snsMap.removeLayer(window._snsTileLayer);
+      const url = dark
+        ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+        : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+      window._snsTileLayer = L.tileLayer(url, {subdomains:'abcd', maxZoom:20}).addTo(window._snsMap);
+      window._snsTileLayer.bringToBack();
+    }
+  });
+  snsThemeObs.observe(document.body, {attributes:true, attributeFilter:['class']});
+}
+
+
+
 function initYtMap() {
   const isDark = document.body.classList.contains('dark-mode');
   const tileUrl = isDark
@@ -897,6 +1260,978 @@ function initYtMap() {
     });
   }
 }
+const LOCATIONS = [
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Macarthur South / Camden',
+    score: 0.84,
+    state: 'NSW',
+    demand: '$119.3K',
+    demandRaw: 119296,
+    orders: '1,263',
+    aov: '$94',
+    postcodes: 5,
+    mapView: 'sns-map',
+    lat: -33.99, lng: 150.56, label: 'Macarthur South',
+    keyPostcodes: '2570 Camden ($107K) • 2745 Oran Park ($48K) • 2171 Spring Farm ($28K) • 2179 Leppington ($21K) • 2557 Catherine Fields ($15K)',
+    rationale: 'Highest demand/child ($6.99), highest income ($119K/yr), youngest families (median 33), zero competitors within 20km. Pure white space in Camden/Oran Park corridor.',
+    compValidation: 'Zero competitors within 20km. Nearest kids footwear stores are 24km away at Macarthur Square. Pure white space in the fastest-growing family corridor in Australia.',
+    compBrands: 'None within 20km',
+    venue: 'Gregory Hills or Oran Park Town Centre',
+    population: '69,410',
+    income: '$119K/yr',
+    kids: '17,068 (24.6%)',
+    medianAge: '33',
+    nearest: '24km (Macarthur Sq)',
+    color: '#FF4B0F',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Craigieburn / Northern Growth',
+    score: 0.76,
+    state: 'VIC',
+    demand: '$84.6K',
+    demandRaw: 84590,
+    orders: '947',
+    aov: '$89',
+    postcodes: 5,
+    mapView: 'sns-map',
+    lat: -37.52, lng: 144.94, label: 'Craigieburn',
+    keyPostcodes: '3064 Craigieburn ($50.6K) • 3750 Wollert ($19.8K) • 3756 Chintin ($9.4K) • 3753 Beveridge ($4.2K)',
+    rationale: 'Largest kids concentration (41,862), youngest median age (31), only 1 competitor. Melbourne northern corridor adding thousands of young families per year.',
+    compValidation: 'Only 1 competitor within 10km (Athlete's Foot at Craigieburn Central). Melbourne's northern corridor is severely underserved for kids' footwear.',
+    compBrands: 'The Athlete's Foot',
+    venue: 'Craigieburn Central',
+    population: '160,061',
+    income: '$97K/yr',
+    kids: '41,862 (26.2%)',
+    medianAge: '31',
+    nearest: '10km (Epping)',
+    color: '#FF4B0F',
+  },
+  {
+    brand: 'Review',
+    brandClass: 'review',
+    brandColor: '#d4380d',
+    name: 'NW Sydney Corridor',
+    score: 0.71,
+    state: 'NSW',
+    demand: '$280,369',
+    demandRaw: 280369,
+    orders: '948',
+    aov: '$296',
+    postcodes: 18,
+    mapView: 'map',
+    lat: -33.71, lng: 150.87, label: 'NW Sydney',
+    population: '388,383',
+    income: '$123,292/yr',
+    medianAge: 36,
+    women: '85,326 (22.0%)',
+    nearest: 'Myer Castle Hill (15km)',
+    competitors: '11 stores, 6 brands',
+    compBrands: 'Country Road, Cue, Forever New, Portmans, Seed Heritage, Sportscraft',
+    venue: 'Rouse Hill Town Centre or Marsden Park',
+    compValidation: '11 competitor stores from 6 brands (including Country Road and Cue at Rouse Hill) confirm this is an established fashion retail precinct.',
+    demandPerCapita: '$0.72',
+    color: '#ff4444',
+    keyPostcodes: '2155 Hills District ($57K) • 2153 Winston Hills ($45K) • 2765 The Ponds ($29K) • 2147 Seven Hills ($18K) • 2148 Blacktown ($16K) • 2768 Stanhope Gardens ($13K) • 2763 Quakers Hill ($13K) • 2760 St Marys ($13K)',
+    rationale: 'The strongest recommendation on every metric. 388K people, $123K median household income (28% above other catchments). 85K women aged 25-54. The $0.72 demand-per-capita is nearly double any other catchment. Castle Hill is 15km away across a traffic/toll barrier in a different trade area.',
+  },
+  {
+    brand: 'Review',
+    brandClass: 'review',
+    brandColor: '#d4380d',
+    name: 'Western Melbourne Corridor',
+    score: 0.70,
+    state: 'VIC',
+    demand: '$194,129',
+    demandRaw: 194129,
+    orders: '657',
+    aov: '$295',
+    postcodes: 15,
+    mapView: 'map',
+    lat: -37.88, lng: 144.66, label: 'Western Melbourne',
+    population: '490,302',
+    income: '$96,044/yr',
+    medianAge: 34,
+    women: '113,106 (23.1%)',
+    nearest: 'Myer Highpoint (18km)',
+    competitors: '2 stores, 2 brands',
+    compBrands: 'Portmans, Forever New',
+    venue: 'Pacific Werribee',
+    compValidation: 'Only Portmans and Forever New have entered this corridor - low competitor density + massive population = first-mover advantage.',
+    demandPerCapita: '$0.40',
+    color: '#ff5544',
+    keyPostcodes: '3030 Werribee ($57K) • 3029 Hoppers Crossing ($29K) • 3023 Caroline Springs ($18K) • 3020 Sunshine ($17K) • 3012 Brooklyn ($15K) • 3024 Wyndham Vale ($9K)',
+    rationale: 'Largest population base (490K) with highest pool of target customers - 113K women aged 25-54. Youngest catchment (median age 34). Wyndham is one of Australia's fastest-growing LGAs. Highpoint is 18km away across the West Gate Bridge.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Springfield / Ipswich',
+    score: 0.68,
+    state: 'QLD',
+    demand: '$52.4K',
+    demandRaw: 52383,
+    orders: '597',
+    aov: '$88',
+    postcodes: 5,
+    mapView: 'sns-map',
+    lat: -27.65, lng: 152.85, label: 'Springfield',
+    keyPostcodes: '4300 Springfield ($20.1K) • 4305 Basin Pocket ($16K) • 4124 Boronia Heights ($8.3K)',
+    rationale: 'Largest population (211K) and most children (49,880). Nearly 50K kids with barely any local kids footwear options. 7 competitor brands within 20km confirms the market.',
+    compValidation: '2 competitors within 10km, 10 within 20km. SW Brisbane supports kids retail but competitors cluster at Indooroopilly/Mt Gravatt 20km away. Springfield is the emerging node.',
+    compBrands: 'The Athlete's Foot, Platypus Shoes, Skechers, Betts Kids, Hype DC, The Trybe, Bobux',
+    venue: 'Orion Springfield Central',
+    population: '210,818',
+    income: '$88K/yr',
+    kids: '49,880 (23.7%)',
+    medianAge: '34',
+    nearest: '22km (Indooroopilly)',
+    color: '#FF4B0F',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Melton / Aintree',
+    score: 0.64,
+    state: 'VIC',
+    demand: '$57.8K',
+    demandRaw: 57778,
+    orders: '637',
+    aov: '$91',
+    postcodes: 4,
+    mapView: 'sns-map',
+    lat: -37.69, lng: 144.61, label: 'Melton / Aintree',
+    keyPostcodes: '3336 Aintree ($19.8K) • 3338 Brookfield ($17.8K) • 3337 Harkness ($13.8K) • 3335 Bonnie Brook ($6.5K)',
+    rationale: 'Pure white space - zero competitors within 20km. Second-youngest median age (32), 26K children. Western Melbourne corridor adding suburbs that did not exist five years ago.',
+    compValidation: 'Zero competitors within 20km. Western Melbourne's corridor has no dedicated kids' footwear retailer. Complete white space.',
+    compBrands: 'None within 20km',
+    venue: 'Woodgrove Shopping Centre',
+    population: '101,718',
+    income: '$88K/yr',
+    kids: '26,445 (26.0%)',
+    medianAge: '32',
+    nearest: '18km (Highpoint)',
+    color: '#FF4B0F',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Wollongong / Illawarra',
+    score: 0.58,
+    state: 'NSW',
+    demand: '$84.8K',
+    demandRaw: 84795,
+    orders: '915',
+    aov: '$93',
+    postcodes: 6,
+    mapView: 'sns-map',
+    lat: -34.36, lng: 150.88, label: 'Wollongong',
+    keyPostcodes: '2500 Coniston ($19.1K) • 2515 Austinmer ($15.2K) • 2518 Bellambi ($14.9K) • 2517 Russell Vale ($13.5K)',
+    rationale: 'Strong demand ($85K) and high demand/child ($4.29), but oldest median age (38), lowest kids concentration (16.1%), and 4 existing competitors within 10km.',
+    compValidation: '4 competitors within 10km across 4 brands. Most established competitive landscape of the five recommendations, but no specialist kids' footwear store.',
+    compBrands: 'Betts Kids, Platypus Shoes, Skechers, The Athlete's Foot',
+    venue: 'Wollongong Central',
+    population: '105,776',
+    income: '$91K/yr',
+    kids: '16,816 (15.9%)',
+    medianAge: '38',
+    nearest: '60km (Miranda)',
+    color: '#FF4B0F',
+  },
+  {
+    brand: 'Review',
+    brandClass: 'review',
+    brandColor: '#d4380d',
+    name: 'SE Melbourne / Cranbourne',
+    score: 0.54,
+    state: 'VIC',
+    demand: '$181,751',
+    demandRaw: 181751,
+    orders: '608',
+    aov: '$299',
+    postcodes: 16,
+    mapView: 'map',
+    lat: -38.1, lng: 145.28, label: 'SE Melbourne',
+    population: '423,175',
+    income: '$95,888/yr',
+    medianAge: 35,
+    women: '93,195 (22.0%)',
+    nearest: 'Myer Fountain Gate (13km)',
+    competitors: '3 stores, 2 brands (10 within 20km)',
+    compBrands: 'Portmans, Forever New + others at Fountain Gate/Frankston',
+    venue: 'Cranbourne Park or Casey Central',
+    compValidation: 'Portmans and Forever New at Cranbourne + Casey confirm retailer confidence. Cranbourne has light coverage - an emerging precinct.',
+    demandPerCapita: '$0.43',
+    color: '#ff7744',
+    keyPostcodes: '3977 Cranbourne ($37K) • 3806 Berwick ($28K) • 3978 Clyde ($18K) • 3175 Dandenong ($16K) • 3805 Narre Warren ($15K) • 3199 Frankston ($15K)',
+    rationale: '423K people, 93K women 25-54. Fountain Gate exists 13km north serving Berwick/Pakenham - a different catchment. Cranbourne 3977 alone has 117K people with $426 AOV.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Belimbla Park Cluster',
+    score: 0.45,
+    state: 'NSW',
+    demand: '$119.3K',
+    demandRaw: 119296,
+    orders: '1,263',
+    aov: '$94',
+    postcodes: 2,
+    mapView: 'sns-map',
+    lat: -33.9897235, lng: 150.5556435, label: 'Belimbla Park',
+    avgDist: '18.7km',
+    keyPostcodes: '2570 Belimbla Park ($107.5K) • 2752 Silverdale ($11.7K)',
+    rationale: '2 postcodes averaging 18.7km from the nearest store, generating $119.3K in online demand. This cluster represents underserved demand that a physical presence could amplify.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Coniston Cluster',
+    score: 0.35,
+    state: 'NSW',
+    demand: '$84.8K',
+    demandRaw: 84795,
+    orders: '915',
+    aov: '$93',
+    postcodes: 6,
+    mapView: 'sns-map',
+    lat: -34.359892333333335, lng: 150.87728816666666, label: 'Coniston',
+    avgDist: '22.8km',
+    keyPostcodes: '2500 Coniston ($19.1K) • 2515 Austinmer ($15.2K) • 2518 Bellambi ($14.9K) • 2517 Russell Vale ($13.5K) • 2526 Cordeaux ($11.8K)',
+    rationale: '6 postcodes averaging 22.8km from the nearest store, generating $84.8K in online demand. This cluster represents underserved demand that a physical presence could amplify.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Craigieburn Cluster',
+    score: 0.35,
+    state: 'VIC',
+    demand: '$84.6K',
+    demandRaw: 84590,
+    orders: '947',
+    aov: '$89',
+    postcodes: 5,
+    mapView: 'sns-map',
+    lat: -37.524494600000004, lng: 144.9350848, label: 'Craigieburn',
+    avgDist: '24.0km',
+    keyPostcodes: '3064 Craigieburn ($50.6K) • 3750 Wollert ($19.8K) • 3756 Chintin ($9.4K) • 3753 Beveridge ($4.2K) • 3428 Bulla ($654)',
+    rationale: '5 postcodes averaging 24.0km from the nearest store, generating $84.6K in online demand. This cluster represents underserved demand that a physical presence could amplify.',
+  },
+  {
+    brand: 'Review',
+    brandClass: 'review',
+    brandColor: '#d4380d',
+    name: 'Springfield / Greater Ipswich',
+    score: 0.30,
+    state: 'QLD',
+    demand: '$124,148',
+    demandRaw: 124148,
+    orders: '396',
+    aov: '$314',
+    postcodes: 14,
+    mapView: 'map',
+    lat: -27.67, lng: 152.91, label: 'Springfield',
+    population: '249,855',
+    income: '$95,108/yr',
+    medianAge: 36,
+    women: '53,182 (21.3%)',
+    nearest: 'Indooroopilly (22km)',
+    competitors: '3 stores, 2 brands (16 within 20km)',
+    compBrands: 'Portmans, Forever New',
+    venue: 'Orion Springfield Central',
+    compValidation: 'Portmans and Forever New at Springfield - the only two brands that consistently pioneer emerging corridors. Early entry secures prime positioning.',
+    demandPerCapita: '$0.50',
+    color: '#ff9944',
+    keyPostcodes: '4300 Springfield ($24K) • 4074 Jindalee ($21K) • 4078 Forest Lake ($13K) • 4305 Ipswich ($13K) • 4070 Fig Tree Pocket ($11K)',
+    rationale: '250K people, 53K women 25-54. The 22km gap to nearest store is the largest - QLD's most physically underserved corridor. Springfield 4300 alone has 69K people.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Aintree Cluster',
+    score: 0.27,
+    state: 'VIC',
+    demand: '$57.8K',
+    demandRaw: 57778,
+    orders: '637',
+    aov: '$91',
+    postcodes: 4,
+    mapView: 'sns-map',
+    lat: -37.694464550000006, lng: 144.61389129999998, label: 'Aintree',
+    avgDist: '21.4km',
+    keyPostcodes: '3336 Aintree ($19.8K) • 3338 Brookfield ($17.8K) • 3337 Harkness ($13.8K) • 3335 Bonnie Brook ($6.5K)',
+    rationale: '4 postcodes averaging 21.4km from the nearest store, generating $57.8K in online demand. This cluster represents underserved demand that a physical presence could amplify.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Augustine Heights Cluster',
+    score: 0.25,
+    state: 'QLD',
+    demand: '$52.4K',
+    demandRaw: 52383,
+    orders: '597',
+    aov: '$88',
+    postcodes: 5,
+    mapView: 'sns-map',
+    lat: -27.6523052, lng: 152.85382239999998, label: 'Augustine Heights',
+    avgDist: '21.3km',
+    keyPostcodes: '4300 Augustine Heights ($20.1K) • 4305 Basin Pocket ($16.0K) • 4124 Boronia Heights ($8.3K) • 4301 Collingwood Park ($5.0K) • 4304 Blackstone ($3.0K)',
+    rationale: '5 postcodes averaging 21.3km from the nearest store, generating $52.4K in online demand. This cluster represents underserved demand that a physical presence could amplify.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Canowindra Cluster',
+    score: 0.23,
+    state: 'QLD',
+    demand: '$45.2K',
+    demandRaw: 45226,
+    orders: '494',
+    aov: '$92',
+    postcodes: 4,
+    mapView: 'sns-map',
+    lat: -27.820424250000002, lng: 153.36232525, label: 'Canowindra',
+    avgDist: '23.8km',
+    keyPostcodes: '4209 Canowindra ($19.7K) • 4208 Burnside ($10.2K) • 4212 Boykambil ($8.8K) • 4216 Anglers Paradise ($6.5K)',
+    rationale: '4 postcodes averaging 23.8km from the nearest store, generating $45.2K in online demand. This cluster represents underserved demand that a physical presence could amplify.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Alberton Cluster',
+    score: 0.23,
+    state: 'QLD',
+    demand: '$45.1K',
+    demandRaw: 45097,
+    orders: '504',
+    aov: '$89',
+    postcodes: 6,
+    mapView: 'sns-map',
+    lat: -27.68665916666667, lng: 153.192904, label: 'Alberton',
+    avgDist: '18.7km',
+    keyPostcodes: '4207 Alberton ($18.6K) • 4165 Mount Cotton ($14.9K) • 4133 Chambers Flat ($5.6K) • 4130 Carbrook ($3.3K) • 4129 Logandale ($1.8K)',
+    rationale: '6 postcodes averaging 18.7km from the nearest store, generating $45.1K in online demand. This cluster represents underserved demand that a physical presence could amplify.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Doreen Cluster',
+    score: 0.23,
+    state: 'VIC',
+    demand: '$43.5K',
+    demandRaw: 43537,
+    orders: '503',
+    aov: '$87',
+    postcodes: 3,
+    mapView: 'sns-map',
+    lat: -37.61201333333333, lng: 145.184372, label: 'Doreen',
+    avgDist: '19.2km',
+    keyPostcodes: '3754 Doreen ($39.3K) • 3099 Arthurs Creek ($3.1K) • 3759 Panton Hill ($1.1K)',
+    rationale: '3 postcodes averaging 19.2km from the nearest store, generating $43.5K in online demand. This cluster represents underserved demand that a physical presence could amplify.',
+  },
+  {
+    brand: 'Review',
+    brandClass: 'review',
+    brandColor: '#d4380d',
+    name: 'Ellenbrook / Swan',
+    score: 0.22,
+    state: 'WA',
+    demand: '$65,232',
+    demandRaw: 65232,
+    orders: '183',
+    aov: '$356',
+    postcodes: 6,
+    mapView: 'map',
+    lat: -31.77, lng: 116.02, label: 'Ellenbrook',
+    population: '153,371',
+    income: '$95,420/yr',
+    medianAge: 36,
+    women: '33,137 (21.6%)',
+    nearest: 'Myer Morley (17km)',
+    competitors: '1 store (Portmans)',
+    compBrands: 'Portmans only',
+    venue: 'The Shops at Ellenbrook',
+    compValidation: 'Only Portmans has entered - the thinnest competitor presence. Premium customer base in purest white space.',
+    demandPerCapita: '$0.43',
+    color: '#ffbb44',
+    keyPostcodes: '6069 Ellenbrook ($31K) • 6056 Midvale ($12K) • 6055 Guildford ($12K) • 6066 Ballajura ($4K) • 6090 Malaga ($4K)',
+    rationale: 'Smallest catchment (153K) but the quality play - highest AOV ($356 catchment, $476 centre-postcode). Purest white space opportunity.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Bligh Park Cluster',
+    score: 0.22,
+    state: 'NSW',
+    demand: '$40.6K',
+    demandRaw: 40559,
+    orders: '401',
+    aov: '$101',
+    postcodes: 1,
+    mapView: 'sns-map',
+    lat: -33.466271, lng: 150.88744, label: 'Bligh Park',
+    avgDist: '25.3km',
+    keyPostcodes: '2756 Bligh Park ($40.6K)',
+    rationale: '1 postcodes averaging 25.3km from the nearest store, generating $40.6K in online demand. This cluster represents underserved demand that a physical presence could amplify.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Baldivis Cluster',
+    score: 0.22,
+    state: 'WA',
+    demand: '$39.8K',
+    demandRaw: 39828,
+    orders: '453',
+    aov: '$88',
+    postcodes: 11,
+    mapView: 'sns-map',
+    lat: -32.326539181818184, lng: 115.81470981818183, label: 'Baldivis',
+    avgDist: '33.2km',
+    keyPostcodes: '6171 Baldivis ($8.5K) • 6038 Alkimos ($8.2K) • 6169 Safety Bay ($5.5K) • 6167 Anketell ($4.5K) • 6170 Leda ($3.4K)',
+    rationale: '11 postcodes averaging 33.2km from the nearest store, generating $39.8K in online demand. This cluster represents underserved demand that a physical presence could amplify.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Bimberi Cluster',
+    score: 0.2,
+    state: 'NSW',
+    demand: '$35.8K',
+    demandRaw: 35751,
+    orders: '403',
+    aov: '$89',
+    postcodes: 1,
+    mapView: 'sns-map',
+    lat: -35.57315758, lng: 148.7089956, label: 'Bimberi',
+    avgDist: '42.5km',
+    keyPostcodes: '2611 Bimberi ($35.8K)',
+    rationale: '1 postcodes averaging 42.5km from the nearest store, generating $35.8K in online demand. This cluster represents underserved demand that a physical presence could amplify.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Aberglasslyn Cluster',
+    score: 0.2,
+    state: 'NSW',
+    demand: '$35.2K',
+    demandRaw: 35226,
+    orders: '371',
+    aov: '$95',
+    postcodes: 5,
+    mapView: 'sns-map',
+    lat: -32.7667418, lng: 151.495208, label: 'Aberglasslyn',
+    avgDist: '28.6km',
+    keyPostcodes: '2320 Aberglasslyn ($19.4K) • 2323 Ashtonfield ($9.2K) • 2326 Abermain ($2.6K) • 2327 Kurri Kurri ($2.2K) • 2334 Greta ($1.8K)',
+    rationale: '5 postcodes averaging 28.6km from the nearest store, generating $35.2K in online demand. This cluster represents underserved demand that a physical presence could amplify.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Sunbury Cluster',
+    score: 0.2,
+    state: 'VIC',
+    demand: '$34.5K',
+    demandRaw: 34545,
+    orders: '400',
+    aov: '$86',
+    postcodes: 3,
+    mapView: 'sns-map',
+    lat: -37.561877333333335, lng: 144.7096556666667, label: 'Sunbury',
+    avgDist: '26.4km',
+    keyPostcodes: '3429 Sunbury ($25.6K) • 3427 Diggers Rest ($4.8K) • 3431 Riddells Creek ($4.2K)',
+    rationale: '3 postcodes averaging 26.4km from the nearest store, generating $34.5K in online demand. This cluster represents underserved demand that a physical presence could amplify.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Alison Cluster',
+    score: 0.2,
+    state: 'NSW',
+    demand: '$34.2K',
+    demandRaw: 34198,
+    orders: '372',
+    aov: '$92',
+    postcodes: 3,
+    mapView: 'sns-map',
+    lat: -33.17115933333333, lng: 151.43912466666666, label: 'Alison',
+    avgDist: '28.2km',
+    keyPostcodes: '2259 Alison ($25.2K) • 2262 Blue Haven ($5.5K) • 2265 Cooranbong ($3.5K)',
+    rationale: '3 postcodes averaging 28.2km from the nearest store, generating $34.2K in online demand. This cluster represents underserved demand that a physical presence could amplify.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Agnes Banks Cluster',
+    score: 0.2,
+    state: 'NSW',
+    demand: '$34.2K',
+    demandRaw: 34157,
+    orders: '345',
+    aov: '$99',
+    postcodes: 4,
+    mapView: 'sns-map',
+    lat: -33.578096, lng: 150.632252, label: 'Agnes Banks',
+    avgDist: '21.4km',
+    keyPostcodes: '2753 Agnes Banks ($11.8K) • 2758 Berambing ($8.4K) • 2754 North Richmond ($8.4K) • 2776 Faulconbridge ($5.6K)',
+    rationale: '4 postcodes averaging 21.4km from the nearest store, generating $34.2K in online demand. This cluster represents underserved demand that a physical presence could amplify.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Aroona Cluster',
+    score: 0.2,
+    state: 'QLD',
+    demand: '$33.6K',
+    demandRaw: 33640,
+    orders: '375',
+    aov: '$90',
+    postcodes: 3,
+    mapView: 'sns-map',
+    lat: -26.847525666666666, lng: 153.01527133333335, label: 'Aroona',
+    avgDist: '23.2km',
+    keyPostcodes: '4551 Aroona ($30.2K) • 4518 Glass House Mountains ($1.8K) • 4550 Landsborough ($1.6K)',
+    rationale: '3 postcodes averaging 23.2km from the nearest store, generating $33.6K in online demand. This cluster represents underserved demand that a physical presence could amplify.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Coolum Beach Cluster',
+    score: 0.2,
+    state: 'QLD',
+    demand: '$33.6K',
+    demandRaw: 33583,
+    orders: '364',
+    aov: '$92',
+    postcodes: 4,
+    mapView: 'sns-map',
+    lat: -26.467189, lng: 153.0443725, label: 'Coolum Beach',
+    avgDist: '21.9km',
+    keyPostcodes: '4573 Coolum Beach ($19.6K) • 4567 Castaways Beach ($5.3K) • 4566 Munna Point ($4.4K) • 4561 Bridges ($4.2K)',
+    rationale: '4 postcodes averaging 21.9km from the nearest store, generating $33.6K in online demand. This cluster represents underserved demand that a physical presence could amplify.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Balmoral Cluster',
+    score: 0.2,
+    state: 'NSW',
+    demand: '$33.4K',
+    demandRaw: 33413,
+    orders: '358',
+    aov: '$93',
+    postcodes: 3,
+    mapView: 'sns-map',
+    lat: -34.23801155333333, lng: 150.55303793333334, label: 'Balmoral',
+    avgDist: '27.6km',
+    keyPostcodes: '2571 Balmoral ($18.5K) • 2572 Lakesland ($7.8K) • 2573 Tahmoor ($7.1K)',
+    rationale: '3 postcodes averaging 27.6km from the nearest store, generating $33.4K in online demand. This cluster represents underserved demand that a physical presence could amplify.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Bucketty Cluster',
+    score: 0.19,
+    state: 'NSW',
+    demand: '$32.1K',
+    demandRaw: 32109,
+    orders: '346',
+    aov: '$93',
+    postcodes: 1,
+    mapView: 'sns-map',
+    lat: -33.325373, lng: 151.189243, label: 'Bucketty',
+    avgDist: '22.9km',
+    keyPostcodes: '2250 Bucketty ($32.1K)',
+    rationale: '1 postcodes averaging 22.9km from the nearest store, generating $32.1K in online demand. This cluster represents underserved demand that a physical presence could amplify.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Bona Vista Cluster',
+    score: 0.19,
+    state: 'VIC',
+    demand: '$31.4K',
+    demandRaw: 31356,
+    orders: '342',
+    aov: '$92',
+    postcodes: 3,
+    mapView: 'sns-map',
+    lat: -38.171382333333334, lng: 145.95173499999999, label: 'Bona Vista',
+    avgDist: '59.4km',
+    keyPostcodes: '3820 Bona Vista ($18.1K) • 3818 Athlone ($12.6K) • 3823 Allambee ($650)',
+    rationale: '3 postcodes averaging 59.4km from the nearest store, generating $31.4K in online demand. This cluster represents underserved demand that a physical presence could amplify.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Armadale Cluster',
+    score: 0.19,
+    state: 'WA',
+    demand: '$29.3K',
+    demandRaw: 29271,
+    orders: '334',
+    aov: '$88',
+    postcodes: 3,
+    mapView: 'sns-map',
+    lat: -32.19644466666667, lng: 115.97386433333334, label: 'Armadale',
+    avgDist: '20.3km',
+    keyPostcodes: '6112 Armadale ($21.6K) • 6122 Byford ($7.1K) • 6121 Oakford ($545)',
+    rationale: '3 postcodes averaging 20.3km from the nearest store, generating $29.3K in online demand. This cluster represents underserved demand that a physical presence could amplify.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Mount Martha Cluster',
+    score: 0.18,
+    state: 'VIC',
+    demand: '$29.0K',
+    demandRaw: 28990,
+    orders: '328',
+    aov: '$88',
+    postcodes: 4,
+    mapView: 'sns-map',
+    lat: -38.3162185, lng: 145.02692, label: 'Mount Martha',
+    avgDist: '21.9km',
+    keyPostcodes: '3934 Mount Martha ($15.3K) • 3936 Arthurs Seat ($8.0K) • 3915 Hastings ($4.4K) • 3938 Mccrae ($1.3K)',
+    rationale: '4 postcodes averaging 21.9km from the nearest store, generating $29.0K in online demand. This cluster represents underserved demand that a physical presence could amplify.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Ocean Grove Cluster',
+    score: 0.18,
+    state: 'VIC',
+    demand: '$28.3K',
+    demandRaw: 28282,
+    orders: '324',
+    aov: '$87',
+    postcodes: 3,
+    mapView: 'sns-map',
+    lat: -38.24826866666667, lng: 144.5703136666667, label: 'Ocean Grove',
+    avgDist: '21.6km',
+    keyPostcodes: '3226 Ocean Grove ($13.6K) • 3222 Clifton Springs ($10.9K) • 3225 Point Lonsdale ($3.7K)',
+    rationale: '3 postcodes averaging 21.6km from the nearest store, generating $28.3K in online demand. This cluster represents underserved demand that a physical presence could amplify.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Bibaringa Cluster',
+    score: 0.18,
+    state: 'SA',
+    demand: '$27.6K',
+    demandRaw: 27650,
+    orders: '294',
+    aov: '$94',
+    postcodes: 7,
+    mapView: 'sns-map',
+    lat: -34.61387901714286, lng: 138.6527991857143, label: 'Bibaringa',
+    avgDist: '24.8km',
+    keyPostcodes: '5118 Bibaringa ($8.3K) • 5116 Evanston ($5.5K) • 5117 Angle Vale ($5.0K) • 5115 Kudla ($4.5K) • 5501 Avon ($3.0K)',
+    rationale: '7 postcodes averaging 24.8km from the nearest store, generating $27.6K in online demand. This cluster represents underserved demand that a physical presence could amplify.',
+  },
+  {
+    brand: 'Shoes & Sox',
+    brandClass: 'sns',
+    brandColor: '#FF4B0F',
+    name: 'Pakenham Cluster',
+    score: 0.18,
+    state: 'VIC',
+    demand: '$27.6K',
+    demandRaw: 27599,
+    orders: '307',
+    aov: '$90',
+    postcodes: 1,
+    mapView: 'sns-map',
+    lat: -38.04658, lng: 145.472514, label: 'Pakenham',
+    avgDist: '15.1km',
+    keyPostcodes: '3810 Pakenham ($27.6K)',
+    rationale: '1 postcodes averaging 15.1km from the nearest store, generating $27.6K in online demand. This cluster represents underserved demand that a physical presence could amplify.',
+  }
+,
+  {
+    brand: 'Yarra Trail',
+    brandClass: 'yt',
+    brandColor: '#6B4C3B',
+    name: 'KATOOMBA, NSW',
+    score: 0.85,
+    state: 'NSW',
+    demand: '$20.9K',
+    demandRaw: 20896,
+    orders: '111',
+    aov: '$188',
+    postcodes: 7,
+    mapView: 'yt-map',
+    lat: -33.782011, lng: 150.487776, label: 'KATOOMBA',
+    rationale: 'High online demand cluster 41km avg from nearest Yarra Trail store. 7 postcodes generating $20.9K in demand.'
+  },
+  {
+    brand: 'Yarra Trail',
+    brandClass: 'yt',
+    brandColor: '#6B4C3B',
+    name: 'KEILOR DOWNS, VIC',
+    score: 0.82,
+    state: 'VIC',
+    demand: '$17.9K',
+    demandRaw: 17855,
+    orders: '100',
+    aov: '$178',
+    postcodes: 5,
+    mapView: 'yt-map',
+    lat: -37.747412, lng: 144.724848, label: 'KEILOR DOWNS',
+    rationale: 'High online demand cluster 19km avg from nearest Yarra Trail store. 5 postcodes generating $17.9K in demand.'
+  },
+  {
+    brand: 'Yarra Trail',
+    brandClass: 'yt',
+    brandColor: '#6B4C3B',
+    name: 'BERWICK, VIC',
+    score: 0.79,
+    state: 'VIC',
+    demand: '$14.6K',
+    demandRaw: 14641,
+    orders: '94',
+    aov: '$155',
+    postcodes: 6,
+    mapView: 'yt-map',
+    lat: -38.030645, lng: 145.369548, label: 'BERWICK',
+    rationale: 'High online demand cluster 23km avg from nearest Yarra Trail store. 6 postcodes generating $14.6K in demand.'
+  },
+  {
+    brand: 'Yarra Trail',
+    brandClass: 'yt',
+    brandColor: '#6B4C3B',
+    name: 'ATHOL, QLD',
+    score: 0.76,
+    state: 'QLD',
+    demand: '$13.9K',
+    demandRaw: 13935,
+    orders: '82',
+    aov: '$169',
+    postcodes: 2,
+    mapView: 'yt-map',
+    lat: -27.601985, lng: 151.897255, label: 'ATHOL',
+    rationale: 'High online demand cluster 78km avg from nearest Yarra Trail store. 2 postcodes generating $13.9K in demand.'
+  },
+  {
+    brand: 'Yarra Trail',
+    brandClass: 'yt',
+    brandColor: '#6B4C3B',
+    name: 'LINDUM, QLD',
+    score: 0.73,
+    state: 'QLD',
+    demand: '$13.2K',
+    demandRaw: 13155,
+    orders: '71',
+    aov: '$185',
+    postcodes: 5,
+    mapView: 'yt-map',
+    lat: -27.431504, lng: 153.212761, label: 'LINDUM',
+    rationale: 'High online demand cluster 20km avg from nearest Yarra Trail store. 5 postcodes generating $13.2K in demand.'
+  },
+  {
+    brand: 'Yarra Trail',
+    brandClass: 'yt',
+    brandColor: '#6B4C3B',
+    name: 'CONISTON, NSW',
+    score: 0.7,
+    state: 'NSW',
+    demand: '$12.2K',
+    demandRaw: 12250,
+    orders: '59',
+    aov: '$207',
+    postcodes: 4,
+    mapView: 'yt-map',
+    lat: -34.377514, lng: 150.878567, label: 'CONISTON',
+    rationale: 'High online demand cluster 34km avg from nearest Yarra Trail store. 4 postcodes generating $12.2K in demand.'
+  },
+  {
+    brand: 'Yarra Trail',
+    brandClass: 'yt',
+    brandColor: '#6B4C3B',
+    name: 'BUCKETTY, NSW',
+    score: 0.67,
+    state: 'NSW',
+    demand: '$11.9K',
+    demandRaw: 11909,
+    orders: '82',
+    aov: '$145',
+    postcodes: 5,
+    mapView: 'yt-map',
+    lat: -33.403773, lng: 151.334802, label: 'BUCKETTY',
+    rationale: 'High online demand cluster 39km avg from nearest Yarra Trail store. 5 postcodes generating $11.9K in demand.'
+  },
+  {
+    brand: 'Yarra Trail',
+    brandClass: 'yt',
+    brandColor: '#6B4C3B',
+    name: 'BENARCH, VIC',
+    score: 0.64,
+    state: 'VIC',
+    demand: '$9.0K',
+    demandRaw: 8958,
+    orders: '57',
+    aov: '$157',
+    postcodes: 3,
+    mapView: 'yt-map',
+    lat: -36.365618, lng: 145.396841, label: 'BENARCH',
+    rationale: 'High online demand cluster 37km avg from nearest Yarra Trail store. 3 postcodes generating $9.0K in demand.'
+  },
+  {
+    brand: 'Yarra Trail',
+    brandClass: 'yt',
+    brandColor: '#6B4C3B',
+    name: 'BONG BONG, NSW',
+    score: 0.61,
+    state: 'NSW',
+    demand: '$8.5K',
+    demandRaw: 8469,
+    orders: '48',
+    aov: '$176',
+    postcodes: 3,
+    mapView: 'yt-map',
+    lat: -34.489278, lng: 150.418898, label: 'BONG BONG',
+    rationale: 'High online demand cluster 39km avg from nearest Yarra Trail store. 3 postcodes generating $8.5K in demand.'
+  },
+  {
+    brand: 'Yarra Trail',
+    brandClass: 'yt',
+    brandColor: '#6B4C3B',
+    name: 'BANGALOW, NSW',
+    score: 0.58,
+    state: 'NSW',
+    demand: '$8.3K',
+    demandRaw: 8280,
+    orders: '30',
+    aov: '$276',
+    postcodes: 3,
+    mapView: 'yt-map',
+    lat: -28.692262, lng: 153.455745, label: 'BANGALOW',
+    rationale: 'High online demand cluster 26km avg from nearest Yarra Trail store. 3 postcodes generating $8.3K in demand.'
+  }
+];
+
+
+
+function buildSummaryCards() {
+  const container = document.getElementById('locationCards');
+  container.innerHTML = LOCATIONS.map((loc, i) => {
+    // Brand badge
+    const badge = `<span class="loc-brand-badge ${loc.brandClass}">${loc.brand}</span>`;
+    const scoreBadge = loc.score ? `<span style="font-size:11px;font-weight:600;background:${loc.brandColor};color:#fff;padding:2px 8px;border-radius:3px;margin-left:8px">Score: ${loc.score.toFixed(2)}</span>` : '';
+
+    // Metrics row - adapt based on brand
+    let metricsHtml = `
+      <div class="loc-metric"><div class="lm-label">Catchment Demand</div><div class="lm-value">${loc.demand}</div></div>
+      <div class="loc-metric"><div class="lm-label">Orders</div><div class="lm-value">${loc.orders}</div></div>
+      <div class="loc-metric"><div class="lm-label">AOV</div><div class="lm-value">${loc.aov}</div></div>
+    `;
+
+    if (loc.avgDist) {
+      metricsHtml += `<div class="loc-metric"><div class="lm-label">Avg Distance</div><div class="lm-value">${loc.avgDist}</div></div>`;
+    }
+    if (loc.postcodes) {
+      metricsHtml += `<div class="loc-metric"><div class="lm-label">Postcodes</div><div class="lm-value">${loc.postcodes}</div></div>`;
+    }
+
+    // Detail metrics (Review has demographics, SNS has distance)
+    let detailHtml = '';
+    if (loc.population) {
+      detailHtml = `
+        <div class="loc-metrics-full">
+          <div class="lm-mini"><div class="lm-label">Population</div><div class="lm-value">${loc.population}</div></div>
+          <div class="lm-mini"><div class="lm-label">HH Income</div><div class="lm-value">${loc.income}</div></div>
+          <div class="lm-mini"><div class="lm-label">${loc.kids ? 'Kids 0-14' : 'Women 25-54'}</div><div class="lm-value">${loc.kids || loc.women}</div></div>
+          <div class="lm-mini"><div class="lm-label">Median Age</div><div class="lm-value">${loc.medianAge}</div></div>
+          <div class="lm-mini"><div class="lm-label">Nearest Store</div><div class="lm-value">${loc.nearest}</div></div>
+        </div>`;
+    } else {
+      detailHtml = loc.avgDist ? `
+        <div class="loc-metrics-full">
+          <div class="lm-mini"><div class="lm-label">Avg Store Distance</div><div class="lm-value">${loc.avgDist}</div></div>
+        </div>` : '';
+    }
+
+    // Sections
+    let sectionsHtml = '';
+    if (loc.keyPostcodes) {
+      sectionsHtml += `
+        <div class="loc-section">
+          <div class="loc-section-title">&#128205; Key Postcodes</div>
+          <div class="loc-postcodes">${loc.keyPostcodes}</div>
+        </div>`;
+    }
+    sectionsHtml += `
+      <div class="loc-section">
+        <div class="loc-section-title">&#128161; Rationale</div>
+        <div class="loc-rationale" style="margin-top:0;padding-top:0;border-top:none">${loc.rationale}</div>
+        ${loc.venue ? `<div style="margin-top:10px"><span class="loc-venue">&#127978; Recommended: ${loc.venue}</span></div>` : ''}
+      </div>`;
+
+    if (loc.compValidation) {
+      sectionsHtml += `
+        <div class="loc-section">
+          <div class="loc-section-title">&#127978; Competitive Validation</div>
+          <div class="loc-comp-validation">${loc.compValidation}</div>
+          ${loc.compBrands ? `<div class="loc-comp-brands">Brands present: ${loc.compBrands}</div>` : ''}
+        </div>`;
+    }
+
+    const borderColor = loc.color || loc.brandColor;
+    const viewLabel = loc.brand === 'Review' ? 'View on Review heatmap' : 'View on Shoes &amp; Sox heatmap';
+
+    return `
+      <div class="location-card" style="border-left:3px solid ${borderColor}">
+        <div class="rank">#${i + 1}</div>${scoreBadge}
+        ${badge}
+        <div class="loc-name">${loc.name}</div>
+        <div class="loc-state">${loc.state}</div>
+        <div class="loc-metrics">${metricsHtml}</div>
+        ${detailHtml}
+        ${sectionsHtml}
+        <div style="margin-top:14px;text-align:right">
+          <span onclick="showOnBrandMap(${loc.lat},${loc.lng},'${loc.label}','${loc.mapView}')" style="font-size:12px;color:var(--accent);cursor:pointer;font-weight:600">${viewLabel} &rarr;</span>
+        </div>
+      </div>`;
+  }).join('');
+}
+try { buildSummaryCards(); } catch(e) { document.getElementById('locationCards').innerHTML = '<div style="color:red;padding:20px">Error: ' + e.message + '</div>'; }
+
+
+
   // View tab/select switching
   function switchView(view) {
     // Update tabs
