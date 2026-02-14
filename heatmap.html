@@ -119,8 +119,8 @@ body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSyst
 .view-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 
 /* Summary view */
-.summary-view{display:none;padding:32px;overflow-y:auto;flex:1;background:var(--bg)}
-.summary-view.active{display:block}
+.summary-view{display:none;padding:32px;overflow-y:auto;flex:1;background:var(--bg);min-height:0}
+.summary-view.active{display:block;flex:none;height:auto;overflow-y:visible}
 .map-view{display:flex;flex-direction:column;flex:1;position:relative}
 .map-view.hidden{display:none}
 .summary-header{margin-bottom:32px}
@@ -156,6 +156,8 @@ body.dark-mode .loc-metric .lm-value.growth{color:#4ade80}
 /* Hide insights column on summary view */
 body.summary-active .insights-column{display:none}
 body.summary-active .summary-view{max-width:100%}
+body.summary-active .map-column{height:auto;flex:none}
+body.summary-active .app-layout{height:auto;overflow:auto}
 
 /* Expanded summary card styles */
 .loc-section{margin-top:14px;padding-top:14px;border-top:1px solid var(--bd2)}
@@ -1630,7 +1632,7 @@ function buildSummaryCards() {
       </div>`;
   }).join('');
 }
-buildSummaryCards();
+try { buildSummaryCards(); } catch(e) { document.getElementById('locationCards').innerHTML = '<div style="color:red;padding:20px">Error: ' + e.message + '</div>'; }
 
 function showOnBrandMap(lat, lng, label, targetView) {
   // Switch to the correct brand map view
