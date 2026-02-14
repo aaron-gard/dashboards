@@ -207,7 +207,7 @@ body.summary-active .insights-column .ins.sns-ins{display:none}
     <div class="summary-view active" id="summaryView">
       <div class="summary-header">
         <h1>Expansion Opportunities &mdash; All Brands</h1>
-        <p>Store expansion opportunities across all brands, ranked by composite score descending. Each card shows the total online spend from surrounding postcodes within a potential store&rsquo;s trade area &mdash; the real measure of addressable opportunity.</p>
+        <p>Store expansion opportunities across all brands, ranked by composite score descending. Higher score = stronger opportunity, weighting demand, target demographics, competitive white space, income, and growth.</p>
       </div>
       <div class="location-cards" id="locationCards"></div>
     </div>
@@ -1579,7 +1579,6 @@ function buildSummaryCards() {
           <div class="lm-mini"><div class="lm-label">Women 25-54</div><div class="lm-value">${loc.women}</div></div>
           <div class="lm-mini"><div class="lm-label">Median Age</div><div class="lm-value">${loc.medianAge}</div></div>
           <div class="lm-mini"><div class="lm-label">Nearest Store</div><div class="lm-value">${loc.nearest}</div></div>
-          <div class="lm-mini"><div class="lm-label">Postcodes</div><div class="lm-value">${loc.postcodes}</div></div>
         </div>`;
     } else {
       detailHtml = loc.avgDist ? `
