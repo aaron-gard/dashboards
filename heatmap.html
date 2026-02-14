@@ -2499,22 +2499,6 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
       <h3 style="color:#E85D00;margin-top:24px">&#128200; Methodology</h3>
       <p style="font-size:12px;color:var(--tx2)"><strong>Data sources:</strong> Shopify order data (CY2025 via Polar Analytics), ABS Census 2021 (population, income, age), store locations from brand websites. <strong>Halo analysis:</strong> Each postcode's demand mapped to distance from nearest Shoe Warehouse outlet using haversine formula. <strong>Clusters:</strong> Postcodes grouped by geographic proximity within ~15km radius. <strong>Competitor mapping:</strong> 298 stores across 5 brands (Skechers, The Athlete's Foot, Platypus Shoes, Hype DC, Foot Locker) geocoded and distance-matched. <strong>Composite scoring:</strong> Demand (40%) + family population (25%) + competitive white space (20%) + household income (15%). <strong>Limitations:</strong> ABS data is 2021 Census (growth corridors likely undercounted); competitor store lists may not be exhaustive; 20 of 25 ABS postcodes use state-level estimates where QuickStats unavailable.</p>
 </div>
-
-  </div>
-</div>
-</div>
-
-<!-- Champion Map View -->
-<div id="champMapView" style="display:none">
-  <div class="stats-bar" style="background:linear-gradient(135deg,#D32F2F,#FF6659)">
-    <div class="stat-item"><div class="stat-val">$1.80M</div><div class="stat-lbl">Demand Sales</div></div>
-    <div class="stat-item"><div class="stat-val">15,987</div><div class="stat-lbl">Orders</div></div>
-    <div class="stat-item"><div class="stat-val">999</div><div class="stat-lbl">Postcodes</div></div>
-    <div class="stat-item"><div class="stat-val">$112.60</div><div class="stat-lbl">AOV</div></div>
-  </div>
-  <div class="content-area">
-    <div id="champ-map" class="map-pane"></div>
-    <div class="insights-pane">
 <div class="ins champ-ins">
       <h2 style="color:#D32F2F">Champion</h2>
       <div class="subtitle">Store Halo &amp; Demand Analysis &middot; CY2025</div>
@@ -2715,9 +2699,13 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
       <h3 style="color:#D32F2F;margin-top:24px">&#128200; Methodology</h3>
       <p style="font-size:12px;color:var(--tx2)"><strong>Data sources:</strong> Shopify order data (CY2025 via Polar Analytics), ABS Census 2021 (population, income, age), store locations from brand websites. <strong>Halo analysis:</strong> Each postcode's demand mapped to distance from nearest Champion store using haversine formula. <strong>Clusters:</strong> Postcodes grouped by geographic proximity within ~15km radius. <strong>Competitor mapping:</strong> 32 flagship/key stores across 5 brands (Nike, Adidas, Puma, New Balance, Under Armour) &mdash; note these are representative locations, not exhaustive. <strong>Composite scoring:</strong> Demand (40%) + active demographic 18&ndash;40 (25%) + competitive white space (20%) + household income (15%). <strong>Limitations:</strong> ABS data is 2021 Census; Polar returned max 1000 postcode rows (data may be incomplete for long-tail postcodes); competitor stores are key locations only.</p>
 </div>
-    </div>
+
+
   </div>
 </div>
+</div>
+
+
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
