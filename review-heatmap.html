@@ -9,100 +9,259 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;overflow:hidden}
-#map{width:100vw;height:100vh;transition:width .3s}
-body.panel-open #map{width:calc(100vw - 420px)}
-.controls{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.95) 30%);padding:24px 32px 28px;z-index:1000;transition:right .3s}
-body.panel-open .controls{right:420px}
-.header{position:fixed;top:0;left:0;right:0;background:linear-gradient(rgba(0,0,0,.9),transparent);padding:20px 32px 40px;z-index:1000;display:flex;align-items:center;gap:16px;transition:right .3s}
-body.panel-open .header{right:420px}
-.brand-logo{font-size:28px;font-weight:800;letter-spacing:3px;text-transform:uppercase}
-.brand-sub{font-size:13px;color:rgba(255,255,255,.5);letter-spacing:1px;text-transform:uppercase}
-.stats{display:flex;gap:40px;margin-bottom:16px;align-items:baseline}
-.stat-label{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.45);margin-bottom:4px}
-.stat-value{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums}
-.stat-value.orders{font-size:20px;color:rgba(255,255,255,.7)}
-.week-label{font-size:15px;color:rgba(255,255,255,.8);margin-bottom:12px;font-weight:500}
-.month-select{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:6px;color:#fff;font-size:13px;padding:6px 12px;cursor:pointer;outline:none;font-family:inherit;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23fff' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:30px}
-.month-select:hover{background:rgba(255,255,255,.2)}
-.month-select option{background:#1a1a1a;color:#fff}
+
+/* ===== LIGHT / DARK THEME ===== */
+:root {
+  --bg:#ffffff;--bg2:#f5f5f7;--bg3:#eaeaec;
+  --tx:#1d1d1f;--tx2:rgba(0,0,0,.55);--tx3:rgba(0,0,0,.35);
+  --bd:rgba(0,0,0,.1);--bd2:rgba(0,0,0,.06);
+  --card:rgba(0,0,0,.03);--card-bd:rgba(0,0,0,.08);
+  --ov:rgba(255,255,255,.95);--ov-g0:rgba(255,255,255,0);--ov-g1:rgba(255,255,255,.97);
+  --hd-g0:rgba(255,255,255,.92);--hd-g1:rgba(255,255,255,0);
+  --ctrl:rgba(0,0,0,.06);--ctrl-bd:rgba(0,0,0,.15);--ctrl-hv:rgba(0,0,0,.1);
+  --sl-tr:rgba(0,0,0,.12);--sl-th:#1d1d1f;
+  --accent:#d4380d;--hi:#d4380d;--info:#0066cc;
+  --tt-bg:rgba(255,255,255,.96);--tt-bd:rgba(0,0,0,.15);--tt-tx:#1d1d1f;--tt-tx2:rgba(0,0,0,.55);
+  --bar:rgba(0,0,0,.06);
+  --zm-bg:rgba(255,255,255,.9);--zm-c:#333;--zm-bd:rgba(0,0,0,.2);
+  --sel-arrow:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23666' stroke-width='1.5'/%3E%3C/svg%3E");
+}
+body.dark-mode {
+  --bg:#0a0a0a;--bg2:#111;--bg3:#1a1a1a;
+  --tx:#fff;--tx2:rgba(255,255,255,.6);--tx3:rgba(255,255,255,.35);
+  --bd:rgba(255,255,255,.1);--bd2:rgba(255,255,255,.05);
+  --card:rgba(255,255,255,.04);--card-bd:rgba(255,255,255,.08);
+  --ov:rgba(0,0,0,.95);--ov-g0:transparent;--ov-g1:rgba(0,0,0,.95);
+  --hd-g0:rgba(0,0,0,.9);--hd-g1:transparent;
+  --ctrl:rgba(255,255,255,.1);--ctrl-bd:rgba(255,255,255,.2);--ctrl-hv:rgba(255,255,255,.2);
+  --sl-tr:rgba(255,255,255,.15);--sl-th:#fff;
+  --accent:#fca50a;--hi:#fca50a;--info:#4fc3f7;
+  --tt-bg:rgba(0,0,0,.92);--tt-bd:rgba(255,255,255,.3);--tt-tx:#fff;--tt-tx2:rgba(255,255,255,.6);
+  --bar:rgba(255,255,255,.08);
+  --zm-bg:rgba(0,0,0,.7);--zm-c:#fff;--zm-bd:rgba(255,255,255,.2);
+  --sel-arrow:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23fff' stroke-width='1.5'/%3E%3C/svg%3E");
+}
+
+body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;overflow:hidden}
+
+/* Layout */
+.app-layout{display:flex;width:100vw;height:100vh;overflow:hidden}
+.map-column{flex:1;min-width:0;position:relative;display:flex;flex-direction:column}
+#map{flex:1;width:100%;min-height:0}
+.insights-column{width:420px;flex-shrink:0;background:var(--bg2);border-left:1px solid var(--bd);overflow-y:auto;z-index:100}
+
+/* Header */
+.header{position:absolute;top:0;left:0;right:0;background:linear-gradient(var(--hd-g0),var(--hd-g1));padding:20px 32px 40px;z-index:1000;display:flex;align-items:center;gap:16px;pointer-events:none}
+.header>*{pointer-events:auto}
+.brand-logo{font-size:28px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--tx)}
+.brand-sub{font-size:13px;color:var(--tx3);letter-spacing:1px;text-transform:uppercase}
+
+/* Stats + Controls */
+.controls{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(var(--ov-g0),var(--ov-g1) 30%);padding:24px 32px 28px;z-index:1000}
 .controls-top{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.stats{display:flex;gap:40px;margin-bottom:16px;align-items:baseline}
+.stat-label{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--tx3);margin-bottom:4px}
+.stat-value{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--tx)}
+.stat-value.orders{font-size:20px;color:var(--tx2)}
+.week-label{font-size:15px;color:var(--tx2);margin-bottom:12px;font-weight:500}
+.month-select{background:var(--ctrl);border:1px solid var(--ctrl-bd);border-radius:6px;color:var(--tx);font-size:13px;padding:6px 12px;cursor:pointer;outline:none;font-family:inherit;appearance:none;-webkit-appearance:none;background-image:var(--sel-arrow);background-repeat:no-repeat;background-position:right 10px center;padding-right:30px}
+.month-select:hover{background:var(--ctrl-hv)}
+.month-select option{background:var(--bg);color:var(--tx)}
 .slider-row{display:flex;align-items:center;gap:16px}
-.play-btn{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.play-btn:hover{background:rgba(255,255,255,.2)}
-.speed-btn{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0}
-.speed-btn:hover{background:rgba(255,255,255,.15);color:#fff}
-input[type=range]{flex:1;-webkit-appearance:none;height:6px;border-radius:3px;background:rgba(255,255,255,.15);outline:none}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:#fff;cursor:pointer;box-shadow:0 0 10px rgba(255,255,255,.3)}
-.week-ticks{display:flex;justify-content:space-between;padding:6px 0 0;font-size:10px;color:rgba(255,255,255,.3)}
+.play-btn{width:44px;height:44px;border-radius:50%;background:var(--ctrl);border:1px solid var(--ctrl-bd);color:var(--tx);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.play-btn:hover{background:var(--ctrl-hv)}
+.speed-btn{width:36px;height:36px;border-radius:50%;background:var(--ctrl);border:1px solid var(--ctrl-bd);color:var(--tx2);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0}
+.speed-btn:hover{background:var(--ctrl-hv);color:var(--tx)}
+input[type=range]{flex:1;-webkit-appearance:none;height:6px;border-radius:3px;background:var(--sl-tr);outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--sl-th);cursor:pointer;box-shadow:0 0 10px rgba(0,0,0,.12)}
+.week-ticks{display:flex;justify-content:space-between;padding:6px 0 0;font-size:10px;color:var(--tx3)}
+
+/* Map controls */
 .leaflet-control-attribution{display:none!important}
-.leaflet-control-zoom a{background:rgba(0,0,0,.7)!important;color:#fff!important;border-color:rgba(255,255,255,.2)!important}
-.leaflet-control-zoom a:hover{background:rgba(255,255,255,.2)!important}
-.postcode-tooltip{background:rgba(0,0,0,.92);border:1px solid rgba(255,255,255,.3);border-radius:8px;padding:8px 12px;color:#fff;font-size:12px;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.5)}
+.leaflet-control-zoom a{background:var(--zm-bg)!important;color:var(--zm-c)!important;border-color:var(--zm-bd)!important}
+.leaflet-control-zoom a:hover{background:var(--ctrl-hv)!important}
+
+/* Tooltips */
+.postcode-tooltip{background:var(--tt-bg);border:1px solid var(--tt-bd);border-radius:8px;padding:8px 12px;color:var(--tt-tx);font-size:12px;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.12)}
 .postcode-tooltip .pc-code{font-weight:700;font-size:15px;margin-bottom:2px}
-.postcode-tooltip .pc-sales{color:#fca50a;font-weight:600}
-.postcode-tooltip .pc-meta{color:rgba(255,255,255,.6);font-size:11px;margin-top:3px}
+.postcode-tooltip .pc-sales{color:var(--hi);font-weight:600}
+.postcode-tooltip .pc-meta{color:var(--tt-tx2);font-size:11px;margin-top:3px}
 .pc-tooltip-wrapper{background:transparent!important;border:none!important;box-shadow:none!important;padding:0!important}
 .pc-tooltip-wrapper::before{display:none!important}
-.zoom-hint{position:fixed;top:80px;right:20px;background:rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:8px 14px;font-size:11px;color:rgba(255,255,255,.5);z-index:1000;pointer-events:none;transition:opacity .3s}
-.insights-toggle{position:fixed;top:50%;right:0;transform:translateY(-50%);background:rgba(0,0,0,.8);border:1px solid rgba(255,255,255,.2);border-right:none;border-radius:8px 0 0 8px;padding:12px 8px;cursor:pointer;z-index:1100;color:rgba(255,255,255,.7);font-size:12px;writing-mode:vertical-rl;letter-spacing:2px;text-transform:uppercase;transition:right .3s}
-body.panel-open .insights-toggle{right:420px}
-.insights-toggle:hover{background:rgba(255,255,255,.15);color:#fff}
-.insights-panel{position:fixed;top:0;right:-420px;bottom:0;width:420px;background:#111;border-left:1px solid rgba(255,255,255,.1);overflow-y:auto;z-index:1050;padding:24px;transition:right .3s}
-body.panel-open .insights-panel{right:0}
-.insights-panel h2{font-size:20px;font-weight:700;margin-bottom:4px}
-.insights-panel .subtitle{font-size:12px;color:rgba(255,255,255,.4);margin-bottom:20px;text-transform:uppercase;letter-spacing:1px}
-.insights-panel h3{font-size:14px;font-weight:700;margin:20px 0 8px;color:#fca50a;text-transform:uppercase;letter-spacing:1px}
-.insights-panel p{font-size:13px;line-height:1.6;color:rgba(255,255,255,.75);margin-bottom:12px}
-.insights-panel .highlight{color:#fca50a;font-weight:600}
-.insights-panel .insight-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:14px;margin-bottom:10px}
-.insights-panel .metric-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:13px}
-.insights-panel .metric-row:last-child{border-bottom:none}
-.insights-panel .metric-label{color:rgba(255,255,255,.5)}
-.insights-panel .metric-val{font-weight:600;font-variant-numeric:tabular-nums}
-.insights-panel .bar-container{height:6px;background:rgba(255,255,255,.08);border-radius:3px;margin-top:4px}
-.insights-panel .bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#bc3754,#fca50a)}
-.insights-panel .close-panel{position:absolute;top:16px;right:16px;background:none;border:none;color:rgba(255,255,255,.5);font-size:20px;cursor:pointer}
-.insights-panel .close-panel:hover{color:#fff}
-.store-legend{position:fixed;top:80px;left:20px;background:rgba(0,0,0,.8);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:10px 14px;z-index:1000;font-size:11px}
+
+/* Zoom hint */
+.zoom-hint{position:absolute;top:80px;right:20px;background:var(--ov);border:1px solid var(--bd);border-radius:8px;padding:8px 14px;font-size:11px;color:var(--tx3);z-index:1000;pointer-events:none;transition:opacity .3s}
+
+/* Store legend */
+.store-legend{position:absolute;top:80px;left:20px;background:var(--ov);border:1px solid var(--bd);border-radius:8px;padding:10px 14px;z-index:1000;font-size:11px}
 .store-legend-item{display:flex;align-items:center;gap:8px;margin:4px 0}
-.store-legend-dot{width:10px;height:10px;border-radius:50%;border:1.5px solid rgba(255,255,255,.5)}
-.legend-label{color:rgba(255,255,255,.6)}
-.comp-toggle{display:flex;align-items:center;gap:6px;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.1);cursor:pointer}
+.store-legend-dot{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--tx3)}
+.legend-label{color:var(--tx2)}
+.comp-toggle{display:flex;align-items:center;gap:6px;margin-top:8px;padding-top:8px;border-top:1px solid var(--bd);cursor:pointer}
 .comp-toggle input{margin:0;cursor:pointer;accent-color:#a855f7}
-.comp-toggle label{color:rgba(255,255,255,.6);cursor:pointer;font-size:11px}
+.comp-toggle label{color:var(--tx2);cursor:pointer;font-size:11px}
 .comp-brand-legend{margin-top:6px;display:none}
 .comp-brand-legend.visible{display:block}
 .comp-brand-item{display:flex;align-items:center;gap:6px;margin:2px 0;font-size:10px}
-.comp-brand-dot{width:8px;height:8px;border-radius:50%;border:1px solid rgba(255,255,255,.4)}
-.comp-brand-label{color:rgba(255,255,255,.5)}
+.comp-brand-dot{width:8px;height:8px;border-radius:50%;border:1px solid var(--tx3)}
+.comp-brand-label{color:var(--tx2)}
+
+/* Insights panel */
+.ins{padding:24px}
+.ins h2{font-size:20px;font-weight:700;margin-bottom:4px;color:var(--tx)}
+.ins .subtitle{font-size:12px;color:var(--tx3);margin-bottom:20px;text-transform:uppercase;letter-spacing:1px}
+.ins h3{font-size:14px;font-weight:700;margin:20px 0 8px;color:var(--accent);text-transform:uppercase;letter-spacing:1px}
+.ins p{font-size:13px;line-height:1.6;color:var(--tx2);margin-bottom:12px}
+.ins .highlight{color:var(--hi);font-weight:600}
+.ins .insight-card{background:var(--card);border:1px solid var(--card-bd);border-radius:8px;padding:14px;margin-bottom:10px}
+.ins .metric-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--bd2);font-size:13px;color:var(--tx)}
+.ins .metric-row:last-child{border-bottom:none}
+.ins .metric-label{color:var(--tx2)}
+.ins .metric-val{font-weight:600;font-variant-numeric:tabular-nums}
+.ins .bar-container{height:6px;background:var(--bar);border-radius:3px;margin-top:4px}
+.ins .bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#bc3754,#fca50a)}
+
+/* View tabs */
+.view-tabs{display:flex;gap:0;border-bottom:1px solid var(--bd);background:var(--bg);z-index:10;flex-shrink:0}
+.view-tab{padding:14px 24px;font-size:13px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--tx3);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;user-select:none}
+.view-tab:hover{color:var(--tx2)}
+.view-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+/* Summary view */
+.summary-view{display:none;padding:32px;overflow-y:auto;flex:1;background:var(--bg)}
+.summary-view.active{display:block}
+.map-view{display:flex;flex-direction:column;flex:1;position:relative}
+.map-view.hidden{display:none}
+.summary-header{margin-bottom:32px}
+.summary-header h1{font-size:26px;font-weight:800;letter-spacing:1px;margin-bottom:6px;color:var(--tx)}
+.summary-header p{font-size:14px;color:var(--tx2);line-height:1.5}
+.location-cards{display:grid;grid-template-columns:1fr;gap:20px;max-width:900px}
+.location-card{background:var(--card);border:1px solid var(--card-bd);border-radius:12px;padding:24px;position:relative;transition:box-shadow .2s,border-color .2s;cursor:pointer}
+.location-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.08);border-color:var(--accent)}
+body.dark-mode .location-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.4)}
+.location-card .rank{position:absolute;top:20px;right:24px;font-size:40px;font-weight:900;color:var(--bd);line-height:1}
+.location-card .loc-name{font-size:18px;font-weight:700;color:var(--tx);margin-bottom:2px}
+.location-card .loc-state{font-size:12px;color:var(--tx3);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px}
+.loc-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px}
+.loc-metric .lm-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--tx3);margin-bottom:4px}
+.loc-metric .lm-value{font-size:18px;font-weight:700;color:var(--tx);font-variant-numeric:tabular-nums}
+.loc-metric .lm-value.growth{color:#16a34a}
+body.dark-mode .loc-metric .lm-value.growth{color:#4ade80}
+.loc-detail-row{display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:var(--tx2);padding-top:12px;border-top:1px solid var(--bd2)}
+.loc-detail-row span{display:flex;align-items:center;gap:4px}
+.loc-rationale{font-size:12px;color:var(--tx2);line-height:1.5;margin-top:12px;padding-top:12px;border-top:1px solid var(--bd2)}
+.loc-rationale strong{color:var(--tx)}
+.loc-venue{display:inline-block;margin-top:8px;padding:4px 10px;border-radius:4px;background:var(--accent);color:#fff;font-size:11px;font-weight:700;letter-spacing:.5px}
+
+/* Theme toggle */
+.theme-toggle{position:sticky;top:0;z-index:10;background:var(--bg2);border:none;border-bottom:1px solid var(--bd);padding:10px 24px;font-size:12px;cursor:pointer;color:var(--tx2);display:flex;align-items:center;gap:6px;font-family:inherit;width:100%;text-align:left}
+.theme-toggle:hover{color:var(--tx);background:var(--bg3)}
+
+/* Scrollbar */
+.insights-column::-webkit-scrollbar,.summary-view::-webkit-scrollbar{width:6px}
+.insights-column::-webkit-scrollbar-track,.summary-view::-webkit-scrollbar-track{background:transparent}
+.insights-column::-webkit-scrollbar-thumb,.summary-view::-webkit-scrollbar-thumb{background:var(--bd);border-radius:3px}
+
+/* Responsive */
+@media(max-width:1100px){.insights-column{width:360px}.loc-metrics{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.app-layout{flex-direction:column}.insights-column{width:100%;height:40vh;border-left:none;border-top:1px solid var(--bd)}.map-column{height:60vh}}
 </style>
 </head>
-<body class="panel-open">
-<div class="header"><div><div class="brand-logo">Review</div><div class="brand-sub">Australia &middot; Sales &amp; Store Halo Analysis &middot; CY2025</div></div></div>
-<div id="map"></div>
-<div class="zoom-hint" id="zoomHint">&#128269; Scroll to zoom &middot; Postcode detail at zoom 8+</div>
-<div class="store-legend">
-  <div style="font-weight:600;margin-bottom:6px;color:rgba(255,255,255,.8)">Stores (64)</div>
-  <div class="store-legend-item"><div class="store-legend-dot" style="background:#e74c3c"></div><span class="legend-label">Boutique (7)</span></div>
-  <div class="store-legend-item"><div class="store-legend-dot" style="background:#3498db"></div><span class="legend-label">Myer Concession (52)</span></div>
-  <div class="store-legend-item"><div class="store-legend-dot" style="background:#2ecc71"></div><span class="legend-label">Outlet (5)</span></div>
-  <div class="comp-toggle"><input type="checkbox" id="compToggle"><label for="compToggle">Competitors (470)</label></div>
-  <div class="comp-brand-legend" id="compBrandLegend">
-    <div class="comp-brand-item"><div class="comp-brand-dot" style="background:#a855f7"></div><span class="comp-brand-label">Country Road (53)</span></div>
-    <div class="comp-brand-item"><div class="comp-brand-dot" style="background:#ec4899"></div><span class="comp-brand-label">Witchery (4)</span></div>
-    <div class="comp-brand-item"><div class="comp-brand-dot" style="background:#f59e0b"></div><span class="comp-brand-label">Mimco (7)</span></div>
-    <div class="comp-brand-item"><div class="comp-brand-dot" style="background:#14b8a6"></div><span class="comp-brand-label">Trenery (15)</span></div>
-    <div class="comp-brand-item"><div class="comp-brand-dot" style="background:#f97316"></div><span class="comp-brand-label">Seed Heritage (35)</span></div>
-    <div class="comp-brand-item"><div class="comp-brand-dot" style="background:#06b6d4"></div><span class="comp-brand-label">Gorman (23)</span></div>
-    <div class="comp-brand-item"><div class="comp-brand-dot" style="background:#8b5cf6"></div><span class="comp-brand-label">Cue (26)</span></div>
-    <div class="comp-brand-item"><div class="comp-brand-dot" style="background:#10b981"></div><span class="comp-brand-label">Sportscraft (25)</span></div>
+<body>
+<div class="app-layout">
+  <div class="map-column">
+    <div class="view-tabs" id="viewTabs">
+      <div class="view-tab active" data-view="summary">&#128202; Summary</div>
+      <div class="view-tab" data-view="map">&#128506; Heatmap</div>
+    </div>
+    <div class="summary-view active" id="summaryView">
+      <div class="summary-header">
+        <h1>Recommended Store Locations</h1>
+        <p>Top 5 expansion opportunities ranked by 15km catchment demand &mdash; total online spend across all surrounding postcodes within a potential store&rsquo;s trade area. All five corridors are growing 67&ndash;170% YoY, far above the portfolio average.</p>
+      </div>
+      <div class="location-cards" id="locationCards"></div>
+    </div>
+    <div class="map-view hidden" id="mapView">
+      <div class="header"><div><div class="brand-logo">Review</div><div class="brand-sub">Australia &middot; Sales &amp; Store Halo Analysis &middot; CY2025</div></div></div>
+      <div id="map"></div>
+      <div class="zoom-hint" id="zoomHint">&#128269; Scroll to zoom &middot; Postcode detail at zoom 8+</div>
+      <div class="store-legend">
+        <div style="font-weight:600;margin-bottom:6px;color:var(--tx2)">Stores (64)</div>
+        <div class="store-legend-item"><div class="store-legend-dot" style="background:#e74c3c"></div><span class="legend-label">Boutique (7)</span></div>
+        <div class="store-legend-item"><div class="store-legend-dot" style="background:#3498db"></div><span class="legend-label">Myer Concession (52)</span></div>
+        <div class="store-legend-item"><div class="store-legend-dot" style="background:#2ecc71"></div><span class="legend-label">Outlet (5)</span></div>
+        <div class="comp-toggle"><input type="checkbox" id="compToggle"><label for="compToggle">Competitors (470)</label></div>
+        <div class="comp-brand-legend" id="compBrandLegend">
+          <div class="comp-brand-item"><div class="comp-brand-dot" style="background:#a855f7"></div><span class="comp-brand-label">Country Road (53)</span></div>
+          <div class="comp-brand-item"><div class="comp-brand-dot" style="background:#ec4899"></div><span class="comp-brand-label">Witchery (4)</span></div>
+          <div class="comp-brand-item"><div class="comp-brand-dot" style="background:#f59e0b"></div><span class="comp-brand-label">Mimco (7)</span></div>
+          <div class="comp-brand-item"><div class="comp-brand-dot" style="background:#14b8a6"></div><span class="comp-brand-label">Trenery (15)</span></div>
+          <div class="comp-brand-item"><div class="comp-brand-dot" style="background:#f97316"></div><span class="comp-brand-label">Seed Heritage (35)</span></div>
+          <div class="comp-brand-item"><div class="comp-brand-dot" style="background:#06b6d4"></div><span class="comp-brand-label">Gorman (23)</span></div>
+          <div class="comp-brand-item"><div class="comp-brand-dot" style="background:#8b5cf6"></div><span class="comp-brand-label">Cue (26)</span></div>
+          <div class="comp-brand-item"><div class="comp-brand-dot" style="background:#10b981"></div><span class="comp-brand-label">Sportscraft (25)</span></div>
+        </div>
+      </div>
+      <div class="controls">
+        <div class="controls-top">
+          <div class="stats">
+            <div><div class="stat-label">Demand Sales</div><div class="stat-value" id="totalSales">$0</div></div>
+            <div><div class="stat-label">Orders</div><div class="stat-value orders" id="totalOrders">0</div></div>
+            <div><div class="stat-label">Postcodes</div><div class="stat-value orders" id="totalPostcodes">0</div></div>
+          </div>
+          <div>
+            <div class="stat-label" style="margin-bottom:6px">Period</div>
+            <select id="monthFilter" class="month-select">
+              <option value="-1">All Year</option>
+              <option value="0">January</option><option value="1">February</option><option value="2">March</option>
+              <option value="3">April</option><option value="4">May</option><option value="5">June</option>
+              <option value="6">July</option><option value="7">August</option><option value="8">September</option>
+              <option value="9">October</option><option value="10">November</option><option value="11">December</option>
+            </select>
+          </div>
+        </div>
+        <div class="week-label" id="weekLabel">Week 1</div>
+        <div class="slider-row">
+          <button class="play-btn" id="playBtn" title="Play/Pause">&#x25B6;</button>
+          <button class="speed-btn" id="speedBtn" title="Speed">1&times;</button>
+          <input type="range" id="weekSlider" min="0" max="52" value="0" step="1">
+        </div>
+        <div class="week-ticks"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span></div>
+      </div>
+    </div>
   </div>
-</div>
-<div class="insights-toggle" id="insightsToggle">&#128202; Insights</div>
-<div class="insights-panel" id="insightsPanel">
-  <button class="close-panel" id="closePanel">&times;</button>
-  <h2>Store Halo Analysis</h2>
+  <div class="insights-column">
+    <button class="theme-toggle" id="themeToggle">&#127763; Dark mode</button>
+    <div class="ins">
+      <h2>Store Halo Analysis</h2>
+      <div class="subtitle">Physical stores &times; online demand</div>
+      <h3>&#128293; The Halo Effect</h3>
+      <p><span class="highlight">62%</span> of online demand ($6.2M) comes from postcodes within <span class="highlight">10km of a store</span>. The physical network doesn&rsquo;t just drive foot traffic &mdash; it anchors online purchasing behaviour.</p>
+      <div class="insight-card">
+        <div style="font-weight:600;margin-bottom:8px">Online demand by distance to nearest store</div>
+        <div class="metric-row"><span class="metric-label">0-5km</span><span class="metric-val">$3,471,125 (34.9%)</span></div><div class="bar-container"><div class="bar-fill" style="width:100%"></div></div>
+        <div class="metric-row"><span class="metric-label">5-10km</span><span class="metric-val">$2,704,048 (27.2%)</span></div><div class="bar-container"><div class="bar-fill" style="width:78%"></div></div>
+        <div class="metric-row"><span class="metric-label">10-20km</span><span class="metric-val">$1,551,382 (15.6%)</span></div><div class="bar-container"><div class="bar-fill" style="width:45%"></div></div>
+        <div class="metric-row"><span class="metric-label">20-50km</span><span class="metric-val">$959,264 (9.6%)</span></div><div class="bar-container"><div class="bar-fill" style="width:28%"></div></div>
+        <div class="metric-row"><span class="metric-label">50-100km</span><span class="metric-val">$422,392 (4.2%)</span></div><div class="bar-container"><div class="bar-fill" style="width:12%"></div></div>
+        <div class="metric-row"><span class="metric-label">100km+</span><span class="metric-val">$841,389 (8.5%)</span></div><div class="bar-container"><div class="bar-fill" style="width:24%"></div></div>
+      </div>
+      <h3>&#128176; AOV Increases With Distance</h3>
+      <p>Customers further from stores spend <span class="highlight">more per order</span>: $345 AOV at 100km+ vs $297 within 5km. Fewer impulse purchases, more considered larger-basket orders.</p>
+      <div class="insight-card">
+        <div style="font-weight:600;margin-bottom:8px">AOV by distance band</div>
+        <div class="metric-row"><span class="metric-label">0-5km</span><span class="metric-val">$297</span></div>
+        <div class="metric-row"><span class="metric-label">5-10km</span><span class="metric-val">$308</span></div>
+        <div class="metric-row"><span class="metric-label">10-20km</span><span class="metric-val">$302</span></div>
+        <div class="metric-row"><span class="metric-label">20-50km</span><span class="metric-val">$317</span></div>
+        <div class="metric-row"><span class="metric-label">50-100km</span><span class="metric-val">$308</span></div>
+        <div class="metric-row"><span class="metric-label">100km+</span><span class="metric-val">$345</span></div>
+      </div>
+      <h3>&#128257; Purchase Frequency</h3>
+      <p>Postcodes near stores average <span class="highlight">27 active weeks/year</span> vs <span class="highlight">7 weeks</span> for 100km+. Proximity drives repeat engagement. Repeat rate holds steady at ~24% across all distances.</p>
+      <div class="insight-card">
+        <div style="font-weight:600;margin-bottom:8px">Active weeks per postcode (avg)</div>
+        <div class="metric-row"><span class="metric-label">0-5km</span><span class="metric-val">27 weeks</span></div><div class="bar-container">  <h2>Store Halo Analysis</h2>
   <div class="subtitle">Physical stores &times; online demand</div>
   <h3>&#128293; The Halo Effect</h3>
   <p><span class="highlight">62%</span> of online demand ($6.2M) comes from postcodes within <span class="highlight">10km of a store</span>. The physical network doesn't just drive foot traffic &mdash; it anchors online purchasing behaviour.</p>
@@ -154,10 +313,10 @@ body.panel-open .insights-panel{right:0}
   <p><strong>6. Growth corridors are accelerating.</strong> All five recommended catchments are growing <span class="highlight">67&ndash;170% YoY</span> &mdash; far above the portfolio average. These aren&rsquo;t just underserved markets, they&rsquo;re markets where demand is compounding without any physical investment. NW Sydney (+170%) and Western Melbourne (+139%) are doubling every year.</p>
   <p><strong>7. Income validates positioning.</strong> NW Sydney&rsquo;s $123K/yr median household income is 28% above all other catchments. Combined with the highest demand-per-capita ($0.72), this signals a premium customer base already self-selecting into the brand &mdash; a physical store would accelerate, not create, demand.</p>
   <h3 style="margin-top:24px">&#127978; Competitive Landscape</h3>
-  <p style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:12px">Analysis of 470 competitor stores across 10 premium womenswear brands (Country Road, Witchery, Seed Heritage, Gorman, Trenery, Cue, Sportscraft, Mimco, Portmans, Forever New) mapped against Review&rsquo;s online demand by postcode.</p>
+  <p style="font-size:12px;color:var(--tx2);margin-bottom:12px">Analysis of 470 competitor stores across 10 premium womenswear brands (Country Road, Witchery, Seed Heritage, Gorman, Trenery, Cue, Sportscraft, Mimco, Portmans, Forever New) mapped against Review&rsquo;s online demand by postcode.</p>
 
   <div class="insight-card">
-    <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:#4fc3f7">Competitor Network Overview</div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--info)">Competitor Network Overview</div>
     <div class="metric-row"><span class="metric-label">Competitor stores mapped</span><span class="metric-val highlight">470</span></div>
     <div class="metric-row"><span class="metric-label">Competitor brands</span><span class="metric-val">10</span></div>
     <div class="metric-row"><span class="metric-label">Postcodes near competitors (&le;10km)</span><span class="metric-val">844 of 1,189 (71%)</span></div>
@@ -166,51 +325,51 @@ body.panel-open .insights-panel{right:0}
   </div>
 
   <div class="insight-card">
-    <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:#4fc3f7">Demand vs Competitor Density</div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--info)">Demand vs Competitor Density</div>
     <p style="font-size:12px;margin-bottom:8px">Higher competitor density correlates with higher Review demand (r=0.22 for brand diversity). Fashion precincts create a <span class="highlight">rising tide effect</span> &mdash; competitor presence signals market quality, not saturation.</p>
     <div style="margin:8px 0">
       <div style="display:flex;align-items:center;margin-bottom:4px;font-size:11px">
-        <span style="width:120px;color:rgba(255,255,255,.6)">0 competitors</span>
-        <div style="flex:1;height:14px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden"><div style="width:26%;height:100%;background:linear-gradient(90deg,#1a237e,#4fc3f7);border-radius:3px;display:flex;align-items:center;padding-left:6px;font-size:10px;color:#fff">$4,831</div></div>
+        <span style="width:120px;color:var(--tx2)">0 competitors</span>
+        <div style="flex:1;height:14px;background:var(--bar);border-radius:3px;overflow:hidden"><div style="width:26%;height:100%;background:linear-gradient(90deg,#1a237e,#4fc3f7);border-radius:3px;display:flex;align-items:center;padding-left:6px;font-size:10px;color:#fff">$4,831</div></div>
       </div>
       <div style="display:flex;align-items:center;margin-bottom:4px;font-size:11px">
-        <span style="width:120px;color:rgba(255,255,255,.6)">1&ndash;5 competitors</span>
-        <div style="flex:1;height:14px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden"><div style="width:48%;height:100%;background:linear-gradient(90deg,#1a237e,#4fc3f7);border-radius:3px;display:flex;align-items:center;padding-left:6px;font-size:10px;color:#fff">$8,809</div></div>
+        <span style="width:120px;color:var(--tx2)">1&ndash;5 competitors</span>
+        <div style="flex:1;height:14px;background:var(--bar);border-radius:3px;overflow:hidden"><div style="width:48%;height:100%;background:linear-gradient(90deg,#1a237e,#4fc3f7);border-radius:3px;display:flex;align-items:center;padding-left:6px;font-size:10px;color:#fff">$8,809</div></div>
       </div>
       <div style="display:flex;align-items:center;margin-bottom:4px;font-size:11px">
-        <span style="width:120px;color:rgba(255,255,255,.6)">6&ndash;15 competitors</span>
-        <div style="flex:1;height:14px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden"><div style="width:53%;height:100%;background:linear-gradient(90deg,#1a237e,#4fc3f7);border-radius:3px;display:flex;align-items:center;padding-left:6px;font-size:10px;color:#fff">$9,826</div></div>
+        <span style="width:120px;color:var(--tx2)">6&ndash;15 competitors</span>
+        <div style="flex:1;height:14px;background:var(--bar);border-radius:3px;overflow:hidden"><div style="width:53%;height:100%;background:linear-gradient(90deg,#1a237e,#4fc3f7);border-radius:3px;display:flex;align-items:center;padding-left:6px;font-size:10px;color:#fff">$9,826</div></div>
       </div>
       <div style="display:flex;align-items:center;margin-bottom:4px;font-size:11px">
-        <span style="width:120px;color:rgba(255,255,255,.6)">16&ndash;30 competitors</span>
-        <div style="flex:1;height:14px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden"><div style="width:53%;height:100%;background:linear-gradient(90deg,#1a237e,#4fc3f7);border-radius:3px;display:flex;align-items:center;padding-left:6px;font-size:10px;color:#fff">$9,757</div></div>
+        <span style="width:120px;color:var(--tx2)">16&ndash;30 competitors</span>
+        <div style="flex:1;height:14px;background:var(--bar);border-radius:3px;overflow:hidden"><div style="width:53%;height:100%;background:linear-gradient(90deg,#1a237e,#4fc3f7);border-radius:3px;display:flex;align-items:center;padding-left:6px;font-size:10px;color:#fff">$9,757</div></div>
       </div>
       <div style="display:flex;align-items:center;margin-bottom:4px;font-size:11px">
-        <span style="width:120px;color:rgba(255,255,255,.6)">30+ competitors</span>
-        <div style="flex:1;height:14px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#1a237e,#4fc3f7);border-radius:3px;display:flex;align-items:center;padding-left:6px;font-size:10px;color:#fff">$9,186</div></div>
+        <span style="width:120px;color:var(--tx2)">30+ competitors</span>
+        <div style="flex:1;height:14px;background:var(--bar);border-radius:3px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#1a237e,#4fc3f7);border-radius:3px;display:flex;align-items:center;padding-left:6px;font-size:10px;color:#fff">$9,186</div></div>
       </div>
     </div>
-    <p style="font-size:11px;color:rgba(255,255,255,.4)">Average demand per postcode by competitor count within 10km. Demand doubles from zero-competitor areas to those with even a few competitors, then plateaus &mdash; suggesting competitors <em>validate</em> markets without cannibalising.</p>
+    <p style="font-size:11px;color:var(--tx3)">Average demand per postcode by competitor count within 10km. Demand doubles from zero-competitor areas to those with even a few competitors, then plateaus &mdash; suggesting competitors <em>validate</em> markets without cannibalising.</p>
   </div>
 
   <div class="insight-card">
-    <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:#4fc3f7">AOV &amp; Competitor Density</div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--info)">AOV &amp; Competitor Density</div>
     <p style="font-size:12px;margin-bottom:6px">AOV decreases modestly with competitor density: <span class="highlight">$340 &rarr; $297</span> from zero to 30+ competitors. This reflects proximity-driven purchasing in dense areas (lower per-order spend, higher frequency) vs intentional destination shopping in sparse areas.</p>
     <div class="metric-row"><span class="metric-label">AOV: 0 competitors</span><span class="metric-val">$340</span></div>
     <div class="metric-row"><span class="metric-label">AOV: 6&ndash;15 competitors</span><span class="metric-val">$309</span></div>
     <div class="metric-row"><span class="metric-label">AOV: 30+ competitors</span><span class="metric-val">$297</span></div>
-    <p style="font-size:11px;color:rgba(255,255,255,.4);margin-top:6px">The 13% AOV decline is small relative to the 2x demand uplift &mdash; net revenue is far higher in competitor-dense areas.</p>
+    <p style="font-size:11px;color:var(--tx3);margin-top:6px">The 13% AOV decline is small relative to the 2x demand uplift &mdash; net revenue is far higher in competitor-dense areas.</p>
   </div>
 
   <div class="insight-card">
-    <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:#ffab40">Key Finding: No Saturation Signal</div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--accent)">Key Finding: No Saturation Signal</div>
     <p style="font-size:12px">The most saturated postcodes (30&ndash;50 competitors within 10km) are all in Melbourne inner-east and Sydney North Shore &mdash; <strong>and Review already has stores in every one of them</strong>. These are established fashion precincts (Chadstone, Chatswood, South Yarra, Doncaster) where 9&ndash;10 of 10 competitor brands coexist. The data shows <span class="highlight">no evidence of competitive cannibalisation</span> &mdash; demand in these zones averages $8&ndash;18K per postcode.</p>
   </div>
 
   <div class="insight-card">
-    <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:#ffab40">Key Finding: White Space Validation</div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--accent)">Key Finding: White Space Validation</div>
     <p style="font-size:12px;margin-bottom:6px">The strongest white space signal is where competitors have opened but Review hasn&rsquo;t. These areas show competitors have already validated the customer base:</p>
-    <div style="font-size:11px;line-height:1.6;color:rgba(255,255,255,.7)">
+    <div style="font-size:11px;line-height:1.6;color:var(--tx2)">
       &bull; <strong>Wollongong (2500):</strong> $14.5K demand, 6 competitor stores (4 brands) &mdash; 48km from nearest Review<br>
       &bull; <strong>Blacktown (2148):</strong> $15.5K demand, 7 competitors (2 brands) &mdash; 10km from nearest Review<br>
       &bull; <strong>NW Sydney (2767):</strong> $11.4K demand, 8 competitors (3 brands) &mdash; 13km from nearest Review<br>
@@ -219,12 +378,12 @@ body.panel-open .insights-panel{right:0}
   </div>
 
   <div class="insight-card">
-    <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:#ffab40">Key Finding: Canberra Anomaly Persists</div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--accent)">Key Finding: Canberra Anomaly Persists</div>
     <p style="font-size:12px">Canberra&rsquo;s top postcodes (2913, 2914, 2620) have <span class="highlight">zero competitors within 10km</span> yet generate $40&ndash;55K demand each. This reinforces the Myer-halo thesis &mdash; Review&rsquo;s performance here is driven by its own store network (3 locations), not by fashion precinct agglomeration. Canberra is the only market where Review succeeds without the competitor ecosystem.</p>
   </div>
 
   <h3>&#128205; Store Location Recommendations</h3>
-  <p style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:12px">Ranked by 15km catchment demand — total online spend across all surrounding postcodes within a potential store&rsquo;s trade area. This captures the full addressable opportunity, not just the centre postcode.</p>
+  <p style="font-size:12px;color:var(--tx2);margin-bottom:12px">Ranked by 15km catchment demand — total online spend across all surrounding postcodes within a potential store&rsquo;s trade area. This captures the full addressable opportunity, not just the centre postcode.</p>
 
   <div class="insight-card" style="border-left:3px solid #ff4444;cursor:pointer" onclick="showCatchment(-33.71,150.87,'NW Sydney')">
     <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#ff6666">1. NW Sydney Corridor &mdash; NSW</div>
@@ -238,11 +397,11 @@ body.panel-open .insights-panel{right:0}
     <div class="metric-row"><span class="metric-label">Median age</span><span class="metric-val">36</span></div>
     <div class="metric-row"><span class="metric-label">Women 25&ndash;54</span><span class="metric-val">85,326 (22.0%)</span></div>
     <div class="metric-row"><span class="metric-label">YoY growth (CY24&rarr;25)</span><span class="metric-val highlight">+170%</span></div>
-    <div class="metric-row" style="border-top:1px solid rgba(255,255,255,.06);padding-top:4px;margin-top:4px"><span class="metric-label">&#127978; Competitors within 10km</span><span class="metric-val" style="color:#4fc3f7">11 stores, 6 brands</span></div>
-    <div class="metric-row"><span class="metric-label">&#127978; Brands present</span><span class="metric-val" style="color:#4fc3f7;font-size:10px">Country Road, Cue, Forever New, Portmans, Seed Heritage, Sportscraft</span></div>
+    <div class="metric-row" style="border-top:1px solid var(--bd2);padding-top:4px;margin-top:4px"><span class="metric-label">&#127978; Competitors within 10km</span><span class="metric-val" style="color:var(--info)">11 stores, 6 brands</span></div>
+    <div class="metric-row"><span class="metric-label">&#127978; Brands present</span><span class="metric-val" style="color:var(--info);font-size:10px">Country Road, Cue, Forever New, Portmans, Seed Heritage, Sportscraft</span></div>
     <p style="margin-top:8px;font-size:12px"><strong>Key postcodes:</strong> 2155 Hills District ($57K), 2153 Winston Hills ($45K), 2765 The Ponds ($29K), 2147 Seven Hills ($18K), 2148 Blacktown ($16K), 2768 Stanhope Gardens ($13K), 2763 Quakers Hill ($13K), 2760 St Marys ($13K).</p>
     <p style="font-size:12px"><strong>Rationale:</strong> The strongest recommendation on every metric. 388K people, median household income $123K/yr (28% above other catchments), and demand growing +170% YoY. 85K women aged 25&ndash;54 &mdash; Review&rsquo;s core demo. The $0.72 demand-per-capita is nearly double any other catchment, proving the customer is already here. Castle Hill is technically 15km away but sits across a traffic/toll barrier in a different trade area. <span class="highlight">Rouse Hill Town Centre or Marsden Park</span> would unlock this entire corridor &mdash; the highest-income, fastest-growing untapped catchment in Australia.</p>
-    <p style="font-size:12px;color:#4fc3f7"><strong>&#127978; Competitive validation:</strong> 11 competitor stores from 6 brands (including Country Road and Cue at Rouse Hill) confirm this is an established fashion retail precinct. Competitors have already proven the customer base &mdash; Review is the gap in the lineup.</p>
+    <p style="font-size:12px;color:var(--info)"><strong>&#127978; Competitive validation:</strong> 11 competitor stores from 6 brands (including Country Road and Cue at Rouse Hill) confirm this is an established fashion retail precinct. Competitors have already proven the customer base &mdash; Review is the gap in the lineup.</p>
   </div>
 
   <div class="insight-card" style="border-left:3px solid #ff5544;cursor:pointer" onclick="showCatchment(-37.88,144.66,'Western Melbourne')">
@@ -257,11 +416,11 @@ body.panel-open .insights-panel{right:0}
     <div class="metric-row"><span class="metric-label">Median age</span><span class="metric-val">34</span></div>
     <div class="metric-row"><span class="metric-label">Women 25&ndash;54</span><span class="metric-val">113,106 (23.1%)</span></div>
     <div class="metric-row"><span class="metric-label">YoY growth (CY24&rarr;25)</span><span class="metric-val highlight">+139%</span></div>
-    <div class="metric-row" style="border-top:1px solid rgba(255,255,255,.06);padding-top:4px;margin-top:4px"><span class="metric-label">&#127978; Competitors within 10km</span><span class="metric-val" style="color:#4fc3f7">2 stores, 2 brands</span></div>
-    <div class="metric-row"><span class="metric-label">&#127978; Competitors within 20km</span><span class="metric-val" style="color:#4fc3f7">4 stores (Forever New, Portmans)</span></div>
+    <div class="metric-row" style="border-top:1px solid var(--bd2);padding-top:4px;margin-top:4px"><span class="metric-label">&#127978; Competitors within 10km</span><span class="metric-val" style="color:var(--info)">2 stores, 2 brands</span></div>
+    <div class="metric-row"><span class="metric-label">&#127978; Competitors within 20km</span><span class="metric-val" style="color:var(--info)">4 stores (Forever New, Portmans)</span></div>
     <p style="margin-top:8px;font-size:12px"><strong>Key postcodes:</strong> 3030 Werribee ($57K), 3029 Hoppers Crossing ($29K), 3023 Caroline Springs ($18K), 3020 Sunshine ($17K), 3012 Brooklyn ($15K), 3024 Wyndham Vale ($9K), 3021 St Albans ($10K), 3018 Altona ($9K).</p>
     <p style="font-size:12px"><strong>Rationale:</strong> Largest population base of any recommendation (490K) with the highest absolute pool of target customers &mdash; 113K women aged 25&ndash;54. Demand up +139% YoY with zero physical presence. Median age 34 (youngest catchment) with household income $96K/yr. Wyndham is Australia&rsquo;s fastest-growing LGA. Highpoint is 18km away across the West Gate Bridge &mdash; a hard psychological barrier. <span class="highlight">Pacific Werribee</span> would serve the entire 3029/3030/3024 corridor (260K people) in one location.</p>
-    <p style="font-size:12px;color:#4fc3f7"><strong>&#127978; Competitive validation:</strong> Only Portmans and Forever New have entered this corridor (Pacific Werribee) &mdash; value-end competitors testing a market that premium brands haven&rsquo;t reached. Low competitor density + massive population = <span class="highlight">first-mover advantage</span> for Review in western Melbourne&rsquo;s premium segment.</p>
+    <p style="font-size:12px;color:var(--info)"><strong>&#127978; Competitive validation:</strong> Only Portmans and Forever New have entered this corridor (Pacific Werribee) &mdash; value-end competitors testing a market that premium brands haven&rsquo;t reached. Low competitor density + massive population = <span class="highlight">first-mover advantage</span> for Review in western Melbourne&rsquo;s premium segment.</p>
   </div>
 
   <div class="insight-card" style="border-left:3px solid #ff7744;cursor:pointer" onclick="showCatchment(-38.10,145.28,'SE Melbourne')">
@@ -276,11 +435,11 @@ body.panel-open .insights-panel{right:0}
     <div class="metric-row"><span class="metric-label">Median age</span><span class="metric-val">35</span></div>
     <div class="metric-row"><span class="metric-label">Women 25&ndash;54</span><span class="metric-val">93,195 (22.0%)</span></div>
     <div class="metric-row"><span class="metric-label">YoY growth (CY24&rarr;25)</span><span class="metric-val highlight">+78%</span></div>
-    <div class="metric-row" style="border-top:1px solid rgba(255,255,255,.06);padding-top:4px;margin-top:4px"><span class="metric-label">&#127978; Competitors within 10km</span><span class="metric-val" style="color:#4fc3f7">3 stores, 2 brands</span></div>
-    <div class="metric-row"><span class="metric-label">&#127978; Competitors within 20km</span><span class="metric-val" style="color:#4fc3f7">10 stores (+ Forever New, Portmans)</span></div>
+    <div class="metric-row" style="border-top:1px solid var(--bd2);padding-top:4px;margin-top:4px"><span class="metric-label">&#127978; Competitors within 10km</span><span class="metric-val" style="color:var(--info)">3 stores, 2 brands</span></div>
+    <div class="metric-row"><span class="metric-label">&#127978; Competitors within 20km</span><span class="metric-val" style="color:var(--info)">10 stores (+ Forever New, Portmans)</span></div>
     <p style="margin-top:8px;font-size:12px"><strong>Key postcodes:</strong> 3977 Cranbourne ($37K, $426 AOV), 3806 Berwick ($28K), 3978 Clyde ($18K), 3175 Dandenong ($16K), 3805 Narre Warren ($15K), 3199 Frankston ($15K), 3809 Officer ($9K), 3910 Langwarrin ($7K).</p>
     <p style="font-size:12px"><strong>Rationale:</strong> 423K people, 93K women 25&ndash;54, growing +78% YoY. Household income $96K/yr, median age 35. Fountain Gate exists but is 13km north serving the Berwick/Pakenham axis &mdash; a different catchment. Cranbourne (3977) alone has 117K people with demand growing into Clyde North ($426 AOV &mdash; highest centre-postcode AOV of any recommendation). Frankston (3199, 56K people) bleeds $15K at 22km from any store. <span class="highlight">Cranbourne Park</span> or Casey Central expansion would capture the fastest-growing SE fringe &mdash; the steady performer of the five.</p>
-    <p style="font-size:12px;color:#4fc3f7"><strong>&#127978; Competitive validation:</strong> Portmans and Forever New at Cranbourne + Casey confirm retailer confidence. Within 20km, 10 competitor stores cluster around Fountain Gate/Frankston &mdash; but Cranbourne itself has light coverage. Review would join an emerging precinct, not chase a mature one.</p>
+    <p style="font-size:12px;color:var(--info)"><strong>&#127978; Competitive validation:</strong> Portmans and Forever New at Cranbourne + Casey confirm retailer confidence. Within 20km, 10 competitor stores cluster around Fountain Gate/Frankston &mdash; but Cranbourne itself has light coverage. Review would join an emerging precinct, not chase a mature one.</p>
   </div>
 
   <div class="insight-card" style="border-left:3px solid #ff9944;cursor:pointer" onclick="showCatchment(-27.67,152.91,'Springfield')">
@@ -295,11 +454,11 @@ body.panel-open .insights-panel{right:0}
     <div class="metric-row"><span class="metric-label">Median age</span><span class="metric-val">36</span></div>
     <div class="metric-row"><span class="metric-label">Women 25&ndash;54</span><span class="metric-val">53,182 (21.3%)</span></div>
     <div class="metric-row"><span class="metric-label">YoY growth (CY24&rarr;25)</span><span class="metric-val highlight">+67%</span></div>
-    <div class="metric-row" style="border-top:1px solid rgba(255,255,255,.06);padding-top:4px;margin-top:4px"><span class="metric-label">&#127978; Competitors within 10km</span><span class="metric-val" style="color:#4fc3f7">3 stores, 2 brands</span></div>
-    <div class="metric-row"><span class="metric-label">&#127978; Competitors within 20km</span><span class="metric-val" style="color:#4fc3f7">16 stores, 9 brands</span></div>
+    <div class="metric-row" style="border-top:1px solid var(--bd2);padding-top:4px;margin-top:4px"><span class="metric-label">&#127978; Competitors within 10km</span><span class="metric-val" style="color:var(--info)">3 stores, 2 brands</span></div>
+    <div class="metric-row"><span class="metric-label">&#127978; Competitors within 20km</span><span class="metric-val" style="color:var(--info)">16 stores, 9 brands</span></div>
     <p style="margin-top:8px;font-size:12px"><strong>Key postcodes:</strong> 4300 Springfield ($24K), 4074 Jindalee ($21K), 4078 Forest Lake ($13K), 4305 Ipswich ($13K), 4070 Fig Tree Pocket ($11K), 4115 Algester ($7K), 4304 Booval ($6K), 4110 Acacia Ridge ($6K).</p>
     <p style="font-size:12px"><strong>Rationale:</strong> 250K people, 53K women 25&ndash;54, +67% YoY growth. Income split: Springfield/Jindalee postcodes sit at $105&ndash;127K/yr while Ipswich is lower ($67&ndash;74K/yr), creating a dual-market catchment. Median age 36. The 22km gap to the nearest store (Indooroopilly) is the largest of any recommendation &mdash; QLD&rsquo;s most physically underserved corridor. Springfield 4300 alone has 69K people. <span class="highlight">Orion Springfield Central</span> is the obvious anchor &mdash; major regional centre with direct train connection, capturing both the premium Springfield and value Ipswich segments.</p>
-    <p style="font-size:12px;color:#4fc3f7"><strong>&#127978; Competitive validation:</strong> Portmans and Forever New have both opened at Springfield &mdash; the only two brands that consistently pioneer growth corridors. Within 20km, 16 stores from 9 brands cluster around Indooroopilly/Mt Ommaney, confirming the broader SW Brisbane market. Springfield is the emerging node that all competitors will converge on &mdash; <span class="highlight">early entry secures prime positioning</span>.</p>
+    <p style="font-size:12px;color:var(--info)"><strong>&#127978; Competitive validation:</strong> Portmans and Forever New have both opened at Springfield &mdash; the only two brands that consistently pioneer growth corridors. Within 20km, 16 stores from 9 brands cluster around Indooroopilly/Mt Ommaney, confirming the broader SW Brisbane market. Springfield is the emerging node that all competitors will converge on &mdash; <span class="highlight">early entry secures prime positioning</span>.</p>
   </div>
 
   <div class="insight-card" style="border-left:3px solid #ffbb44;cursor:pointer" onclick="showCatchment(-31.77,116.02,'Ellenbrook')">
@@ -314,15 +473,15 @@ body.panel-open .insights-panel{right:0}
     <div class="metric-row"><span class="metric-label">Median age</span><span class="metric-val">36</span></div>
     <div class="metric-row"><span class="metric-label">Women 25&ndash;54</span><span class="metric-val">33,137 (21.6%)</span></div>
     <div class="metric-row"><span class="metric-label">YoY growth (CY24&rarr;25)</span><span class="metric-val highlight">+110%</span></div>
-    <div class="metric-row" style="border-top:1px solid rgba(255,255,255,.06);padding-top:4px;margin-top:4px"><span class="metric-label">&#127978; Competitors within 10km</span><span class="metric-val" style="color:#4fc3f7">1 store (Portmans)</span></div>
-    <div class="metric-row"><span class="metric-label">&#127978; Competitors within 20km</span><span class="metric-val" style="color:#4fc3f7">3 stores (Portmans only)</span></div>
+    <div class="metric-row" style="border-top:1px solid var(--bd2);padding-top:4px;margin-top:4px"><span class="metric-label">&#127978; Competitors within 10km</span><span class="metric-val" style="color:var(--info)">1 store (Portmans)</span></div>
+    <div class="metric-row"><span class="metric-label">&#127978; Competitors within 20km</span><span class="metric-val" style="color:var(--info)">3 stores (Portmans only)</span></div>
     <p style="margin-top:8px;font-size:12px"><strong>Key postcodes:</strong> 6069 Ellenbrook ($31K, $476 AOV), 6056 Midvale ($12K), 6055 Guildford ($12K), 6066 Ballajura ($4K), 6090 Malaga ($4K), 6063 Bennett Springs ($2K).</p>
     <p style="font-size:12px"><strong>Rationale:</strong> Smallest catchment (153K) but the quality play &mdash; highest AOV ($356 catchment, $476 centre-postcode) and demand up +110% YoY. 33K women 25&ndash;54, median age 36, household income $95K/yr. Ellenbrook 6069 alone (46K people, $106K income) drives half the demand. Perth&rsquo;s new Metronet train line is transforming accessibility, making this a growth corridor for the next decade. <span class="highlight">The Shops at Ellenbrook</span> is the natural anchor &mdash; premium customer base, explosive growth, and improving infrastructure.</p>
-    <p style="font-size:12px;color:#4fc3f7"><strong>&#127978; Competitive validation:</strong> Only Portmans has entered Ellenbrook &mdash; the thinnest competitor presence of all five recommendations. This is the <span class="highlight">purest white space opportunity</span>: a premium customer base ($476 AOV) with explosive growth, where the competitive landscape hasn&rsquo;t caught up to demographics. Metronet will change that &mdash; first mover advantage is time-limited.</p>
+    <p style="font-size:12px;color:var(--info)"><strong>&#127978; Competitive validation:</strong> Only Portmans has entered Ellenbrook &mdash; the thinnest competitor presence of all five recommendations. This is the <span class="highlight">purest white space opportunity</span>: a premium customer base ($476 AOV) with explosive growth, where the competitive landscape hasn&rsquo;t caught up to demographics. Metronet will change that &mdash; first mover advantage is time-limited.</p>
   </div>
 
   <h3 style="margin-top:24px">&#128200; Methodology</h3>
-  <p style="font-size:11px;color:rgba(255,255,255,.4);line-height:1.6">Catchment demand calculated by aggregating all postcodes with CY2025 online demand (Polar Analytics) within 15km of each recommended centre, using ABS postcode centroid coordinates and haversine distance. Nearest store distance measured to existing Review network (64 locations). Rankings prioritise total catchment revenue — the real measure of addressable opportunity — not single-postcode demand. Demographics sourced from ABS Census 2021 QuickStats (POA-level): population, median household income, median age, and age/gender distribution. YoY growth calculated from Polar Analytics CY2024 vs CY2025 demand by postcode (gross sales + discounts + tax + shipping). Growth corridors will have materially higher current populations — these are conservative 2021 baselines.</p>
+  <p style="font-size:11px;color:var(--tx3);line-height:1.6">Catchment demand calculated by aggregating all postcodes with CY2025 online demand (Polar Analytics) within 15km of each recommended centre, using ABS postcode centroid coordinates and haversine distance. Nearest store distance measured to existing Review network (64 locations). Rankings prioritise total catchment revenue — the real measure of addressable opportunity — not single-postcode demand. Demographics sourced from ABS Census 2021 QuickStats (POA-level): population, median household income, median age, and age/gender distribution. YoY growth calculated from Polar Analytics CY2024 vs CY2025 demand by postcode (gross sales + discounts + tax + shipping). Growth corridors will have materially higher current populations — these are conservative 2021 baselines.</p>
 
   <h3>&#128200; CY2025 Summary</h3>
   <div class="insight-card">
@@ -333,40 +492,8 @@ body.panel-open .insights-panel{right:0}
     <div class="metric-row"><span class="metric-label">Peak week</span><span class="metric-val">W47 $459K (BF)</span></div>
     <div class="metric-row"><span class="metric-label">Stores driving halo</span><span class="metric-val">64 (81% Myer)</span></div>
   </div>
-</div>
-<div class="controls">
-  <div class="controls-top">
-    <div class="stats">
-      <div><div class="stat-label">Demand Sales</div><div class="stat-value" id="totalSales">$0</div></div>
-      <div><div class="stat-label">Orders</div><div class="stat-value orders" id="totalOrders">0</div></div>
-      <div><div class="stat-label">Postcodes</div><div class="stat-value orders" id="totalPostcodes">0</div></div>
-    </div>
-    <div>
-      <div class="stat-label" style="margin-bottom:6px">Period</div>
-      <select id="monthFilter" class="month-select">
-        <option value="-1">All Year</option>
-        <option value="0">January</option>
-        <option value="1">February</option>
-        <option value="2">March</option>
-        <option value="3">April</option>
-        <option value="4">May</option>
-        <option value="5">June</option>
-        <option value="6">July</option>
-        <option value="7">August</option>
-        <option value="8">September</option>
-        <option value="9">October</option>
-        <option value="10">November</option>
-        <option value="11">December</option>
-      </select>
     </div>
   </div>
-  <div class="week-label" id="weekLabel">Week 1</div>
-  <div class="slider-row">
-    <button class="play-btn" id="playBtn" title="Play/Pause">&#x25B6;</button>
-    <button class="speed-btn" id="speedBtn" title="Speed">1&times;</button>
-    <input type="range" id="weekSlider" min="0" max="52" value="0" step="1">
-  </div>
-  <div class="week-ticks"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span></div>
 </div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
@@ -385,189 +512,394 @@ function fC(v){return v>=1e6?'$'+(v/1e6).toFixed(2)+'M':v>=1e3?'$'+(v/1e3).toFix
 function fN(v){return v.toLocaleString('en-AU');}
 function gPC(a,n){return PC_LOOKUP[parseFloat(a).toFixed(6)+','+parseFloat(n).toFixed(6)]||null;}
 
-// Panel toggle
-document.getElementById('insightsToggle').onclick=()=>{document.body.classList.toggle('panel-open');setTimeout(()=>map.invalidateSize(),350);};
-document.getElementById('closePanel').onclick=()=>{document.body.classList.remove('panel-open');setTimeout(()=>map.invalidateSize(),350);};
+// ===== THEME TOGGLE =====
+const themeToggle = document.getElementById('themeToggle');
+let tileLayer = null;
 
-const map=L.map('map',{center:[-28.5,134],zoom:5,zoomControl:true,attributionControl:false,minZoom:4,maxZoom:18,scrollWheelZoom:true});
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:20}).addTo(map);
-let catchCircle=null,catchPin=null;
-function showCatchment(lat,lng,label){
-  if(catchCircle){map.removeLayer(catchCircle);catchCircle=null;}
-  if(catchPin){map.removeLayer(catchPin);catchPin=null;}
-  catchCircle=L.circle([lat,lng],{radius:15000,color:'#fca50a',weight:2,opacity:.8,fillColor:'#fca50a',fillOpacity:.1,dashArray:'8 6'}).addTo(map);
-  catchPin=L.marker([lat,lng],{icon:L.divIcon({className:'',html:'<div style="background:#fca50a;color:#000;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.4);transform:translate(-50%,-100%)">'+label+'<div style="width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid #fca50a;margin:0 auto"></div></div>',iconSize:[0,0],iconAnchor:[0,0]})}).addTo(map);
-  map.flyTo([lat,lng],11,{duration:1.5});
+function setTheme(dark) {
+  if (dark) {
+    document.body.classList.add('dark-mode');
+    themeToggle.innerHTML = '&#9728;&#65039; Light mode';
+    localStorage.setItem('review-heatmap-theme', 'dark');
+  } else {
+    document.body.classList.remove('dark-mode');
+    themeToggle.innerHTML = '&#127763; Dark mode';
+    localStorage.setItem('review-heatmap-theme', 'light');
+  }
+  updateTileLayer(dark);
 }
-function clearCatchment(){if(catchCircle){map.removeLayer(catchCircle);catchCircle=null;}if(catchPin){map.removeLayer(catchPin);catchPin=null;}}
-/* flyTo removed */
 
-const sC={Boutique:'#e74c3c',Concession:'#3498db',Outlet:'#2ecc71'};
-STORES.forEach(s=>{
-  const m=L.circleMarker([s.la,s.ln],{radius:7,fillColor:sC[s.t]||'#fff',fillOpacity:.9,color:'#fff',weight:2,zIndexOffset:1000});
-  m.bindTooltip('<div style="font-weight:700;font-size:14px">'+s.n+'</div><div style="font-size:11px;color:rgba(255,255,255,.6)">'+s.t+' &middot; '+s.c+', '+s.s+'</div>',{className:'postcode-tooltip',direction:'top',offset:[0,-10]});
-  m.addTo(map);
+function updateTileLayer(dark) {
+  if (!window._map) return;
+  if (tileLayer) window._map.removeLayer(tileLayer);
+  if (dark) {
+    tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:20});
+  } else {
+    tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:20});
+  }
+  tileLayer.addTo(window._map);
+  tileLayer.bringToBack();
+}
+
+themeToggle.addEventListener('click', () => {
+  setTheme(!document.body.classList.contains('dark-mode'));
 });
 
-// Competitor stores layer
-const COMP_COLORS={'Country Road':'#a855f7','Witchery':'#ec4899','Mimco':'#f59e0b','Trenery':'#14b8a6','Seed Heritage':'#f97316','Gorman':'#06b6d4','Cue':'#8b5cf6','Sportscraft':'#10b981','Portmans':'#dc2626','Forever New':'#0ea5e9'};
-const compLayer=L.layerGroup();
-COMP_STORES.forEach(s=>{
-  const col=COMP_COLORS[s.b]||'#a855f7';
-  const m=L.circleMarker([s.la,s.ln],{radius:5,fillColor:col,fillOpacity:.85,color:'rgba(255,255,255,.6)',weight:1.5,zIndexOffset:900});
-  m.bindTooltip('<div style="font-weight:700;font-size:13px">'+s.b+'</div><div style="font-size:12px;color:rgba(255,255,255,.8)">'+s.n+'</div><div style="font-size:10px;color:rgba(255,255,255,.5)">'+s.c+'</div>',{className:'postcode-tooltip',direction:'top',offset:[0,-8]});
-  compLayer.addLayer(m);
-});
-document.getElementById('compToggle').addEventListener('change',function(){
-  if(this.checked){compLayer.addTo(map);document.getElementById('compBrandLegend').classList.add('visible');}
-  else{map.removeLayer(compLayer);document.getElementById('compBrandLegend').classList.remove('visible');}
-});
+// Init theme from localStorage or default to light
+const savedTheme = localStorage.getItem('review-heatmap-theme');
+if (savedTheme === 'dark') setTheme(true);
+// else default is light, no action needed
 
-let hL=null,mL=L.layerGroup().addTo(map),cP=[],cM=0;
-function gCol(r){const S=[[0,[0,0,4]],[.1,[22,11,57]],[.2,[66,10,104]],[.3,[106,23,110]],[.4,[147,38,103]],[.5,[188,55,84]],[.6,[221,81,58]],[.7,[243,120,25]],[.8,[252,165,10]],[.9,[246,215,70]],[1,[252,255,164]]];let l=S[0],h=S[S.length-1];for(let i=0;i<S.length-1;i++)if(r>=S[i][0]&&r<=S[i+1][0]){l=S[i];h=S[i+1];break;}const t=h[0]===l[0]?0:(r-l[0])/(h[0]-l[0]);return'rgb('+Math.round(l[1][0]+t*(h[1][0]-l[1][0]))+','+Math.round(l[1][1]+t*(h[1][1]-l[1][1]))+','+Math.round(l[1][2]+t*(h[1][2]-l[1][2]))+')';}
+// ===== VIEW TABS =====
+const viewTabs = document.querySelectorAll('.view-tab');
+const summaryView = document.getElementById('summaryView');
+const mapView = document.getElementById('mapView');
+let mapInitialized = false;
 
-function uMk(){
-  mL.clearLayers();const z=map.getZoom(),h=document.getElementById('zoomHint');
-  if(z>=8)h.style.opacity='0';else{h.style.opacity='1';h.textContent='\u{1F50D} Scroll to zoom \u00B7 Postcode detail '+(8-z)+' zoom levels away';}
-  if(z<8||!cP.length)return;
-  const br=z>=14?10:z>=12?8:z>=10?6:4;
-  cP.forEach(p=>{
-    const la=p[0],ln=p[1],v=p[2],r=cM>0?v/cM:0,pc=gPC(la,ln);
-    const mk=L.circleMarker([la,ln],{radius:br,fillColor:gCol(Math.min(r,1)),fillOpacity:.35,color:'rgba(255,255,255,.15)',weight:.5});
-    let tt='<div class="postcode-tooltip">'+(pc?'<div class="pc-code">'+pc+'</div>':'')+'<div class="pc-sales">'+fC(v)+' this week</div>';
-    if(pc&&PC_DETAIL[pc]){const d=PC_DETAIL[pc];tt+='<div class="pc-meta">'+d.d+'km to '+d.ns+' ('+d.nt+')</div><div class="pc-meta">CY2025: '+fC(d.dem)+' \u00B7 '+d.ord+' orders \u00B7 AOV $'+d.aov.toFixed(0)+'</div>';if(d.rpt!==null)tt+='<div class="pc-meta">Repeat: '+d.rpt+'% \u00B7 '+d.opc+' ord/cust</div>';}
-    tt+='</div>';
-    mk.bindTooltip(tt,{permanent:false,direction:'top',offset:[0,-8],className:'pc-tooltip-wrapper'});
-    mL.addLayer(mk);
+viewTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    viewTabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const view = tab.dataset.view;
+    if (view === 'summary') {
+      summaryView.classList.add('active');
+      mapView.classList.add('hidden');
+    } else {
+      summaryView.classList.remove('active');
+      mapView.classList.remove('hidden');
+      if (!mapInitialized) {
+        initMap();
+        mapInitialized = true;
+      } else {
+        window._map.invalidateSize();
+      }
+    }
   });
+});
+
+// ===== SUMMARY PAGE =====
+const LOCATIONS = [
+  {
+    name: 'NW Sydney Corridor',
+    state: 'NSW',
+    demand: '$280,369',
+    orders: '948',
+    aov: '$296',
+    growth: '+170%',
+    postcodes: 18,
+    population: '388,383',
+    income: '$123,292/yr',
+    medianAge: 36,
+    women: '85,326 (22.0%)',
+    nearest: 'Myer Castle Hill (15km)',
+    competitors: '11 stores, 6 brands',
+    compBrands: 'Country Road, Cue, Forever New, Portmans, Seed Heritage, Sportscraft',
+    venue: 'Rouse Hill Town Centre or Marsden Park',
+    rationale: 'The strongest recommendation on every metric. 388K people, $123K median household income (28% above other catchments), demand growing +170% YoY. 85K women aged 25\u201354. The $0.72 demand-per-capita is nearly double any other catchment. Castle Hill is 15km away across a traffic/toll barrier in a different trade area.',
+    lat: -33.71, lng: 150.87, label: 'NW Sydney',
+    color: '#ff4444'
+  },
+  {
+    name: 'Western Melbourne Corridor',
+    state: 'VIC',
+    demand: '$194,129',
+    orders: '657',
+    aov: '$295',
+    growth: '+139%',
+    postcodes: 15,
+    population: '490,302',
+    income: '$96,044/yr',
+    medianAge: 34,
+    women: '113,106 (23.1%)',
+    nearest: 'Myer Highpoint (18km)',
+    competitors: '2 stores, 2 brands',
+    compBrands: 'Portmans, Forever New',
+    venue: 'Pacific Werribee',
+    rationale: 'Largest population base (490K) with highest pool of target customers \u2014 113K women aged 25\u201354. Demand up +139% YoY. Youngest catchment (median age 34). Wyndham is Australia\u2019s fastest-growing LGA. Highpoint is 18km away across the West Gate Bridge.',
+    lat: -37.88, lng: 144.66, label: 'Western Melbourne',
+    color: '#ff5544'
+  },
+  {
+    name: 'SE Melbourne / Cranbourne',
+    state: 'VIC',
+    demand: '$181,751',
+    orders: '608',
+    aov: '$299',
+    growth: '+78%',
+    postcodes: 16,
+    population: '423,175',
+    income: '$95,888/yr',
+    medianAge: 35,
+    women: '93,195 (22.0%)',
+    nearest: 'Myer Fountain Gate (13km)',
+    competitors: '3 stores, 2 brands (10 within 20km)',
+    compBrands: 'Portmans, Forever New + others at Fountain Gate/Frankston',
+    venue: 'Cranbourne Park or Casey Central',
+    rationale: '423K people, 93K women 25\u201354, growing +78% YoY. Fountain Gate exists 13km north serving Berwick/Pakenham \u2014 a different catchment. Cranbourne 3977 alone has 117K people with $426 AOV (highest of any recommendation). The steady performer.',
+    lat: -38.10, lng: 145.28, label: 'SE Melbourne',
+    color: '#ff7744'
+  },
+  {
+    name: 'Springfield / Greater Ipswich',
+    state: 'QLD',
+    demand: '$124,148',
+    orders: '396',
+    aov: '$314',
+    growth: '+67%',
+    postcodes: 14,
+    population: '249,855',
+    income: '$95,108/yr',
+    medianAge: 36,
+    women: '53,182 (21.3%)',
+    nearest: 'Indooroopilly (22km)',
+    competitors: '3 stores, 2 brands (16 within 20km)',
+    compBrands: 'Portmans, Forever New',
+    venue: 'Orion Springfield Central',
+    rationale: '250K people, 53K women 25\u201354. The 22km gap to nearest store is the largest of any recommendation \u2014 QLD\u2019s most physically underserved corridor. Springfield 4300 alone has 69K people. Direct train connection captures both premium Springfield and value Ipswich segments.',
+    lat: -27.67, lng: 152.91, label: 'Springfield',
+    color: '#ff9944'
+  },
+  {
+    name: 'Ellenbrook / Swan',
+    state: 'WA',
+    demand: '$65,232',
+    orders: '183',
+    aov: '$356',
+    growth: '+110%',
+    postcodes: 6,
+    population: '153,371',
+    income: '$95,420/yr',
+    medianAge: 36,
+    women: '33,137 (21.6%)',
+    nearest: 'Myer Morley (17km)',
+    competitors: '1 store (Portmans)',
+    compBrands: 'Portmans only',
+    venue: 'The Shops at Ellenbrook',
+    rationale: 'Smallest catchment (153K) but the quality play \u2014 highest AOV ($356 catchment, $476 centre-postcode) and demand up +110% YoY. Purest white space opportunity. Perth\u2019s Metronet train line transforming accessibility. First-mover advantage is time-limited.',
+    lat: -31.77, lng: 116.02, label: 'Ellenbrook',
+    color: '#ffbb44'
+  }
+];
+
+function buildSummaryCards() {
+  const container = document.getElementById('locationCards');
+  container.innerHTML = LOCATIONS.map((loc, i) => `
+    <div class="location-card" onclick="showOnMap(${loc.lat},${loc.lng},'${loc.label}')">
+      <div class="rank">#${i + 1}</div>
+      <div class="loc-name">${loc.name}</div>
+      <div class="loc-state">${loc.state}</div>
+      <div class="loc-metrics">
+        <div class="loc-metric"><div class="lm-label">Catchment Demand</div><div class="lm-value">${loc.demand}</div></div>
+        <div class="loc-metric"><div class="lm-label">Orders</div><div class="lm-value">${loc.orders}</div></div>
+        <div class="loc-metric"><div class="lm-label">AOV</div><div class="lm-value">${loc.aov}</div></div>
+        <div class="loc-metric"><div class="lm-label">YoY Growth</div><div class="lm-value growth">${loc.growth}</div></div>
+      </div>
+      <div class="loc-detail-row">
+        <span>&#128101; ${loc.population} pop</span>
+        <span>&#128181; ${loc.income} income</span>
+        <span>&#128506; ${loc.postcodes} postcodes</span>
+        <span>&#127978; ${loc.competitors}</span>
+      </div>
+      <div class="loc-detail-row" style="padding-top:8px;border-top:none">
+        <span>&#128105; ${loc.women} women 25-54</span>
+        <span>&#127915; Nearest: ${loc.nearest}</span>
+      </div>
+      <div class="loc-rationale">${loc.rationale} <span class="loc-venue">${loc.venue}</span></div>
+    </div>
+  `).join('');
+}
+buildSummaryCards();
+
+function showOnMap(lat, lng, label) {
+  // Switch to map view
+  viewTabs.forEach(t => t.classList.remove('active'));
+  document.querySelector('[data-view="map"]').classList.add('active');
+  summaryView.classList.remove('active');
+  mapView.classList.remove('hidden');
+  if (!mapInitialized) {
+    initMap();
+    mapInitialized = true;
+  }
+  setTimeout(() => {
+    window._map.invalidateSize();
+    showCatchment(lat, lng, label);
+  }, 100);
 }
 
-function uWk(i){
-  const w=DATA[i],pts=w[4];cP=pts;
-  document.getElementById('weekLabel').textContent='Week '+(i+1)+': '+fD(w[0])+' \u2014 '+fD(w[1]);
-  document.getElementById('totalSales').textContent=fC(w[2]);
-  document.getElementById('totalOrders').textContent=fN(w[3]);
-  document.getElementById('totalPostcodes').textContent=fN(pts.length);
-  document.getElementById('weekSlider').value=i;
-  let mx=0;pts.forEach(p=>{if(p[2]>mx)mx=p[2];});cM=mx;
-  const nm=pts.map(p=>[p[0],p[1],mx>0?p[2]/mx:0]);
-  if(hL)hL.setLatLngs(nm);
-  else{hL=L.heatLayer(nm,{radius:30,blur:25,maxZoom:12,max:0.6,minOpacity:0.15,gradient:{0:'rgba(0,0,0,0)',0.05:'#0d0829',0.15:'#2a0a5e',0.25:'#6a0d83',0.35:'#a8226a',0.45:'#d63a4a',0.55:'#f05a24',0.65:'#ff8c00',0.75:'#ffb800',0.85:'#ffe030',0.95:'#ffff6e',1:'#ffffcc'}}).addTo(map);}
-  uMk();
+// ===== MAP INITIALIZATION (deferred) =====
+let catchCircle = null, catchPin = null;
+
+function showCatchment(lat, lng, label) {
+  if (!window._map) return;
+  if (catchCircle) { window._map.removeLayer(catchCircle); catchCircle = null; }
+  if (catchPin) { window._map.removeLayer(catchPin); catchPin = null; }
+  catchCircle = L.circle([lat, lng], {radius:15000, color:'#fca50a', weight:2, opacity:.8, fillColor:'#fca50a', fillOpacity:.1, dashArray:'8 6'}).addTo(window._map);
+  catchPin = L.marker([lat, lng], {icon:L.divIcon({className:'', html:'<div style="background:#fca50a;color:#000;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.4);transform:translate(-50%,-100%)">'+label+'<div style="width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid #fca50a;margin:0 auto"></div></div>', iconSize:[0,0], iconAnchor:[0,0]})}).addTo(window._map);
+  window._map.flyTo([lat, lng], 11, {duration:1.5});
 }
 
-map.on('zoomend',()=>{if(hL){const z=map.getZoom();hL.setOptions({radius:z>=12?22:z>=10?26:z>=8?28:30,blur:z>=12?18:z>=10?22:z>=8?24:25});}uMk();});
-
-const sl=document.getElementById('weekSlider'),pb=document.getElementById('playBtn'),sb=document.getElementById('speedBtn');
-sl.addEventListener('input',function(){ if(typeof currentMonth!=='undefined'&&typeof getWeeksForMonth==='function'){const indices=getWeeksForMonth(currentMonth);const li=parseInt(sl.value);if(li>=0&&li<indices.length){uWk(indices[li]);}}else{uWk(parseInt(sl.value));}});
-let pl=false,pi=null,sp=[1,2,4],si=0;
-function gD(){return[800,400,150][si];}
-function tP(){pl=!pl;pb.textContent=pl?'\u23F8':'\u25B6';if(pl)pi=setInterval(()=>{let v=(parseInt(sl.value)+1)%DATA.length;sl.value=v;uWk(v);},gD());else clearInterval(pi);}
-pb.addEventListener('click',tP);
-sb.addEventListener('click',()=>{si=(si+1)%3;sb.textContent=sp[si]+'\u00D7';if(pl){clearInterval(pi);pi=setInterval(()=>{let v=(parseInt(sl.value)+1)%DATA.length;sl.value=v;uWk(v);},gD());}});
-document.addEventListener('keydown',e=>{if(e.key===' '){e.preventDefault();tP();}else if(e.key==='ArrowRight'){let v=Math.min(parseInt(sl.value)+1,DATA.length-1);sl.value=v;uWk(v);}else if(e.key==='ArrowLeft'){let v=Math.max(parseInt(sl.value)-1,0);sl.value=v;uWk(v);}});
-
-// Month filter logic
-const monthFilter = document.getElementById('monthFilter');
-const weekSliderRow = document.querySelector('.slider-row');
-const weekTicksEl = document.querySelector('.week-ticks');
-const weekLabelEl = document.getElementById('weekLabel');
-
-function getMonthFromDate(dateStr) {
-  return new Date(dateStr + 'T00:00:00').getMonth();
+function clearCatchment() {
+  if (catchCircle) { window._map.removeLayer(catchCircle); catchCircle = null; }
+  if (catchPin) { window._map.removeLayer(catchPin); catchPin = null; }
 }
 
-function getWeeksForMonth(monthIdx) {
-  if (monthIdx === -1) return DATA.map((_, i) => i);
-  return DATA.map((w, i) => [w, i]).filter(([w]) => getMonthFromDate(w[0]) === monthIdx).map(([_, i]) => i);
-}
+function initMap() {
+  const isDark = document.body.classList.contains('dark-mode');
+  const tileUrl = isDark
+    ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+    : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
 
-function aggregateWeeks(indices) {
-  const merged = {};
-  let totalSales = 0, totalOrders = 0;
-  indices.forEach(i => {
-    const w = DATA[i];
-    totalSales += w[2];
-    totalOrders += w[3];
-    w[4].forEach(p => {
-      const key = p[0] + ',' + p[1];
-      if (!merged[key]) merged[key] = [p[0], p[1], 0];
-      merged[key][2] += p[2];
+  const map = L.map('map', {center:[-28.5,134], zoom:5, zoomControl:true, attributionControl:false, minZoom:4, maxZoom:18, scrollWheelZoom:true});
+  tileLayer = L.tileLayer(tileUrl, {subdomains:'abcd', maxZoom:20}).addTo(map);
+  window._map = map;
+
+  const sC = {Boutique:'#e74c3c', Concession:'#3498db', Outlet:'#2ecc71'};
+  STORES.forEach(s => {
+    const m = L.circleMarker([s.la, s.ln], {radius:7, fillColor:sC[s.t]||'#fff', fillOpacity:.9, color:'#fff', weight:2, zIndexOffset:1000});
+    m.bindTooltip('<div style="font-weight:700;font-size:14px">'+s.n+'</div><div style="font-size:11px;color:var(--tx2)">'+s.t+' &middot; '+s.c+', '+s.s+'</div>', {className:'postcode-tooltip', direction:'top', offset:[0,-10]});
+    m.addTo(map);
+  });
+
+  // Competitor stores
+  const COMP_COLORS = {'Country Road':'#a855f7','Witchery':'#ec4899','Mimco':'#f59e0b','Trenery':'#14b8a6','Seed Heritage':'#f97316','Gorman':'#06b6d4','Cue':'#8b5cf6','Sportscraft':'#10b981','Portmans':'#ef4444','Forever New':'#84cc16'};
+  const compLayer = L.layerGroup();
+  COMP_STORES.forEach(s => {
+    const col = COMP_COLORS[s.b] || '#a855f7';
+    const m = L.circleMarker([s.la, s.ln], {radius:5, fillColor:col, fillOpacity:.85, color:'rgba(255,255,255,.6)', weight:1.5, zIndexOffset:900});
+    m.bindTooltip('<div style="font-weight:700;font-size:13px">'+s.b+'</div><div style="font-size:12px">'+s.n+'</div><div style="font-size:10px;color:var(--tx2)">'+s.c+'</div>', {className:'postcode-tooltip', direction:'top', offset:[0,-8]});
+    compLayer.addLayer(m);
+  });
+  document.getElementById('compToggle').addEventListener('change', function() {
+    if (this.checked) { compLayer.addTo(map); document.getElementById('compBrandLegend').classList.add('visible'); }
+    else { map.removeLayer(compLayer); document.getElementById('compBrandLegend').classList.remove('visible'); }
+  });
+
+  let hL = null, mL = L.layerGroup().addTo(map), cP = [], cM = 0;
+  function gCol(r){const S=[[0,[0,0,4]],[.1,[22,11,57]],[.2,[66,10,104]],[.3,[106,23,110]],[.4,[147,38,103]],[.5,[188,55,84]],[.6,[221,81,58]],[.7,[243,120,25]],[.8,[252,165,10]],[.9,[246,215,70]],[1,[252,255,164]]];let lo=S[0],hi=S[S.length-1];for(let i=0;i<S.length-1;i++){if(r>=S[i][0]&&r<=S[i+1][0]){lo=S[i];hi=S[i+1];break;}}const t=(r-lo[0])/(hi[0]-lo[0]||1);const c=lo[1].map((v,i)=>Math.round(v+(hi[1][i]-v)*t));return 'rgb('+c[0]+','+c[1]+','+c[2]+')';}
+
+  function uMk() {
+    mL.clearLayers();
+    const z = map.getZoom(), h = document.getElementById('zoomHint');
+    if (z >= 8) h.style.opacity = '0';
+    else { h.style.opacity = '1'; h.textContent = '\u{1F50D} Scroll to zoom \u00B7 Postcode detail '+(8-z)+' zoom levels away'; }
+    if (z < 8 || !cP.length) return;
+    const br = z >= 14 ? 10 : z >= 12 ? 8 : z >= 10 ? 6 : 4;
+    cP.forEach(p => {
+      const la=p[0], ln=p[1], v=p[2], r=cM>0?v/cM:0, pc=gPC(la,ln);
+      const mk = L.circleMarker([la,ln], {radius:br, fillColor:gCol(Math.min(r,1)), fillOpacity:.35, color:'rgba(255,255,255,.15)', weight:.5});
+      let tt = '<div class="postcode-tooltip">'+(pc?'<div class="pc-code">'+pc+'</div>':'')+'<div class="pc-sales">'+fC(v)+' this week</div>';
+      if (pc && PC_DETAIL[pc]) { const d=PC_DETAIL[pc]; tt+='<div class="pc-meta">'+d.d+'km to '+d.ns+' ('+d.nt+')</div><div class="pc-meta">CY2025: '+fC(d.dem)+' \u00B7 '+d.ord+' orders \u00B7 AOV $'+d.aov.toFixed(0)+'</div>'; if(d.rpt!==null) tt+='<div class="pc-meta">Repeat: '+d.rpt+'% \u00B7 '+d.opc+' ord/cust</div>'; }
+      tt += '</div>';
+      mk.bindTooltip(tt, {permanent:false, direction:'top', offset:[0,-8], className:'pc-tooltip-wrapper'});
+      mL.addLayer(mk);
     });
+  }
+
+  function uWk(i) {
+    const w=DATA[i], pts=w[4]; cP=pts;
+    document.getElementById('weekLabel').textContent = 'Week '+(i+1)+': '+fD(w[0])+' \u2014 '+fD(w[1]);
+    document.getElementById('totalSales').textContent = fC(w[2]);
+    document.getElementById('totalOrders').textContent = fN(w[3]);
+    document.getElementById('totalPostcodes').textContent = fN(pts.length);
+    document.getElementById('weekSlider').value = i;
+    let mx=0; pts.forEach(p => { if(p[2]>mx) mx=p[2]; }); cM=mx;
+    const nm = pts.map(p => [p[0], p[1], mx>0 ? p[2]/mx : 0]);
+    if (hL) hL.setLatLngs(nm);
+    else { hL=L.heatLayer(nm, {radius:30, blur:25, maxZoom:12, max:0.6, minOpacity:0.15, gradient:{0:'rgba(0,0,0,0)',0.05:'#0d0829',0.15:'#2a0a5e',0.25:'#6a0d83',0.35:'#a8226a',0.45:'#d63a4a',0.55:'#f05a24',0.65:'#f3781e',0.75:'#fca50a',0.85:'#f6d746',0.95:'#fcffa4',1:'#fcffa4'}}).addTo(map); }
+    uMk();
+  }
+
+  map.on('zoomend', () => { if(hL){ const z=map.getZoom(); hL.setOptions({radius:z>=12?22:z>=10?26:z>=8?28:30, blur:z>=12?18:z>=10?22:z>=8?24:25}); } uMk(); });
+
+  const sl=document.getElementById('weekSlider'), pb=document.getElementById('playBtn'), sb=document.getElementById('speedBtn');
+  sl.addEventListener('input', function(){ if(typeof currentMonth!=='undefined'&&typeof getWeeksForMonth==='function'){const indices=getWeeksForMonth(currentMonth);const li=parseInt(sl.value);if(li>=0&&li<indices.length){weekMode=true;uWk(indices[li]);}}});
+  let pl=false, pi=null, sp=[1,2,4], si=0;
+  function gD(){return[800,400,150][si];}
+  function tP(){pl=!pl;pb.textContent=pl?'\u23F8':'\u25B6';if(pl)pi=setInterval(()=>{let v=(parseInt(sl.value)+1)%DATA.length;sl.value=v;uWk(v);},gD());else clearInterval(pi);}
+  pb.addEventListener('click', tP);
+  sb.addEventListener('click', ()=>{si=(si+1)%3;sb.textContent=sp[si]+'\u00D7';if(pl){clearInterval(pi);pi=setInterval(()=>{let v=(parseInt(sl.value)+1)%DATA.length;sl.value=v;uWk(v);},gD());}});
+  document.addEventListener('keydown', e=>{if(e.key===' '){e.preventDefault();tP();}else if(e.key==='ArrowRight'){let v=Math.min(parseInt(sl.value)+1,DATA.length-1);sl.value=v;uWk(v);}else if(e.key==='ArrowLeft'){let v=Math.max(parseInt(sl.value)-1,0);sl.value=v;uWk(v);}});
+
+  // Month filter
+  const monthFilter = document.getElementById('monthFilter');
+  const weekSliderRow = document.querySelector('.slider-row');
+  const weekTicksEl = document.querySelector('.week-ticks');
+  const weekLabelEl = document.getElementById('weekLabel');
+
+  function getMonthFromDate(dateStr) { return new Date(dateStr+'T00:00:00').getMonth(); }
+  function getWeeksForMonth(monthIdx) {
+    if (monthIdx === -1) return DATA.map((_, i) => i);
+    return DATA.map((w, i) => [w, i]).filter(([w]) => getMonthFromDate(w[0]) === monthIdx).map(([_, i]) => i);
+  }
+  // Make accessible for slider
+  window.getWeeksForMonth = getWeeksForMonth;
+
+  function aggregateWeeks(indices) {
+    const merged = {};
+    let totalSales = 0, totalOrders = 0;
+    indices.forEach(i => {
+      const w = DATA[i];
+      totalSales += w[2];
+      totalOrders += w[3];
+      w[4].forEach(p => {
+        const key = p[0]+','+p[1];
+        if (!merged[key]) merged[key] = [p[0], p[1], 0];
+        merged[key][2] += p[2];
+      });
+    });
+    return { totalSales, totalOrders, pts: Object.values(merged), count: indices.length };
+  }
+
+  function showAggregated(monthIdx) {
+    const indices = getWeeksForMonth(monthIdx);
+    if (!indices.length) return;
+    const agg = aggregateWeeks(indices);
+    cP = agg.pts;
+    if (monthIdx === -1) weekLabelEl.textContent = 'All Year \u2014 '+DATA.length+' weeks aggregated';
+    else weekLabelEl.textContent = MONTHS[monthIdx]+' \u2014 '+agg.count+' weeks aggregated';
+    document.getElementById('totalSales').textContent = fC(agg.totalSales);
+    document.getElementById('totalOrders').textContent = fN(agg.totalOrders);
+    document.getElementById('totalPostcodes').textContent = fN(agg.pts.length);
+    let mx=0; agg.pts.forEach(p => { if(p[2]>mx) mx=p[2]; }); cM=mx;
+    const nm = agg.pts.map(p => [p[0], p[1], mx>0 ? p[2]/mx : 0]);
+    if (hL) hL.setLatLngs(nm);
+    else { hL=L.heatLayer(nm, {radius:30, blur:25, maxZoom:12, max:0.6, minOpacity:0.15, gradient:{0:'rgba(0,0,0,0)',0.05:'#0d0829',0.15:'#2a0a5e',0.25:'#6a0d83',0.35:'#a8226a',0.45:'#d63a4a',0.55:'#f05a24',0.65:'#f3781e',0.75:'#fca50a',0.85:'#f6d746',0.95:'#fcffa4',1:'#fcffa4'}}).addTo(map); }
+    uMk();
+  }
+
+  let currentMonth = -1;
+  let weekMode = false;
+  // Make accessible
+  window.currentMonth = currentMonth;
+
+  monthFilter.addEventListener('change', function() {
+    currentMonth = parseInt(this.value);
+    window.currentMonth = currentMonth;
+    if (pl) tP();
+    showAggregated(currentMonth);
+    weekSliderRow.style.display = 'flex';
+    weekTicksEl.style.display = 'flex';
+    const indices = getWeeksForMonth(currentMonth);
+    sl.min = 0;
+    sl.max = indices.length - 1;
+    sl.value = 0;
+    weekMode = false;
   });
-  const pts = Object.values(merged);
-  return { totalSales, totalOrders, pts, count: indices.length };
+
+  const origSlInput = sl.oninput;
+  sl.addEventListener('input', function(e) {
+    e.stopImmediatePropagation();
+    const indices = getWeeksForMonth(currentMonth);
+    const localIdx = parseInt(sl.value);
+    if (localIdx >= 0 && localIdx < indices.length) {
+      weekMode = true;
+      uWk(indices[localIdx]);
+    }
+  }, true);
+
+  // Show aggregated on load
+  showAggregated(-1);
 }
-
-function showAggregated(monthIdx) {
-  const indices = getWeeksForMonth(monthIdx);
-  if (!indices.length) return;
-  const agg = aggregateWeeks(indices);
-  cP = agg.pts;
-
-  if (monthIdx === -1) {
-    weekLabelEl.textContent = 'All Year \u2014 ' + DATA.length + ' weeks aggregated';
-  } else {
-    weekLabelEl.textContent = MONTHS[monthIdx] + ' \u2014 ' + agg.count + ' weeks aggregated';
-  }
-  document.getElementById('totalSales').textContent = fC(agg.totalSales);
-  document.getElementById('totalOrders').textContent = fN(agg.totalOrders);
-  document.getElementById('totalPostcodes').textContent = fN(agg.pts.length);
-
-  let mx = 0;
-  agg.pts.forEach(p => { if (p[2] > mx) mx = p[2]; });
-  cM = mx;
-  const nm = agg.pts.map(p => [p[0], p[1], mx > 0 ? p[2] / mx : 0]);
-  if (hL) hL.setLatLngs(nm);
-  else {
-    hL = L.heatLayer(nm, {radius:30,blur:25,maxZoom:12,max:0.6,minOpacity:0.15,gradient:{0:'rgba(0,0,0,0)',0.05:'#0d0829',0.15:'#2a0a5e',0.25:'#6a0d83',0.35:'#a8226a',0.45:'#d63a4a',0.55:'#f05a24',0.65:'#ff8c00',0.75:'#ffb800',0.85:'#ffe030',0.95:'#ffff6e',1:'#ffffcc'}}).addTo(map);
-  }
-  uMk();
-}
-
-let currentMonth = -1;
-let weekMode = false;
-
-function setSliderForMonth(monthIdx) {
-  const indices = getWeeksForMonth(monthIdx);
-  if (monthIdx === -1) {
-    sl.min = 0; sl.max = DATA.length - 1; sl.value = 0;
-  } else {
-    sl.min = 0; sl.max = indices.length - 1; sl.value = 0;
-  }
-}
-
-monthFilter.addEventListener('change', function() {
-  currentMonth = parseInt(this.value);
-  if (pl) tP(); // stop playback
-  showAggregated(currentMonth);
-  // Show slider for drilling into individual weeks
-  weekSliderRow.style.display = 'flex';
-  weekTicksEl.style.display = 'flex';
-  const indices = getWeeksForMonth(currentMonth);
-  sl.min = 0;
-  sl.max = indices.length - 1;
-  sl.value = 0;
-  weekMode = false;
-});
-
-// Override slider input to work with filtered weeks
-const origSlInput = sl.oninput;
-sl.addEventListener('input', function(e) {
-  e.stopImmediatePropagation();
-  const indices = getWeeksForMonth(currentMonth);
-  const localIdx = parseInt(sl.value);
-  if (localIdx >= 0 && localIdx < indices.length) {
-    weekMode = true;
-    uWk(indices[localIdx]);
-  }
-}, true);
-
-// Override play to work within month
-const origTp = tP;
-
-// Show aggregated "All Year" on load
-showAggregated(-1);
 
 </script>
 </body>
