@@ -879,7 +879,7 @@ const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov
 const viewTabs = document.querySelectorAll('.view-tab');
 const summaryView = document.getElementById('summaryView');
 const mapView = document.getElementById('mapView');
-let mapInitialized = false, snsMapInitialized = false, ytMapInitialized = false;
+let mapInitialized = false;
 
 // ===== DARK MODE =====
 (function() {
@@ -925,7 +925,7 @@ function showOnBrandMap(lat, lng, label, targetView) {
     document.getElementById('ytMapView').classList.add('hidden');
     document.body.classList.add('sns-active');
     document.body.classList.remove('yt-active');
-    if (!snsMapInitialized) { initSnsMap(); snsMapInitialized = true; }
+    if (!brandMapInitialized['sns-map']) { initBrandMap(BRAND_MAPS['sns-map']); brandMapInitialized['sns-map'] = true; }
     setTimeout(() => { window._snsMap.invalidateSize(); window._snsMap.flyTo([lat, lng], 11, {duration:1.5}); }, 100);
   }
   else if (targetView === 'yt-map') {
@@ -934,7 +934,7 @@ function showOnBrandMap(lat, lng, label, targetView) {
     document.getElementById('ytMapView').classList.remove('hidden');
     document.body.classList.add('yt-active');
     document.body.classList.remove('sns-active');
-    if (!ytMapInitialized) { initYtMap(); ytMapInitialized = true; }
+    if (!brandMapInitialized['yt-map']) { initBrandMap(BRAND_MAPS['yt-map']); brandMapInitialized['yt-map'] = true; }
     setTimeout(() => { window._ytMap.invalidateSize(); window._ytMap.flyTo([lat, lng], 11, {duration:1.5}); }, 100);
   }
 }
@@ -1142,206 +1142,153 @@ function initMap() {
 
 
 // ===== SNS MAP INITIALIZATION (deferred) =====
-function initSnsMap() {
+// ===== GENERIC BRAND MAP INITIALIZATION =====
+// Config: { id, mapElId, mapKey, tileKey, color, hmData, stores, clusters,
+//           storeColors, clusterColor, zoomHintId, oppToggleId,
+//           gradient, storeRadius(optional fn), hmFields:{lat,lng,pc,dem,ord,aov,dist,loc} }
+function initBrandMap(cfg) {
   const isDark = document.body.classList.contains('dark-mode');
   const tileUrl = isDark
     ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
     : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
 
-  const snsMap = L.map('snsMap', {center:[-28.5,134], zoom:5, zoomControl:true, attributionControl:false, minZoom:4, maxZoom:18, scrollWheelZoom:true});
-  let snsTileLayer = L.tileLayer(tileUrl, {subdomains:'abcd', maxZoom:20}).addTo(snsMap);
-  window._snsMap = snsMap;
-  window._snsTileLayer = snsTileLayer;
+  const map = L.map(cfg.mapElId, {center:[-28.5,134], zoom:5, zoomControl:true, attributionControl:false, minZoom:4, maxZoom:18, scrollWheelZoom:true});
+  const tileLayer = L.tileLayer(tileUrl, {subdomains:'abcd', maxZoom:20}).addTo(map);
+  window[cfg.mapKey] = map;
+  window[cfg.tileKey] = tileLayer;
+
+  // Compute max demand for normalization
+  const f = cfg.hmFields || {lat:0, lng:1, pc:3, dem:4, ord:5, aov:6, dist:7, loc:8};
+  let maxDem = 0;
+  cfg.hmData.forEach(p => { if (p[f.dem] > maxDem) maxDem = p[f.dem]; });
 
   // Heatmap layer
-  const hmPts = SNS_HM.map(p => {
-    const maxDem = 107547; // max demand for normalization
-    return [p[0], p[1], p[4] / maxDem];
-  });
-  const snsHeatLayer = L.heatLayer(hmPts, {
-    radius:30, blur:25, maxZoom:12, max:0.6, minOpacity:0.15,
-    gradient:{0:'rgba(0,0,0,0)',0.1:'rgba(255,75,15,0.1)',0.25:'rgba(255,75,15,0.3)',0.4:'rgba(255,75,15,0.5)',0.55:'#FF4B0F',0.7:'#FD8C33',0.85:'#FDC145',0.95:'#fff',1:'#fff'}
-  }).addTo(snsMap);
+  const hmPts = cfg.hmData.map(p => [p[f.lat], p[f.lng], maxDem > 0 ? p[f.dem] / maxDem : 0]);
+  const heatLayer = L.heatLayer(hmPts, {
+    radius:30, blur:25, maxZoom:12, max:0.6, minOpacity:0.15, gradient:cfg.gradient
+  }).addTo(map);
 
   // Store markers
-  const snsStoreColors = {'SNS Store':'#FF4B0F', 'Myer Concession':'#3398FF'};
-  SNS_STORES.forEach(s => {
-    const col = snsStoreColors[s.t] || '#FF4B0F';
-    const m = L.circleMarker([s.lat, s.lng], {radius:7, fillColor:col, fillOpacity:.9, color:'#fff', weight:2, zIndexOffset:1000});
+  cfg.stores.forEach(s => {
+    const col = cfg.storeColors[s.t] || cfg.color;
+    const r = cfg.storeRadius ? cfg.storeRadius(s) : 7;
+    const m = L.circleMarker([s.lat, s.lng], {radius:r, fillColor:col, fillOpacity:.9, color:'#fff', weight:2, zIndexOffset:1000});
     m.bindTooltip('<div style="font-weight:700;font-size:14px">'+s.n+'</div><div style="font-size:11px;color:#999">'+s.t+'</div><div style="font-size:10px;color:#666">'+(s.a||'')+'</div>', {className:'postcode-tooltip', direction:'top', offset:[0,-10]});
-    m.addTo(snsMap);
+    m.addTo(map);
   });
 
   // Opportunity cluster circles (toggle)
-  const snsClusterLayer = L.layerGroup();
-  SNS_CLUSTERS.forEach(c => {
-    const radius = Math.max(8000, Math.min(25000, c.avg_dist * 800));
-    const circle = L.circle([c.lat, c.lng], {radius:radius, color:'#FDC145', weight:2, opacity:.7, fillColor:'#FDC145', fillOpacity:.08, dashArray:'8 6'});
-    let tooltipHtml = '<div style="font-weight:700;font-size:13px">'+c.locality+', '+c.state+'</div>';
-    tooltipHtml += '<div style="font-size:12px;color:#FF4B0F;font-weight:600">'+fC(c.demand)+' demand</div>';
-    tooltipHtml += '<div style="font-size:11px">'+c.orders+' orders &middot; '+c.n+' postcodes</div>';
-    tooltipHtml += '<div style="font-size:10px;color:#999">Avg '+c.avg_dist.toFixed(1)+'km from nearest store</div>';
-    circle.bindTooltip(tooltipHtml, {className:'postcode-tooltip', direction:'top'});
-    snsClusterLayer.addLayer(circle);
-  });
-
-  document.getElementById('snsOppToggle').addEventListener('change', function() {
-    if (this.checked) snsClusterLayer.addTo(snsMap);
-    else snsMap.removeLayer(snsClusterLayer);
-  });
-
-  // Postcode bubbles at zoom 8+
-  const snsMarkerLayer = L.layerGroup().addTo(snsMap);
-  function snsGCol(r){
-    const t = Math.min(r, 1);
-    const r1 = Math.round(255 * (1 - t * 0.3));
-    const g1 = Math.round(75 + (193 - 75) * t);
-    const b1 = Math.round(15 + (69 - 15) * t);
-    return 'rgb('+r1+','+g1+','+b1+')';
-  }
-
-  function updateSnsMarkers() {
-    snsMarkerLayer.clearLayers();
-    const z = snsMap.getZoom();
-    const h = document.getElementById('snsZoomHint');
-    if (z >= 8) h.style.opacity = '0';
-    else { h.style.opacity = '1'; h.textContent = '\u{1F50D} Scroll to zoom \u00B7 Postcode detail '+(8-z)+' zoom levels away'; }
-    if (z < 8) return;
-    const maxDem = 107547;
-    const br = z >= 14 ? 10 : z >= 12 ? 8 : z >= 10 ? 6 : 4;
-    SNS_HM.forEach(p => {
-      const [la,ln,_,pc,dem,ord,aov,dist,loc,yoy] = p;
-      const r = dem / maxDem;
-      const mk = L.circleMarker([la,ln], {radius:br, fillColor:snsGCol(r), fillOpacity:.4, color:'rgba(255,255,255,.15)', weight:.5});
-      let tt = '<div class="postcode-tooltip"><div class="pc-code">'+pc+'</div>';
-      tt += '<div style="font-size:11px;color:#999">'+loc+'</div>';
-      tt += '<div class="pc-sales" style="color:#FF4B0F">'+fC(dem)+' demand</div>';
-      tt += '<div class="pc-meta">'+ord+' orders &middot; AOV $'+aov.toFixed(2)+'</div>';
-      tt += '<div class="pc-meta">'+dist.toFixed(1)+'km to nearest store</div>';
-      tt += '</div>';
-      mk.bindTooltip(tt, {permanent:false, direction:'top', offset:[0,-8], className:'pc-tooltip-wrapper'});
-      snsMarkerLayer.addLayer(mk);
+  if (cfg.clusters && cfg.clusters.length && cfg.oppToggleId) {
+    const clusterLayer = L.layerGroup();
+    cfg.clusters.forEach(c => {
+      const radius = Math.max(8000, Math.min(25000, c.avg_dist * 800));
+      const circle = L.circle([c.lat, c.lng], {radius:radius, color:cfg.clusterColor||cfg.color, weight:2, opacity:.7, fillColor:cfg.clusterColor||cfg.color, fillOpacity:.08, dashArray:'8 6'});
+      let tt = '<div style="font-weight:700;font-size:13px">'+c.locality+', '+c.state+'</div>';
+      tt += '<div style="font-size:12px;color:'+cfg.color+';font-weight:600">'+fC(c.demand)+' demand</div>';
+      tt += '<div style="font-size:11px">'+c.orders+' orders &middot; '+c.n+' postcodes</div>';
+      tt += '<div style="font-size:10px;color:#999">Avg '+c.avg_dist.toFixed(1)+'km from nearest store</div>';
+      circle.bindTooltip(tt, {className:'postcode-tooltip', direction:'top'});
+      clusterLayer.addLayer(circle);
+    });
+    const toggle = document.getElementById(cfg.oppToggleId);
+    if (toggle) toggle.addEventListener('change', function() {
+      if (this.checked) clusterLayer.addTo(map); else map.removeLayer(clusterLayer);
     });
   }
 
-  snsMap.on('zoomend', () => {
-    if(snsHeatLayer){
-      const z=snsMap.getZoom();
-      snsHeatLayer.setOptions({radius:z>=12?22:z>=10?26:z>=8?28:30, blur:z>=12?18:z>=10?22:z>=8?24:25});
-    }
-    updateSnsMarkers();
-  });
-  updateSnsMarkers();
+  // Postcode bubbles at zoom 8+
+  const markerLayer = L.layerGroup().addTo(map);
+  function gCol(ratio) {
+    const t = Math.min(ratio, 1);
+    // Parse cfg.color as base, lerp toward white
+    const bc = cfg.bubbleColorFn;
+    if (bc) return bc(t);
+    // Default: just use brand color at varying opacity
+    return cfg.color;
+  }
 
-  // Theme reactivity: observe dark-mode class changes
-  const snsThemeObs = new MutationObserver(() => {
-    if (window._snsMap && window._snsTileLayer) {
+  function updateMarkers() {
+    markerLayer.clearLayers();
+    const z = map.getZoom();
+    const h = document.getElementById(cfg.zoomHintId);
+    if (h) {
+      if (z >= 8) h.style.opacity = '0';
+      else { h.style.opacity = '1'; h.textContent = '\u{1F50D} Scroll to zoom \u00B7 Postcode detail '+(8-z)+' zoom levels away'; }
+    }
+    if (z < 8) return;
+    const br = z >= 14 ? 10 : z >= 12 ? 8 : z >= 10 ? 6 : 4;
+    cfg.hmData.forEach(p => {
+      const la=p[f.lat], ln=p[f.lng], pc=p[f.pc], dem=p[f.dem], ord=p[f.ord], aov=p[f.aov];
+      const dist = f.dist !== undefined ? p[f.dist] : null;
+      const loc = f.loc !== undefined ? p[f.loc] : '';
+      const r = maxDem > 0 ? dem / maxDem : 0;
+      const mk = L.circleMarker([la,ln], {radius:br, fillColor:gCol(r), fillOpacity:.4, color:'rgba(255,255,255,.15)', weight:.5});
+      let tt = '<div class="postcode-tooltip"><div class="pc-code">'+pc+'</div>';
+      if (loc) tt += '<div style="font-size:11px;color:#999">'+loc+'</div>';
+      tt += '<div class="pc-sales" style="color:'+cfg.color+'">'+fC(dem)+' demand</div>';
+      tt += '<div class="pc-meta">'+ord+' orders &middot; AOV $'+(aov?aov.toFixed(2):'N/A')+'</div>';
+      if (dist !== null && dist !== undefined) tt += '<div class="pc-meta">'+Number(dist).toFixed(1)+'km to nearest store</div>';
+      tt += '</div>';
+      mk.bindTooltip(tt, {permanent:false, direction:'top', offset:[0,-8], className:'pc-tooltip-wrapper'});
+      markerLayer.addLayer(mk);
+    });
+  }
+
+  map.on('zoomend', () => {
+    if(heatLayer){ const z=map.getZoom(); heatLayer.setOptions({radius:z>=12?22:z>=10?26:z>=8?28:30, blur:z>=12?18:z>=10?22:z>=8?24:25}); }
+    updateMarkers();
+  });
+  updateMarkers();
+
+  // Theme reactivity
+  const themeObs = new MutationObserver(() => {
+    if (window[cfg.mapKey] && window[cfg.tileKey]) {
       const dark = document.body.classList.contains('dark-mode');
-      window._snsMap.removeLayer(window._snsTileLayer);
+      window[cfg.mapKey].removeLayer(window[cfg.tileKey]);
       const url = dark
         ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
         : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-      window._snsTileLayer = L.tileLayer(url, {subdomains:'abcd', maxZoom:20}).addTo(window._snsMap);
-      window._snsTileLayer.bringToBack();
+      window[cfg.tileKey] = L.tileLayer(url, {subdomains:'abcd', maxZoom:20}).addTo(window[cfg.mapKey]);
+      window[cfg.tileKey].bringToBack();
     }
   });
-  snsThemeObs.observe(document.body, {attributes:true, attributeFilter:['class']});
+  themeObs.observe(document.body, {attributes:true, attributeFilter:['class']});
+
+  return map;
 }
 
-
-
-function initYtMap() {
-  const isDark = document.body.classList.contains('dark-mode');
-  const tileUrl = isDark
-    ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
-    : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-
-  const ytMap = L.map('ytMap', {center:[-28.5,134], zoom:5, zoomControl:true, attributionControl:false, minZoom:4, maxZoom:18, scrollWheelZoom:true});
-  let ytTileLayer = L.tileLayer(tileUrl, {subdomains:'abcd', maxZoom:20}).addTo(ytMap);
-  window._ytMap = ytMap;
-  window._ytTileLayer = ytTileLayer;
-
-  const maxDem = 11032;
-  const hmPts = YT_HM.map(p => [p[0], p[1], p[4] / maxDem]);
-  const ytHeatLayer = L.heatLayer(hmPts, {
-    radius:30, blur:25, maxZoom:12, max:0.6, minOpacity:0.15,
-    gradient:{0:'rgba(0,0,0,0)',0.1:'rgba(107,76,59,0.1)',0.25:'rgba(107,76,59,0.3)',0.4:'rgba(107,76,59,0.5)',0.55:'#6B4C3B',0.7:'#A0522D',0.85:'#C4956A',0.95:'#F5DEB3',1:'#fff'}
-  }).addTo(ytMap);
-
-  const ytStoreColors = {'BOUTIQUE':'#6B4C3B', 'CONCESSION':'#A0522D', 'STOCKIST':'#C4956A', 'DAVID JONES':'#A0522D'};
-  YT_STORES.forEach(s => {
-    const col = ytStoreColors[s.t] || '#C4956A';
-    const r = s.t === 'BOUTIQUE' ? 8 : s.t === 'STOCKIST' ? 5 : 7;
-    const m = L.circleMarker([s.lat, s.lng], {radius:r, fillColor:col, fillOpacity:.9, color:'#fff', weight:2, zIndexOffset:1000});
-    m.bindTooltip('<div style="font-weight:700;font-size:14px">'+s.n+'</div><div style="font-size:11px;color:#999">'+s.t+'</div><div style="font-size:10px;color:#666">'+(s.a||'')+'</div>', {className:'postcode-tooltip', direction:'top', offset:[0,-10]});
-    m.addTo(ytMap);
-  });
-
-  const ytClusterLayer = L.layerGroup();
-  YT_CLUSTERS.forEach(c => {
-    const radius = Math.max(8000, Math.min(25000, c.avg_dist * 800));
-    const circle = L.circle([c.lat, c.lng], {radius:radius, color:'#C4956A', weight:2, opacity:.7, fillColor:'#C4956A', fillOpacity:.08, dashArray:'8 6'});
-    let tt = '<div style="font-weight:700;font-size:13px">'+c.locality+', '+c.state+'</div>';
-    tt += '<div style="font-size:12px;color:#6B4C3B;font-weight:600">'+fC(c.demand)+' demand</div>';
-    tt += '<div style="font-size:11px">'+c.orders+' orders &middot; '+c.n+' postcodes</div>';
-    tt += '<div style="font-size:10px;color:#999">Avg '+c.avg_dist.toFixed(1)+'km from nearest store</div>';
-    circle.bindTooltip(tt, {className:'postcode-tooltip', direction:'top'});
-    ytClusterLayer.addLayer(circle);
-  });
-
-  document.getElementById('ytOppToggle').addEventListener('change', function() {
-    if (this.checked) ytClusterLayer.addTo(ytMap);
-    else ytMap.removeLayer(ytClusterLayer);
-  });
-
-  const ytMarkerLayer = L.layerGroup().addTo(ytMap);
-  function ytGCol(r){
-    const t = Math.min(r, 1);
-    const r1 = Math.round(107 + (245 - 107) * t);
-    const g1 = Math.round(76 + (222 - 76) * t);
-    const b1 = Math.round(59 + (179 - 59) * t);
-    return 'rgb('+r1+','+g1+','+b1+')';
+// ===== BRAND REGISTRY (non-Review brands) =====
+// To add a new brand: add an entry here, create the HTML containers, data file, and insights panel.
+var BRAND_MAPS = {
+  'sns-map': {
+    id:'sns', mapElId:'snsMap', mapKey:'_snsMap', tileKey:'_snsTileLayer', viewElId:'snsMapView',
+    bodyClass:'sns-active', insClass:'sns-ins', color:'#FF4B0F', clusterColor:'#FDC145',
+    hmData: typeof SNS_HM !== 'undefined' ? SNS_HM : [],
+    stores: typeof SNS_STORES !== 'undefined' ? SNS_STORES : [],
+    clusters: typeof SNS_CLUSTERS !== 'undefined' ? SNS_CLUSTERS : [],
+    storeColors: {'SNS Store':'#FF4B0F', 'Myer Concession':'#3398FF'},
+    zoomHintId:'snsZoomHint', oppToggleId:'snsOppToggle',
+    hmFields: {lat:0, lng:1, pc:3, dem:4, ord:5, aov:6, dist:7, loc:8},
+    gradient: {0:'rgba(0,0,0,0)',0.1:'rgba(255,75,15,0.1)',0.25:'rgba(255,75,15,0.3)',0.4:'rgba(255,75,15,0.5)',0.55:'#FF4B0F',0.7:'#FD8C33',0.85:'#FDC145',0.95:'#fff',1:'#fff'},
+    bubbleColorFn: function(t){ return 'rgb('+Math.round(255*(1-t*0.3))+','+Math.round(75+(193-75)*t)+','+Math.round(15+(69-15)*t)+')'; }
+  },
+  'yt-map': {
+    id:'yt', mapElId:'ytMap', mapKey:'_ytMap', tileKey:'_ytTileLayer', viewElId:'ytMapView',
+    bodyClass:'yt-active', insClass:'yt-ins', color:'#6B4C3B', clusterColor:'#C4956A',
+    hmData: typeof YT_HM !== 'undefined' ? YT_HM : [],
+    stores: typeof YT_STORES !== 'undefined' ? YT_STORES : [],
+    clusters: typeof YT_CLUSTERS !== 'undefined' ? YT_CLUSTERS : [],
+    storeColors: {'BOUTIQUE':'#6B4C3B', 'CONCESSION':'#A0522D', 'STOCKIST':'#C4956A', 'DAVID JONES':'#A0522D'},
+    storeRadius: function(s){ return s.t==='BOUTIQUE'?8:s.t==='STOCKIST'?5:7; },
+    zoomHintId:'ytZoomHint', oppToggleId:'ytOppToggle',
+    hmFields: {lat:0, lng:1, pc:3, dem:4, ord:5, aov:6, dist:9, loc:8},
+    gradient: {0:'rgba(0,0,0,0)',0.1:'rgba(107,76,59,0.1)',0.25:'rgba(107,76,59,0.3)',0.4:'rgba(107,76,59,0.5)',0.55:'#6B4C3B',0.7:'#A0522D',0.85:'#C4956A',0.95:'#F5DEB3',1:'#fff'},
+    bubbleColorFn: function(t){ return 'rgb('+Math.round(107+(245-107)*t)+','+Math.round(76+(222-76)*t)+','+Math.round(59+(179-59)*t)+')'; }
   }
+};
 
-  function updateYtMarkers() {
-    ytMarkerLayer.clearLayers();
-    const z = ytMap.getZoom();
-    const h = document.getElementById('ytZoomHint');
-    if (z >= 8) h.style.opacity = '0';
-    else { h.style.opacity = '1'; h.textContent = '\uD83D\uDD0D Scroll to zoom \u00B7 Postcode detail '+(8-z)+' zoom levels away'; }
-    if (z < 8) return;
-    const br = z >= 14 ? 10 : z >= 12 ? 8 : z >= 10 ? 6 : 4;
-    YT_HM.forEach(p => {
-      const [la,ln,_,pc,dem,ord,aov,yoy,loc,dist] = p;
-      const r = dem / maxDem;
-      const mk = L.circleMarker([la,ln], {radius:br, fillColor:ytGCol(r), fillOpacity:.4, color:'rgba(255,255,255,.15)', weight:.5});
-      let tt = '<div class="postcode-tooltip"><div class="pc-code">'+pc+'</div>';
-      tt += '<div style="font-size:11px;color:#999">'+loc+'</div>';
-      tt += '<div class="pc-sales" style="color:#6B4C3B">'+fC(dem)+' demand</div>';
-      tt += '<div class="pc-meta">'+ord+' orders &middot; AOV $'+(aov?aov.toFixed(2):'N/A')+'</div>';
-      if (dist !== null) tt += '<div class="pc-meta" style="color:#A0522D">'+dist.toFixed(1)+'km to nearest store</div>';
-
-      tt += '</div>';
-      mk.bindTooltip(tt, {className:'postcode-tooltip', direction:'top', offset:[0,-8]});
-      ytMarkerLayer.addLayer(mk);
-    });
-  }
-  ytMap.on('zoomend moveend', updateYtMarkers);
-  updateYtMarkers();
-
-  // Theme toggle support
-  const origToggle = document.getElementById('themeToggle');
-  if (origToggle) {
-    origToggle.addEventListener('click', function() {
-      setTimeout(() => {
-        const dk = document.body.classList.contains('dark-mode');
-        const url = dk ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png' : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-        ytMap.removeLayer(window._ytTileLayer);
-        window._ytTileLayer = L.tileLayer(url, {subdomains:'abcd', maxZoom:20}).addTo(ytMap);
-      }, 50);
-    });
-  }
-}
+function initSnsMap() { initBrandMap(BRAND_MAPS['sns-map']); }
+function initYtMap() { initBrandMap(BRAND_MAPS['yt-map']); }
 
 
 
@@ -1431,46 +1378,54 @@ try { buildSummaryCards(); } catch(e) { document.getElementById('locationCards')
 
 
 
-  // View tab/select switching
+  // View tab/select switching (data-driven via BRAND_MAPS registry)
+  var brandMapInitialized = {};
   function switchView(view) {
-    // Update tabs
     document.querySelectorAll('.view-tab').forEach(function(t) {
       t.classList.toggle('active', t.getAttribute('data-view') === view);
     });
-    // Update select
     var sel = document.getElementById('viewSelect');
     if (sel) sel.value = view;
-    // Toggle views
+
     var sv = document.getElementById('summaryView');
     var mv = document.getElementById('mapView');
-    var smv = document.getElementById('snsMapView');
-    var ymv = document.getElementById('ytMapView');
+
     // Reset body state classes
-    document.body.classList.remove('summary-active', 'sns-active', 'yt-active');
+    var bodyClasses = ['summary-active'];
+    Object.keys(BRAND_MAPS).forEach(function(k){ bodyClasses.push(BRAND_MAPS[k].bodyClass); });
+    bodyClasses.forEach(function(c){ document.body.classList.remove(c); });
+
+    // Hide all brand map views
+    Object.keys(BRAND_MAPS).forEach(function(k){
+      var el = document.getElementById(BRAND_MAPS[k].viewElId);
+      if (el) el.classList.add('hidden');
+    });
+
     if (view === 'summary') {
-      sv.classList.add('active'); mv.classList.add('hidden'); smv.classList.add('hidden'); ymv.classList.add('hidden');
+      sv.classList.add('active'); mv.classList.add('hidden');
       document.body.classList.add('summary-active');
     } else if (view === 'map') {
-      sv.classList.remove('active'); mv.classList.remove('hidden'); smv.classList.add('hidden'); ymv.classList.add('hidden');
+      sv.classList.remove('active'); mv.classList.remove('hidden');
       if (!mapInitialized) { initMap(); mapInitialized = true; }
       if (window._map) setTimeout(function(){ window._map.invalidateSize(); }, 100);
-    } else if (view === 'sns-map') {
-      sv.classList.remove('active'); mv.classList.add('hidden'); smv.classList.remove('hidden'); ymv.classList.add('hidden');
-      document.body.classList.add('sns-active');
-      if (!snsMapInitialized) { initSnsMap(); snsMapInitialized = true; }
-      if (window._snsMap) setTimeout(function(){ window._snsMap.invalidateSize(); }, 100);
-    } else if (view === 'yt-map') {
-      sv.classList.remove('active'); mv.classList.add('hidden'); smv.classList.add('hidden'); ymv.classList.remove('hidden');
-      document.body.classList.add('yt-active');
-      if (!ytMapInitialized) { initYtMap(); ytMapInitialized = true; }
-      if (window._ytMap) setTimeout(function(){ window._ytMap.invalidateSize(); }, 100);
+    } else if (BRAND_MAPS[view]) {
+      var cfg = BRAND_MAPS[view];
+      sv.classList.remove('active'); mv.classList.add('hidden');
+      var viewEl = document.getElementById(cfg.viewElId);
+      if (viewEl) viewEl.classList.remove('hidden');
+      document.body.classList.add(cfg.bodyClass);
+      if (!brandMapInitialized[view]) {
+        initBrandMap(cfg);
+        brandMapInitialized[view] = true;
+      }
+      if (window[cfg.mapKey]) setTimeout(function(){ window[cfg.mapKey].invalidateSize(); }, 100);
     }
-    // Toggle insights panels - use explicit 'block' to override CSS defaults
+
+    // Toggle insights panels
+    var insClass = view === 'map' ? 'review-ins' : (BRAND_MAPS[view] ? BRAND_MAPS[view].insClass : null);
     document.querySelectorAll('.insights-column .ins').forEach(function(el) {
       if (view === 'summary') { el.style.display = 'none'; }
-      else if (view === 'map') { el.style.display = el.classList.contains('review-ins') ? 'block' : 'none'; }
-      else if (view === 'sns-map') { el.style.display = el.classList.contains('sns-ins') ? 'block' : 'none'; }
-      else if (view === 'yt-map') { el.style.display = el.classList.contains('yt-ins') ? 'block' : 'none'; }
+      else { el.style.display = (insClass && el.classList.contains(insClass)) ? 'block' : 'none'; }
     });
   }
   // Tab clicks
