@@ -242,7 +242,10 @@ body.summary-active .insights-column .ins.sns-ins{display:none}
             <div><div class="stat-label">Demand Sales</div><div class="stat-value" id="totalSales">$0</div></div>
             <div><div class="stat-label">Orders</div><div class="stat-value orders" id="totalOrders">0</div></div>
             <div><div class="stat-label">Postcodes</div><div class="stat-value orders" id="totalPostcodes">0</div></div>
+            <div><div class="stat-label">AOV</div><div class="stat-value orders" id="totalAOV">$0</div></div>
+            <div><div class="stat-label">YoY</div><div class="stat-value orders" id="totalYoY" style="color:#16a34a">+12.7%</div></div>
           </div>
+          <div style="margin-top:8px;font-size:12px;color:var(--tx3)">Annual data &middot; CY2025 vs CY2024</div>
           <select id="monthFilter" style="display:none"><option value="-1" selected>All Year</option></select>
         </div>
 
@@ -1842,6 +1845,8 @@ function initMap() {
     document.getElementById('totalSales').textContent = fC(agg.totalSales);
     document.getElementById('totalOrders').textContent = fN(agg.totalOrders);
     document.getElementById('totalPostcodes').textContent = fN(agg.pts.length);
+    const aovEl = document.getElementById('totalAOV');
+    if (aovEl && agg.totalOrders > 0) aovEl.textContent = '$' + (agg.totalSales / agg.totalOrders).toFixed(0);
     let mx=0; agg.pts.forEach(p => { if(p[2]>mx) mx=p[2]; }); cM=mx;
     const nm = agg.pts.map(p => [p[0], p[1], mx>0 ? p[2]/mx : 0]);
     if (hL) hL.setLatLngs(nm);
