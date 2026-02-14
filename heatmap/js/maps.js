@@ -457,6 +457,23 @@ var BRAND_MAPS = {
     gradient: {0:'rgba(0,0,0,0)',0.1:'rgba(204,0,0,0.1)',0.25:'rgba(204,0,0,0.3)',0.4:'rgba(204,0,0,0.5)',0.55:'#CC0000',0.7:'#FF6666',0.85:'#FFCDD2',0.95:'#fff',1:'#fff'},
     bubbleColorFn: function(t){ return 'rgb('+Math.round(204+(255-204)*t)+','+Math.round(0+(255-0)*t)+','+Math.round(0+(255-0)*t)+')'; }
   },
+  'sw-map': {
+    id:'sw', tabLabel:'Shoe Warehouse', mapElId:'swMap', mapKey:'_swMap', tileKey:'_swTileLayer', viewElId:'swMapView',
+    bodyClass:'sw-active', insClass:'sw-ins', color:'#E85D00', clusterColor:'#FFB74D',
+    hmData: typeof SW_HM !== 'undefined' ? SW_HM : [],
+    stores: typeof SW_STORES !== 'undefined' ? SW_STORES : [],
+    clusters: typeof SW_CLUSTERS !== 'undefined' ? SW_CLUSTERS : [],
+    storeColors: {'Outlet':'#E85D00'},
+    compStores: typeof SW_COMP_STORES !== 'undefined' ? SW_COMP_STORES : [],
+    compColors: {"Athlete's Foot":'#2ecc71','The Athlete\'s Foot':'#2ecc71','Platypus Shoes':'#9b59b6','Hype DC':'#e74c3c','Skechers':'#3498db','Spendless':'#f39c12','Foot Locker':'#1abc9c'},
+    compToggleId: 'swCompToggle',
+    zoomHintId:'swZoomHint', oppToggleId:'swOppToggle',
+    stats: {demand:'$4.00M', orders:'41,366', postcodes:'1,999', aov:'$98.30'},
+    storeCount: 19, storeLegend: [{color:'#E85D00',label:'Outlet Store',count:19}],
+    hmFields: {lat:0, lng:1, pc:3, dem:4, ord:5, aov:6, dist:7, loc:8},
+    gradient: {0:'rgba(0,0,0,0)',0.1:'rgba(232,93,0,0.1)',0.25:'rgba(232,93,0,0.3)',0.4:'rgba(232,93,0,0.5)',0.55:'#E85D00',0.7:'#FF8C33',0.85:'#FFB74D',0.95:'#fff',1:'#fff'},
+    bubbleColorFn: function(t){ return 'rgb('+Math.round(232+(255-232)*t)+','+Math.round(93+(255-93)*t)+','+Math.round(0+(255-0)*t)+')'; }
+  },
   'superdry-map': {
     id:'sd', tabLabel:'Superdry', mapElId:'sdMap', mapKey:'_sdMap', tileKey:'_sdTileLayer', viewElId:'sdMapView',
     bodyClass:'sd-active', insClass:'sd-ins', color:'#FF6B00', clusterColor:'#FFB74D',
