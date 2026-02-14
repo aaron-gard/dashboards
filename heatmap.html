@@ -159,7 +159,7 @@ body.summary-active .summary-view{max-width:100%}
 body.summary-active{overflow:auto;height:auto}
 body.summary-active .map-column{height:auto;flex:none}
 body.summary-active .app-layout{height:auto;overflow:visible}
-@media(max-width:768px){body{overflow:auto!important;height:auto!important}.map-view:not(.hidden),.sns-map-view:not(.hidden){min-height:60vh}.map-view #map,.sns-map-view #snsMap{min-height:50vh}}
+@media(max-width:768px){body{overflow:auto!important;height:auto!important}#map{min-height:50vh!important}#snsMap{min-height:50vh!important}#mapView{min-height:60vh}#snsMapView{min-height:60vh}}
 
 /* Expanded summary card styles */
 .loc-section{margin-top:14px;padding-top:14px;border-top:1px solid var(--bd2)}
@@ -822,12 +822,15 @@ viewTabs.forEach(tab => {
     const view = tab.dataset.view;
     if (view === 'summary') {
       summaryView.classList.add('active');
+      document.body.style.overflow = 'auto';
+      document.body.style.height = 'auto';
       mapView.classList.add('hidden');
       document.getElementById('snsMapView').classList.add('hidden');
       document.body.classList.add('summary-active');
       document.body.classList.remove('sns-active');
     } else if (view === 'map') {
       summaryView.classList.remove('active');
+      if (window.innerWidth > 768) { document.body.style.overflow = 'hidden'; document.body.style.height = ''; } else { document.body.style.overflow = 'auto'; document.body.style.height = 'auto'; }
       mapView.classList.remove('hidden');
       document.getElementById('snsMapView').classList.add('hidden');
       document.body.classList.remove('summary-active');
@@ -840,6 +843,7 @@ viewTabs.forEach(tab => {
       }
     } else if (view === 'sns-map') {
       summaryView.classList.remove('active');
+      if (window.innerWidth > 768) { document.body.style.overflow = 'hidden'; document.body.style.height = ''; } else { document.body.style.overflow = 'auto'; document.body.style.height = 'auto'; }
       mapView.classList.add('hidden');
       document.getElementById('snsMapView').classList.remove('hidden');
       document.body.classList.remove('summary-active');
@@ -872,6 +876,8 @@ const LOCATIONS = [
     lat: -33.99, lng: 150.56, label: 'Macarthur South',
     keyPostcodes: '2570 Camden ($107K) • 2745 Oran Park ($48K) • 2171 Spring Farm ($28K) • 2179 Leppington ($21K) • 2557 Catherine Fields ($15K)',
     rationale: 'Highest demand/child ($6.99), highest income ($119K/yr), youngest families (median 33), zero competitors within 20km. Pure white space in Camden/Oran Park growth corridor.',
+    compValidation: 'Zero competitors within 20km. Nearest kids footwear stores are 24km away at Macarthur Square. Pure white space in Australia&#39;s fastest-growing family corridor.',
+    compBrands: 'None within 20km',
     venue: 'Gregory Hills or Oran Park Town Centre',
     color: '#FF4B0F',
   },
@@ -891,6 +897,8 @@ const LOCATIONS = [
     lat: -37.52, lng: 144.94, label: 'Craigieburn',
     keyPostcodes: '3064 Craigieburn ($50.6K) • 3750 Wollert ($19.8K) • 3756 Chintin ($9.4K) • 3753 Beveridge ($4.2K)',
     rationale: 'Largest kids concentration (41,862), youngest median age (31), only 1 competitor. Melbourne northern growth corridor adding thousands of young families per year.',
+    compValidation: 'Only 1 competitor within 10km (Athlete's Foot at Craigieburn Central). Melbourne's northern growth corridor is severely underserved for kids' footwear.',
+    compBrands: 'The Athlete's Foot',
     venue: 'Craigieburn Central',
     color: '#FF4B0F',
   },
@@ -968,6 +976,8 @@ const LOCATIONS = [
     lat: -27.65, lng: 152.85, label: 'Springfield',
     keyPostcodes: '4300 Springfield ($20.1K) • 4305 Basin Pocket ($16K) • 4124 Boronia Heights ($8.3K)',
     rationale: 'Largest population (211K) and most children (49,880). Nearly 50K kids with barely any local kids footwear options. 7 competitor brands within 20km confirms the market.',
+    compValidation: '2 competitors within 10km, 10 within 20km. SW Brisbane supports kids retail but competitors cluster at Indooroopilly/Mt Gravatt 20km away. Springfield is the emerging node.',
+    compBrands: 'The Athlete's Foot, Platypus Shoes, Skechers, Betts Kids, Hype DC, The Trybe, Bobux',
     venue: 'Orion Springfield Central',
     color: '#FF4B0F',
   },
@@ -987,6 +997,8 @@ const LOCATIONS = [
     lat: -37.69, lng: 144.61, label: 'Melton / Aintree',
     keyPostcodes: '3336 Aintree ($19.8K) • 3338 Brookfield ($17.8K) • 3337 Harkness ($13.8K) • 3335 Bonnie Brook ($6.5K)',
     rationale: 'Pure white space - zero competitors within 20km. Second-youngest median age (32), 26K children. Western Melbourne growth corridor adding suburbs that did not exist five years ago.',
+    compValidation: 'Zero competitors within 20km. Western Melbourne's growth corridor has no dedicated kids' footwear retailer. Complete white space.',
+    compBrands: 'None within 20km',
     venue: 'Woodgrove Shopping Centre',
     color: '#FF4B0F',
   },
@@ -1006,6 +1018,8 @@ const LOCATIONS = [
     lat: -34.36, lng: 150.88, label: 'Wollongong',
     keyPostcodes: '2500 Coniston ($19.1K) • 2515 Austinmer ($15.2K) • 2518 Bellambi ($14.9K) • 2517 Russell Vale ($13.5K)',
     rationale: 'Strong demand ($85K) and high demand/child ($4.29), but oldest median age (38), lowest kids concentration (16.1%), and 4 existing competitors within 10km.',
+    compValidation: '4 competitors within 10km across 4 brands. Most established competitive landscape of the five recommendations, but no specialist kids' footwear store.',
+    compBrands: 'Betts Kids, Platypus Shoes, Skechers, The Athlete's Foot',
     venue: 'Wollongong Central',
     color: '#FF4B0F',
   },
