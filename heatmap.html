@@ -2832,6 +2832,10 @@ function isLightColor(hex) { var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.sl
 // Legacy wrapper for existing onclick handlers
 function showSnsCatchment(lat, lng, label) { showBrandCatchment('sns-map', lat, lng, label); }
 function clearSnsCatchment() { clearBrandCatchment('sns-map'); }
+function showSwCatchment(lat, lng, label) { showBrandCatchment('sw-map', lat, lng, label); }
+function clearSwCatchment() { clearBrandCatchment('sw-map'); }
+function showChampCatchment(lat, lng, label) { showBrandCatchment('champ-map', lat, lng, label); }
+function clearChampCatchment() { clearBrandCatchment('champ-map'); }
 
 function initMap() {
   const isDark = document.body.classList.contains('dark-mode');
