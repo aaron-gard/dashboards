@@ -3243,6 +3243,23 @@ var BRAND_MAPS = {
     hmFields: {lat:0, lng:1, pc:3, dem:4, ord:5, aov:6, dist:7, loc:8},
     gradient: {0:'rgba(0,0,0,0)',0.1:'rgba(232,93,0,0.1)',0.25:'rgba(232,93,0,0.3)',0.4:'rgba(232,93,0,0.5)',0.55:'#E85D00',0.7:'#FF8C33',0.85:'#FFB74D',0.95:'#fff',1:'#fff'},
     bubbleColorFn: function(t){ return 'rgb('+Math.round(232+(255-232)*t)+','+Math.round(93+(187-93)*t)+','+Math.round(0+(77-0)*t)+')'; }
+  },
+  'champ-map': {
+    id:'champ', tabLabel:'Champion', mapElId:'champMap', mapKey:'_champMap', tileKey:'_champTileLayer', viewElId:'champMapView',
+    bodyClass:'champ-active', insClass:'champ-ins', color:'#D32F2F', clusterColor:'#FF6659',
+    hmData: typeof CHAMP_HM !== 'undefined' ? CHAMP_HM : [],
+    stores: typeof CHAMP_STORES !== 'undefined' ? CHAMP_STORES : [],
+    clusters: typeof CHAMP_CLUSTERS !== 'undefined' ? CHAMP_CLUSTERS : [],
+    storeColors: {'Outlet':'#D32F2F', 'Retail':'#FF6659', 'DFO':'#D32F2F'},
+    compStores: typeof CHAMP_COMP_STORES !== 'undefined' ? CHAMP_COMP_STORES : [],
+    compColors: {'Nike':'#111','Adidas':'#000','Under Armour':'#1D1D1D','Puma':'#E5004C','New Balance':'#CF0A2C'},
+    compToggleId: 'champCompToggle',
+    zoomHintId:'champZoomHint', oppToggleId:'champOppToggle',
+    stats: {demand:'$1.80M', orders:'15,987', postcodes:'999', aov:'$112.60'},
+    storeCount: 12, storeLegend: [{color:'#D32F2F',label:'Champion Store',count:12}],
+    hmFields: {lat:0, lng:1, pc:3, dem:4, ord:5, aov:6, dist:7, loc:8},
+    gradient: {0:'rgba(0,0,0,0)',0.1:'rgba(211,47,47,0.1)',0.25:'rgba(211,47,47,0.3)',0.4:'rgba(211,47,47,0.5)',0.55:'#D32F2F',0.7:'#FF6659',0.85:'#FFCDD2',0.95:'#fff',1:'#fff'},
+    bubbleColorFn: function(t){ return 'rgb('+Math.round(211+(255-211)*t)+','+Math.round(47+(255-47)*t)+','+Math.round(47+(255-47)*t)+')'; }
   }
 };
 
