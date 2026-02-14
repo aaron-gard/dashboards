@@ -803,8 +803,35 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
 
 <script>
 
+// ===== GLOBAL STATE =====
+const viewTabs = document.querySelectorAll('.view-tab');
+const summaryView = document.getElementById('summaryView');
+const mapView = document.getElementById('mapView');
+let mapInitialized = false, snsMapInitialized = false, ytMapInitialized = false;
 
-// ===== YARRA TRAIL MAP INITIALIZATION (deferred) =====
+// ===== DARK MODE =====
+(function() {
+  const themeToggle = document.getElementById('themeToggle');
+  const saved = localStorage.getItem('review-heatmap-theme');
+  if (saved === 'dark') {
+    document.body.classList.add('dark-mode');
+    themeToggle.innerHTML = '&#9728;&#65039; Light mode';
+  }
+  themeToggle.addEventListener('click', function() {
+    const dark = document.body.classList.toggle('dark-mode');
+    themeToggle.innerHTML = dark ? '&#9728;&#65039; Light mode' : '&#127763; Dark mode';
+    localStorage.setItem('review-heatmap-theme', dark ? 'dark' : 'light');
+    // Update map tiles
+    const url = dark
+      ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+      : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+    [window._tileLayer, window._snsTileLayer, window._ytTileLayer].forEach(function(tl) {
+      if (tl) tl.setUrl(url);
+    });
+  });
+})();
+
+// ===== NAVIGATION =====
 function showOnBrandMap(lat, lng, label, targetView) {
   // Switch to the correct brand map view
   viewTabs.forEach(t => t.classList.remove('active'));
@@ -885,6 +912,7 @@ function initMap() {
   const map = L.map('map', {center:[-28.5,134], zoom:5, zoomControl:true, attributionControl:false, minZoom:4, maxZoom:18, scrollWheelZoom:true});
   tileLayer = L.tileLayer(tileUrl, {subdomains:'abcd', maxZoom:20}).addTo(map);
   window._map = map;
+  window._tileLayer = tileLayer;
 
   const sC = {Boutique:'#e74c3c', Concession:'#3498db', Outlet:'#2ecc71'};
   REVIEW_STORES.forEach(s => {
@@ -1351,19 +1379,23 @@ try { buildSummaryCards(); } catch(e) { document.getElementById('locationCards')
     } else if (view === 'map') {
       sv.classList.remove('active'); mv.classList.remove('hidden'); smv.classList.add('hidden'); ymv.classList.add('hidden');
       document.body.classList.remove('summary-active');
-      if (window.reviewMap) window.reviewMap.invalidateSize();
+      if (!mapInitialized) { initMap(); mapInitialized = true; }
+      if (window._map) setTimeout(function(){ window._map.invalidateSize(); }, 100);
     } else if (view === 'sns-map') {
       sv.classList.remove('active'); mv.classList.add('hidden'); smv.classList.remove('hidden'); ymv.classList.add('hidden');
       document.body.classList.remove('summary-active');
-      if (window.snsMap) window.snsMap.invalidateSize();
+      if (!snsMapInitialized) { initSnsMap(); snsMapInitialized = true; }
+      if (window._snsMap) setTimeout(function(){ window._snsMap.invalidateSize(); }, 100);
     } else if (view === 'yt-map') {
       sv.classList.remove('active'); mv.classList.add('hidden'); smv.classList.add('hidden'); ymv.classList.remove('hidden');
       document.body.classList.remove('summary-active');
-      if (window.ytMap) window.ytMap.invalidateSize();
+      if (!ytMapInitialized) { initYtMap(); ytMapInitialized = true; }
+      if (window._ytMap) setTimeout(function(){ window._ytMap.invalidateSize(); }, 100);
     }
     // Toggle insights columns
     document.querySelectorAll('.insights-column .ins').forEach(function(el) {
-      if (view === 'map') { el.style.display = el.classList.contains('review-ins') || (!el.classList.contains('sns-ins') && !el.classList.contains('yt-ins')) ? '' : 'none'; }
+      if (view === 'summary') { el.style.display = 'none'; }
+      else if (view === 'map') { el.style.display = el.classList.contains('review-ins') ? '' : 'none'; }
       else if (view === 'sns-map') { el.style.display = el.classList.contains('sns-ins') ? '' : 'none'; }
       else if (view === 'yt-map') { el.style.display = el.classList.contains('yt-ins') ? '' : 'none'; }
     });
