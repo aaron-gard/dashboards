@@ -905,37 +905,12 @@ let mapInitialized = false;
 
 // ===== NAVIGATION =====
 function showOnBrandMap(lat, lng, label, targetView) {
-  // Switch to the correct brand map view
-  viewTabs.forEach(t => t.classList.remove('active'));
-  document.querySelector('[data-view="'+targetView+'"]').classList.add('active');
-  summaryView.classList.remove('active');
-  document.body.classList.remove('summary-active');
-
+  switchView(targetView);
   if (targetView === 'map') {
-    mapView.classList.remove('hidden');
-    document.getElementById('snsMapView').classList.add('hidden');
-    document.getElementById('ytMapView').classList.add('hidden');
-    document.body.classList.remove('sns-active');
-    document.body.classList.remove('yt-active');
-    if (!mapInitialized) { initMap(); mapInitialized = true; }
     setTimeout(() => { window._map.invalidateSize(); showCatchment(lat, lng, label); }, 100);
-  } else if (targetView === 'sns-map') {
-    mapView.classList.add('hidden');
-    document.getElementById('snsMapView').classList.remove('hidden');
-    document.getElementById('ytMapView').classList.add('hidden');
-    document.body.classList.add('sns-active');
-    document.body.classList.remove('yt-active');
-    if (!brandMapInitialized['sns-map']) { initBrandMap(BRAND_MAPS['sns-map']); brandMapInitialized['sns-map'] = true; }
-    setTimeout(() => { window._snsMap.invalidateSize(); window._snsMap.flyTo([lat, lng], 11, {duration:1.5}); }, 100);
-  }
-  else if (targetView === 'yt-map') {
-    mapView.classList.add('hidden');
-    document.getElementById('snsMapView').classList.add('hidden');
-    document.getElementById('ytMapView').classList.remove('hidden');
-    document.body.classList.add('yt-active');
-    document.body.classList.remove('sns-active');
-    if (!brandMapInitialized['yt-map']) { initBrandMap(BRAND_MAPS['yt-map']); brandMapInitialized['yt-map'] = true; }
-    setTimeout(() => { window._ytMap.invalidateSize(); window._ytMap.flyTo([lat, lng], 11, {duration:1.5}); }, 100);
+  } else if (BRAND_MAPS[targetView]) {
+    var mk = BRAND_MAPS[targetView].mapKey;
+    setTimeout(() => { window[mk].invalidateSize(); showBrandCatchment(targetView, lat, lng, label); }, 100);
   }
 }
 
@@ -961,19 +936,34 @@ function clearCatchment() {
   if (catchPin) { window._map.removeLayer(catchPin); catchPin = null; }
 }
 
-let snsCatchCircle = null, snsCatchPin = null;
-function showSnsCatchment(lat, lng, label) {
-  if (!window._snsMap) return;
-  if (snsCatchCircle) { window._snsMap.removeLayer(snsCatchCircle); snsCatchCircle = null; }
-  if (snsCatchPin) { window._snsMap.removeLayer(snsCatchPin); snsCatchPin = null; }
-  snsCatchCircle = L.circle([lat, lng], {radius:15000, color:'#FF4B0F', weight:2, opacity:.8, fillColor:'#FF4B0F', fillOpacity:.1, dashArray:'8 6'}).addTo(window._snsMap);
-  snsCatchPin = L.marker([lat, lng], {icon:L.divIcon({className:'', html:'<div style="background:#FF4B0F;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.4);transform:translate(-50%,-100%)">'+label+'<div style="width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid #FF4B0F;margin:0 auto"></div></div>', iconSize:[0,0], iconAnchor:[0,0]})}).addTo(window._snsMap);
-  window._snsMap.flyTo([lat, lng], 11, {duration:1.5});
+// Generic brand catchment (replaces per-brand showSnsCatchment, etc.)
+var brandCatchState = {}; // {viewKey: {circle, pin}}
+function showBrandCatchment(viewKey, lat, lng, label) {
+  var cfg = BRAND_MAPS[viewKey];
+  if (!cfg || !window[cfg.mapKey]) return;
+  var map = window[cfg.mapKey];
+  clearBrandCatchment(viewKey);
+  var col = cfg.color;
+  var txtCol = isLightColor(col) ? '#000' : '#fff';
+  var circle = L.circle([lat, lng], {radius:15000, color:col, weight:2, opacity:.8, fillColor:col, fillOpacity:.1, dashArray:'8 6'}).addTo(map);
+  var pin = L.marker([lat, lng], {icon:L.divIcon({className:'', html:'<div style="background:'+col+';color:'+txtCol+';font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.4);transform:translate(-50%,-100%)">'+label+'<div style="width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid '+col+';margin:0 auto"></div></div>', iconSize:[0,0], iconAnchor:[0,0]})}).addTo(map);
+  brandCatchState[viewKey] = {circle:circle, pin:pin};
+  map.flyTo([lat, lng], 11, {duration:1.5});
 }
-function clearSnsCatchment() {
-  if (snsCatchCircle) { window._snsMap.removeLayer(snsCatchCircle); snsCatchCircle = null; }
-  if (snsCatchPin) { window._snsMap.removeLayer(snsCatchPin); snsCatchPin = null; }
+function clearBrandCatchment(viewKey) {
+  var cfg = BRAND_MAPS[viewKey];
+  if (!cfg || !window[cfg.mapKey]) return;
+  var s = brandCatchState[viewKey];
+  if (s) {
+    if (s.circle) window[cfg.mapKey].removeLayer(s.circle);
+    if (s.pin) window[cfg.mapKey].removeLayer(s.pin);
+    delete brandCatchState[viewKey];
+  }
 }
+function isLightColor(hex) { var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16); return (r*299+g*587+b*114)/1000 > 150; }
+// Legacy wrapper for existing onclick handlers
+function showSnsCatchment(lat, lng, label) { showBrandCatchment('sns-map', lat, lng, label); }
+function clearSnsCatchment() { clearBrandCatchment('sns-map'); }
 
 function initMap() {
   const isDark = document.body.classList.contains('dark-mode');
@@ -1261,19 +1251,21 @@ function initBrandMap(cfg) {
 // To add a new brand: add an entry here, create the HTML containers, data file, and insights panel.
 var BRAND_MAPS = {
   'sns-map': {
-    id:'sns', mapElId:'snsMap', mapKey:'_snsMap', tileKey:'_snsTileLayer', viewElId:'snsMapView',
+    id:'sns', tabLabel:'Shoes \x26 Sox', mapElId:'snsMap', mapKey:'_snsMap', tileKey:'_snsTileLayer', viewElId:'snsMapView',
     bodyClass:'sns-active', insClass:'sns-ins', color:'#FF4B0F', clusterColor:'#FDC145',
     hmData: typeof SNS_HM !== 'undefined' ? SNS_HM : [],
     stores: typeof SNS_STORES !== 'undefined' ? SNS_STORES : [],
     clusters: typeof SNS_CLUSTERS !== 'undefined' ? SNS_CLUSTERS : [],
     storeColors: {'SNS Store':'#FF4B0F', 'Myer Concession':'#3398FF'},
     zoomHintId:'snsZoomHint', oppToggleId:'snsOppToggle',
+    stats: {demand:'$15.06M', orders:'159,963', postcodes:'2,233', aov:'$94.16'},
+    storeCount: 96, storeLegend: [{color:'#FF4B0F',label:'SNS Store',count:40},{color:'#3398FF',label:'Myer Concession',count:56}],
     hmFields: {lat:0, lng:1, pc:3, dem:4, ord:5, aov:6, dist:7, loc:8},
     gradient: {0:'rgba(0,0,0,0)',0.1:'rgba(255,75,15,0.1)',0.25:'rgba(255,75,15,0.3)',0.4:'rgba(255,75,15,0.5)',0.55:'#FF4B0F',0.7:'#FD8C33',0.85:'#FDC145',0.95:'#fff',1:'#fff'},
     bubbleColorFn: function(t){ return 'rgb('+Math.round(255*(1-t*0.3))+','+Math.round(75+(193-75)*t)+','+Math.round(15+(69-15)*t)+')'; }
   },
   'yt-map': {
-    id:'yt', mapElId:'ytMap', mapKey:'_ytMap', tileKey:'_ytTileLayer', viewElId:'ytMapView',
+    id:'yt', tabLabel:'Yarra Trail', mapElId:'ytMap', mapKey:'_ytMap', tileKey:'_ytTileLayer', viewElId:'ytMapView',
     bodyClass:'yt-active', insClass:'yt-ins', color:'#6B4C3B', clusterColor:'#C4956A',
     hmData: typeof YT_HM !== 'undefined' ? YT_HM : [],
     stores: typeof YT_STORES !== 'undefined' ? YT_STORES : [],
@@ -1281,12 +1273,97 @@ var BRAND_MAPS = {
     storeColors: {'BOUTIQUE':'#6B4C3B', 'CONCESSION':'#A0522D', 'STOCKIST':'#C4956A', 'DAVID JONES':'#A0522D'},
     storeRadius: function(s){ return s.t==='BOUTIQUE'?8:s.t==='STOCKIST'?5:7; },
     zoomHintId:'ytZoomHint', oppToggleId:'ytOppToggle',
+    stats: {demand:'$1.72M', orders:'10,442', postcodes:'984', aov:'$164.81'},
+    storeCount: 109, storeLegend: [{color:'#6B4C3B',label:'Boutique',count:2},{color:'#A0522D',label:'Concession',count:15},{color:'#C4956A',label:'Stockist',count:89},{color:'#A0522D',label:'David Jones',count:3}],
     hmFields: {lat:0, lng:1, pc:3, dem:4, ord:5, aov:6, dist:9, loc:8},
     gradient: {0:'rgba(0,0,0,0)',0.1:'rgba(107,76,59,0.1)',0.25:'rgba(107,76,59,0.3)',0.4:'rgba(107,76,59,0.5)',0.55:'#6B4C3B',0.7:'#A0522D',0.85:'#C4956A',0.95:'#F5DEB3',1:'#fff'},
     bubbleColorFn: function(t){ return 'rgb('+Math.round(107+(245-107)*t)+','+Math.round(76+(222-76)*t)+','+Math.round(59+(179-59)*t)+')'; }
   }
 };
 
+// ===== DYNAMIC BRAND REGISTRATION =====
+// Call registerBrand(viewKey) to auto-generate map container, CSS, tab, and select option.
+// Existing SNS/YT containers are hand-coded, so skip if element already exists.
+function registerBrand(viewKey) {
+  var cfg = BRAND_MAPS[viewKey];
+  if (!cfg) return;
+
+  // Skip if container already exists (hand-coded brands)
+  if (document.getElementById(cfg.viewElId)) return;
+
+  // 1. Inject CSS rules
+  var style = document.createElement('style');
+  var prefix = cfg.id;
+  style.textContent = '.' + prefix + '-map-view{display:flex;flex-direction:column;flex:1;position:relative}' +
+    '.' + prefix + '-map-view.hidden{display:none}' +
+    '#' + cfg.mapElId + '{flex:1;width:100%;min-height:0}' +
+    '.' + prefix + '-header{position:absolute;top:0;left:0;right:0;background:linear-gradient(var(--hd-g0),var(--hd-g1));padding:20px 32px 40px;z-index:1000;display:flex;align-items:center;gap:16px;pointer-events:none}' +
+    '.' + prefix + '-header>*{pointer-events:auto}' +
+    '.' + prefix + '-controls{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(var(--ov-g0),var(--ov-g1) 30%);padding:24px 32px 28px;z-index:1000}' +
+    '.' + prefix + '-stats{display:flex;gap:32px;flex-wrap:wrap;align-items:baseline}' +
+    '.' + prefix + '-store-legend{position:absolute;top:80px;left:20px;background:var(--ov);border:1px solid var(--bd);border-radius:8px;padding:10px 14px;z-index:1000;font-size:11px}' +
+    '.' + prefix + '-zoom-hint{position:absolute;top:80px;right:20px;background:var(--ov);border:1px solid var(--bd);border-radius:8px;padding:8px 14px;font-size:11px;color:var(--tx3);z-index:1000;pointer-events:none;transition:opacity .3s}' +
+    'body.' + cfg.bodyClass + ' .insights-column .ins.review-ins{display:none}' +
+    'body.' + cfg.bodyClass + ' .insights-column .ins.' + cfg.insClass + '{display:block}' +
+    '.ins.' + cfg.insClass + '{display:none}' +
+    'body.summary-active .insights-column .ins.' + cfg.insClass + '{display:none}' +
+    '@media(max-width:768px){#' + cfg.mapElId + '{min-height:50vh!important}#' + cfg.viewElId + '{min-height:60vh}.' + prefix + '-stats{gap:16px 24px}.' + prefix + '-stats .stat-value{font-size:22px}.' + prefix + '-stats .stat-value.orders{font-size:16px}}';
+  document.head.appendChild(style);
+
+  // 2. Build legend HTML
+  var legendHtml = '<div style="font-weight:600;margin-bottom:6px;color:var(--tx2)">Stores (' + cfg.storeCount + ')</div>';
+  (cfg.storeLegend || []).forEach(function(s) {
+    legendHtml += '<div class="store-legend-item"><div class="store-legend-dot" style="background:' + s.color + '"></div><span class="legend-label">' + s.label + ' (' + s.count + ')</span></div>';
+  });
+  if (cfg.clusters && cfg.clusters.length) {
+    legendHtml += '<div class="comp-toggle"><input type="checkbox" id="' + cfg.oppToggleId + '"><label for="' + cfg.oppToggleId + '">Opportunity Zones (' + cfg.clusters.length + ')</label></div>';
+  }
+
+  // 3. Build stats HTML
+  var st = cfg.stats || {};
+  var statsHtml = '';
+  if (st.demand) statsHtml += '<div><div class="stat-label">Demand Sales</div><div class="stat-value">' + st.demand + '</div></div>';
+  if (st.orders) statsHtml += '<div><div class="stat-label">Orders</div><div class="stat-value orders">' + st.orders + '</div></div>';
+  if (st.postcodes) statsHtml += '<div><div class="stat-label">Postcodes</div><div class="stat-value orders">' + st.postcodes + '</div></div>';
+  if (st.aov) statsHtml += '<div><div class="stat-label">AOV</div><div class="stat-value orders">' + st.aov + '</div></div>';
+
+  // 4. Build container HTML
+  var label = cfg.tabLabel || cfg.id.toUpperCase();
+  var container = document.createElement('div');
+  container.className = prefix + '-map-view hidden';
+  container.id = cfg.viewElId;
+  container.innerHTML = '<div class="' + prefix + '-header"><div><div class="brand-logo" style="color:' + cfg.color + '">' + label + '</div><div class="brand-sub">Australia &middot; Sales &amp; Store Halo Analysis &middot; CY2025</div></div></div>' +
+    '<div id="' + cfg.mapElId + '"></div>' +
+    '<div class="' + prefix + '-zoom-hint" id="' + cfg.zoomHintId + '">\uD83D\uDD0D Scroll to zoom &middot; Postcode detail at zoom 8+</div>' +
+    '<div class="' + prefix + '-store-legend">' + legendHtml + '</div>' +
+    '<div class="' + prefix + '-controls"><div class="' + prefix + '-stats">' + statsHtml + '</div><div style="margin-top:12px;font-size:12px;color:var(--tx3)">Annual data &middot; CY2025 vs CY2024</div></div>';
+
+  // Insert before the insights column
+  var mapCol = document.querySelector('.map-column');
+  mapCol.appendChild(container);
+
+  // 5. Add tab + select option
+  var tabsEl = document.getElementById('viewTabs');
+  var tab = document.createElement('div');
+  tab.className = 'view-tab';
+  tab.setAttribute('data-view', viewKey);
+  tab.textContent = label;
+  tab.addEventListener('click', function() { switchView(viewKey); });
+  tabsEl.appendChild(tab);
+
+  var selectEl = document.getElementById('viewSelect');
+  if (selectEl) {
+    var opt = document.createElement('option');
+    opt.value = viewKey;
+    opt.textContent = label;
+    selectEl.appendChild(opt);
+  }
+}
+
+// Register all brands (skips if container already exists)
+Object.keys(BRAND_MAPS).forEach(registerBrand);
+
+// Legacy wrappers
 function initSnsMap() { initBrandMap(BRAND_MAPS['sns-map']); }
 function initYtMap() { initBrandMap(BRAND_MAPS['yt-map']); }
 
