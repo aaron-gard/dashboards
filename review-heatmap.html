@@ -135,8 +135,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .summary-header{margin-bottom:32px}
 .summary-header h1{font-size:26px;font-weight:800;letter-spacing:1px;margin-bottom:6px;color:var(--tx)}
 .summary-header p{font-size:14px;color:var(--tx2);line-height:1.5}
-.location-cards{display:grid;grid-template-columns:1fr;gap:20px;max-width:900px}
-.location-card{background:var(--card);border:1px solid var(--card-bd);border-radius:12px;padding:24px;position:relative;transition:box-shadow .2s,border-color .2s;cursor:pointer}
+.location-cards{display:grid;grid-template-columns:1fr;gap:24px;max-width:1100px}
+.location-card{background:var(--card);border:1px solid var(--card-bd);border-radius:12px;padding:24px;position:relative;transition:box-shadow .2s,border-color .2s}
 .location-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.08);border-color:var(--accent)}
 body.dark-mode .location-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.4)}
 .location-card .rank{position:absolute;top:20px;right:24px;font-size:40px;font-weight:900;color:var(--bd);line-height:1}
@@ -162,17 +162,34 @@ body.dark-mode .loc-metric .lm-value.growth{color:#4ade80}
 .insights-column::-webkit-scrollbar-track,.summary-view::-webkit-scrollbar-track{background:transparent}
 .insights-column::-webkit-scrollbar-thumb,.summary-view::-webkit-scrollbar-thumb{background:var(--bd);border-radius:3px}
 
+/* Hide insights column on summary view */
+body.summary-active .insights-column{display:none}
+body.summary-active .summary-view{max-width:100%}
+
+/* Expanded summary card styles */
+.loc-section{margin-top:14px;padding-top:14px;border-top:1px solid var(--bd2)}
+.loc-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:8px}
+.loc-postcodes{font-size:12px;color:var(--tx2);line-height:1.7}
+.loc-postcodes strong{color:var(--tx);font-weight:600}
+.loc-comp-validation{font-size:12px;color:var(--tx2);line-height:1.6;margin-top:6px}
+.loc-comp-validation strong{color:var(--tx)}
+.loc-comp-brands{font-size:11px;color:var(--info);margin-top:4px}
+.loc-metrics-full{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px}
+.loc-metrics-full .lm-mini{font-size:11px}
+.loc-metrics-full .lm-mini .lm-label{font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--tx3);margin-bottom:2px}
+.loc-metrics-full .lm-mini .lm-value{font-size:14px;font-weight:600;color:var(--tx);font-variant-numeric:tabular-nums}
+
 /* Responsive */
 @media(max-width:1100px){.insights-column{width:360px}.loc-metrics{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:768px){.app-layout{flex-direction:column}.insights-column{width:100%;height:40vh;border-left:none;border-top:1px solid var(--bd)}.map-column{height:60vh}}
 </style>
 </head>
-<body>
+<body class="summary-active">
 <div class="app-layout">
   <div class="map-column">
     <div class="view-tabs" id="viewTabs">
-      <div class="view-tab active" data-view="summary">&#128202; Summary</div>
-      <div class="view-tab" data-view="map">&#128506; Heatmap</div>
+      <div class="view-tab active" data-view="summary">Review &mdash; Summary</div>
+      <div class="view-tab" data-view="map">Review &mdash; Heatmap</div>
     </div>
     <div class="summary-view active" id="summaryView">
       <div class="summary-header">
@@ -564,9 +581,11 @@ viewTabs.forEach(tab => {
     if (view === 'summary') {
       summaryView.classList.add('active');
       mapView.classList.add('hidden');
+      document.body.classList.add('summary-active');
     } else {
       summaryView.classList.remove('active');
       mapView.classList.remove('hidden');
+      document.body.classList.remove('summary-active');
       if (!mapInitialized) {
         initMap();
         mapInitialized = true;
@@ -596,6 +615,9 @@ const LOCATIONS = [
     compBrands: 'Country Road, Cue, Forever New, Portmans, Seed Heritage, Sportscraft',
     venue: 'Rouse Hill Town Centre or Marsden Park',
     rationale: 'The strongest recommendation on every metric. 388K people, $123K median household income (28% above other catchments), demand growing +170% YoY. 85K women aged 25\u201354. The $0.72 demand-per-capita is nearly double any other catchment. Castle Hill is 15km away across a traffic/toll barrier in a different trade area.',
+    keyPostcodes: '2155 Hills District ($57K) \u2022 2153 Winston Hills ($45K) \u2022 2765 The Ponds ($29K) \u2022 2147 Seven Hills ($18K) \u2022 2148 Blacktown ($16K) \u2022 2768 Stanhope Gardens ($13K) \u2022 2763 Quakers Hill ($13K) \u2022 2760 St Marys ($13K)',
+    compValidation: '11 competitor stores from 6 brands (including Country Road and Cue at Rouse Hill) confirm this is an established fashion retail precinct. Competitors have already proven the customer base \u2014 Review is the gap in the lineup.',
+    demandPerCapita: '$0.72',
     lat: -33.71, lng: 150.87, label: 'NW Sydney',
     color: '#ff4444'
   },
@@ -616,6 +638,9 @@ const LOCATIONS = [
     compBrands: 'Portmans, Forever New',
     venue: 'Pacific Werribee',
     rationale: 'Largest population base (490K) with highest pool of target customers \u2014 113K women aged 25\u201354. Demand up +139% YoY. Youngest catchment (median age 34). Wyndham is Australia\u2019s fastest-growing LGA. Highpoint is 18km away across the West Gate Bridge.',
+    keyPostcodes: '3030 Werribee ($57K) \u2022 3029 Hoppers Crossing ($29K) \u2022 3023 Caroline Springs ($18K) \u2022 3020 Sunshine ($17K) \u2022 3012 Brooklyn ($15K) \u2022 3024 Wyndham Vale ($9K) \u2022 3021 St Albans ($10K) \u2022 3018 Altona ($9K)',
+    compValidation: 'Only Portmans and Forever New have entered this corridor (Pacific Werribee) \u2014 value-end competitors testing a market that premium brands haven\u2019t reached. Low competitor density + massive population = first-mover advantage for Review in western Melbourne\u2019s premium segment.',
+    demandPerCapita: '$0.40',
     lat: -37.88, lng: 144.66, label: 'Western Melbourne',
     color: '#ff5544'
   },
@@ -636,6 +661,9 @@ const LOCATIONS = [
     compBrands: 'Portmans, Forever New + others at Fountain Gate/Frankston',
     venue: 'Cranbourne Park or Casey Central',
     rationale: '423K people, 93K women 25\u201354, growing +78% YoY. Fountain Gate exists 13km north serving Berwick/Pakenham \u2014 a different catchment. Cranbourne 3977 alone has 117K people with $426 AOV (highest of any recommendation). The steady performer.',
+    keyPostcodes: '3977 Cranbourne ($37K, $426 AOV) \u2022 3806 Berwick ($28K) \u2022 3978 Clyde ($18K) \u2022 3175 Dandenong ($16K) \u2022 3805 Narre Warren ($15K) \u2022 3199 Frankston ($15K) \u2022 3809 Officer ($9K) \u2022 3910 Langwarrin ($7K)',
+    compValidation: 'Portmans and Forever New at Cranbourne + Casey confirm retailer confidence. Within 20km, 10 competitor stores cluster around Fountain Gate/Frankston \u2014 but Cranbourne itself has light coverage. Review would join an emerging precinct, not chase a mature one.',
+    demandPerCapita: '$0.43',
     lat: -38.10, lng: 145.28, label: 'SE Melbourne',
     color: '#ff7744'
   },
@@ -656,6 +684,9 @@ const LOCATIONS = [
     compBrands: 'Portmans, Forever New',
     venue: 'Orion Springfield Central',
     rationale: '250K people, 53K women 25\u201354. The 22km gap to nearest store is the largest of any recommendation \u2014 QLD\u2019s most physically underserved corridor. Springfield 4300 alone has 69K people. Direct train connection captures both premium Springfield and value Ipswich segments.',
+    keyPostcodes: '4300 Springfield ($24K) \u2022 4074 Jindalee ($21K) \u2022 4078 Forest Lake ($13K) \u2022 4305 Ipswich ($13K) \u2022 4070 Fig Tree Pocket ($11K) \u2022 4115 Algester ($7K) \u2022 4304 Booval ($6K) \u2022 4110 Acacia Ridge ($6K)',
+    compValidation: 'Portmans and Forever New have both opened at Springfield \u2014 the only two brands that consistently pioneer growth corridors. Within 20km, 16 stores from 9 brands cluster around Indooroopilly/Mt Ommaney, confirming the broader SW Brisbane market. Springfield is the emerging node \u2014 early entry secures prime positioning.',
+    demandPerCapita: '$0.50',
     lat: -27.67, lng: 152.91, label: 'Springfield',
     color: '#ff9944'
   },
@@ -676,6 +707,9 @@ const LOCATIONS = [
     compBrands: 'Portmans only',
     venue: 'The Shops at Ellenbrook',
     rationale: 'Smallest catchment (153K) but the quality play \u2014 highest AOV ($356 catchment, $476 centre-postcode) and demand up +110% YoY. Purest white space opportunity. Perth\u2019s Metronet train line transforming accessibility. First-mover advantage is time-limited.',
+    keyPostcodes: '6069 Ellenbrook ($31K, $476 AOV) \u2022 6056 Midvale ($12K) \u2022 6055 Guildford ($12K) \u2022 6066 Ballajura ($4K) \u2022 6090 Malaga ($4K) \u2022 6063 Bennett Springs ($2K)',
+    compValidation: 'Only Portmans has entered Ellenbrook \u2014 the thinnest competitor presence of all five recommendations. This is the purest white space opportunity: a premium customer base ($476 AOV) with explosive growth, where the competitive landscape hasn\u2019t caught up to demographics. Metronet will change that \u2014 first mover advantage is time-limited.',
+    demandPerCapita: '$0.43',
     lat: -31.77, lng: 116.02, label: 'Ellenbrook',
     color: '#ffbb44'
   }
@@ -684,7 +718,7 @@ const LOCATIONS = [
 function buildSummaryCards() {
   const container = document.getElementById('locationCards');
   container.innerHTML = LOCATIONS.map((loc, i) => `
-    <div class="location-card" onclick="showOnMap(${loc.lat},${loc.lng},'${loc.label}')">
+    <div class="location-card" style="border-left:3px solid ${loc.color}">
       <div class="rank">#${i + 1}</div>
       <div class="loc-name">${loc.name}</div>
       <div class="loc-state">${loc.state}</div>
@@ -694,17 +728,31 @@ function buildSummaryCards() {
         <div class="loc-metric"><div class="lm-label">AOV</div><div class="lm-value">${loc.aov}</div></div>
         <div class="loc-metric"><div class="lm-label">YoY Growth</div><div class="lm-value growth">${loc.growth}</div></div>
       </div>
-      <div class="loc-detail-row">
-        <span>&#128101; ${loc.population} pop</span>
-        <span>&#128181; ${loc.income} income</span>
-        <span>&#128506; ${loc.postcodes} postcodes</span>
-        <span>&#127978; ${loc.competitors}</span>
+      <div class="loc-metrics-full">
+        <div class="lm-mini"><div class="lm-label">Population</div><div class="lm-value">${loc.population}</div></div>
+        <div class="lm-mini"><div class="lm-label">HH Income</div><div class="lm-value">${loc.income}</div></div>
+        <div class="lm-mini"><div class="lm-label">Women 25-54</div><div class="lm-value">${loc.women}</div></div>
+        <div class="lm-mini"><div class="lm-label">Median Age</div><div class="lm-value">${loc.medianAge}</div></div>
+        <div class="lm-mini"><div class="lm-label">Nearest Store</div><div class="lm-value">${loc.nearest}</div></div>
+        <div class="lm-mini"><div class="lm-label">Postcodes</div><div class="lm-value">${loc.postcodes}</div></div>
       </div>
-      <div class="loc-detail-row" style="padding-top:8px;border-top:none">
-        <span>&#128105; ${loc.women} women 25-54</span>
-        <span>&#127915; Nearest: ${loc.nearest}</span>
+      <div class="loc-section">
+        <div class="loc-section-title">&#128205; Key Postcodes</div>
+        <div class="loc-postcodes">${loc.keyPostcodes}</div>
       </div>
-      <div class="loc-rationale">${loc.rationale} <span class="loc-venue">${loc.venue}</span></div>
+      <div class="loc-section">
+        <div class="loc-section-title">&#128161; Rationale</div>
+        <div class="loc-rationale" style="margin-top:0;padding-top:0;border-top:none">${loc.rationale}</div>
+        <div style="margin-top:10px"><span class="loc-venue">&#127978; Recommended: ${loc.venue}</span></div>
+      </div>
+      <div class="loc-section">
+        <div class="loc-section-title">&#127978; Competitive Validation</div>
+        <div class="loc-comp-validation">${loc.compValidation}</div>
+        <div class="loc-comp-brands">Brands present: ${loc.compBrands}</div>
+      </div>
+      <div style="margin-top:14px;text-align:right">
+        <span onclick="showOnMap(${loc.lat},${loc.lng},'${loc.label}')" style="font-size:12px;color:var(--accent);cursor:pointer;font-weight:600">View on heatmap &rarr;</span>
+      </div>
     </div>
   `).join('');
 }
@@ -716,6 +764,7 @@ function showOnMap(lat, lng, label) {
   document.querySelector('[data-view="map"]').classList.add('active');
   summaryView.classList.remove('active');
   mapView.classList.remove('hidden');
+  document.body.classList.remove('summary-active');
   if (!mapInitialized) {
     initMap();
     mapInitialized = true;
