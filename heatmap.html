@@ -879,6 +879,11 @@ const LOCATIONS = [
     compValidation: 'Zero competitors within 20km. Nearest kids footwear stores are 24km away at Macarthur Square. Pure white space in the fastest-growing family corridor in Australia.',
     compBrands: 'None within 20km',
     venue: 'Gregory Hills or Oran Park Town Centre',
+    population: '69,410',
+    income: '$119K/yr',
+    kids: '17,068 (24.6%)',
+    medianAge: '33',
+    nearest: '24km (Macarthur Sq)',
     color: '#FF4B0F',
   },
   {
@@ -900,6 +905,11 @@ const LOCATIONS = [
     compValidation: 'Only 1 competitor within 10km (Athlete’s Foot at Craigieburn Central). Melbourne’s northern growth corridor is severely underserved for kids’ footwear.',
     compBrands: 'The Athlete’s Foot',
     venue: 'Craigieburn Central',
+    population: '160,061',
+    income: '$97K/yr',
+    kids: '41,862 (26.2%)',
+    medianAge: '31',
+    nearest: '10km (Epping)',
     color: '#FF4B0F',
   },
   {
@@ -979,6 +989,11 @@ const LOCATIONS = [
     compValidation: '2 competitors within 10km, 10 within 20km. SW Brisbane supports kids retail but competitors cluster at Indooroopilly/Mt Gravatt 20km away. Springfield is the emerging node.',
     compBrands: 'The Athlete’s Foot, Platypus Shoes, Skechers, Betts Kids, Hype DC, The Trybe, Bobux',
     venue: 'Orion Springfield Central',
+    population: '210,818',
+    income: '$88K/yr',
+    kids: '49,880 (23.7%)',
+    medianAge: '34',
+    nearest: '22km (Indooroopilly)',
     color: '#FF4B0F',
   },
   {
@@ -1000,6 +1015,11 @@ const LOCATIONS = [
     compValidation: 'Zero competitors within 20km. Western Melbourne’s growth corridor has no dedicated kids’ footwear retailer. Complete white space.',
     compBrands: 'None within 20km',
     venue: 'Woodgrove Shopping Centre',
+    population: '101,718',
+    income: '$88K/yr',
+    kids: '26,445 (26.0%)',
+    medianAge: '32',
+    nearest: '18km (Highpoint)',
     color: '#FF4B0F',
   },
   {
@@ -1021,6 +1041,11 @@ const LOCATIONS = [
     compValidation: '4 competitors within 10km across 4 brands. Most established competitive landscape of the five recommendations, but no specialist kids’ footwear store.',
     compBrands: 'Betts Kids, Platypus Shoes, Skechers, The Athlete’s Foot',
     venue: 'Wollongong Central',
+    population: '105,776',
+    income: '$91K/yr',
+    kids: '16,816 (15.9%)',
+    medianAge: '38',
+    nearest: '60km (Miranda)',
     color: '#FF4B0F',
   },
   {
@@ -1594,7 +1619,7 @@ function buildSummaryCards() {
         <div class="loc-metrics-full">
           <div class="lm-mini"><div class="lm-label">Population</div><div class="lm-value">${loc.population}</div></div>
           <div class="lm-mini"><div class="lm-label">HH Income</div><div class="lm-value">${loc.income}</div></div>
-          <div class="lm-mini"><div class="lm-label">Women 25-54</div><div class="lm-value">${loc.women}</div></div>
+          <div class="lm-mini"><div class="lm-label">${loc.kids ? 'Kids 0-14' : 'Women 25-54'}</div><div class="lm-value">${loc.kids || loc.women}</div></div>
           <div class="lm-mini"><div class="lm-label">Median Age</div><div class="lm-value">${loc.medianAge}</div></div>
           <div class="lm-mini"><div class="lm-label">Nearest Store</div><div class="lm-value">${loc.nearest}</div></div>
         </div>`;
