@@ -3490,6 +3490,9 @@ try { buildSummaryCards(); } catch(e) { document.getElementById('locationCards')
   if (viewSelect) {
     viewSelect.addEventListener('change', function() { switchView(this.value); });
   }
+  // URL param: ?brand=champ etc
+  var bp = new URLSearchParams(window.location.search).get('brand');
+  if (bp) { switchView(bp); }
 
 </script>
 </body>
