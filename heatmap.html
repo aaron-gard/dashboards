@@ -649,11 +649,11 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
         <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--accent)">Key Finding: Competitor-Validated Growth Corridors</div>
         <p style="font-size:12px;margin-bottom:6px">SNS&rsquo;s recommended expansion corridors are validated by existing competitor presence:</p>
         <div style="font-size:11px;line-height:1.6;color:var(--tx2)">
-          &bull; <strong>Camden / Oran Park:</strong> 3 stores (3 brands) &mdash; Platypus Shoes, The Athlete's Foot, The Trybe<br>
-          &bull; <strong>Wollongong / Illawarra:</strong> 4 stores (4 brands) &mdash; Betts Kids, Platypus Shoes, Skechers, The Athlete's Foot<br>
-          &bull; <strong>Craigieburn / Northern Growth:</strong> 1 stores (1 brands) &mdash; The Athlete's Foot<br>
+          &bull; <strong>Camden / Oran Park:</strong> 3 stores (3 brands) &mdash; Platypus Shoes, The Athlete’s Foot, The Trybe<br>
+          &bull; <strong>Wollongong / Illawarra:</strong> 4 stores (4 brands) &mdash; Betts Kids, Platypus Shoes, Skechers, The Athlete’s Foot<br>
+          &bull; <strong>Craigieburn / Northern Growth:</strong> 1 stores (1 brands) &mdash; The Athlete’s Foot<br>
           &bull; <strong>Melton / Aintree West:</strong> 0 stores (0 brands) &mdash; <br>
-          &bull; <strong>Ipswich / Springfield:</strong> 3 stores (2 brands) &mdash; Platypus Shoes, The Athlete's Foot<br>
+          &bull; <strong>Ipswich / Springfield:</strong> 3 stores (2 brands) &mdash; Platypus Shoes, The Athlete’s Foot<br>
         </div>
         <p style="font-size:11px;color:var(--tx3);margin-top:6px">Competitors have proven these catchments support kids&rsquo; footwear retail &mdash; SNS is the specialist gap.</p>
       </div>
@@ -1067,26 +1067,7 @@ function initSnsMap() {
   SNS_STORES.forEach(s => {
     const col = snsStoreColors[s.t] || '#FF4B0F';
     const m = L.circleMarker([s.lat, s.lng], {radius:7, fillColor:col, fillOpacity:.9, color:'#fff', weight:2, zIndexOffset:1000});
-    m.bindTooltip('<div style="font-weight:700;font-size:14px">'+s.n+'</div><div style="font-size:11px;color:#999">'+s.t+'</div>
-    <div class="ins yt-ins">
-      <h2>Store Halo Analysis</h2>
-      <div class="subtitle">Yarra Trail &middot; Physical stores &times; online demand</div>
-      <h3 style="color:#6B4C3B">&#128293; The Halo Effect</h3>
-      <p><span class="highlight" style="color:#6B4C3B">49.0%</span> of online demand ($918K) comes from postcodes within <span class="highlight" style="color:#6B4C3B">10km of a store</span>. With 109 locations (2 boutiques, 15 concessions, 89 stockists), the physical network captures nearly half of online demand.</p>
-      <div class="insight-card">
-        <div style="font-weight:600;margin-bottom:8px">Online demand by distance to nearest store</div>
-        <div class="metric-row"><span class="metric-label">0-5km</span><span class="metric-val">$480K (25.6%)</span></div><div class="bar-container"><div class="bar-fill" style="width:100%;background:linear-gradient(90deg,#6B4C3B,#C4956A)"></div></div>
-        <div class="metric-row"><span class="metric-label">5-10km</span><span class="metric-val">$438K (23.4%)</span></div><div class="bar-container"><div class="bar-fill" style="width:91%;background:linear-gradient(90deg,#6B4C3B,#C4956A)"></div></div>
-        <div class="metric-row"><span class="metric-label">10-20km</span><span class="metric-val">$356K (19.0%)</span></div><div class="bar-container"><div class="bar-fill" style="width:74%;background:linear-gradient(90deg,#6B4C3B,#C4956A)"></div></div>
-        <div class="metric-row"><span class="metric-label">20-50km</span><span class="metric-val">$301K (16.1%)</span></div><div class="bar-container"><div class="bar-fill" style="width:62%;background:linear-gradient(90deg,#6B4C3B,#C4956A)"></div></div>
-        <div class="metric-row"><span class="metric-label">50-100km</span><span class="metric-val">$175K (9.3%)</span></div><div class="bar-container"><div class="bar-fill" style="width:36%;background:linear-gradient(90deg,#6B4C3B,#C4956A)"></div></div>
-        <div class="metric-row"><span class="metric-label">100km+</span><span class="metric-val">$124K (6.6%)</span></div><div class="bar-container"><div class="bar-fill" style="width:25%;background:linear-gradient(90deg,#6B4C3B,#C4956A)"></div></div>
-      </div>
-      <h3 style="color:#6B4C3B">&#127793; Brand Profile</h3>
-      <p>Yarra Trail serves a <span class="highlight" style="color:#6B4C3B">mature female demographic</span> with premium casual wear. AOV of <span class="highlight" style="color:#6B4C3B">$165.39</span> reflects considered purchasing.</p>
-      <h3 style="color:#6B4C3B">&#128205; Opportunity Clusters</h3>
-      <p>Toggle "Opportunity Zones" on the map to see <span class="highlight" style="color:#6B4C3B">25 clusters</span> of high-demand postcodes far from current stores. These represent potential for pop-ups, events, or new stockist partnerships.</p>
-    </div><div style="font-size:10px;color:#666">'+s.a+'</div>', {className:'postcode-tooltip', direction:'top', offset:[0,-10]});
+    m.bindTooltip('<div style="font-weight:700;font-size:14px">'+s.n+'</div><div style="font-size:11px;color:#999">'+s.t+'</div><div style="font-size:10px;color:#666">'+(s.a||'')+'</div>', {className:'postcode-tooltip', direction:'top', offset:[0,-10]});
     m.addTo(snsMap);
   });
 
@@ -1303,8 +1284,8 @@ const LOCATIONS = [
     lat: -37.52, lng: 144.94, label: 'Craigieburn',
     keyPostcodes: '3064 Craigieburn ($50.6K) • 3750 Wollert ($19.8K) • 3756 Chintin ($9.4K) • 3753 Beveridge ($4.2K)',
     rationale: 'Largest kids concentration (41,862), youngest median age (31), only 1 competitor. Melbourne northern corridor adding thousands of young families per year.',
-    compValidation: 'Only 1 competitor within 10km (Athlete's Foot at Craigieburn Central). Melbourne's northern corridor is severely underserved for kids' footwear.',
-    compBrands: 'The Athlete's Foot',
+    compValidation: 'Only 1 competitor within 10km (Athlete\'s Foot at Craigieburn Central). Melbourne\'s northern corridor is severely underserved for kids\' footwear.',
+    compBrands: 'The Athlete\'s Foot',
     venue: 'Craigieburn Central',
     population: '160,061',
     income: '$97K/yr',
@@ -1367,7 +1348,7 @@ const LOCATIONS = [
     demandPerCapita: '$0.40',
     color: '#ff5544',
     keyPostcodes: '3030 Werribee ($57K) • 3029 Hoppers Crossing ($29K) • 3023 Caroline Springs ($18K) • 3020 Sunshine ($17K) • 3012 Brooklyn ($15K) • 3024 Wyndham Vale ($9K)',
-    rationale: 'Largest population base (490K) with highest pool of target customers - 113K women aged 25-54. Youngest catchment (median age 34). Wyndham is one of Australia's fastest-growing LGAs. Highpoint is 18km away across the West Gate Bridge.',
+    rationale: 'Largest population base (490K) with highest pool of target customers - 113K women aged 25-54. Youngest catchment (median age 34). Wyndham is one of Australia\'s fastest-growing LGAs. Highpoint is 18km away across the West Gate Bridge.',
   },
   {
     brand: 'Shoes & Sox',
@@ -1386,7 +1367,7 @@ const LOCATIONS = [
     keyPostcodes: '4300 Springfield ($20.1K) • 4305 Basin Pocket ($16K) • 4124 Boronia Heights ($8.3K)',
     rationale: 'Largest population (211K) and most children (49,880). Nearly 50K kids with barely any local kids footwear options. 7 competitor brands within 20km confirms the market.',
     compValidation: '2 competitors within 10km, 10 within 20km. SW Brisbane supports kids retail but competitors cluster at Indooroopilly/Mt Gravatt 20km away. Springfield is the emerging node.',
-    compBrands: 'The Athlete's Foot, Platypus Shoes, Skechers, Betts Kids, Hype DC, The Trybe, Bobux',
+    compBrands: 'The Athlete\'s Foot, Platypus Shoes, Skechers, Betts Kids, Hype DC, The Trybe, Bobux',
     venue: 'Orion Springfield Central',
     population: '210,818',
     income: '$88K/yr',
@@ -1411,7 +1392,7 @@ const LOCATIONS = [
     lat: -37.69, lng: 144.61, label: 'Melton / Aintree',
     keyPostcodes: '3336 Aintree ($19.8K) • 3338 Brookfield ($17.8K) • 3337 Harkness ($13.8K) • 3335 Bonnie Brook ($6.5K)',
     rationale: 'Pure white space - zero competitors within 20km. Second-youngest median age (32), 26K children. Western Melbourne corridor adding suburbs that did not exist five years ago.',
-    compValidation: 'Zero competitors within 20km. Western Melbourne's corridor has no dedicated kids' footwear retailer. Complete white space.',
+    compValidation: 'Zero competitors within 20km. Western Melbourne\'s corridor has no dedicated kids\' footwear retailer. Complete white space.',
     compBrands: 'None within 20km',
     venue: 'Woodgrove Shopping Centre',
     population: '101,718',
@@ -1437,8 +1418,8 @@ const LOCATIONS = [
     lat: -34.36, lng: 150.88, label: 'Wollongong',
     keyPostcodes: '2500 Coniston ($19.1K) • 2515 Austinmer ($15.2K) • 2518 Bellambi ($14.9K) • 2517 Russell Vale ($13.5K)',
     rationale: 'Strong demand ($85K) and high demand/child ($4.29), but oldest median age (38), lowest kids concentration (16.1%), and 4 existing competitors within 10km.',
-    compValidation: '4 competitors within 10km across 4 brands. Most established competitive landscape of the five recommendations, but no specialist kids' footwear store.',
-    compBrands: 'Betts Kids, Platypus Shoes, Skechers, The Athlete's Foot',
+    compValidation: '4 competitors within 10km across 4 brands. Most established competitive landscape of the five recommendations, but no specialist kids\' footwear store.',
+    compBrands: 'Betts Kids, Platypus Shoes, Skechers, The Athlete\'s Foot',
     venue: 'Wollongong Central',
     population: '105,776',
     income: '$91K/yr',
@@ -1555,7 +1536,7 @@ const LOCATIONS = [
     demandPerCapita: '$0.50',
     color: '#ff9944',
     keyPostcodes: '4300 Springfield ($24K) • 4074 Jindalee ($21K) • 4078 Forest Lake ($13K) • 4305 Ipswich ($13K) • 4070 Fig Tree Pocket ($11K)',
-    rationale: '250K people, 53K women 25-54. The 22km gap to nearest store is the largest - QLD's most physically underserved corridor. Springfield 4300 alone has 69K people.',
+    rationale: '250K people, 53K women 25-54. The 22km gap to nearest store is the largest - QLD\'s most physically underserved corridor. Springfield 4300 alone has 69K people.',
   },
   {
     brand: 'Shoes & Sox',
