@@ -172,7 +172,7 @@ body.summary-active .summary-view{max-width:100%}
 
 /* Responsive */
 @media(max-width:1100px){.insights-column{width:360px}.loc-metrics{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:768px){.app-layout{flex-direction:column;height:auto;overflow:auto}.insights-column{width:100%;height:auto;max-height:none;border-left:none;border-top:1px solid var(--bd);overflow-y:visible}.map-column{height:50vh;position:relative}}
+@media(max-width:768px){.app-layout{flex-direction:column;height:auto;overflow:auto}.insights-column{width:100%;height:auto;max-height:none;border-left:none;border-top:1px solid var(--bd);overflow-y:visible}.map-column{height:50vh;position:relative}.location-card{padding:16px}.location-card .rank{font-size:28px;top:14px;right:16px}.location-card .loc-name{font-size:15px;padding-right:50px}.loc-metrics{grid-template-columns:repeat(2,1fr);gap:10px}.loc-metric .lm-value{font-size:14px}.loc-metrics-full{grid-template-columns:repeat(2,1fr)}.loc-section{font-size:12px}.loc-rationale{font-size:11px;line-height:1.5}.loc-postcodes{font-size:11px}.summary-view{padding:16px}.summary-header h1{font-size:20px}.summary-header p{font-size:12px}.view-tabs{flex-wrap:wrap;gap:4px}.view-tab{font-size:12px;padding:6px 10px}}
 
 /* SNS Map View */
 .sns-map-view{display:flex;flex-direction:column;flex:1;position:relative}
@@ -1565,6 +1565,9 @@ function buildSummaryCards() {
     if (loc.avgDist) {
       metricsHtml += `<div class="loc-metric"><div class="lm-label">Avg Distance</div><div class="lm-value">${loc.avgDist}</div></div>`;
     }
+    if (loc.postcodes) {
+      metricsHtml += `<div class="loc-metric"><div class="lm-label">Postcodes</div><div class="lm-value">${loc.postcodes}</div></div>`;
+    }
     
     // Detail metrics (Review has demographics, SNS has distance)
     let detailHtml = '';
@@ -1579,11 +1582,10 @@ function buildSummaryCards() {
           <div class="lm-mini"><div class="lm-label">Postcodes</div><div class="lm-value">${loc.postcodes}</div></div>
         </div>`;
     } else {
-      detailHtml = `
+      detailHtml = loc.avgDist ? `
         <div class="loc-metrics-full">
-          <div class="lm-mini"><div class="lm-label">Postcodes</div><div class="lm-value">${loc.postcodes}</div></div>
           <div class="lm-mini"><div class="lm-label">Avg Store Distance</div><div class="lm-value">${loc.avgDist}</div></div>
-        </div>`;
+        </div>` : '';
     }
     
     // Sections
