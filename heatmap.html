@@ -4767,7 +4767,7 @@ function initMap() {
   });
 
   let hL = null, mL = L.layerGroup().addTo(map), cP = [], cM = 0;
-  const _gColLUT=(function(){const S=[[0,[0,0,4]],[.1,[22,11,57]],[.2,[66,10,104]],[.3,[106,23,110]],[.4,[147,38,103]],[.5,[188,55,84]],[.6,[221,81,58]],[.7,[243,120,25]],[.8,[252,165,10]],[.9,[246,215,70]],[1,[252,255,164]]];const T=new Array(256);for(let i=0;i<=255;i++){const r=i/255;let lo=S[0],hi=S[S.length-1];for(let j=0;j<S.length-1;j++){if(r>=S[j][0]&&r<=S[j+1][0]){lo=S[j];hi=S[j+1];break;}}const t=(r-lo[0])/(hi[0]-lo[0]||1);T[i]='rgb('+Math.round(lo[1][0]+(hi[1][0]-lo[1][0])*t)+','+Math.round(lo[1][1]+(hi[1][1]-lo[1][1])*t)+','+Math.round(lo[1][2]+(hi[1][2]-lo[1][2])*t)+')';}return T;})();
+  const _gColLUT=(function(){const S=[[0,[180,200,220]],[.1,[160,185,210]],[.2,[140,170,200]],[.3,[130,160,180]],[.4,[150,155,140]],[.5,[175,155,110]],[.6,[195,155,90]],[.7,[210,160,75]],[.8,[220,170,65]],[.9,[225,185,70]],[1,[230,195,80]]];const T=new Array(256);for(let i=0;i<=255;i++){const r=i/255;let lo=S[0],hi=S[S.length-1];for(let j=0;j<S.length-1;j++){if(r>=S[j][0]&&r<=S[j+1][0]){lo=S[j];hi=S[j+1];break;}}const t=(r-lo[0])/(hi[0]-lo[0]||1);T[i]='rgb('+Math.round(lo[1][0]+(hi[1][0]-lo[1][0])*t)+','+Math.round(lo[1][1]+(hi[1][1]-lo[1][1])*t)+','+Math.round(lo[1][2]+(hi[1][2]-lo[1][2])*t)+')';}return T;})();
   function gCol(r){return _gColLUT[Math.round(Math.min(Math.max(r,0),1)*255)];}
 
   function uMk() {
@@ -4779,7 +4779,7 @@ function initMap() {
     const br = z >= 14 ? 10 : z >= 12 ? 8 : z >= 10 ? 6 : 4;
     cP.forEach(p => {
       const la=p[0], ln=p[1], v=p[2], r=cM>0?v/cM:0, pc=gPC(la,ln);
-      const mk = L.circleMarker([la,ln], {radius:br, fillColor:gCol(Math.min(r,1)), fillOpacity:.35, color:'rgba(255,255,255,.15)', weight:.5});
+      const mk = L.circleMarker([la,ln], {radius:br, fillColor:gCol(Math.min(r,1)), fillOpacity:.3, color:'rgba(255,255,255,.1)', weight:.5});
       let tt = '<div class="postcode-tooltip">'+(pc?'<div class="pc-code">'+pc+'</div>':'')+'<div class="pc-sales">'+fC(v)+' this week</div>';
       if (pc && REVIEW_PC_DETAIL[pc]) { const d=REVIEW_PC_DETAIL[pc]; tt+='<div class="pc-meta">'+d.d+'km to '+d.ns+' ('+d.nt+')</div><div class="pc-meta">CY2025: '+fC(d.dem)+' \u00B7 '+d.ord+' orders \u00B7 AOV $'+d.aov.toFixed(0)+'</div>'; if(d.rpt!==null) tt+='<div class="pc-meta">Repeat: '+d.rpt+'% \u00B7 '+d.opc+' ord/cust</div>'; }
       tt += '</div>';
@@ -5003,7 +5003,7 @@ function initBrandMap(cfg) {
       const dist = f.dist !== undefined ? p[f.dist] : null;
       const loc = f.loc !== undefined ? p[f.loc] : '';
       const r = maxDem > 0 ? dem / maxDem : 0;
-      const mk = L.circleMarker([la,ln], {radius:br, fillColor:gCol(r), fillOpacity:.4, color:'rgba(255,255,255,.15)', weight:.5});
+      const mk = L.circleMarker([la,ln], {radius:br, fillColor:gCol(r), fillOpacity:.25, color:'rgba(255,255,255,.1)', weight:.5});
       let tt = '<div class="postcode-tooltip"><div class="pc-code">'+pc+'</div>';
       if (loc) tt += '<div style="font-size:11px;color:#999">'+loc+'</div>';
       tt += '<div class="pc-sales" style="color:'+cfg.color+'">'+fC(dem)+' demand</div>';
