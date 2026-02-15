@@ -252,12 +252,15 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
       <div class="view-tab" data-view="sns-map">Shoes &amp; Sox</div>
       <div class="view-tab" data-view="yt-map">Yarra Trail</div>
     </div>
-    <select class="view-select" id="viewSelect">
-      <option value="summary">Summary — All Brands</option>
-      <option value="map">Review</option>
-      <option value="sns-map">Shoes &amp; Sox</option>
-      <option value="yt-map">Yarra Trail</option>
-    </select>
+    <div style="display:flex;align-items:center;gap:8px;margin:12px 16px">
+      <select class="view-select" id="viewSelect" style="margin:0;flex:1">
+        <option value="summary">Summary — All Brands</option>
+        <option value="map">Review</option>
+        <option value="sns-map">Shoes &amp; Sox</option>
+        <option value="yt-map">Yarra Trail</option>
+      </select>
+      <button id="themeToggleTop" style="background:var(--bg2);border:1px solid var(--bd);border-radius:8px;padding:10px 12px;font-size:14px;cursor:pointer;color:var(--tx2);flex-shrink:0;line-height:1" title="Toggle dark/light mode">&#127763;</button>
+    </div>
     <div class="summary-view active" id="summaryView">
       <div style="max-width:900px;margin:0 auto;padding:48px 24px 40px">
 
@@ -2316,7 +2319,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
 <h3 style="color:#FF6B00">&#128200; Methodology</h3>
 <p style="font-size:11px;color:var(--tx3);line-height:1.6">Data: Shopify DTC orders, CY2025 (Jan&ndash;Dec). Demand = gross sales + discounts (already negative) + tax, sourced from Polar Analytics. Distance calculated from ABS postcode centroid to nearest Superdry store using haversine formula. Store network: 16 locations (8 mainline, 8 outlet) verified against superdry.com.au store locator and ScrapeHero data (Feb 2025). ABS 2021 Census for demographics (population, median household income, median age, age distribution). Competitor locations sourced from brand websites and Google Maps. Seasonal estimates based on category mix analysis and industry benchmarks. YoY growth calculated against CY2024 baseline. Store expansion recommendations ranked by composite score: catchment demand (30%), distance gap (20%), target demographic density (20%), population (15%), household income (15%). All recommendations validated against competitor presence data. Note: ABS 2021 Census figures are conservative baselines &mdash; high-growth corridors (Wyndham, Casey, NW Sydney) will have materially higher current populations.</p>
 </div>
-<button class="theme-toggle" id="themeToggle">&#127763; Dark mode</button>
+<!-- theme toggle moved to top bar -->
 <!-- REVIEW INSIGHTS -->
 <div class="ins review-ins">
       <h2>Store Halo Analysis</h2>
@@ -3879,15 +3882,15 @@ let mapInitialized = false;
 
 // ===== DARK MODE =====
 (function() {
-  const themeToggle = document.getElementById('themeToggle');
+  const themeToggle = document.getElementById('themeToggleTop');
   const saved = localStorage.getItem('review-heatmap-theme');
   if (saved === 'dark') {
     document.body.classList.add('dark-mode');
-    themeToggle.innerHTML = '&#9728;&#65039; Light mode';
+    themeToggle.innerHTML = '&#9728;&#65039;';
   }
   themeToggle.addEventListener('click', function() {
     const dark = document.body.classList.toggle('dark-mode');
-    themeToggle.innerHTML = dark ? '&#9728;&#65039; Light mode' : '&#127763; Dark mode';
+    themeToggle.innerHTML = dark ? '&#9728;&#65039;' : '&#127763;';
     localStorage.setItem('review-heatmap-theme', dark ? 'dark' : 'light');
     // Update map tiles
     const url = dark
