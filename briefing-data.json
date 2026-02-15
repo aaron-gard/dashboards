@@ -1,71 +1,153 @@
 {
   "morning": {
-    "generated": "2026-02-16T06:00:00+11:00",
+    "generated": "2026-02-16T06:45:00+11:00",
     "calendar": {
       "date": "Monday, 16 February 2026",
-      "meetings": [
-        {"time": "09:00", "duration": 30, "title": "Digital Standup", "color": "#2563eb"},
-        {"time": "10:00", "duration": 60, "title": "Brand Collective — Q3 Trading Review", "color": "#f59e0b"},
-        {"time": "12:00", "duration": 30, "title": "1:1 with Jess (Reebok Launch)", "color": "#22c55e"},
-        {"time": "14:00", "duration": 60, "title": "CRO Working Session — Checkout Flow", "color": "#8b5cf6"},
-        {"time": "15:30", "duration": 30, "title": "Superdry Campaign Sign-off", "color": "#ef4444"}
-      ],
-      "freeBlocks": [
-        {"start": "09:30", "end": "10:00"},
-        {"start": "11:00", "end": "12:00"},
-        {"start": "12:30", "end": "14:00"},
-        {"start": "16:00", "end": "17:30"}
-      ]
+      "meetings": [],
+      "freeBlocks": [],
+      "note": "Calendar unavailable - browser service offline"
     },
     "sales": {
       "date": "Sunday, 15 February 2026",
       "brands": [
-        {"name": "Review", "demand": 48250, "orders": 312},
-        {"name": "Reebok", "demand": 41800, "orders": 287},
-        {"name": "Black Pepper", "demand": 35420, "orders": 198},
-        {"name": "Superdry", "demand": 29100, "orders": 156},
-        {"name": "Shoes & Sox", "demand": 27650, "orders": 224},
-        {"name": "Hush Puppies", "demand": 22300, "orders": 189},
-        {"name": "Elka Collective", "demand": 19870, "orders": 95},
-        {"name": "Julius Marlow", "demand": 18400, "orders": 167},
-        {"name": "Champion", "demand": 16200, "orders": 143},
-        {"name": "Clarks", "demand": 14800, "orders": 112},
-        {"name": "Volley", "demand": 12350, "orders": 198},
-        {"name": "Marco Polo", "demand": 11200, "orders": 78},
-        {"name": "Yarra Trail", "demand": 9800, "orders": 67},
-        {"name": "Everlast", "demand": 8400, "orders": 94},
-        {"name": "Happy Socks", "demand": 7200, "orders": 121},
-        {"name": "Umbro", "demand": 5600, "orders": 56},
-        {"name": "Harrison", "demand": 4200, "orders": 38},
-        {"name": "Replay", "demand": 3100, "orders": 22}
+        {
+          "name": "Shoes & Sox",
+          "demand": 33830,
+          "orders": 363
+        },
+        {
+          "name": "Reebok",
+          "demand": 26789,
+          "orders": 178
+        },
+        {
+          "name": "Superdry",
+          "demand": 21471,
+          "orders": 178
+        },
+        {
+          "name": "Shoe Warehouse",
+          "demand": 20127,
+          "orders": 179
+        },
+        {
+          "name": "Hush Puppies",
+          "demand": 19503,
+          "orders": 134
+        },
+        {
+          "name": "Review",
+          "demand": 19422,
+          "orders": 86
+        },
+        {
+          "name": "Black Pepper",
+          "demand": 17342,
+          "orders": 122
+        },
+        {
+          "name": "Elka Collective",
+          "demand": 9882,
+          "orders": 37
+        },
+        {
+          "name": "Clarks",
+          "demand": 9766,
+          "orders": 82
+        },
+        {
+          "name": "Volley",
+          "demand": 6002,
+          "orders": 55
+        },
+        {
+          "name": "Yarra Trail",
+          "demand": 4783,
+          "orders": 34
+        },
+        {
+          "name": "Champion",
+          "demand": 3940,
+          "orders": 38
+        },
+        {
+          "name": "Julius Marlow",
+          "demand": 3042,
+          "orders": 17
+        },
+        {
+          "name": "Everlast",
+          "demand": 2418,
+          "orders": 26
+        },
+        {
+          "name": "Marco Polo",
+          "demand": 1707,
+          "orders": 12
+        },
+        {
+          "name": "Happy Socks",
+          "demand": 1337,
+          "orders": 16
+        },
+        {
+          "name": "Umbro",
+          "demand": 989,
+          "orders": 8
+        },
+        {
+          "name": "Canada Goose",
+          "demand": 800,
+          "orders": 1
+        },
+        {
+          "name": "Harrison",
+          "demand": 80,
+          "orders": 1
+        }
       ],
-      "total": {"demand": 335640, "orders": 2557}
+      "total": {
+        "demand": 203230,
+        "orders": 1567
+      }
     },
     "markets": {
-      "audusd": {"value": 0.6342, "prev": 0.6318},
-      "btc": {"value": 97842, "prev": 96450},
-      "eth": {"value": 3842, "prev": 3790},
-      "xrp": {"value": 2.87, "prev": 2.92}
+      "audusd": {
+        "value": 0.707
+      },
+      "btc": {
+        "value": 68216
+      },
+      "eth": {
+        "value": 1934
+      },
+      "xrp": {
+        "value": 1.45
+      }
     },
     "weather": {
-      "current_temp": 18,
-      "high": 28,
-      "low": 16,
-      "condition": "Partly Cloudy",
-      "precip": 10,
-      "icon": "⛅"
+      "current_temp": 19,
+      "high": 34,
+      "low": 18,
+      "condition": "Foggy morning, hot afternoon",
+      "precip": 0,
+      "icon": "\ud83c\udf2b"
     },
     "news": [
-      {"emoji": "💰", "topic": "Markets", "text": "ASX futures point to a flat open after Wall Street's mixed session on Friday."},
-      {"emoji": "🏈", "topic": "AFL", "text": "Pre-season continues — Collingwood looking sharp in practice match against Essendon."},
-      {"emoji": "🛒", "topic": "Retail", "text": "David Jones reports 3.2% decline in January foot traffic, online holding steady."},
-      {"emoji": "🤖", "topic": "Tech", "text": "OpenAI announces GPT-5 Turbo with 1M context window, available next month."},
-      {"emoji": "🌏", "topic": "World", "text": "EU trade talks with Australia resume this week, tariff reductions on the table."},
-      {"emoji": "⚽", "topic": "Sport", "text": "A-League: Melbourne Victory beat Sydney FC 2-1 in Friday night thriller."}
+      {
+        "emoji": "\ud83e\udd16",
+        "topic": "AI",
+        "text": "NASA's Perseverance rover now driving Mars routes planned entirely by AI instead of human operators"
+      },
+      {
+        "emoji": "\ud83c\udfce\ufe0f",
+        "topic": "F1",
+        "text": "Bahrain pre-season test 1 complete \u2014 Antonelli tops timesheets for Mercedes, season opens in Melbourne Mar 6-8"
+      }
     ],
     "quote": {
-      "text": "The only way to do great work is to love what you do.",
-      "author": "Steve Jobs"
+      "text": "We are what we repeatedly do. Excellence, then, is not an act, but a habit.",
+      "author": "Aristotle"
     }
   },
   "evening": {
@@ -73,45 +155,128 @@
     "calendar": {
       "date": "Monday, 16 February 2026",
       "meetings": [
-        {"time": "09:00", "duration": 30, "title": "Digital Standup", "status": "completed"},
-        {"time": "10:00", "duration": 60, "title": "Brand Collective — Q3 Trading Review", "status": "completed"},
-        {"time": "12:00", "duration": 30, "title": "1:1 with Jess (Reebok Launch)", "status": "completed"},
-        {"time": "14:00", "duration": 60, "title": "CRO Working Session — Checkout Flow", "status": "completed"},
-        {"time": "15:30", "duration": 30, "title": "Superdry Campaign Sign-off", "status": "completed"}
+        {
+          "time": "09:00",
+          "duration": 30,
+          "title": "Digital Standup",
+          "status": "completed"
+        },
+        {
+          "time": "10:00",
+          "duration": 60,
+          "title": "Brand Collective \u2014 Q3 Trading Review",
+          "status": "completed"
+        },
+        {
+          "time": "12:00",
+          "duration": 30,
+          "title": "1:1 with Jess (Reebok Launch)",
+          "status": "completed"
+        },
+        {
+          "time": "14:00",
+          "duration": 60,
+          "title": "CRO Working Session \u2014 Checkout Flow",
+          "status": "completed"
+        },
+        {
+          "time": "15:30",
+          "duration": 30,
+          "title": "Superdry Campaign Sign-off",
+          "status": "completed"
+        }
       ],
       "tomorrow": [
-        {"time": "09:00", "duration": 30, "title": "Digital Standup", "color": "#2563eb"},
-        {"time": "11:00", "duration": 60, "title": "Reebok Launch Sync", "color": "#22c55e"},
-        {"time": "14:30", "duration": 45, "title": "Design Review — Happy Socks", "color": "#8b5cf6"}
+        {
+          "time": "09:00",
+          "duration": 30,
+          "title": "Digital Standup",
+          "color": "#2563eb"
+        },
+        {
+          "time": "11:00",
+          "duration": 60,
+          "title": "Reebok Launch Sync",
+          "color": "#22c55e"
+        },
+        {
+          "time": "14:30",
+          "duration": 45,
+          "title": "Design Review \u2014 Happy Socks",
+          "color": "#8b5cf6"
+        }
       ]
     },
     "sales": {
       "date": "Monday, 16 February 2026",
       "partial": true,
       "brands": [
-        {"name": "Reebok", "demand": 31200, "orders": 198},
-        {"name": "Review", "demand": 28400, "orders": 187},
-        {"name": "Superdry", "demand": 22100, "orders": 118},
-        {"name": "Shoes & Sox", "demand": 19800, "orders": 162},
-        {"name": "Black Pepper", "demand": 18900, "orders": 112},
-        {"name": "Champion", "demand": 14500, "orders": 108},
-        {"name": "Hush Puppies", "demand": 13200, "orders": 98}
+        {
+          "name": "Reebok",
+          "demand": 31200,
+          "orders": 198
+        },
+        {
+          "name": "Review",
+          "demand": 28400,
+          "orders": 187
+        },
+        {
+          "name": "Superdry",
+          "demand": 22100,
+          "orders": 118
+        },
+        {
+          "name": "Shoes & Sox",
+          "demand": 19800,
+          "orders": 162
+        },
+        {
+          "name": "Black Pepper",
+          "demand": 18900,
+          "orders": 112
+        },
+        {
+          "name": "Champion",
+          "demand": 14500,
+          "orders": 108
+        },
+        {
+          "name": "Hush Puppies",
+          "demand": 13200,
+          "orders": 98
+        }
       ],
-      "total": {"demand": 148100, "orders": 983}
+      "total": {
+        "demand": 148100,
+        "orders": 983
+      }
     },
     "markets": {
-      "audusd": {"value": 0.6358, "prev": 0.6342},
-      "btc": {"value": 98120, "prev": 97842},
-      "eth": {"value": 3868, "prev": 3842},
-      "xrp": {"value": 2.84, "prev": 2.87}
+      "audusd": {
+        "value": 0.6358,
+        "prev": 0.6342
+      },
+      "btc": {
+        "value": 98120,
+        "prev": 97842
+      },
+      "eth": {
+        "value": 3868,
+        "prev": 3842
+      },
+      "xrp": {
+        "value": 2.84,
+        "prev": 2.87
+      }
     },
     "weather": {
       "high": 28,
       "low": 16,
       "condition": "Clear",
       "precip": 0,
-      "icon": "🌙"
+      "icon": "\ud83c\udf19"
     },
-    "closing_thought": "Solid Monday. Reebok had a strong day — keep an eye on that launch momentum. Tomorrow's lighter on meetings, good time to push the checkout CRO work forward."
+    "closing_thought": "Solid Monday. Reebok had a strong day \u2014 keep an eye on that launch momentum. Tomorrow's lighter on meetings, good time to push the checkout CRO work forward."
   }
 }
