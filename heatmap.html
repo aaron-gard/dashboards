@@ -4585,7 +4585,7 @@ function buildSummaryCards() {
       </div>`;
   }).join('');
 }
-try { buildSummaryCards(); } catch(e) { document.getElementById('locationCards').innerHTML = '<div style="color:red;padding:20px">Error: ' + e.message + '</div>'; }
+try { var lc = document.getElementById('locationCards'); if (lc) buildSummaryCards(); } catch(e) { var lc2 = document.getElementById('locationCards'); if (lc2) lc2.innerHTML = '<div style="color:red;padding:20px">Error: ' + e.message + '</div>'; }
 
   // View tab/select switching (data-driven via BRAND_MAPS registry)
   var brandMapInitialized = {};
