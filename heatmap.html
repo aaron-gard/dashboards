@@ -222,7 +222,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
 .brand-logo{font-size:18px!important;letter-spacing:1.5px!important}
 .brand-sub{font-size:9px!important;letter-spacing:.5px!important}
 /* Store legend: bottom-left above controls */
-.store-legend,.sns-store-legend,.yt-store-legend,[class$="-store-legend"]{top:auto!important;bottom:90px!important;left:8px!important;right:auto!important;padding:5px 8px!important;font-size:9px!important;max-width:150px;opacity:.92;border-radius:5px}
+.store-legend,.sns-store-legend,.yt-store-legend,[class$="-store-legend"]{top:auto!important;bottom:120px!important;left:8px!important;right:auto!important;padding:5px 8px!important;font-size:9px!important;max-width:150px;opacity:.92;border-radius:5px}
 .store-legend-item{margin:1px 0!important;gap:4px!important}
 .store-legend-dot{width:7px!important;height:7px!important}
 .legend-label{font-size:9px!important}
@@ -231,7 +231,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
 .comp-brand-item{font-size:8px!important}
 .comp-brand-dot{width:6px!important;height:6px!important}
 /* Zoom hint: bottom-right above controls */
-.zoom-hint,.sns-zoom-hint,.yt-zoom-hint,[class$="-zoom-hint"]{top:auto!important;bottom:90px!important;right:8px!important;left:auto!important;padding:4px 8px!important;font-size:8px!important;border-radius:5px}
+.zoom-hint,.sns-zoom-hint,.yt-zoom-hint,[class$="-zoom-hint"]{top:auto!important;bottom:120px!important;right:8px!important;left:auto!important;padding:4px 8px!important;font-size:8px!important;border-radius:5px}
 /* Controls/stats bar: compact */
 .controls,.sns-controls,.yt-controls,[class$="-controls"]{padding:10px 14px 12px!important}
 .stats,.sns-stats,.yt-stats,[class$="-stats"]{gap:12px 16px!important}
@@ -3834,7 +3834,7 @@ function registerBrand(viewKey) {
     'body.' + cfg.bodyClass + ' .insights-column .ins.' + cfg.insClass + '{display:block}' +
     '.ins.' + cfg.insClass + '{display:none}' +
     'body.summary-active .insights-column .ins.' + cfg.insClass + '{display:none}' +
-    '@media(max-width:768px){#' + cfg.mapElId + '{min-height:50vh!important}#' + cfg.viewElId + '{min-height:60vh}.' + prefix + '-stats{gap:16px 24px}.' + prefix + '-stats .stat-value{font-size:22px}.' + prefix + '-stats .stat-value.orders{font-size:16px}.' + prefix + '-store-legend{top:auto!important;bottom:90px;left:10px;padding:6px 10px;font-size:10px;max-width:160px;opacity:.9}.' + prefix + '-zoom-hint{top:auto!important;bottom:90px;right:10px;font-size:9px;padding:5px 10px}.' + prefix + '-header{padding:12px 16px 24px}}';
+    '@media(max-width:768px){#' + cfg.mapElId + '{min-height:50vh!important}#' + cfg.viewElId + '{min-height:60vh}.' + prefix + '-stats{gap:16px 24px}.' + prefix + '-stats .stat-value{font-size:22px}.' + prefix + '-stats .stat-value.orders{font-size:16px}.' + prefix + '-store-legend{top:auto!important;bottom:120px;left:10px;padding:6px 10px;font-size:10px;max-width:160px;opacity:.9}.' + prefix + '-zoom-hint{top:auto!important;bottom:120px;right:10px;font-size:9px;padding:5px 10px}.' + prefix + '-header{padding:12px 16px 24px}}';
   document.head.appendChild(style);
 
   // 2. Build legend HTML
