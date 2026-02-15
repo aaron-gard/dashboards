@@ -3917,14 +3917,18 @@ try { buildSummaryCards(); } catch(e) { document.getElementById('locationCards')
 
     // Toggle insights panels — hide all first, then show the active one
     var insClass = view === 'map' ? 'review-ins' : (BRAND_MAPS[view] ? BRAND_MAPS[view].insClass : null);
+    console.log('[switchView] view=' + view + ' insClass=' + insClass);
     var panels = document.querySelectorAll('.insights-column .ins');
+    console.log('[switchView] found ' + panels.length + ' panels');
     // First pass: hide everything
     panels.forEach(function(el) { el.style.display = 'none'; });
     // Second pass: show the active panel
     if (view !== 'summary' && insClass) {
+      var found = false;
       panels.forEach(function(el) {
-        if (el.classList.contains(insClass)) el.style.display = 'block';
+        if (el.classList.contains(insClass)) { el.style.display = 'block'; found = true; }
       });
+      console.log('[switchView] panel ' + insClass + ' found=' + found);
     }
     // Scroll insights column back to top on brand switch
     var ic = document.querySelector('.insights-column');
