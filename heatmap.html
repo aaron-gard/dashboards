@@ -318,7 +318,6 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
           <div><div class="stat-label">Postcodes</div><div class="stat-value orders">2,233</div></div>
           <div><div class="stat-label">AOV</div><div class="stat-value orders">$94.16</div></div>
           <div><div class="stat-label">YoY Growth</div><div class="stat-value orders" style="color:#22c55e">+15.6%</div></div>
-          <div><div class="stat-label">YoY Growth</div><div class="stat-value orders" style="color:#22c55e">+15.6%</div></div>
         </div>
         <div style="margin-top:12px;font-size:12px;color:var(--tx3)">Annual data &middot; CY2025 vs CY2024</div>
       </div>
@@ -3735,10 +3734,6 @@ function registerBrand(viewKey) {
   if (st.orders) statsHtml += '<div><div class="stat-label">Orders</div><div class="stat-value orders">' + st.orders + '</div></div>';
   if (st.postcodes) statsHtml += '<div><div class="stat-label">Postcodes</div><div class="stat-value orders">' + st.postcodes + '</div></div>';
   if (st.aov) statsHtml += '<div><div class="stat-label">AOV</div><div class="stat-value orders">' + st.aov + '</div></div>';
-  if (st.yoy) {
-    var yoyColor = st.yoy.startsWith('+') ? '#22c55e' : st.yoy.startsWith('-') ? '#ef4444' : 'var(--tx2)';
-    statsHtml += '<div><div class="stat-label">YoY Growth</div><div class="stat-value orders" style="color:' + yoyColor + '">' + st.yoy + '</div></div>';
-  }
   if (st.yoy) {
     var yoyColor = st.yoy.startsWith('+') ? '#22c55e' : st.yoy.startsWith('-') ? '#ef4444' : 'var(--tx2)';
     statsHtml += '<div><div class="stat-label">YoY Growth</div><div class="stat-value orders" style="color:' + yoyColor + '">' + st.yoy + '</div></div>';
