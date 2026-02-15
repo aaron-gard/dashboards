@@ -117,6 +117,27 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 /* Export button */
 .export-btn{padding:8px 20px;border-radius:20px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-size:13px;font-weight:500;cursor:pointer;transition:all .2s}
 .export-btn:hover{background:var(--bg3);border-color:var(--accent)}
+.export-btn-primary{padding:8px 20px;border-radius:20px;border:1px solid var(--accent);background:var(--accent);color:#fff;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s}
+.export-btn-primary:hover{background:var(--accent2)}
+
+/* Print / PDF styles */
+@media print{
+  body{background:#fff!important;color:#111!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .theme-toggle,.tab-row,.filters,.filter-btn,.search-input,.export-btn,.export-btn-primary,.pdf-bar{display:none!important}
+  .container{max-width:100%;padding:0}
+  .header{padding:16px 0 12px}
+  .tab-content{display:block!important}
+  .section{break-inside:avoid;page-break-inside:avoid;border:1px solid #ddd;box-shadow:none;opacity:1;transform:none;animation:none}
+  .finding-row{break-inside:avoid}
+  .finding-detail{max-height:none!important;padding:0 16px 12px!important;overflow:visible!important}
+  .finding-chevron{display:none}
+  .grade-circle{border-color:#f59e0b!important}
+  .sev-bar{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  .sev-badge,.count-badge,.brand-tag,.policy-badge{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  .int-grid{grid-template-columns:repeat(2,1fr)}
+  .pdf-page-break{page-break-before:always}
+  .pdf-section-label{display:block!important;font-size:20px;font-weight:700;margin:24px 0 12px;padding-bottom:8px;border-bottom:2px solid #111}
+}
 
 /* Tabs */
 .tab-row{display:flex;gap:4px;margin-bottom:20px;flex-wrap:wrap}
@@ -147,6 +168,9 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
     <div class="header-date" id="auditDate"></div>
     <div class="header-title">Security Audit 🛡️</div>
     <div class="header-sub">The Claw 🦀 — Brand Collective External Security Assessment</div>
+    <div style="margin-top:16px">
+      <button class="export-btn-primary" onclick="generatePDF()">📄 Download PDF Report</button>
+    </div>
   </div>
 
   <div class="tab-row">
@@ -458,6 +482,55 @@ function toggleTheme(){
   const html=document.documentElement;
   html.dataset.theme=html.dataset.theme==='light'?'':'light';
   localStorage.setItem('theme',html.dataset.theme);
+}
+
+function generatePDF(){
+  // Force light theme for PDF
+  const prevTheme=document.documentElement.dataset.theme;
+  document.documentElement.dataset.theme='light';
+
+  // Show all tabs, expand all findings, add section labels
+  const tabs=document.querySelectorAll('.tab-content');
+  tabs.forEach(t=>t.classList.add('active'));
+
+  // Expand all findings
+  document.querySelectorAll('.finding-row').forEach(r=>r.classList.add('open'));
+
+  // Insert section labels for print
+  const sectionNames={
+    'tab-overview':'Executive Overview',
+    'tab-findings':'Detailed Findings',
+    'tab-brands':'Brand Scorecard',
+    'tab-integrations':'Integration Audit',
+    'tab-dns':'DNS & Email Security',
+    'tab-scripts':'Third-Party Script Inventory',
+    'tab-recommendations':'Prioritized Action Items'
+  };
+  const labels=[];
+  Object.entries(sectionNames).forEach(([id,name])=>{
+    const el=document.getElementById(id);
+    if(el){
+      const lbl=document.createElement('div');
+      lbl.className='pdf-section-label pdf-page-break';
+      lbl.style.display='none';
+      lbl.textContent=name;
+      el.insertBefore(lbl,el.firstChild);
+      labels.push(lbl);
+    }
+  });
+  // Don't page-break the first section
+  if(labels.length>0) labels[0].classList.remove('pdf-page-break');
+
+  // Trigger print
+  window.print();
+
+  // Restore state
+  document.documentElement.dataset.theme=prevTheme;
+  labels.forEach(l=>l.remove());
+  tabs.forEach(t=>{
+    if(t.id!=='tab-overview') t.classList.remove('active');
+  });
+  document.querySelectorAll('.finding-row').forEach(r=>r.classList.remove('open'));
 }
 
 // Init
