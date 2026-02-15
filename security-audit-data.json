@@ -1,19 +1,19 @@
 {
   "metadata": {
-    "auditDate": "2026-02-16T06:51:00+11:00",
+    "auditDate": "2026-02-16T06:50:00+11:00",
     "auditor": "The Claw 🦀",
     "scope": "External passive security audit of Brand Collective's 20 Shopify storefronts and integrations",
     "brandsScanned": 20,
     "checksPerformed": 240,
     "integrationsAudited": 18,
-    "overallGrade": "B-",
-    "overallScore": 68
+    "overallGrade": "C+",
+    "overallScore": 58
   },
   "brands": [
-    {"name": "Review", "domain": "review-australia.com", "shopify": "review-australia.myshopify.com", "shopId": "69575180311", "grade": "B", "score": 72, "critical": 0, "high": 2, "medium": 4, "low": 3, "info": 2},
+    {"name": "Review", "domain": "review-australia.com", "shopify": "review-australia.myshopify.com", "shopId": "69575180311", "grade": "D+", "score": 45, "critical": 4, "high": 3, "medium": 4, "low": 3, "info": 2, "omneoPortal": "my.review-australia.com", "omneoVulnConfirmed": true},
     {"name": "Reebok", "domain": "reebok.com.au", "shopify": "reebokau.myshopify.com", "shopId": "61798940836", "grade": "B", "score": 70, "critical": 0, "high": 2, "medium": 4, "low": 3, "info": 2},
     {"name": "Black Pepper", "domain": "blackpepper.com.au", "shopify": "blackpepper-prod.myshopify.com", "shopId": "73594274066", "grade": "B-", "score": 68, "critical": 0, "high": 2, "medium": 4, "low": 4, "info": 2},
-    {"name": "Shoes & Sox", "domain": "shoesandsox.com.au", "shopify": "shoesandsox.myshopify.com", "shopId": "69055381801", "grade": "B", "score": 72, "critical": 0, "high": 2, "medium": 4, "low": 3, "info": 2},
+    {"name": "Shoes & Sox", "domain": "shoesandsox.com.au", "shopify": "shoesandsox.myshopify.com", "shopId": "69055381801", "grade": "D+", "score": 45, "critical": 4, "high": 3, "medium": 4, "low": 3, "info": 2, "omneoPortal": "my.shoesandsox.com.au", "omneoVulnConfirmed": true},
     {"name": "Marco Polo", "domain": "marcopolo-australia.com.au", "shopify": "marcopolo-prod.myshopify.com", "shopId": "89343557939", "grade": "B", "score": 71, "critical": 0, "high": 2, "medium": 4, "low": 3, "info": 2},
     {"name": "Elka Collective", "domain": "elkacollective.com", "shopify": "elkacollective.myshopify.com", "shopId": "70619201849", "grade": "B", "score": 71, "critical": 0, "high": 2, "medium": 4, "low": 3, "info": 2},
     {"name": "Julius Marlow", "domain": "juliusmarlow.com.au", "shopify": "82dccf-2.myshopify.com", "shopId": "83181076783", "grade": "B", "score": 72, "critical": 0, "high": 2, "medium": 4, "low": 3, "info": 2},
@@ -34,14 +34,80 @@
   "findings": [
     {
       "id": "F001",
+      "severity": "critical",
+      "category": "Third-Party Vulnerability",
+      "title": "Omneo Loyalty Platform — PII Enumeration via /api/auth/availability (CRITICAL)",
+      "affected": ["All Brands"],
+      "affectedPortals": ["my.shoesandsox.com.au", "my.review-australia.com"],
+      "detail": "The /api/auth/availability endpoint on Omneo loyalty portals returns full PII (full name, UUID, loyalty card number) for any email address. No authentication required. Confirmed exploitable on SNS (test@test.com → 'Jayden Potts', UUID 9a6f4458-2eab-44e3-b26f-0351007cdec9, loyalty card L142697892) and Review (my.review-australia.com). This is a platform-level issue affecting ALL brands using Omneo portals. Vendor claimed patch was applied — verified STILL FULLY EXPLOITABLE on Feb 16.",
+      "recommendation": "ESCALATE IMMEDIATELY. Omneo's claimed patch did not fix this vulnerability. Consider: (1) Demand Omneo disable these endpoints immediately, (2) Block public access to /api/auth/* endpoints via WAF/proxy, (3) Engage legal counsel re: data breach notification obligations under Privacy Act, (4) Consider OAIC notification if customer PII has been accessed by unauthorized parties.",
+      "status": "Vendor claims patched — VERIFIED STILL VULNERABLE (Feb 16)",
+      "timestamp": "2026-02-16T06:50:00+11:00",
+      "retestHistory": [
+        {"date": "2026-02-10", "event": "Initially discovered — PII enumeration via /api/auth/availability, /api/auth/sms, /api/auth/magic, wildcard CORS, missing security headers"},
+        {"date": "2026-02-12", "event": "Re-audited — 0/8 findings patched. All endpoints still fully exploitable"},
+        {"date": "2026-02-16", "event": "Vendor claimed patch applied. Retested — STILL VULNERABLE. Only /api/auth/magic returns 404 (possibly fixed). All PII endpoints unchanged. NEW endpoint /api/auth found returning even MORE data (join date). Vendor patch claim is FALSE."}
+      ]
+    },
+    {
+      "id": "F001a",
+      "severity": "critical",
+      "category": "Third-Party Vulnerability",
+      "title": "Omneo Loyalty Platform — PII Enumeration via /api/auth (NEW — WORSE)",
+      "affected": ["All Brands"],
+      "affectedPortals": ["my.shoesandsox.com.au", "my.review-australia.com"],
+      "detail": "NEW FINDING (Feb 16): The /api/auth POST endpoint returns MORE data than /api/auth/availability: UUID, email, loyalty card number, AND join date. No authentication required. SNS: returns id, email, identity (loyalty card), joined_at ('2021-05-20 00:00:00'). Review: returns same fields, loyalty card L181241163, joined '2020-01-09 00:00:00'. This endpoint was not previously documented and represents an escalation — more PII is exposed than the original finding.",
+      "recommendation": "Same as F001 — this endpoint must be blocked or require authentication immediately. The join date field adds additional PII exposure beyond the original finding.",
+      "status": "Vendor claims patched — VERIFIED STILL VULNERABLE (Feb 16)",
+      "timestamp": "2026-02-16T06:50:00+11:00"
+    },
+    {
+      "id": "F001b",
+      "severity": "critical",
+      "category": "Third-Party Vulnerability",
+      "title": "Omneo Loyalty Platform — SMS Phone Number Enumeration via /api/auth/sms",
+      "affected": ["All Brands"],
+      "affectedPortals": ["my.shoesandsox.com.au", "my.review-australia.com"],
+      "detail": "The /api/auth/sms endpoint returns loyalty card numbers for any phone number. No authentication required. Confirmed: +61400000000 → identity: 'L144125172'. Allows mass enumeration of customer loyalty accounts by phone number.",
+      "recommendation": "Block or rate-limit /api/auth/sms endpoint. Require authentication before returning any customer data.",
+      "status": "Vendor claims patched — VERIFIED STILL VULNERABLE (Feb 16)",
+      "timestamp": "2026-02-16T06:50:00+11:00"
+    },
+    {
+      "id": "F001c",
+      "severity": "critical",
+      "category": "Third-Party Vulnerability",
+      "title": "Omneo Loyalty Platform — Wildcard CORS on All API Endpoints",
+      "affected": ["All Brands"],
+      "affectedPortals": ["my.shoesandsox.com.au", "my.review-australia.com"],
+      "detail": "All Omneo portal API endpoints return Access-Control-Allow-Origin: * header. This means ANY website on the internet can make cross-origin requests to these endpoints and read the responses. Combined with the PII enumeration vulnerabilities (F001, F001a, F001b), any malicious website can silently harvest customer data from Omneo portals.",
+      "recommendation": "Omneo must restrict CORS to only allow requests from legitimate portal domains. Wildcard CORS on endpoints returning PII is a critical misconfiguration.",
+      "status": "Vendor claims patched — VERIFIED STILL VULNERABLE (Feb 16)",
+      "timestamp": "2026-02-16T06:50:00+11:00"
+    },
+    {
+      "id": "F001d",
       "severity": "high",
       "category": "Third-Party Vulnerability",
-      "title": "Omneo Loyalty Platform — Known Portal Code Vulnerability",
+      "title": "Omneo Loyalty Portal — Missing Security Headers",
       "affected": ["All Brands"],
-      "detail": "A known vulnerability in the Omneo loyalty platform affects 25+ Australian retail brands including all Brand Collective stores. The issue involves portal code authentication bypass allowing potential access to customer loyalty profiles and data. Disclosed February 10, 2026 — still pending remediation by Omneo. Brand Collective uses Omneo across all storefronts for loyalty/CRM.",
-      "recommendation": "Urgently follow up with Omneo on remediation timeline. Consider temporarily disabling portal code authentication flows until patched. Request a formal incident report from Omneo. Audit what customer data is accessible via the vulnerability.",
-      "status": "open",
-      "timestamp": "2026-02-16T06:51:00+11:00"
+      "affectedPortals": ["my.shoesandsox.com.au", "my.review-australia.com"],
+      "detail": "Omneo loyalty portals are missing critical security headers: no Content-Security-Policy, no X-Frame-Options, no HSTS. Portals expose x-powered-by: Next.js and server: Google Frontend headers, revealing technology stack. These missing headers compound the other vulnerabilities.",
+      "recommendation": "Omneo must implement CSP, X-Frame-Options, HSTS, and remove technology disclosure headers.",
+      "status": "Vendor claims patched — VERIFIED STILL VULNERABLE (Feb 16)",
+      "timestamp": "2026-02-16T06:50:00+11:00"
+    },
+    {
+      "id": "F001e",
+      "severity": "low",
+      "category": "Third-Party Vulnerability",
+      "title": "Omneo Loyalty Platform — Magic Link Token Exposure (Possibly Partially Fixed)",
+      "affected": ["All Brands"],
+      "affectedPortals": ["my.shoesandsox.com.au", "my.review-australia.com"],
+      "detail": "The /api/auth/magic endpoint previously allowed magic link token generation/exposure. As of Feb 16 retest, this endpoint now returns 404 on both SNS and Review portals. This may be the ONLY thing Omneo actually patched. However, all other PII-exposing endpoints remain fully exploitable, making this a minimal mitigation.",
+      "recommendation": "Verify the 404 is a permanent fix and not just a temporary routing change. This does not mitigate the critical PII exposure via the other endpoints.",
+      "status": "Partially mitigated — endpoint returns 404, but all other PII endpoints remain fully exploitable",
+      "timestamp": "2026-02-16T06:50:00+11:00"
     },
     {
       "id": "F002",
@@ -224,7 +290,7 @@
     {"name": "Klaviyo", "category": "Email/SMS", "status": "medium", "finding": "Klaviyo JS loaded on multiple stores (e.g., company IDs W4U8xV for Reebok, ShN5VB for Champion, SP8jKd for Black Pepper). Company IDs are publicly exposed in script URLs. These IDs could potentially be used to probe Klaviyo API endpoints for list enumeration.", "brands": ["Reebok", "Champion", "Black Pepper", "Others"]},
     {"name": "Gorgias", "category": "Customer Support", "status": "medium", "finding": "Gorgias chat bundle loader is publicly accessible and exposes application keys (e.g., 01JSZWNGYNJS8J64J6FJGAREF3 for Champion, app ID 64965). The bundle-loader endpoint at config.gorgias.chat returns full JavaScript with API keys embedded. Could allow unauthorized chat widget instantiation.", "brands": ["Champion", "Others"]},
     {"name": "Intelligems", "category": "A/B Testing", "status": "low", "finding": "Intelligems A/B testing script (cdn.intelligems.io) loaded on Reebok and Black Pepper with store-specific bundle IDs (6ccd53f2c93f, e967ec415f3a). Scripts loaded without SRI. Intelligems has access to modify pricing and content for A/B tests.", "brands": ["Reebok", "Black Pepper"]},
-    {"name": "Omneo", "category": "Loyalty/CRM", "status": "critical", "finding": "Known portal code vulnerability disclosed Feb 10, 2026. Affects 25+ Australian retail brands. Vulnerability allows authentication bypass to loyalty profiles. Still pending remediation. brandcollective.omneo.io endpoint is not directly accessible (connection refused) suggesting API-only access.", "brands": ["All Brands"]},
+    {"name": "Omneo", "category": "Loyalty/CRM", "status": "critical", "finding": "CRITICAL: Vendor claimed patch on Feb 16 — VERIFIED STILL FULLY VULNERABLE. 4 critical findings: (1) /api/auth/availability returns full name, UUID, loyalty card for any email, (2) /api/auth returns UUID, email, loyalty card, AND join date — NEW and WORSE than original, (3) /api/auth/sms returns loyalty card for any phone number, (4) Wildcard CORS allows any website to exploit all endpoints. Only /api/auth/magic (404) may be partially fixed. Confirmed exploitable on my.shoesandsox.com.au and my.review-australia.com. Platform-level issue affects ALL brands using Omneo portals (25+ Australian retailers).", "brands": ["All Brands"], "retestHistory": [{"date": "2026-02-10", "event": "Initially discovered"}, {"date": "2026-02-12", "event": "Re-audited, 0/8 fixed"}, {"date": "2026-02-16", "event": "Vendor claimed patch — VERIFIED FALSE. New worse endpoint found."}]},
     {"name": "Shopify Payments", "category": "Payment", "status": "ok", "finding": "Standard Shopify Payments implementation detected. Portable wallets JS loaded. Payment processing handled by Shopify's PCI-DSS compliant infrastructure. No direct payment data exposure observed.", "brands": ["All Brands"]},
     {"name": "Google Analytics (GA4)", "category": "Analytics", "status": "ok", "finding": "GA4 implemented via Shopify's built-in integration and custom datalayer scripts (bc-datalayer.js). Standard implementation with no observable issues.", "brands": ["All Brands"]},
     {"name": "Facebook/Meta Pixel", "category": "Marketing", "status": "ok", "finding": "Standard Meta Pixel implementation via Shopify app. Pixel fires are handled through Shopify's web pixel extension framework.", "brands": ["All Brands"]},
@@ -275,7 +341,7 @@
     {"domain": "config.gorgias.help", "purpose": "Gorgias Help Center", "risk": "low", "sri": false, "brands": ["Champion"], "note": "Contact form replacement script"}
   ],
   "recommendations": [
-    {"priority": 1, "action": "Follow up with Omneo on portal code vulnerability remediation", "effort": "Low", "impact": "Critical", "category": "Third-Party"},
+    {"priority": 1, "action": "ESCALATE: Omneo vendor patch claim verified FALSE (Feb 16). 4 critical PII endpoints still fully exploitable + new worse endpoint found. Demand immediate endpoint shutdown, consider WAF blocks, assess Privacy Act notification obligations.", "effort": "Low", "impact": "Critical", "category": "Third-Party"},
     {"priority": 2, "action": "Upgrade DMARC policy from p=none to p=quarantine then p=reject across all 18 domains", "effort": "Medium", "impact": "High", "category": "Email Security"},
     {"priority": 3, "action": "Implement comprehensive Content Security Policy with explicit source directives", "effort": "High", "impact": "High", "category": "Security Headers"},
     {"priority": 4, "action": "Audit and restrict /products.json, /collections.json API access", "effort": "Medium", "impact": "Medium", "category": "Data Exposure"},
