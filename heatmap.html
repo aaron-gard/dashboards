@@ -3480,10 +3480,14 @@ function initBrandMap(cfg) {
 
   // Store markers
   cfg.stores.forEach(s => {
-    const col = cfg.storeColors[s.t] || cfg.color;
+    if (!s.lat || !s.lng) return;
+    const sType = s.t || s.type || '';
+    const sName = s.n || s.name || '';
+    const sAddr = s.a || s.address || '';
+    const col = cfg.storeColors[sType] || cfg.color;
     const r = cfg.storeRadius ? cfg.storeRadius(s) : 7;
     const m = L.circleMarker([s.lat, s.lng], {radius:r, fillColor:col, fillOpacity:.9, color:'#fff', weight:2, zIndexOffset:1000});
-    m.bindTooltip('<div style="font-weight:700;font-size:14px">'+s.n+'</div><div style="font-size:11px;color:#999">'+s.t+'</div><div style="font-size:10px;color:#666">'+(s.a||'')+'</div>', {className:'postcode-tooltip', direction:'top', offset:[0,-10]});
+    m.bindTooltip('<div style="font-weight:700;font-size:14px">'+sName+'</div><div style="font-size:11px;color:#999">'+sType+'</div><div style="font-size:10px;color:#666">'+sAddr+'</div>', {className:'postcode-tooltip', direction:'top', offset:[0,-10]});
     m.addTo(map);
   });
 
@@ -3491,7 +3495,7 @@ function initBrandMap(cfg) {
   if (cfg.clusters && cfg.clusters.length && cfg.oppToggleId) {
     const clusterLayer = L.layerGroup();
     cfg.clusters.forEach(c => {
-      const radius = Math.max(8000, Math.min(25000, c.avg_dist * 800));
+      const radius = Math.max(8000, Math.min(25000, (c.avg_dist || 15) * 800));
       const circle = L.circle([c.lat, c.lng], {radius:radius, color:cfg.clusterColor||cfg.color, weight:2, opacity:.7, fillColor:cfg.clusterColor||cfg.color, fillOpacity:.08, dashArray:'8 6'});
       let tt = '<div style="font-weight:700;font-size:13px">'+c.locality+', '+c.state+'</div>';
       tt += '<div style="font-size:12px;color:'+cfg.color+';font-weight:600">'+fC(c.demand)+' demand</div>';
@@ -3510,9 +3514,12 @@ function initBrandMap(cfg) {
   if (cfg.compStores && cfg.compStores.length && cfg.compToggleId) {
     const compLayer = L.layerGroup();
     cfg.compStores.forEach(function(s) {
-      var col = (cfg.compColors && cfg.compColors[s.b]) || '#a855f7';
+      if (!s.lat || !s.lng) return;
+      var sBrand = s.b || s.brand || '';
+      var sName = s.n || s.name || '';
+      var col = (cfg.compColors && (cfg.compColors[sBrand] || cfg.compColors[s.b])) || '#a855f7';
       var m = L.circleMarker([s.lat, s.lng], {radius:5, fillColor:col, fillOpacity:.85, color:'rgba(255,255,255,.6)', weight:1.5, zIndexOffset:900});
-      m.bindTooltip('<div style="font-weight:700;font-size:13px">'+s.b+'</div><div style="font-size:12px">'+s.n+'</div>', {className:'postcode-tooltip', direction:'top', offset:[0,-8]});
+      m.bindTooltip('<div style="font-weight:700;font-size:13px">'+sBrand+'</div><div style="font-size:12px">'+sName+'</div>', {className:'postcode-tooltip', direction:'top', offset:[0,-8]});
       compLayer.addLayer(m);
     });
     var compToggle = document.getElementById(cfg.compToggleId);
