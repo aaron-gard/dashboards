@@ -267,7 +267,41 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
       <div style="max-width:900px;margin:0 auto;padding:48px 24px 40px">
 
         <h1 style="font-size:32px;font-weight:800;color:var(--tx1);margin:0 0 8px 0;letter-spacing:-0.5px">Store Halo Analysis</h1>
-        <p style="font-size:15px;color:var(--tx3);margin:0 0 40px 0;line-height:1.5">13 Brands &middot; $75.8M AU Online Demand &middot; CY2025</p>
+        <p style="font-size:15px;color:var(--tx3);margin:0 0 32px 0;line-height:1.5">13 Brands &middot; $75.8M AU Online Demand &middot; CY2025</p>
+
+        <!-- How to use this document -->
+        <div style="margin-bottom:32px;padding:24px;background:linear-gradient(135deg, rgba(59,130,246,0.08), rgba(59,130,246,0.03));border:1px solid rgba(59,130,246,0.2);border-radius:12px">
+          <h2 style="font-size:16px;font-weight:700;color:var(--tx1);margin:0 0 12px 0">📖 How to Use This Document</h2>
+          <div style="font-size:13px;color:var(--tx2);line-height:1.8">
+            <p style="margin:0 0 10px 0"><strong style="color:var(--tx1)">This page (Summary)</strong> provides the portfolio-wide view: halo effect benchmarks across all 13 brands, white-space opportunities by state, and cross-brand expansion targets. Start here for the strategic picture.</p>
+            <p style="margin:0 0 10px 0"><strong style="color:var(--tx1)">Brand tabs</strong> (use the tabs above, or the dropdown on mobile) drill into each brand individually. Each brand view includes an interactive heatmap of online demand overlaid with store locations, a ranked list of expansion opportunities with composite scores, and detailed catchment metrics for each recommended location.</p>
+            <p style="margin:0 0 10px 0"><strong style="color:var(--tx1)">Heatmap colours</strong> represent online demand density &mdash; red/orange = high concentration of DTC orders, blue/green = lower density. Store pins show existing physical locations (own stores, Myer concessions, DJ concessions). Gaps between hot zones and store pins are where opportunity lives.</p>
+            <p style="margin:0"><strong style="color:var(--tx1)">Expansion targets</strong> are ranked by a composite score (explained below in methodology). Click any target card in the brand view to see full catchment detail including postcodes, demographics, competitor presence, and the rationale for inclusion.</p>
+          </div>
+        </div>
+
+        <!-- Data sources & methodology -->
+        <div style="margin-bottom:40px;padding:24px;background:var(--bg2);border:1px solid var(--bd);border-radius:12px">
+          <h2 style="font-size:16px;font-weight:700;color:var(--tx1);margin:0 0 12px 0">📊 Data Sources &amp; Methodology</h2>
+          <div style="font-size:13px;color:var(--tx2);line-height:1.8">
+            <p style="margin:0 0 12px 0;font-weight:600;color:var(--tx1)">Data Sources</p>
+            <ul style="margin:0 0 16px 20px;padding:0">
+              <li><strong>Online orders:</strong> Shopify DTC order data, CY2025 (Jan&ndash;Dec), pulled via Shopify API for all 13 brand stores. Demand = gross sales + discounts (already negative) + tax + shipping.</li>
+              <li><strong>Store locations:</strong> Sourced from each brand&rsquo;s website store locator (e.g. review-australia.com, reebok.com.au) and verified against shopping centre directories. Includes own retail, Myer concessions, and David Jones concessions.</li>
+              <li><strong>Demographics:</strong> ABS 2021 Census at POA (postcode) level &mdash; population, median household income, median age, age distribution brackets.</li>
+              <li><strong>Competitor data:</strong> Store counts from brand directories, ScrapeHero (2025), and manual verification of shopping centre tenancy lists.</li>
+              <li><strong>Geographic calculations:</strong> Distance from ABS postcode centroid to nearest store, calculated using the Haversine formula.</li>
+            </ul>
+            <p style="margin:0 0 12px 0;font-weight:600;color:var(--tx1)">How Conclusions Are Reached</p>
+            <ul style="margin:0 0 16px 20px;padding:0">
+              <li><strong>Halo effect %:</strong> The percentage of total online demand (by dollar value) that originates within 10km of a physical store. A high halo % means the store network and online demand are geographically correlated &mdash; stores likely drive awareness and trial that converts online.</li>
+              <li><strong>Expansion scoring:</strong> Each potential location is scored on a weighted composite: <em>catchment demand</em> (30%) + <em>distance gap from nearest store</em> (20%) + <em>target demographic density</em> (20%) + <em>population</em> (15%) + <em>household income</em> (15%). Weights reflect that proven demand is the strongest signal, followed by underservice and demographic fit.</li>
+              <li><strong>Catchment demand:</strong> Sum of online orders (in $) from postcodes within a defined radius of the target location. This is real, observed demand &mdash; not modelled.</li>
+              <li><strong>YoY comparison:</strong> CY2025 vs CY2024 using the same methodology. Growth rates reflect changes in online demand by geography.</li>
+            </ul>
+            <p style="margin:0 0 0 0;font-style:italic;color:var(--tx3)"><strong>Caveats:</strong> ABS Census data is from 2021 &mdash; high-growth corridors (e.g. outer suburban developments) may have materially higher current populations. Halo correlation ≠ causation; some demand near stores may exist independently. Stockist/wholesale doors are excluded from halo calculations (stockist density ≠ owned-store halo). Marketplace orders (The Iconic, etc.) are not included &mdash; this is DTC only.</p>
+          </div>
+        </div>
 
         <p style="font-size:15px;color:var(--tx2);line-height:1.8;margin:0 0 32px 0">Across the portfolio, <strong style="color:var(--tx1)">19&ndash;69% of online demand originates within 10km of a store</strong>. This analysis quantifies that halo effect across 13 brands and identifies 50 expansion opportunities representing over <strong style="color:var(--tx1)">$3.3M in measurable catchment demand</strong>.</p>
 
