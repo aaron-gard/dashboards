@@ -316,6 +316,8 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
           <div><div class="stat-label">Orders</div><div class="stat-value orders">159,963</div></div>
           <div><div class="stat-label">Postcodes</div><div class="stat-value orders">2,233</div></div>
           <div><div class="stat-label">AOV</div><div class="stat-value orders">$94.16</div></div>
+          <div><div class="stat-label">YoY Growth</div><div class="stat-value orders" style="color:#22c55e">+15.6%</div></div>
+          <div><div class="stat-label">YoY Growth</div><div class="stat-value orders" style="color:#22c55e">+15.6%</div></div>
         </div>
         <div style="margin-top:12px;font-size:12px;color:var(--tx3)">Annual data &middot; CY2025 vs CY2024</div>
       </div>
@@ -3627,7 +3629,7 @@ var BRAND_MAPS = {
     clusters: typeof SNS_CLUSTERS !== 'undefined' ? SNS_CLUSTERS : [],
     storeColors: {'SNS Store':'#FF4B0F', 'Myer Concession':'#3398FF'},
     zoomHintId:'snsZoomHint', oppToggleId:'snsOppToggle',
-    stats: {demand:'$15.06M', orders:'159,963', postcodes:'2,233', aov:'$94.16'},
+    stats: {demand:'$15.06M', orders:'159,963', postcodes:'2,233', aov:'$94.16', yoy:'+15.6%'},
     storeCount: 96, storeLegend: [{color:'#FF4B0F',label:'SNS Store',count:40},{color:'#3398FF',label:'Myer Concession',count:56}],
     hmFields: {lat:0, lng:1, pc:3, dem:4, ord:5, aov:6, dist:7, loc:8},
     gradient: {0:'rgba(0,0,0,0)',0.1:'rgba(255,75,15,0.1)',0.25:'rgba(255,75,15,0.3)',0.4:'rgba(255,75,15,0.5)',0.55:'#FF4B0F',0.7:'#FD8C33',0.85:'#FDC145',0.95:'#fff',1:'#fff'},
@@ -3655,7 +3657,7 @@ var BRAND_MAPS = {
     stores: typeof ELKA_STORES !== 'undefined' ? ELKA_STORES : [],
     clusters: typeof ELKA_CLUSTERS !== 'undefined' ? ELKA_CLUSTERS : [],
     storeColors: {'Boutique':'#5B7553','David Jones':'#8B6914','Stockist':'#A8BFA0'},
-    stats: {demand:'$4.22M', orders:'16,956', postcodes:'1,511', aov:'$238.92'},
+    stats: {demand:'$4.22M', orders:'16,956', postcodes:'1,511', aov:'$238.92', yoy:'+33.6%'},
     storeCount: 97, storeLegend: [{color:'#5B7553',label:'Boutique',count:11},{color:'#8B6914',label:'David Jones',count:9},{color:'#A8BFA0',label:'Stockist',count:77}],
     storeRadius: function(s){ return s.t==='Boutique'?8:s.t==='David Jones'?7:5; },
     compStores: typeof ELKA_COMP !== 'undefined' ? ELKA_COMP : [],
@@ -3673,7 +3675,7 @@ var BRAND_MAPS = {
     clusters: typeof HP_CLUSTERS !== 'undefined' ? HP_CLUSTERS : [],
     storeColors: {'Myer Concession':'#3498db', 'Hush Puppies Store':'#8B5E3C'},
     zoomHintId:'hpZoomHint', oppToggleId:'hpOppToggle',
-    stats: {demand:'$9.15M', orders:'68,355', postcodes:'2,107', aov:'$133.79'},
+    stats: {demand:'$9.15M', orders:'68,355', postcodes:'2,107', aov:'$133.79', yoy:'+5.8%'},
     storeCount: 62, storeLegend: [{color:'#3498db',label:'Myer Concession',count:56},{color:'#8B5E3C',label:'Hush Puppies Store',count:6}],
     hmFields: {lat:0, lng:1, pc:3, dem:4, ord:5, aov:6, dist:7, loc:8},
     gradient: {0:'rgba(0,0,0,0)',0.1:'rgba(139,94,60,0.1)',0.25:'rgba(139,94,60,0.3)',0.4:'rgba(139,94,60,0.5)',0.55:'#8B5E3C',0.7:'#C4956A',0.85:'#F5DEB3',0.95:'#fff',1:'#fff'},
@@ -3687,7 +3689,7 @@ var BRAND_MAPS = {
     clusters: typeof BP_CLUSTERS !== 'undefined' ? BP_CLUSTERS : [],
     storeColors: {'Black Pepper Store':'#e53935', 'David Jones':'#8B6914', 'Outlet':'#2ecc71'},
     zoomHintId:'bpZoomHint', oppToggleId:'bpOppToggle',
-    stats: {demand:'$9.91M', orders:'74,383', postcodes:'2,264', aov:'$133.23'},
+    stats: {demand:'$9.91M', orders:'74,383', postcodes:'2,264', aov:'$133.23', yoy:'+24.8%'},
     storeCount: 96, storeLegend: [{color:'#e53935',label:'Black Pepper Store',count:80},{color:'#8B6914',label:'David Jones',count:13},{color:'#2ecc71',label:'Outlet',count:3}],
     hmFields: {lat:0, lng:1, pc:3, dem:4, ord:5, aov:6, dist:7, loc:8},
     gradient: {0:'rgba(0,0,0,0)',0.1:'rgba(229,57,53,0.1)',0.25:'rgba(229,57,53,0.3)',0.4:'rgba(229,57,53,0.5)',0.55:'#e53935',0.7:'#FF8A80',0.85:'#FFCDD2',0.95:'#fff',1:'#fff'},
@@ -3701,7 +3703,7 @@ var BRAND_MAPS = {
     clusters: typeof RBK_CLUSTERS !== 'undefined' ? RBK_CLUSTERS : [],
     storeColors: {'Myer Concession':'#3498db', 'Reebok Store':'#CC0000'},
     zoomHintId:'reebokZoomHint', oppToggleId:'reebokOppToggle',
-    stats: {demand:'$11.17M', orders:'83,029', postcodes:'2,183', aov:'$134.50'},
+    stats: {demand:'$11.17M', orders:'83,029', postcodes:'2,183', aov:'$134.50', yoy:'+0.4%'},
     storeCount: 32, storeLegend: [{color:'#3498db',label:'Myer Concession',count:28},{color:'#CC0000',label:'Reebok Store',count:4}],
     hmFields: {lat:0, lng:1, pc:3, dem:4, ord:5, aov:6, dist:7, loc:8},
     gradient: {0:'rgba(0,0,0,0)',0.1:'rgba(204,0,0,0.1)',0.25:'rgba(204,0,0,0.3)',0.4:'rgba(204,0,0,0.5)',0.55:'#CC0000',0.7:'#FF6666',0.85:'#FFCDD2',0.95:'#fff',1:'#fff'},
@@ -3715,7 +3717,7 @@ var BRAND_MAPS = {
     clusters: typeof SD_CLUSTERS !== 'undefined' ? SD_CLUSTERS : [],
     storeColors: {'Superdry Store':'#FF6B00', 'Outlet':'#2ecc71'},
     zoomHintId:'sdZoomHint', oppToggleId:'sdOppToggle',
-    stats: {demand:'$10.91M', orders:'64,536', postcodes:'1,913', aov:'$169.00'},
+    stats: {demand:'$10.91M', orders:'64,536', postcodes:'1,913', aov:'$169.00', yoy:'-3.7%'},
     storeCount: 16, storeLegend: [{color:'#FF6B00',label:'Superdry Store',count:9},{color:'#2ecc71',label:'Outlet',count:7}],
     hmFields: {lat:0, lng:1, pc:3, dem:4, ord:5, aov:6, dist:7, loc:8},
     gradient: {0:'rgba(0,0,0,0)',0.1:'rgba(255,107,0,0.1)',0.25:'rgba(255,107,0,0.3)',0.4:'rgba(255,107,0,0.5)',0.55:'#FF6B00',0.7:'#FFB74D',0.85:'#FFE0B2',0.95:'#fff',1:'#fff'},
@@ -3732,7 +3734,7 @@ var BRAND_MAPS = {
     compColors: {'Skechers':'#00A4E4','The Athlete\'s Foot':'#E31837','Hype DC':'#000000','Platypus Shoes':'#FF6B00','Foot Locker':'#CE1126'},
     compToggleId: 'swCompToggle',
     zoomHintId:'swZoomHint', oppToggleId:'swOppToggle',
-    stats: {demand:'$3.99M', orders:'41,366', postcodes:'1,999', aov:'$98.30'},
+    stats: {demand:'$3.99M', orders:'41,366', postcodes:'1,999', aov:'$98.30', yoy:'+3.5%'},
     storeCount: 19, storeLegend: [{color:'#E85D00',label:'Outlet / DFO',count:19}],
     hmFields: {lat:0, lng:1, pc:3, dem:4, ord:5, aov:6, dist:7, loc:8},
     gradient: {0:'rgba(0,0,0,0)',0.1:'rgba(232,93,0,0.1)',0.25:'rgba(232,93,0,0.3)',0.4:'rgba(232,93,0,0.5)',0.55:'#E85D00',0.7:'#FF8C33',0.85:'#FFB74D',0.95:'#fff',1:'#fff'},
@@ -3765,7 +3767,7 @@ var BRAND_MAPS = {
     compColors: {'Vans':'#C41200','Converse':'#000','Superga':'#1E3A5F'},
     compToggleId: 'volleyCompToggle',
     zoomHintId:'volleyZoomHint', oppToggleId:'volleyOppToggle',
-    stats: {demand:'$1.60M', orders:'19,531', postcodes:'999', aov:'$81.73'},
+    stats: {demand:'$1.60M', orders:'19,531', postcodes:'999', aov:'$81.73', yoy:'-0.2%'},
     storeCount: 0, storeLegend: [],
     hmFields: {lat:0, lng:1, pc:3, dem:4, ord:5, aov:6, dist:7, loc:8},
     gradient: {0:'rgba(0,0,0,0)',0.1:'rgba(27,94,32,0.1)',0.25:'rgba(27,94,32,0.3)',0.4:'rgba(27,94,32,0.5)',0.55:'#1B5E20',0.7:'#388E3C',0.85:'#66BB6A',0.95:'#C8E6C9',1:'#fff'},
@@ -3781,7 +3783,7 @@ var BRAND_MAPS = {
     compColors: {},
     compToggleId: 'everlastCompToggle',
     zoomHintId:'everlastZoomHint', oppToggleId:'everlastOppToggle',
-    stats: {demand:'$1.68M', orders:'11,852', postcodes:'994', aov:'$141.80'},
+    stats: {demand:'$1.68M', orders:'11,852', postcodes:'994', aov:'$141.80', yoy:'+1.7%'},
     storeCount: 0, storeLegend: [],
     hmFields: {lat:0, lng:1, pc:3, dem:4, ord:5, aov:6, dist:7, loc:8},
     gradient: {0:'rgba(0,0,0,0)',0.1:'rgba(183,28,28,0.1)',0.25:'rgba(183,28,28,0.3)',0.4:'rgba(183,28,28,0.5)',0.55:'#B71C1C',0.7:'#E53935',0.85:'#EF5350',0.95:'#FFCDD2',1:'#fff'},
@@ -3798,7 +3800,7 @@ var BRAND_MAPS = {
     compToggleId: 'jmCompToggle',
     storeColors: {'department_store':'#3498db','independent_stockist':'#2C3E50','brand_collective':'#2ecc71'},
     zoomHintId:'jmZoomHint', oppToggleId:'jmOppToggle',
-    stats: {demand:'$1.47M', orders:'9,575', postcodes:'983', aov:'$153.29'},
+    stats: {demand:'$1.47M', orders:'9,575', postcodes:'983', aov:'$153.29', yoy:'-6.6%'},
     storeCount: 221, storeLegend: [{color:'#3498db',label:'Department Store',count:95},{color:'#2C3E50',label:'Independent',count:125},{color:'#2ecc71',label:'Brand Collective',count:1}],
     hmFields: {lat:0, lng:1, pc:3, dem:4, ord:5, aov:6, dist:7, loc:8},
     gradient: {0:'rgba(0,0,0,0)',0.1:'rgba(44,62,80,0.1)',0.25:'rgba(44,62,80,0.3)',0.4:'rgba(44,62,80,0.5)',0.55:'#2C3E50',0.7:'#5D6D7E',0.85:'#85929E',0.95:'#D5D8DC',1:'#fff'},
@@ -3854,6 +3856,14 @@ function registerBrand(viewKey) {
   if (st.orders) statsHtml += '<div><div class="stat-label">Orders</div><div class="stat-value orders">' + st.orders + '</div></div>';
   if (st.postcodes) statsHtml += '<div><div class="stat-label">Postcodes</div><div class="stat-value orders">' + st.postcodes + '</div></div>';
   if (st.aov) statsHtml += '<div><div class="stat-label">AOV</div><div class="stat-value orders">' + st.aov + '</div></div>';
+  if (st.yoy) {
+    var yoyColor = st.yoy.startsWith('+') ? '#22c55e' : st.yoy.startsWith('-') ? '#ef4444' : 'var(--tx2)';
+    statsHtml += '<div><div class="stat-label">YoY Growth</div><div class="stat-value orders" style="color:' + yoyColor + '">' + st.yoy + '</div></div>';
+  }
+  if (st.yoy) {
+    var yoyColor = st.yoy.startsWith('+') ? '#22c55e' : st.yoy.startsWith('-') ? '#ef4444' : 'var(--tx2)';
+    statsHtml += '<div><div class="stat-label">YoY Growth</div><div class="stat-value orders" style="color:' + yoyColor + '">' + st.yoy + '</div></div>';
+  }
 
   // 4. Build container HTML
   var label = cfg.tabLabel || cfg.id.toUpperCase();
