@@ -44,9 +44,88 @@ tr:hover{background:var(--surface-hover);}
 .yoy-up{color:var(--green);}
 .yoy-down{color:var(--red);}
 .footer{text-align:center;padding:24px 0 8px;font-size:11px;color:var(--text-muted);}
+.notes-toggle{position:fixed;top:16px;right:16px;z-index:1001;padding:8px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text-muted);cursor:pointer;font-size:13px;font-weight:500;}
+.notes-toggle:hover{color:var(--text);background:var(--surface-hover);}
+.notes-panel{position:fixed;top:0;right:-420px;width:420px;height:100vh;background:var(--surface);border-left:1px solid var(--border);z-index:1000;transition:right .3s ease;overflow-y:auto;box-shadow:-4px 0 20px rgba(0,0,0,.3);padding:24px 20px 40px;}
+.notes-panel.open{right:0;}
+.notes-overlay{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:999;opacity:0;pointer-events:none;transition:opacity .3s;}
+.notes-overlay.open{opacity:1;pointer-events:auto;}
+.notes-panel h3{font-size:16px;font-weight:700;margin-bottom:16px;letter-spacing:-0.3px;}
+.notes-section{margin-bottom:20px;}
+.notes-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--primary);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+.note-line{font-size:14px;line-height:1.7;margin-bottom:6px;color:var(--text);}
+.note-line .hl{font-weight:700;}
+.note-line .up{color:var(--green);font-weight:600;}
+.note-line .dn{color:var(--red);font-weight:600;}
+.note-line .muted{color:var(--text-muted);}
+.note-bullet{padding-left:16px;position:relative;}
+.note-bullet::before{content:"•";position:absolute;left:0;color:var(--text-muted);}
+.note-sub{padding-left:28px;font-size:13px;color:var(--text-muted);margin-bottom:4px;}
+@media(max-width:600px){.notes-panel{width:100%!important;right:-100%!important}.notes-panel.open{right:0!important}}
 </style>
 </head>
 <body>
+<button class="notes-toggle" onclick="toggleNotes()">📋 Speaking Notes</button>
+<div class="notes-overlay" id="notesOverlay" onclick="toggleNotes()"></div>
+<div class="notes-panel" id="notesPanel">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+<h3>🎤 ELT Speaking Notes</h3>
+<button onclick="toggleNotes()" style="background:none;border:1px solid var(--border);border-radius:8px;color:var(--text-muted);cursor:pointer;padding:6px 10px;font-size:16px">&times;</button>
+</div>
+
+<div class="notes-section">
+<div class="notes-section-title">Headline</div>
+<div class="note-line"><span class="hl">Invoiced $1.55M</span> — <span class="up">+23% to budget</span>, <span class="up">+37% to LY</span></div>
+<div class="note-line">Demand <span class="up">+26% to LY</span> ($1.40M vs $1.11M)</div>
+<div class="note-line">Margin <span class="dn">57.8% vs 61.6% LY</span> — growth coming at a cost</div>
+</div>
+
+<div class="notes-section">
+<div class="notes-section-title">Key Insight</div>
+<div class="note-line">Conversion rate <span class="up">1.99% vs 1.54% LY (+29%)</span></div>
+<div class="note-line">Sessions flat at 541K — <span class="hl">nearly all growth is conversion-driven</span></div>
+<div class="note-line">Ad spend $96K, <span class="up">-$14K under budget</span> — efficiency improving</div>
+</div>
+
+<div class="notes-section">
+<div class="notes-section-title">Winners</div>
+<div class="note-bullet"><span class="hl">Superdry</span> $269K inv, <span class="up">+169% to budget, +210% LY</span></div>
+<div class="note-sub">Massive week but discount-driven ($130K disc vs $19K LY)</div>
+<div class="note-bullet"><span class="hl">Shoe Warehouse</span> $130K, <span class="up">+169% to budget</span></div>
+<div class="note-sub">⚠️ Margin collapsed 23.1% vs 49.1% LY</div>
+<div class="note-bullet"><span class="hl">Shoes & Sox</span> $157K, <span class="up">+50% to budget, +57% LY</span></div>
+<div class="note-sub">CR nearly doubled (1.58% → 2.94%)</div>
+<div class="note-bullet"><span class="hl">Hush Puppies</span> $125K, <span class="up">+42% to budget, +51% LY</span></div>
+<div class="note-bullet"><span class="hl">Black Pepper</span> $110K, <span class="up">+22% to budget</span> — margin holding at 71.1%</div>
+<div class="note-bullet"><span class="hl">Review Myer</span> $61K, <span class="up">+49% to budget</span> — strong channel</div>
+</div>
+
+<div class="notes-section">
+<div class="notes-section-title">Problem Areas</div>
+<div class="note-bullet"><span class="hl">Clarks</span> margin <span class="dn">39.2% vs 68.1% LY (-29pp)</span></div>
+<div class="note-sub">Clarks Iconic at 4.0%. Something is very wrong.</div>
+<div class="note-bullet"><span class="hl">HP Iconic</span> <span class="dn">-$632 invoiced vs $22K budget</span></div>
+<div class="note-sub">Returns smashing this channel</div>
+<div class="note-bullet"><span class="hl">JM + JM Iconic</span> both essentially zero — <span class="dn">combined -$17K under budget</span></div>
+<div class="note-bullet"><span class="hl">SNS Iconic</span> $19K vs $79K budget <span class="dn">(-75%)</span> — channel decline continues</div>
+<div class="note-bullet"><span class="hl">Footwear margin</span> <span class="dn">47.9% vs 59.8% LY</span> — portfolio concern</div>
+</div>
+
+<div class="notes-section">
+<div class="notes-section-title">Conversion Red Flags</div>
+<div class="note-bullet"><span class="hl">Volley</span> — sessions <span class="up">+138%</span> but CR <span class="dn">collapsed 4.47% → 1.30%</span></div>
+<div class="note-sub">Traffic quality issue, needs investigation</div>
+<div class="note-bullet"><span class="hl">Julius Marlow</span> — sessions <span class="dn">-46%</span> AND CR <span class="dn">-31%</span>. Both levers wrong.</div>
+<div class="note-bullet"><span class="hl">Canada Goose</span> — $3.2K spend, 13K sessions, <span class="dn">11 orders</span></div>
+</div>
+
+<div class="notes-section">
+<div class="notes-section-title">This Week (Week 34)</div>
+<div class="note-line">Budget <span class="hl">$1.32M</span> — $490K outstanding, <span class="hl">$185K daily target</span></div>
+<div class="note-line"><span class="muted">Soft budget period continues — SNS, Champion, Superdry all well below seasonal average</span></div>
+</div>
+</div>
+
 <div class="container">
 <header>
 <div class="logo"><div class="logo-mark">BC</div><div><h1>Brand Collective</h1><p>Week 33 Trading Review</p></div></div>
@@ -282,6 +361,11 @@ function renderMarginAlerts(){
 
 renderTrTable();
 renderMarginAlerts();
+
+function toggleNotes(){
+    document.getElementById('notesPanel').classList.toggle('open');
+    document.getElementById('notesOverlay').classList.toggle('open');
+}
 </script>
 </body>
 </html>
