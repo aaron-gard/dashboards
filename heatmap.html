@@ -3054,12 +3054,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
       <p style="font-size:12px;color:var(--tx2)"><strong>Data sources:</strong> Shopify order data (CY2025 via Polar Analytics), ABS Census 2021, store locations from Roseperl CDN. <strong>Halo analysis:</strong> Each postcode's demand mapped to distance from nearest JM stockist (221 locations) using haversine formula. <strong>Clusters:</strong> Postcodes grouped by geographic proximity within ~15km radius. <strong>Competitor mapping:</strong> 35 stores across 5 brands (Aquila, RM Williams, Windsor Smith, Bared Footwear, Florsheim). <strong>Composite scoring:</strong> Demand (40%) + men 25&ndash;55 demographic (25%) + competitive white space (20%) + household income (15%). <strong>Limitations:</strong> ABS data is 2021 Census estimates; Polar returned max 1000 postcode rows; stockist data from Roseperl may not be exhaustive.</p>
 </div>
 
-
-
-
-
   </div>
-</div>
 </div>
 
 
@@ -3912,18 +3907,14 @@ try { buildSummaryCards(); } catch(e) { document.getElementById('locationCards')
 
     // Toggle insights panels — hide all first, then show the active one
     var insClass = view === 'map' ? 'review-ins' : (BRAND_MAPS[view] ? BRAND_MAPS[view].insClass : null);
-    console.log('[switchView] view=' + view + ' insClass=' + insClass);
     var panels = document.querySelectorAll('.insights-column .ins');
-    console.log('[switchView] found ' + panels.length + ' panels');
     // First pass: hide everything
     panels.forEach(function(el) { el.style.display = 'none'; });
     // Second pass: show the active panel
     if (view !== 'summary' && insClass) {
-      var found = false;
       panels.forEach(function(el) {
-        if (el.classList.contains(insClass)) { el.style.display = 'block'; found = true; }
+        if (el.classList.contains(insClass)) el.style.display = 'block';
       });
-      console.log('[switchView] panel ' + insClass + ' found=' + found);
     }
     // Scroll insights column back to top on brand switch
     var ic = document.querySelector('.insights-column');
