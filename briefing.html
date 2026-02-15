@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Briefing — The Claw 🦀</title>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iIzFhMWExYSIvPjx0ZXh0IHg9IjE2IiB5PSIyMS41IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iLWFwcGxlLXN5c3RlbSxCbGlua01hY1N5c3RlbUZvbnQsc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjMwMCIgZm9udC1zaXplPSIxNCIgbGV0dGVyLXNwYWNpbmc9IjEiIGZpbGw9IiM5OTkiPkFHPC90ZXh0Pjwvc3ZnPg==">
+<style>
+:root {
+  --bg: #0a0a0f; --bg2: #12121a; --bg3: #1a1a24; --bg4: #222230;
+  --text: #f0f0f0; --text2: rgba(255,255,255,.7); --text3: rgba(255,255,255,.4);
+  --border: rgba(255,255,255,.08); --border2: rgba(255,255,255,.15);
+  --accent: #2563eb; --accent2: #3b82f6;
+  --green: #22c55e; --red: #ef4444; --amber: #f59e0b; --purple: #8b5cf6;
+  --shadow: 0 4px 24px rgba(0,0,0,.4);
+  --radius: 12px; --radius-sm: 8px;
+}
+[data-theme="light"] {
+  --bg: #f5f5f7; --bg2: #fff; --bg3: #f0f0f2; --bg4: #e5e5ea;
+  --text: #111; --text2: rgba(0,0,0,.65); --text3: rgba(0,0,0,.35);
+  --border: rgba(0,0,0,.08); --border2: rgba(0,0,0,.15);
+  --shadow: 0 4px 24px rgba(0,0,0,.06);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter',sans-serif; min-height:100vh; -webkit-font-smoothing:antialiased; }
+
+.container { max-width:680px; margin:0 auto; padding:20px 16px 80px; }
+
+/* Header */
+.header { text-align:center; padding:32px 0 24px; }
+.header-date { font-size:13px; text-transform:uppercase; letter-spacing:2px; color:var(--text3); margin-bottom:8px; }
+.header-title { font-size:28px; font-weight:700; margin-bottom:4px; }
+.header-title .emoji { font-size:24px; }
+.header-sub { font-size:13px; color:var(--text3); }
+
+/* Toggle */
+.toggle-row { display:flex; justify-content:center; gap:8px; margin-bottom:28px; }
+.toggle-btn { padding:8px 20px; border-radius:20px; border:1px solid var(--border2); background:transparent; color:var(--text2); font-size:13px; font-weight:500; transition:all .2s; }
+.toggle-btn.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+.toggle-btn:hover:not(.active) { background:var(--bg3); }
+
+/* Theme toggle */
+.theme-toggle { position:fixed; top:16px; right:16px; width:36px; height:36px; border-radius:50%; border:1px solid var(--border2); background:var(--bg2); color:var(--text2); font-size:16px; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:100; transition:all .2s; }
+.theme-toggle:hover { background:var(--bg3); }
+
+/* Sections */
+.section { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); padding:20px; margin-bottom:16px; opacity:0; transform:translateY(12px); animation:fadeUp .4s ease forwards; }
+.section:nth-child(1) { animation-delay:.05s; }
+.section:nth-child(2) { animation-delay:.1s; }
+.section:nth-child(3) { animation-delay:.15s; }
+.section:nth-child(4) { animation-delay:.2s; }
+.section:nth-child(5) { animation-delay:.25s; }
+.section:nth-child(6) { animation-delay:.3s; }
+.section:nth-child(7) { animation-delay:.35s; }
+@keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
+
+.section-header { display:flex; align-items:center; gap:8px; margin-bottom:14px; }
+.section-icon { font-size:18px; }
+.section-title { font-size:15px; font-weight:600; letter-spacing:.3px; }
+.section-meta { margin-left:auto; font-size:11px; color:var(--text3); }
+
+/* Calendar */
+.timeline { position:relative; padding-left:20px; }
+.timeline::before { content:''; position:absolute; left:6px; top:4px; bottom:4px; width:2px; background:var(--border2); border-radius:1px; }
+.timeline-item { position:relative; padding:8px 0 12px; }
+.timeline-dot { position:absolute; left:-17px; top:12px; width:10px; height:10px; border-radius:50%; border:2px solid var(--bg2); }
+.timeline-time { font-size:12px; color:var(--text3); font-family:'SF Mono',SFMono-Regular,Consolas,monospace; font-weight:500; }
+.timeline-title { font-size:14px; margin-top:2px; }
+.timeline-duration { font-size:11px; color:var(--text3); margin-top:1px; }
+.free-blocks { display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; padding-top:12px; border-top:1px solid var(--border); }
+.free-block { font-size:11px; color:var(--green); background:rgba(34,197,94,.1); padding:4px 10px; border-radius:12px; }
+.free-label { font-size:11px; color:var(--text3); margin-right:4px; }
+
+/* Tomorrow preview */
+.tomorrow-label { font-size:12px; color:var(--text3); text-transform:uppercase; letter-spacing:1px; margin-top:16px; padding-top:12px; border-top:1px solid var(--border); margin-bottom:8px; }
+.tomorrow-item { font-size:13px; color:var(--text2); padding:4px 0; }
+.tomorrow-item .tm-time { font-family:'SF Mono',SFMono-Regular,Consolas,monospace; color:var(--text3); font-size:12px; margin-right:8px; }
+
+/* Sales table */
+.sales-table { width:100%; border-collapse:collapse; font-size:13px; }
+.sales-table th { text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--text3); padding:6px 8px; border-bottom:1px solid var(--border2); font-weight:600; }
+.sales-table th:nth-child(2), .sales-table th:nth-child(3) { text-align:right; }
+.sales-table td { padding:7px 8px; border-bottom:1px solid var(--border); }
+.sales-table td:nth-child(2), .sales-table td:nth-child(3) { text-align:right; font-family:'SF Mono',SFMono-Regular,Consolas,monospace; font-size:12px; }
+.sales-table tr:nth-child(even) td { background:rgba(255,255,255,.02); }
+[data-theme="light"] .sales-table tr:nth-child(even) td { background:rgba(0,0,0,.02); }
+.sales-table tr:last-child td { border-bottom:none; font-weight:700; border-top:2px solid var(--border2); background:rgba(37,99,235,.05) !important; }
+.brand-name { display:flex; align-items:center; gap:8px; }
+.demand-bar { height:4px; border-radius:2px; background:var(--accent); opacity:.4; min-width:2px; }
+.sales-partial { font-size:11px; color:var(--amber); background:rgba(245,158,11,.1); padding:2px 8px; border-radius:8px; display:inline-block; margin-left:8px; }
+
+/* Markets */
+.markets-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.market-card { background:var(--bg3); border-radius:var(--radius-sm); padding:14px; }
+.market-label { font-size:11px; color:var(--text3); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px; }
+.market-value { font-size:20px; font-weight:700; font-family:'SF Mono',SFMono-Regular,Consolas,monospace; }
+.market-change { font-size:12px; margin-top:2px; }
+.market-change.up { color:var(--green); }
+.market-change.down { color:var(--red); }
+
+/* Weather */
+.weather-row { display:flex; align-items:center; gap:16px; }
+.weather-icon { font-size:42px; line-height:1; }
+.weather-temps { flex:1; }
+.weather-current { font-size:32px; font-weight:700; }
+.weather-range { font-size:13px; color:var(--text2); margin-top:2px; }
+.weather-condition { font-size:13px; color:var(--text3); }
+.weather-precip { font-size:12px; color:var(--accent2); margin-top:4px; }
+
+/* News */
+.news-card { padding:10px 0; border-bottom:1px solid var(--border); }
+.news-card:last-child { border-bottom:none; padding-bottom:0; }
+.news-card:first-child { padding-top:0; }
+.news-topic { font-size:11px; color:var(--text3); text-transform:uppercase; letter-spacing:1px; margin-bottom:2px; }
+.news-text { font-size:14px; line-height:1.5; color:var(--text2); }
+.news-emoji { margin-right:4px; }
+
+/* Quote */
+.quote-section { text-align:center; padding:28px 20px; }
+.quote-text { font-size:17px; font-style:italic; line-height:1.6; color:var(--text); margin-bottom:10px; }
+.quote-author { font-size:13px; color:var(--text3); }
+
+/* Closing thought */
+.closing-thought { font-size:15px; line-height:1.7; color:var(--text2); font-style:italic; padding:4px 0; }
+
+/* Footer */
+.footer { text-align:center; padding:24px 0; font-size:12px; color:var(--text3); }
+.footer .claw { font-size:14px; }
+
+/* Empty state */
+.empty-state { text-align:center; padding:60px 20px; color:var(--text3); }
+.empty-state .emoji { font-size:48px; display:block; margin-bottom:12px; }
+
+/* Responsive */
+@media (max-width:400px) {
+  .container { padding:12px 10px 80px; }
+  .section { padding:16px; }
+  .markets-grid { gap:8px; }
+  .market-card { padding:10px; }
+  .market-value { font-size:17px; }
+  .header-title { font-size:24px; }
+}
+</style>
+</head>
+<body>
+<button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+<div class="container">
+  <div class="header">
+    <div class="header-date" id="headerDate"></div>
+    <div class="header-title">Daily Briefing</div>
+    <div class="header-sub" id="headerSub"></div>
+  </div>
+  <div class="toggle-row" id="toggleRow"></div>
+  <div id="content"></div>
+  <div class="footer"><span class="claw">The Claw 🦀</span></div>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+let DATA = null, activeView = 'morning';
+
+function toggleTheme() {
+  const t = document.documentElement.getAttribute('data-theme') === 'light' ? '' : 'light';
+  document.documentElement.setAttribute('data-theme', t);
+  $('.theme-toggle').textContent = t === 'light' ? '☀️' : '🌙';
+  localStorage.setItem('briefing-theme', t);
+}
+
+// Restore theme
+if (localStorage.getItem('briefing-theme') === 'light') {
+  document.documentElement.setAttribute('data-theme', 'light');
+  $('.theme-toggle').textContent = '☀️';
+}
+
+function fmt$(n) {
+  if (n >= 1000) return '$' + (n/1000).toFixed(n >= 10000 ? 1 : 2) + 'k';
+  return '$' + n.toLocaleString();
+}
+function fmtN(n) { return n.toLocaleString(); }
+function pctChange(cur, prev) {
+  if (!prev) return null;
+  return ((cur - prev) / prev * 100).toFixed(2);
+}
+
+function renderToggle() {
+  const row = $('#toggleRow');
+  const hasMorning = !!DATA.morning;
+  const hasEvening = !!DATA.evening;
+  if (!hasMorning && !hasEvening) { row.innerHTML = ''; return; }
+  if (hasMorning && !hasEvening) { activeView = 'morning'; row.innerHTML = ''; return; }
+  if (!hasMorning && hasEvening) { activeView = 'evening'; row.innerHTML = ''; return; }
+  // Both exist
+  row.innerHTML = `
+    <button class="toggle-btn ${activeView==='morning'?'active':''}" onclick="switchView('morning')">☀️ Morning</button>
+    <button class="toggle-btn ${activeView==='evening'?'active':''}" onclick="switchView('evening')">🌙 Evening</button>
+  `;
+}
+
+function switchView(v) { activeView = v; renderToggle(); render(); }
+
+function render() {
+  const d = DATA[activeView];
+  if (!d) { $('#content').innerHTML = '<div class="empty-state"><span class="emoji">📭</span>No briefing data yet.</div>'; return; }
+
+  const gen = new Date(d.generated);
+  $('#headerDate').textContent = d.calendar?.date || gen.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  $('#headerSub').textContent = 'Generated ' + gen.toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'});
+
+  let html = '';
+
+  // Calendar
+  if (d.calendar) {
+    const meetings = d.calendar.meetings || [];
+    const free = d.calendar.freeBlocks || [];
+    const tomorrow = d.calendar.tomorrow || [];
+    html += `<div class="section"><div class="section-header"><span class="section-icon">📅</span><span class="section-title">Calendar</span><span class="section-meta">${meetings.length} meeting${meetings.length!==1?'s':''}</span></div>`;
+    if (meetings.length) {
+      html += '<div class="timeline">';
+      for (const m of meetings) {
+        const col = m.color || '#2563eb';
+        const status = m.status ? ` <span style="font-size:11px;color:var(--green)">✓</span>` : '';
+        html += `<div class="timeline-item"><div class="timeline-dot" style="background:${col}"></div><div class="timeline-time">${m.time}</div><div class="timeline-title">${m.title}${status}</div><div class="timeline-duration">${m.duration} min</div></div>`;
+      }
+      html += '</div>';
+    }
+    if (free.length && activeView === 'morning') {
+      html += '<div class="free-blocks"><span class="free-label">Free:</span>';
+      for (const f of free) html += `<span class="free-block">${f.start}–${f.end}</span>`;
+      html += '</div>';
+    }
+    if (tomorrow.length) {
+      html += '<div class="tomorrow-label">Tomorrow</div>';
+      for (const t of tomorrow) html += `<div class="tomorrow-item"><span class="tm-time">${t.time}</span>${t.title}</div>`;
+    }
+    html += '</div>';
+  }
+
+  // Sales
+  if (d.sales) {
+    const s = d.sales;
+    const maxDemand = Math.max(...s.brands.map(b=>b.demand));
+    html += `<div class="section"><div class="section-header"><span class="section-icon">💰</span><span class="section-title">Demand Sales</span><span class="section-meta">${s.date}${s.partial?'<span class="sales-partial">Partial</span>':''}</span></div>`;
+    html += '<table class="sales-table"><thead><tr><th>Brand</th><th>Demand</th><th>Orders</th></tr></thead><tbody>';
+    for (const b of s.brands) {
+      const pct = (b.demand / maxDemand * 100).toFixed(0);
+      html += `<tr><td><div class="brand-name">${b.name}<div class="demand-bar" style="width:${pct}px"></div></div></td><td>${fmt$(b.demand)}</td><td>${fmtN(b.orders)}</td></tr>`;
+    }
+    html += `<tr><td>Total</td><td>${fmt$(s.total.demand)}</td><td>${fmtN(s.total.orders)}</td></tr>`;
+    html += '</tbody></table></div>';
+  }
+
+  // Markets
+  if (d.markets) {
+    const mk = d.markets;
+    html += `<div class="section"><div class="section-header"><span class="section-icon">📈</span><span class="section-title">Markets</span></div><div class="markets-grid">`;
+    const items = [
+      {key:'audusd', label:'AUD/USD', fmt:v=>v.toFixed(4)},
+      {key:'btc', label:'BTC', fmt:v=>'$'+v.toLocaleString()},
+      {key:'eth', label:'ETH', fmt:v=>'$'+v.toLocaleString()},
+      {key:'xrp', label:'XRP', fmt:v=>'$'+v.toFixed(2)}
+    ];
+    for (const i of items) {
+      const d2 = mk[i.key];
+      if (!d2) continue;
+      const val = typeof d2 === 'object' ? d2.value : d2;
+      const prev = typeof d2 === 'object' ? d2.prev : null;
+      const chg = pctChange(val, prev);
+      const dir = chg > 0 ? 'up' : chg < 0 ? 'down' : '';
+      const arrow = dir === 'up' ? '▲' : dir === 'down' ? '▼' : '';
+      html += `<div class="market-card"><div class="market-label">${i.label}</div><div class="market-value">${i.fmt(val)}</div>${chg !== null ? `<div class="market-change ${dir}">${arrow} ${Math.abs(chg)}%</div>` : ''}</div>`;
+    }
+    html += '</div></div>';
+  }
+
+  // Weather
+  if (d.weather) {
+    const w = d.weather;
+    html += `<div class="section"><div class="weather-row"><div class="weather-icon">${w.icon||'🌤'}</div><div class="weather-temps">`;
+    if (w.current_temp != null) html += `<div class="weather-current">${w.current_temp}°</div>`;
+    html += `<div class="weather-range">↑ ${w.high}° ↓ ${w.low}°</div><div class="weather-condition">${w.condition}</div>`;
+    if (w.precip != null) html += `<div class="weather-precip">💧 ${w.precip}% chance of rain</div>`;
+    html += '</div></div></div>';
+  }
+
+  // News
+  if (d.news && d.news.length) {
+    html += `<div class="section"><div class="section-header"><span class="section-icon">📰</span><span class="section-title">News & Sport</span></div>`;
+    for (const n of d.news) {
+      html += `<div class="news-card"><div class="news-topic"><span class="news-emoji">${n.emoji}</span>${n.topic}</div><div class="news-text">${n.text}</div></div>`;
+    }
+    html += '</div>';
+  }
+
+  // Quote
+  if (d.quote) {
+    html += `<div class="section quote-section"><div class="quote-text">"${d.quote.text}"</div><div class="quote-author">— ${d.quote.author}</div></div>`;
+  }
+
+  // Closing thought
+  if (d.closing_thought) {
+    html += `<div class="section"><div class="section-header"><span class="section-icon">💭</span><span class="section-title">Closing Thought</span></div><div class="closing-thought">${d.closing_thought}</div></div>`;
+  }
+
+  $('#content').innerHTML = html;
+}
+
+// Load data
+fetch('briefing-data.json?' + Date.now())
+  .then(r => r.json())
+  .then(d => {
+    DATA = d;
+    // Default to evening if available and it's after noon
+    if (d.evening && new Date().getHours() >= 14) activeView = 'evening';
+    else if (d.morning) activeView = 'morning';
+    else if (d.evening) activeView = 'evening';
+    renderToggle();
+    render();
+  })
+  .catch(e => {
+    $('#content').innerHTML = '<div class="empty-state"><span class="emoji">⚠️</span>Could not load briefing data.<br><small style="color:var(--text3)">'+e.message+'</small></div>';
+  });
+</script>
+</body>
+</html>
