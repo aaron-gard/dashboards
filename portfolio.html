@@ -62,9 +62,33 @@ tr:hover{background:var(--surface-hover);}
 .note-bullet::before{content:"•";position:absolute;left:0;color:var(--text-muted);}
 .note-sub{padding-left:28px;font-size:13px;color:var(--text-muted);margin-bottom:4px;}
 @media(max-width:600px){.notes-panel{width:100%!important;right:-100%!important}.notes-panel.open{right:0!important}}
+.brand-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:2000;opacity:0;pointer-events:none;transition:opacity .2s;display:flex;align-items:center;justify-content:center;}
+.brand-modal-overlay.open{opacity:1;pointer-events:auto;}
+.brand-modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;width:580px;max-height:85vh;overflow-y:auto;padding:28px;box-shadow:0 20px 60px rgba(0,0,0,.4);transform:scale(.95);transition:transform .2s;}
+.brand-modal-overlay.open .brand-modal{transform:scale(1);}
+.bm-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;}
+.bm-name{font-size:22px;font-weight:700;letter-spacing:-.5px;}
+.bm-close{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text-muted);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;}
+.bm-close:hover{color:var(--text);background:var(--surface-hover);}
+.bm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px;}
+.bm-kpi{background:var(--bg);border-radius:10px;padding:12px;}
+.bm-kpi-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:3px;}
+.bm-kpi-val{font-size:20px;font-weight:700;letter-spacing:-.5px;}
+.bm-kpi-sub{font-size:11px;margin-top:3px;}
+.bm-section{margin-bottom:16px;}
+.bm-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--primary);margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+.bm-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.bm-row-label{color:var(--text-muted);}
+.bm-row-value{font-weight:600;display:flex;gap:10px;align-items:center;}
+.bm-callout{font-size:13px;line-height:1.6;padding:12px 14px;border-radius:8px;margin-top:12px;}
+.bm-callout.warn{background:rgba(239,68,68,0.08);color:var(--red);}
+.bm-callout.good{background:rgba(34,197,94,0.08);color:var(--green);}
+.bm-callout.neutral{background:var(--bg);color:var(--text-muted);}
+@media(max-width:600px){.brand-modal{width:95%!important;}.bm-grid{grid-template-columns:repeat(2,1fr);}}
 </style>
 </head>
 <body>
+<div class="brand-modal-overlay" id="bmOverlay" onclick="closeBrandModal()"><div class="brand-modal" onclick="event.stopPropagation()" id="bmContent"></div></div>
 <button class="notes-toggle" onclick="toggleNotes()">📋 Speaking Notes</button>
 <div class="notes-overlay" id="notesOverlay" onclick="toggleNotes()"></div>
 <div class="notes-panel" id="notesPanel">
@@ -336,7 +360,7 @@ function renderTrTable(){
     sorted.forEach(b=>{
         const vc=b.varD>=0?'yoy-up':'yoy-down';
         const lc=b.lyP.startsWith('-')?'yoy-down':b.lyP==='new'?'':'yoy-up';
-        html+='<tr><td style="font-weight:600">'+b.n+'</td><td>'+fmtFull(b.inv)+'</td><td style="color:var(--text-muted)">'+fmtFull(b.bud)+'</td><td class="'+vc+'">'+fmtFull(b.varD)+'</td><td class="'+vc+'">'+b.varP+'</td><td style="color:var(--text-muted)">'+fmtFull(b.ly)+'</td><td class="'+lc+'">'+b.lyP+'</td><td>'+b.mg+'</td><td style="color:var(--text-muted)">'+b.mgLy+'</td></tr>';
+        html+='<tr style="cursor:pointer" onclick="openBrandModal(\''+b.n.replace(/'/g,"\\'")+'\')">'+'<td style="font-weight:600">'+b.n+'</td><td>'+fmtFull(b.inv)+'</td><td style="color:var(--text-muted)">'+fmtFull(b.bud)+'</td><td class="'+vc+'">'+fmtFull(b.varD)+'</td><td class="'+vc+'">'+b.varP+'</td><td style="color:var(--text-muted)">'+fmtFull(b.ly)+'</td><td class="'+lc+'">'+b.lyP+'</td><td>'+b.mg+'</td><td style="color:var(--text-muted)">'+b.mgLy+'</td></tr>';
     });
     tbody.innerHTML=html;
 }function sortTrTable(col){if(trSortCol===col)trSortDir*=-1;else{trSortCol=col;trSortDir=col===0?1:-1;}renderTrTable();}
@@ -358,6 +382,102 @@ function renderMarginAlerts(){
     });
     document.getElementById('trMarginAlerts').innerHTML=html;
 }
+
+// Extended brand data: demand, sessions, CR, ad spend
+const BRAND_EXTRA={
+"Superdry":{demTY:190245,demLY:112811,sessTY:44362,sessLY:38673,crTY:3.62,crLY:2.06,adSpend:9830,adVar:880,discTY:129956,discLY:19232,note:"Massive week driven by heavy discounting ($130K vs $19K LY). Highest CR in portfolio at 3.62%. Volume is real but watch margin erosion."},
+"Shoes & Sox":{demTY:204907,demLY:127854,sessTY:74319,sessLY:85011,crTY:2.94,crLY:1.58,adSpend:11715,adVar:-3779,discTY:8117,discLY:5135,note:"CR nearly doubled — strong intent purchasing. Sessions down 13% but converting far better. Ad spend under budget by $3.8K while delivering +60% demand growth."},
+"Reebok":{demTY:184832,demLY:189523,sessTY:63165,sessLY:69534,crTY:1.99,crLY:2.04,adSpend:14445,adVar:-2005,discTY:6935,discLY:5813,note:"Slightly soft week — demand and sessions both down marginally vs LY. CR flat. Invoiced $145K, -7% to budget. Steady but not growing."},
+"Shoe Warehouse":{demTY:120791,demLY:61284,sessTY:42771,sessLY:31582,crTY:2.73,crLY:2.03,adSpend:5891,adVar:-571,discTY:1078,discLY:1236,note:"Double tailwind — sessions +35% AND CR +34%. Nearly doubled LY. But invoiced margin collapsed to 23.1% vs 49.1% LY. Sales are up but giving it away."},
+"Hush Puppies":{demTY:149169,demLY:125852,sessTY:48010,sessLY:45131,crTY:2.07,crLY:1.88,adSpend:7292,adVar:-2487,discTY:7720,discLY:2437,note:"Solid DTC performance +42% to budget. Iconic channel is the problem — returns crushing it (-$632 invoiced vs $22K budget)."},
+"Black Pepper":{demTY:137536,demLY:98976,sessTY:44945,sessLY:50592,crTY:2.21,crLY:1.60,adSpend:7181,adVar:-4004,discTY:4558,discLY:1910,note:"Strong week. Ad spend -$4K under budget while delivering +39% demand growth. Margin holding at 71.1%. Efficient growth."},
+"Review":{demTY:118753,demLY:109379,sessTY:63218,sessLY:73985,crTY:0.86,crLY:0.77,adSpend:7546,adVar:-3233,discTY:14611,discLY:19575,note:"Sessions down 15% but CR improving. Review Myer strong (+49% to budget). Ad spend $3.2K under budget. Moderate growth."},
+"Shoes & Sox Myer":{note:"Under budget by $13K (-13%) and -15% to LY. Channel underperforming vs DTC."},
+"Review Myer":{note:"Strong channel — $61K invoiced, +49% to budget, +69% to LY. Margin 69.0%."},
+"Clarks":{demTY:65564,demLY:73205,sessTY:40019,sessLY:32544,crTY:1.38,crLY:1.43,adSpend:6714,adVar:1591,note:"Invoiced margin catastrophe — 39.2% vs 68.1% LY (-29pp). Clarks Iconic even worse at 4.0%. Sessions up +23% but CR slightly down. Something is very wrong with pricing/returns. Needs urgent investigation."},
+"MFM (Myer Marketplace)":{note:"$58K invoiced, -18% to budget. Margin dropped from 76.6% to 59.4%. New channel still establishing but underperforming expectations."},
+"Elka Collective":{demTY:63162,demLY:40407,sessTY:27067,sessLY:25836,crTY:0.92,crLY:0.71,adSpend:3348,adVar:-1814,discTY:5253,discLY:2493,note:"Strong growth +56% demand. Invoiced $36K +26% to budget. Margin 69.6% — premium positioning holding."},
+"Volley":{demTY:30770,demLY:28455,sessTY:20830,sessLY:8741,crTY:1.30,crLY:4.47,adSpend:4809,adVar:-265,note:"Red flag — sessions exploded +138% but CR collapsed from 4.47% to 1.30%. Traffic quality issue needs investigation. Likely misaligned campaign targeting."},
+"Superdry Iconic":{note:"$23K invoiced (+352% to budget) but -16% to LY. Margin 67.9% vs 74.6% LY. Channel mix shifting."},
+"Yarra Trail":{demTY:39934,demLY:23777,sessTY:15059,sessLY:15581,crTY:1.71,crLY:1.23,adSpend:1616,adVar:-1756,note:"Good week — invoiced +43% to budget, +47% to LY. CR up +39%. Margin improved to 60.9% vs 50.9% LY."},
+"Shoes & Sox Iconic":{note:"Significant decline — $19K vs $79K budget (-75%), -77% to LY. Channel continues to deteriorate. Consider exit strategy (contract rolls end of March)."},
+"Champion":{demTY:20846,demLY:14783,sessTY:16372,sessLY:22428,crTY:1.18,crLY:0.54,adSpend:3685,adVar:1550,note:"CR more than doubled (+119%) despite sessions -27%. Invoiced $17K, +45% to budget. New brand performing."},
+"Canada Goose":{demTY:15827,demLY:23237,sessTY:12984,sessLY:7954,crTY:0.08,crLY:0.11,adSpend:3246,adVar:3246,note:"$3.2K ad spend with zero budget producing 13K sessions and only 11 orders (0.08% CR). Burning cash. Off-season but still concerning."},
+"Review Iconic":{note:"$16K invoiced, +707% to budget. Strong Iconic performance vs other brands on that platform."},
+"Everlast":{demTY:18582,demLY:24005,sessTY:8714,sessLY:7048,crTY:2.02,crLY:2.00,adSpend:3023,adVar:844,note:"Under budget by $9.5K (-39%). Demand -23% to LY. Sessions up but not converting to invoiced."},
+"Yarra Trail DJs":{note:"$14K invoiced, +100% to budget, +180% to LY. Strong DJs performance."},
+"Julius Marlow":{demTY:13715,demLY:37640,sessTY:7122,sessLY:13086,crTY:1.21,crLY:1.76,adSpend:2057,adVar:-1372,note:"Both levers going wrong — sessions -46% AND CR -31%. Invoiced -57% to budget. JM Iconic even worse at essentially zero. Channel needs strategic review."},
+"Elka DJs":{note:"$12.5K invoiced, +56% to budget, +83% to LY. Margin 70.6% — DJs performing well for Elka."},
+"Clarks Iconic":{note:"Margin emergency — 4.0% vs 72.4% LY. Almost certainly a returns/write-off issue. Investigate immediately."},
+"Marco Polo":{demTY:8947,demLY:9006,sessTY:3070,sessLY:5153,crTY:2.38,crLY:1.26,adSpend:302,adVar:-547,note:"Small brand, roughly flat to LY. Margin 52.6% vs 57.7% LY (-5.1pp)."},
+"Happy Socks":{demTY:7156,demLY:0,sessTY:1700,sessLY:0,crTY:4.71,crLY:0,adSpend:1128,adVar:-90,note:"New brand — $6.2K invoiced, +28% to budget. Highest CR in portfolio at 4.71% but tiny base."},
+"Umbro":{demTY:7312,demLY:4809,sessTY:6846,sessLY:3874,crTY:0.67,crLY:1.14,adSpend:2363,adVar:24,note:"Invoiced -43% to budget. Sessions nearly doubled but CR halved. Similar pattern to Volley — traffic quality issue."},
+"Black Pepper DJs":{note:"$6K invoiced, +63% to budget. But margin dropped to 64.8% vs 75.0% LY (-10.2pp)."},
+"Review DJs":{note:"$3.3K invoiced, -39% to budget. New channel still building."},
+"Replay":{note:"$1.9K invoiced vs $5.9K LY (-68%). Margin 36.9%. Brand in decline."},
+"Harrison":{note:"New brand — $1K invoiced. Small but margin 71.8%. Early days."},
+"Hush Puppies Iconic":{note:"Returns disaster — negative $632 invoiced vs $22K budget. Returns are smashing this channel across all Iconic brands (HP, JM, Clarks)."},
+"Julius Marlow Iconic":{note:"Negative $34 invoiced vs $9.5K budget. Returns wiping out sales. Part of broader Iconic returns problem."},
+"Black Pepper Myer":{note:"Zero activity this week. $1K LY. Effectively dormant channel."}
+};
+
+function openBrandModal(name){
+    const b=TR_BRANDS.find(x=>x.n===name);
+    if(!b)return;
+    const ex=BRAND_EXTRA[name]||{};
+    const vc=b.varD>=0?'up':'down';
+    const lc=b.lyP.startsWith('-')?'yoy-down':b.lyP==='new'?'':'yoy-up';
+    
+    let html='<div class="bm-header"><div><div class="bm-name">'+b.n+'</div></div><button class="bm-close" onclick="closeBrandModal()">&times;</button></div>';
+    
+    // KPI row
+    html+='<div class="bm-grid">';
+    html+='<div class="bm-kpi"><div class="bm-kpi-label">Invoiced</div><div class="bm-kpi-val">'+fmtFull(b.inv)+'</div><div class="bm-kpi-sub"><span class="badge '+vc+'">'+b.varP+' to budget</span></div></div>';
+    html+='<div class="bm-kpi"><div class="bm-kpi-label">vs LY</div><div class="bm-kpi-val"><span class="'+lc+'">'+b.lyP+'</span></div><div class="bm-kpi-sub" style="color:var(--text-muted)">LY: '+fmtFull(b.ly)+'</div></div>';
+    html+='<div class="bm-kpi"><div class="bm-kpi-label">Margin</div><div class="bm-kpi-val">'+b.mg+'</div><div class="bm-kpi-sub" style="color:var(--text-muted)">LY: '+b.mgLy+'</div></div>';
+    html+='</div>';
+    
+    // Invoiced detail
+    html+='<div class="bm-section"><div class="bm-section-title">Invoiced</div>';
+    html+='<div class="bm-row"><span class="bm-row-label">Actual</span><span class="bm-row-value">'+fmtFull(b.inv)+'</span></div>';
+    html+='<div class="bm-row"><span class="bm-row-label">Budget</span><span class="bm-row-value">'+fmtFull(b.bud)+'</span></div>';
+    html+='<div class="bm-row"><span class="bm-row-label">Variance</span><span class="bm-row-value"><span class="'+(b.varD>=0?'yoy-up':'yoy-down')+'">'+fmtFull(b.varD)+' ('+b.varP+')</span></span></div>';
+    html+='<div class="bm-row"><span class="bm-row-label">Last Year</span><span class="bm-row-value">'+fmtFull(b.ly)+' <span class="'+lc+'" style="font-size:12px">'+b.lyP+'</span></span></div>';
+    html+='<div class="bm-row"><span class="bm-row-label">Margin TY / LY</span><span class="bm-row-value">'+b.mg+' / '+b.mgLy+'</span></div>';
+    html+='</div>';
+    
+    // Demand & digital metrics (if available)
+    if(ex.demTY){
+        const demVar=((ex.demTY-ex.demLY)/ex.demLY*100).toFixed(0);
+        const sessVar=((ex.sessTY-ex.sessLY)/ex.sessLY*100).toFixed(0);
+        const crVar=((ex.crTY-ex.crLY)/ex.crLY*100).toFixed(0);
+        html+='<div class="bm-section"><div class="bm-section-title">Demand & Digital</div>';
+        html+='<div class="bm-row"><span class="bm-row-label">Demand Sales</span><span class="bm-row-value">'+fmtFull(ex.demTY)+' <span class="'+(ex.demTY>=ex.demLY?'yoy-up':'yoy-down')+'" style="font-size:12px">'+demVar+'% vs LY</span></span></div>';
+        html+='<div class="bm-row"><span class="bm-row-label">Sessions</span><span class="bm-row-value">'+ex.sessTY.toLocaleString()+' <span style="font-size:12px;color:var(--text-muted)">vs '+ex.sessLY.toLocaleString()+' LY ('+sessVar+'%)</span></span></div>';
+        html+='<div class="bm-row"><span class="bm-row-label">Conversion Rate</span><span class="bm-row-value">'+ex.crTY+'% <span class="'+(ex.crTY>=ex.crLY?'yoy-up':'yoy-down')+'" style="font-size:12px">vs '+ex.crLY+'% LY ('+crVar+'%)</span></span></div>';
+        html+='<div class="bm-row"><span class="bm-row-label">Ad Spend</span><span class="bm-row-value">'+fmtFull(ex.adSpend)+' <span class="'+(ex.adVar<=0?'yoy-up':'yoy-down')+'" style="font-size:12px">'+fmtFull(ex.adVar)+' vs budget</span></span></div>';
+        if(ex.discTY!==undefined){
+            html+='<div class="bm-row"><span class="bm-row-label">Discounts</span><span class="bm-row-value">'+fmtFull(ex.discTY)+' <span style="font-size:12px;color:var(--text-muted)">vs '+fmtFull(ex.discLY)+' LY</span></span></div>';
+        }
+        html+='</div>';
+    }
+    
+    // Analyst note
+    if(ex.note){
+        const isWarn=ex.note.includes('wrong')||ex.note.includes('collapse')||ex.note.includes('disaster')||ex.note.includes('Burning')||ex.note.includes('Red flag')||ex.note.includes('emergency')||ex.note.includes('smash')||ex.note.includes('decline')||ex.note.includes('negative');
+        const isGood=ex.note.includes('Strong')||ex.note.includes('Solid')||ex.note.includes('Efficient')||ex.note.includes('premium');
+        const cls=isWarn?'warn':isGood?'good':'neutral';
+        html+='<div class="bm-callout '+cls+'">💡 '+ex.note+'</div>';
+    }
+    
+    document.getElementById('bmContent').innerHTML=html;
+    document.getElementById('bmOverlay').classList.add('open');
+}
+
+function closeBrandModal(){
+    document.getElementById('bmOverlay').classList.remove('open');
+}
+document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeBrandModal();});
 
 renderTrTable();
 renderMarginAlerts();
