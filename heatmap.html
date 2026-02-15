@@ -85,7 +85,7 @@ body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSyst
 .zoom-hint{display:none}
 
 /* Store legend */
-.store-legend{position:absolute;bottom:105px;left:20px;background:var(--ov);border:1px solid var(--bd);border-radius:8px;padding:10px 14px;z-index:1000;font-size:11px}
+.store-legend{position:absolute;bottom:140px;left:20px;background:var(--ov);border:1px solid var(--bd);border-radius:8px;padding:10px 14px;z-index:1000;font-size:11px}
 .store-legend-item{display:flex;align-items:center;gap:8px;margin:4px 0}
 .store-legend-dot{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--tx3)}
 .legend-label{color:var(--tx2)}
@@ -185,7 +185,7 @@ body.summary-active .app-layout{height:auto;overflow:visible}
 .sns-header>*{pointer-events:auto}
 .sns-controls{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(var(--ov-g0),var(--ov-g1) 30%);padding:24px 32px 28px;z-index:1000}
 .sns-stats{display:flex;gap:32px;flex-wrap:wrap;align-items:baseline}
-.sns-store-legend{position:absolute;bottom:105px;left:20px;background:var(--ov);border:1px solid var(--bd);border-radius:8px;padding:10px 14px;z-index:1000;font-size:11px}
+.sns-store-legend{position:absolute;bottom:140px;left:20px;background:var(--ov);border:1px solid var(--bd);border-radius:8px;padding:10px 14px;z-index:1000;font-size:11px}
 .sns-zoom-hint{display:none}
 body.sns-active .insights-column .ins.review-ins{display:none}
 body.sns-active .insights-column .ins.sns-ins{display:block}
@@ -198,7 +198,7 @@ body.summary-active .insights-column .ins.sns-ins{display:none}
 .yt-header>*{pointer-events:auto}
 .yt-controls{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(var(--ov-g0),var(--ov-g1) 30%);padding:24px 32px 28px;z-index:1000}
 .yt-stats{display:flex;gap:32px;flex-wrap:wrap;align-items:baseline}
-.yt-store-legend{position:absolute;bottom:105px;left:20px;background:var(--ov);border:1px solid var(--bd);border-radius:8px;padding:10px 14px;z-index:1000;font-size:11px}
+.yt-store-legend{position:absolute;bottom:140px;left:20px;background:var(--ov);border:1px solid var(--bd);border-radius:8px;padding:10px 14px;z-index:1000;font-size:11px}
 .yt-zoom-hint{display:none}
 body.yt-active .insights-column .ins.review-ins{display:none}
 body.yt-active .insights-column .ins.sns-ins{display:none}
@@ -223,7 +223,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
 .brand-logo{font-size:18px!important;letter-spacing:1.5px!important}
 .brand-sub{font-size:9px!important;letter-spacing:.5px!important}
 /* Store legend: bottom-left above controls */
-.store-legend,.sns-store-legend,.yt-store-legend,[class$="-store-legend"]{bottom:75px!important;left:8px!important;right:auto!important;padding:5px 8px!important;font-size:9px!important;max-width:150px;opacity:.92;border-radius:5px}
+.store-legend,.sns-store-legend,.yt-store-legend,[class$="-store-legend"]{bottom:100px!important;left:8px!important;right:auto!important;padding:5px 8px!important;font-size:9px!important;max-width:150px;opacity:.92;border-radius:5px}
 .store-legend-item{margin:1px 0!important;gap:4px!important}
 .store-legend-dot{width:7px!important;height:7px!important}
 .legend-label{font-size:9px!important}
@@ -3715,13 +3715,13 @@ function registerBrand(viewKey) {
     '.' + prefix + '-header>*{pointer-events:auto}' +
     '.' + prefix + '-controls{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(var(--ov-g0),var(--ov-g1) 30%);padding:24px 32px 28px;z-index:1000}' +
     '.' + prefix + '-stats{display:flex;gap:32px;flex-wrap:wrap;align-items:baseline}' +
-    '.' + prefix + '-store-legend{position:absolute;bottom:105px;left:20px;background:var(--ov);border:1px solid var(--bd);border-radius:8px;padding:10px 14px;z-index:1000;font-size:11px}' +
+    '.' + prefix + '-store-legend{position:absolute;bottom:140px;left:20px;background:var(--ov);border:1px solid var(--bd);border-radius:8px;padding:10px 14px;z-index:1000;font-size:11px}' +
     '.' + prefix + '-zoom-hint{display:none}' +
     'body.' + cfg.bodyClass + ' .insights-column .ins.review-ins{display:none}' +
     'body.' + cfg.bodyClass + ' .insights-column .ins.' + cfg.insClass + '{display:block}' +
     '.ins.' + cfg.insClass + '{display:none}' +
     'body.summary-active .insights-column .ins.' + cfg.insClass + '{display:none}' +
-    '@media(max-width:768px){#' + cfg.mapElId + '{min-height:50vh!important}#' + cfg.viewElId + '{min-height:60vh}.' + prefix + '-stats{gap:16px 24px}.' + prefix + '-stats .stat-value{font-size:22px}.' + prefix + '-stats .stat-value.orders{font-size:16px}.' + prefix + '-store-legend{bottom:75px;left:10px;padding:6px 10px;font-size:10px;max-width:160px;opacity:.9}.' + prefix + '-zoom-hint{top:auto!important;bottom:140px;right:10px;font-size:9px;padding:5px 10px}.' + prefix + '-header{padding:12px 16px 24px}}';
+    '@media(max-width:768px){#' + cfg.mapElId + '{min-height:50vh!important}#' + cfg.viewElId + '{min-height:60vh}.' + prefix + '-stats{gap:16px 24px}.' + prefix + '-stats .stat-value{font-size:22px}.' + prefix + '-stats .stat-value.orders{font-size:16px}.' + prefix + '-store-legend{bottom:100px;left:10px;padding:6px 10px;font-size:10px;max-width:160px;opacity:.9}.' + prefix + '-zoom-hint{top:auto!important;bottom:140px;right:10px;font-size:9px;padding:5px 10px}.' + prefix + '-header{padding:12px 16px 24px}}';
   document.head.appendChild(style);
 
   // 2. Build legend HTML
