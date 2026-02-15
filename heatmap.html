@@ -175,7 +175,7 @@ body.summary-active .app-layout{height:auto;overflow:visible}
 
 /* Responsive */
 @media(max-width:1100px){.insights-column{width:360px}.loc-metrics{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:768px){.app-layout{flex-direction:column;height:auto;overflow:auto}.insights-column{width:100%;height:auto;max-height:none;border-left:none;border-top:1px solid var(--bd);overflow-y:visible}.map-column{height:50vh;position:relative}.location-card{padding:16px}.location-card .rank{font-size:28px;top:14px;right:16px}.location-card .loc-name{font-size:15px;padding-right:50px}.loc-metrics{grid-template-columns:repeat(2,1fr);gap:10px}.loc-metric .lm-value{font-size:14px}.loc-metrics-full{grid-template-columns:repeat(2,1fr)}.loc-section{font-size:12px}.loc-rationale{font-size:11px;line-height:1.5}.loc-postcodes{font-size:11px}.summary-view{padding:16px}.summary-header h1{font-size:20px}.summary-header p{font-size:12px}.stats{gap:16px 24px}.stat-value{font-size:22px}.stat-value.orders{font-size:16px}.stat-label{font-size:10px;letter-spacing:1px}.controls-top{gap:8px}}
+@media(max-width:768px){.app-layout{flex-direction:column;height:auto;overflow:auto}.insights-column{width:100%;height:auto;max-height:none;border-left:none;border-top:1px solid var(--bd);overflow-y:visible}.map-column{height:50vh;position:relative}.location-card{padding:16px}.location-card .rank{font-size:28px;top:14px;right:16px}.location-card .loc-name{font-size:15px;padding-right:50px}.loc-metrics{grid-template-columns:repeat(2,1fr);gap:10px}.loc-metric .lm-value{font-size:14px}.loc-metrics-full{grid-template-columns:repeat(2,1fr)}.loc-section{font-size:12px}.loc-rationale{font-size:11px;line-height:1.5}.loc-postcodes{font-size:11px}.summary-view{padding:0}.summary-view h1{font-size:24px!important}.summary-view .exec-kpis{grid-template-columns:repeat(2,1fr)!important}.summary-view .exec-kpis>div .kv{font-size:20px!important}.stats{gap:16px 24px}.stat-value{font-size:22px}.stat-value.orders{font-size:16px}.stat-label{font-size:10px;letter-spacing:1px}.controls-top{gap:8px}}
 
 /* SNS Map View */
 .sns-map-view{display:flex;flex-direction:column;flex:1;position:relative}
@@ -259,58 +259,60 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
       <option value="yt-map">Yarra Trail</option>
     </select>
     <div class="summary-view active" id="summaryView">
+      <div style="max-width:900px;margin:0 auto;padding:48px 24px 40px">
 
-      <div class="exec-summary" style="max-width:1100px;margin:0 auto 32px auto;padding:0 8px">
-          <h2 style="margin:0 0 6px 0;font-size:18px;color:var(--tx1)">Executive Summary</h2>
-          <p style="font-size:12px;color:var(--tx3);margin:0 0 20px 0">Store Halo Analysis &amp; Expansion Opportunities &middot; CY2025 &middot; 13 Brands &middot; 880 Stockists</p>
+        <h1 style="font-size:32px;font-weight:800;color:var(--tx1);margin:0 0 8px 0;letter-spacing:-0.5px">Store Halo Analysis</h1>
+        <p style="font-size:15px;color:var(--tx3);margin:0 0 40px 0;line-height:1.5">How physical stores drive online demand across 13 brands &middot; CY2025</p>
 
-          <p style="font-size:13px;color:var(--tx2);line-height:1.7;margin:0 0 16px 0">This analysis maps <strong style="color:var(--tx1)">$75.8M</strong> in AU online demand across 13 brands and 880 physical locations. The central finding: <strong style="color:var(--tx1)">physical stores lift online demand in surrounding postcodes by 2&ndash;5x</strong>. This holds across every brand with physical presence, regardless of category, price point, or customer demographic.</p>
+        <p style="font-size:15px;color:var(--tx2);line-height:1.8;margin:0 0 32px 0">This analysis maps <strong style="color:var(--tx1)">$75.8M</strong> in Australian online demand across <strong style="color:var(--tx1)">13 brands</strong> and <strong style="color:var(--tx1)">880 physical locations</strong> to answer two questions: how much do stores drive online sales, and where should the next ones go? The central finding: <strong style="color:var(--tx1)">physical stores lift online demand in surrounding postcodes by 2&ndash;5&times;</strong>.</p>
 
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:20px">
-            <div style="text-align:center;padding:12px 8px;background:var(--bg1);border-radius:8px">
-              <div style="font-size:20px;font-weight:700;color:var(--accent)">$75.8M</div>
-              <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--tx3);margin-top:2px">AU Demand</div>
-            </div>
-            <div style="text-align:center;padding:12px 8px;background:var(--bg1);border-radius:8px">
-              <div style="font-size:20px;font-weight:700;color:var(--accent)">509K</div>
-              <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--tx3);margin-top:2px">Orders</div>
-            </div>
-            <div style="text-align:center;padding:12px 8px;background:var(--bg1);border-radius:8px">
-              <div style="font-size:20px;font-weight:700;color:var(--accent)">$148.90</div>
-              <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--tx3);margin-top:2px">Portfolio AOV</div>
-            </div>
-            <div style="text-align:center;padding:12px 8px;background:var(--bg1);border-radius:8px">
-              <div style="font-size:20px;font-weight:700;color:var(--accent)">880</div>
-              <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--tx3);margin-top:2px">Stockists</div>
-            </div>
+        <div class="exec-kpis" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:48px">
+          <div style="padding:20px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;text-align:center">
+            <div style="font-size:28px;font-weight:800;color:var(--accent);letter-spacing:-1px">$75.8M</div>
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--tx3);margin-top:6px">AU Demand</div>
           </div>
-
-          <h3 style="font-size:14px;color:var(--accent);margin:0 0 12px 0">Key Findings</h3>
-
-          <div style="margin-bottom:12px;padding:12px 16px;background:var(--bg1);border-radius:8px;border-left:3px solid #22c55e">
-            <div style="font-size:13px;font-weight:600;color:var(--tx1);margin-bottom:4px">Stores drive online sales &mdash; the halo effect is real</div>
-            <p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.6">Halo strength ranges from <strong>77.1%</strong> (Julius Marlow, 221 stockists) to <strong>19.4%</strong> (Champion, 6 outlets). Store business cases that only measure four-wall performance are fundamentally undervaluing the asset. The online halo should be included in every store opening, renewal, and closure decision.</p>
+          <div style="padding:20px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;text-align:center">
+            <div style="font-size:28px;font-weight:800;color:var(--accent);letter-spacing:-1px">509K</div>
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--tx3);margin-top:6px">Orders</div>
           </div>
-
-          <div style="margin-bottom:12px;padding:12px 16px;background:var(--bg1);border-radius:8px;border-left:3px solid #22c55e">
-            <div style="font-size:13px;font-weight:600;color:var(--tx1);margin-bottom:4px">Format matters more than count</div>
-            <p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.6">Full-price stores produce <strong>3&ndash;5x the online halo</strong> of outlet locations. Champion&rsquo;s 100% outlet network generates the weakest halo in the portfolio. Expansion should prioritise full-price formats.</p>
+          <div style="padding:20px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;text-align:center">
+            <div style="font-size:28px;font-weight:800;color:var(--accent);letter-spacing:-1px">$148.90</div>
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--tx3);margin-top:6px">Portfolio AOV</div>
           </div>
-
-          <div style="margin-bottom:12px;padding:12px 16px;background:var(--bg1);border-radius:8px;border-left:3px solid #f59e0b">
-            <div style="font-size:13px;font-weight:600;color:var(--tx1);margin-bottom:4px">Three growth corridors serve the whole portfolio</div>
-            <p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.6"><strong>Western Melbourne</strong> (Tarneit/Werribee), <strong>Western Sydney</strong> (Marsden Park/Kellyville), and <strong>SE Queensland</strong> (Gold Coast to Sunshine Coast) appear in the top expansion recommendations for 4+ brands each. Multi-brand activation in these corridors would generate halo effects across the portfolio with a single lease.</p>
+          <div style="padding:20px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;text-align:center">
+            <div style="font-size:28px;font-weight:800;color:var(--accent);letter-spacing:-1px">880</div>
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--tx3);margin-top:6px">Stockists</div>
           </div>
+        </div>
 
-          <div style="margin-bottom:12px;padding:12px 16px;background:var(--bg1);border-radius:8px;border-left:3px solid #f59e0b">
-            <div style="font-size:13px;font-weight:600;color:var(--tx1);margin-bottom:4px">Storeless states have proven demand</div>
-            <p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.6">Champion has $181K in QLD demand with zero stores. Superdry has ~$425K in SA demand with zero stores. This demand exists <em>without</em> any halo boost &mdash; adding a single store would both capture in-store revenue and amplify existing online demand.</p>
-          </div>
+        <h2 style="font-size:20px;font-weight:700;color:var(--tx1);margin:0 0 20px 0">Key Findings</h2>
 
-          <div style="margin-bottom:0;padding:12px 16px;background:var(--bg1);border-radius:8px;border-left:3px solid #3b82f6">
-            <div style="font-size:13px;font-weight:600;color:var(--tx1);margin-bottom:4px">Online-only brands have untapped physical potential</div>
-            <p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.6">Reebok ($10.5M), Volley ($1.6M), and Everlast ($1.5M) operate without stores. Their demand is geographically dispersed with no halo concentration. Even lightweight touchpoints &mdash; gym partnerships, pop-ups, wholesale concessions &mdash; could unlock incremental online demand.</p>
-          </div>
+        <div style="margin-bottom:16px;padding:16px 20px;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;border-left:4px solid #22c55e">
+          <div style="font-size:14px;font-weight:700;color:var(--tx1);margin-bottom:6px">Stores drive online sales &mdash; the halo effect is real</div>
+          <p style="font-size:13px;color:var(--tx2);margin:0;line-height:1.7">Halo strength ranges from <strong>77.1%</strong> (Julius Marlow, 221 stockists) to <strong>19.4%</strong> (Champion, 6 outlets). Store business cases that only measure four-wall performance are fundamentally undervaluing the asset. The online halo should be included in every store opening, renewal, and closure decision.</p>
+        </div>
+
+        <div style="margin-bottom:16px;padding:16px 20px;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;border-left:4px solid #22c55e">
+          <div style="font-size:14px;font-weight:700;color:var(--tx1);margin-bottom:6px">Format matters more than count</div>
+          <p style="font-size:13px;color:var(--tx2);margin:0;line-height:1.7">Full-price stores produce <strong>3&ndash;5&times; the online halo</strong> of outlet locations. Champion&rsquo;s 100% outlet network generates the weakest halo in the portfolio. Expansion should prioritise full-price formats.</p>
+        </div>
+
+        <div style="margin-bottom:16px;padding:16px 20px;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;border-left:4px solid #f59e0b">
+          <div style="font-size:14px;font-weight:700;color:var(--tx1);margin-bottom:6px">Three growth corridors serve the whole portfolio</div>
+          <p style="font-size:13px;color:var(--tx2);margin:0;line-height:1.7"><strong>Western Melbourne</strong> (Tarneit/Werribee), <strong>Western Sydney</strong> (Marsden Park/Kellyville), and <strong>SE Queensland</strong> (Gold Coast to Sunshine Coast) appear in the top expansion recommendations for 4+ brands each. Multi-brand activation in these corridors would generate halo effects across the portfolio with a single lease.</p>
+        </div>
+
+        <div style="margin-bottom:16px;padding:16px 20px;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;border-left:4px solid #f59e0b">
+          <div style="font-size:14px;font-weight:700;color:var(--tx1);margin-bottom:6px">Storeless states have proven demand</div>
+          <p style="font-size:13px;color:var(--tx2);margin:0;line-height:1.7">Champion has $181K in QLD demand with zero stores. Superdry has ~$425K in SA demand with zero stores. This demand exists <em>without</em> any halo boost &mdash; adding a single store would both capture in-store revenue and amplify existing online demand.</p>
+        </div>
+
+        <div style="padding:16px 20px;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;border-left:4px solid #3b82f6">
+          <div style="font-size:14px;font-weight:700;color:var(--tx1);margin-bottom:6px">Online-only brands have untapped physical potential</div>
+          <p style="font-size:13px;color:var(--tx2);margin:0;line-height:1.7">Reebok ($10.5M), Volley ($1.6M), and Everlast ($1.5M) operate without stores. Their demand is geographically dispersed with no halo concentration. Even lightweight touchpoints &mdash; gym partnerships, pop-ups, wholesale concessions &mdash; could unlock incremental online demand.</p>
+        </div>
+
+        <p style="font-size:12px;color:var(--tx3);margin:32px 0 0 0;line-height:1.6">Select a brand above to explore its halo analysis, geographic demand distribution, and store expansion recommendations.</p>
 
       </div>
 
