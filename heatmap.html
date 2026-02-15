@@ -47,7 +47,7 @@ body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSyst
 /* Layout */
 .app-layout{display:flex;width:100vw;height:100vh;overflow:hidden}
 .map-column{flex:1;min-width:0;position:relative;display:flex;flex-direction:column}
-#map{flex:1;width:100%;min-height:0}
+#map{flex:1;width:100%;min-height:0;will-change:transform}
 .insights-column{width:420px;flex-shrink:0;background:var(--bg2);border-left:1px solid var(--bd);overflow-y:auto;z-index:100}
 
 /* Header */
@@ -157,7 +157,7 @@ body.summary-active .summary-view{max-width:100%}
 body.summary-active{overflow:auto;height:auto}
 body.summary-active .map-column{height:auto;flex:none}
 body.summary-active .app-layout{height:auto;overflow:visible}
-@media(max-width:768px){body{overflow:auto!important;height:auto!important}#map{min-height:50vh!important}#snsMap{min-height:50vh!important}#ytMap{min-height:50vh!important}#mapView{min-height:60vh}#snsMapView{min-height:60vh}#ytMapView{min-height:60vh}}
+@media(max-width:768px){body{overflow:auto!important;height:auto!important}.map-column{min-height:60vh}#map{min-height:50vh!important}#snsMap{min-height:50vh!important}#ytMap{min-height:50vh!important}#mapView{min-height:60vh}#snsMapView{min-height:60vh}#ytMapView{min-height:60vh}.map-view,.sns-map-view,.yt-map-view,[class$="-map-view"]{min-height:50vh}}
 
 /* Expanded summary card styles */
 .loc-section{margin-top:14px;padding-top:14px;border-top:1px solid var(--bd2)}
@@ -174,12 +174,12 @@ body.summary-active .app-layout{height:auto;overflow:visible}
 
 /* Responsive */
 @media(max-width:1100px){.insights-column{width:360px}.loc-metrics{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:768px){.app-layout{flex-direction:column;height:auto;overflow:auto}.insights-column{width:100%;height:auto;max-height:none;border-left:none;border-top:1px solid var(--bd);overflow-y:visible}.map-column{height:50vh;position:relative}.location-card{padding:16px}.location-card .rank{font-size:28px;top:14px;right:16px}.location-card .loc-name{font-size:15px;padding-right:50px}.loc-metrics{grid-template-columns:repeat(2,1fr);gap:10px}.loc-metric .lm-value{font-size:14px}.loc-metrics-full{grid-template-columns:repeat(2,1fr)}.loc-section{font-size:12px}.loc-rationale{font-size:11px;line-height:1.5}.loc-postcodes{font-size:11px}.summary-view{padding:16px}.summary-header h1{font-size:20px}.summary-header p{font-size:12px}.stats{gap:16px 24px}.stat-value{font-size:22px}.stat-value.orders{font-size:16px}.stat-label{font-size:10px;letter-spacing:1px}.sns-stats{gap:16px 24px}.sns-stats .stat-value{font-size:22px}.sns-stats .stat-value.orders{font-size:16px}.yt-stats{gap:16px 24px}.yt-stats .stat-value{font-size:22px}.yt-stats .stat-value.orders{font-size:16px}.controls-top{gap:8px}}
+@media(max-width:768px){.app-layout{flex-direction:column;height:auto;overflow:auto}.insights-column{width:100%;height:auto;max-height:none;border-left:none;border-top:1px solid var(--bd);overflow-y:visible}.map-column{height:50vh;position:relative}.location-card{padding:16px}.location-card .rank{font-size:28px;top:14px;right:16px}.location-card .loc-name{font-size:15px;padding-right:50px}.loc-metrics{grid-template-columns:repeat(2,1fr);gap:10px}.loc-metric .lm-value{font-size:14px}.loc-metrics-full{grid-template-columns:repeat(2,1fr)}.loc-section{font-size:12px}.loc-rationale{font-size:11px;line-height:1.5}.loc-postcodes{font-size:11px}.summary-view{padding:16px}.summary-header h1{font-size:20px}.summary-header p{font-size:12px}.stats{gap:16px 24px}.stat-value{font-size:22px}.stat-value.orders{font-size:16px}.stat-label{font-size:10px;letter-spacing:1px}.controls-top{gap:8px}}
 
 /* SNS Map View */
 .sns-map-view{display:flex;flex-direction:column;flex:1;position:relative}
 .sns-map-view.hidden{display:none}
-#snsMap{flex:1;width:100%;min-height:0}
+#snsMap{flex:1;width:100%;min-height:0;will-change:transform}
 .sns-header{position:absolute;top:0;left:0;right:0;background:linear-gradient(var(--hd-g0),var(--hd-g1));padding:20px 32px 40px;z-index:1000;display:flex;align-items:center;gap:16px;pointer-events:none}
 .sns-header>*{pointer-events:auto}
 .sns-controls{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(var(--ov-g0),var(--ov-g1) 30%);padding:24px 32px 28px;z-index:1000}
@@ -192,7 +192,7 @@ body.sns-active .insights-column .ins.sns-ins{display:block}
 body.summary-active .insights-column .ins.sns-ins{display:none}
 .yt-map-view{display:flex;flex-direction:column;flex:1;position:relative}
 .yt-map-view.hidden{display:none}
-#ytMap{flex:1;width:100%;min-height:0}
+#ytMap{flex:1;width:100%;min-height:0;will-change:transform}
 .yt-header{position:absolute;top:0;left:0;right:0;background:linear-gradient(var(--hd-g0),var(--hd-g1));padding:20px 32px 40px;z-index:1000;display:flex;align-items:center;gap:16px;pointer-events:none}
 .yt-header>*{pointer-events:auto}
 .yt-controls{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(var(--ov-g0),var(--ov-g1) 30%);padding:24px 32px 28px;z-index:1000}
@@ -3159,7 +3159,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
 
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+<script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js" defer></script>
 <!-- Brand data files (loaded before main script) -->
 <script src="data/review-data.js"></script>
 <script src="data/sns-data.js"></script>
@@ -3318,7 +3318,8 @@ function initMap() {
   });
 
   let hL = null, mL = L.layerGroup().addTo(map), cP = [], cM = 0;
-  function gCol(r){const S=[[0,[0,0,4]],[.1,[22,11,57]],[.2,[66,10,104]],[.3,[106,23,110]],[.4,[147,38,103]],[.5,[188,55,84]],[.6,[221,81,58]],[.7,[243,120,25]],[.8,[252,165,10]],[.9,[246,215,70]],[1,[252,255,164]]];let lo=S[0],hi=S[S.length-1];for(let i=0;i<S.length-1;i++){if(r>=S[i][0]&&r<=S[i+1][0]){lo=S[i];hi=S[i+1];break;}}const t=(r-lo[0])/(hi[0]-lo[0]||1);const c=lo[1].map((v,i)=>Math.round(v+(hi[1][i]-v)*t));return 'rgb('+c[0]+','+c[1]+','+c[2]+')';}
+  const _gColLUT=(function(){const S=[[0,[0,0,4]],[.1,[22,11,57]],[.2,[66,10,104]],[.3,[106,23,110]],[.4,[147,38,103]],[.5,[188,55,84]],[.6,[221,81,58]],[.7,[243,120,25]],[.8,[252,165,10]],[.9,[246,215,70]],[1,[252,255,164]]];const T=new Array(256);for(let i=0;i<=255;i++){const r=i/255;let lo=S[0],hi=S[S.length-1];for(let j=0;j<S.length-1;j++){if(r>=S[j][0]&&r<=S[j+1][0]){lo=S[j];hi=S[j+1];break;}}const t=(r-lo[0])/(hi[0]-lo[0]||1);T[i]='rgb('+Math.round(lo[1][0]+(hi[1][0]-lo[1][0])*t)+','+Math.round(lo[1][1]+(hi[1][1]-lo[1][1])*t)+','+Math.round(lo[1][2]+(hi[1][2]-lo[1][2])*t)+')';}return T;})();
+  function gCol(r){return _gColLUT[Math.round(Math.min(Math.max(r,0),1)*255)];}
 
   function uMk() {
     mL.clearLayers();
@@ -3863,10 +3864,10 @@ function registerBrand(viewKey) {
 
 // Register all brands (skips if container already exists)
 Object.keys(BRAND_MAPS).forEach(registerBrand);
+// Mobile height enforcement for all brand map views
+(function(){var s=document.createElement('style');var css='@media(max-width:768px){';Object.keys(BRAND_MAPS).forEach(function(k){var c=BRAND_MAPS[k];css+='#'+c.viewElId+'{min-height:60vh}#'+c.mapElId+'{min-height:50vh!important}';});css+='}';s.textContent=css;document.head.appendChild(s);})();
 
 // Legacy wrappers
-function initSnsMap() { initBrandMap(BRAND_MAPS['sns-map']); }
-function initYtMap() { initBrandMap(BRAND_MAPS['yt-map']); }
 
 
 
@@ -3985,7 +3986,7 @@ try { buildSummaryCards(); } catch(e) { document.getElementById('locationCards')
     } else if (view === 'map') {
       sv.classList.remove('active'); mv.classList.remove('hidden');
       if (!mapInitialized) { initMap(); mapInitialized = true; }
-      if (window._map) setTimeout(function(){ window._map.invalidateSize(); }, 100);
+      if (window._map) setTimeout(function(){ window._map.invalidateSize(); window.dispatchEvent(new Event('resize')); }, 100);
     } else if (BRAND_MAPS[view]) {
       var cfg = BRAND_MAPS[view];
       sv.classList.remove('active'); mv.classList.add('hidden');
@@ -3996,7 +3997,7 @@ try { buildSummaryCards(); } catch(e) { document.getElementById('locationCards')
         initBrandMap(cfg);
         brandMapInitialized[view] = true;
       }
-      if (window[cfg.mapKey]) setTimeout(function(){ window[cfg.mapKey].invalidateSize(); }, 100);
+      if (window[cfg.mapKey]) setTimeout(function(){ window[cfg.mapKey].invalidateSize(); window.dispatchEvent(new Event('resize')); }, 100);
     }
 
     // Toggle insights panels
