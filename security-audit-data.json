@@ -41,12 +41,12 @@
       "affectedPortals": ["my.shoesandsox.com.au", "my.review-australia.com"],
       "detail": "The /api/auth/availability endpoint on Omneo loyalty portals returns full PII (full name, UUID, loyalty card number) for any email address. No authentication required. Confirmed exploitable on SNS (test@test.com → 'Jayden Potts', UUID 9a6f4458-2eab-44e3-b26f-0351007cdec9, loyalty card L142697892) and Review (my.review-australia.com). This is a platform-level issue affecting ALL brands using Omneo portals. Vendor claimed patch was applied — verified STILL FULLY EXPLOITABLE on Feb 16.",
       "recommendation": "ESCALATE IMMEDIATELY. Omneo's claimed patch did not fix this vulnerability. Consider: (1) Demand Omneo disable these endpoints immediately, (2) Block public access to /api/auth/* endpoints via WAF/proxy, (3) Engage legal counsel re: data breach notification obligations under Privacy Act, (4) Consider OAIC notification if customer PII has been accessed by unauthorized parties.",
-      "status": "Vendor claims patched — VERIFIED STILL VULNERABLE (Feb 16)",
+      "status": "Reported Feb 10 — still unpatched as of Feb 16 retest",
       "timestamp": "2026-02-16T06:50:00+11:00",
       "retestHistory": [
         {"date": "2026-02-10", "event": "Initially discovered — PII enumeration via /api/auth/availability, /api/auth/sms, /api/auth/magic, wildcard CORS, missing security headers"},
         {"date": "2026-02-12", "event": "Re-audited — 0/8 findings patched. All endpoints still fully exploitable"},
-        {"date": "2026-02-16", "event": "Vendor claimed patch applied. Retested — STILL VULNERABLE. Only /api/auth/magic returns 404 (possibly fixed). All PII endpoints unchanged. NEW endpoint /api/auth found returning even MORE data (join date). Vendor patch claim is FALSE."}
+        {"date": "2026-02-16", "event": "Retested. /api/auth/magic now returns 404 — vendor claimed fix for this endpoint VERIFIED FIXED. However, all PII enumeration endpoints (/api/auth/availability, /api/auth, /api/auth/sms) remain fully exploitable and unpatched. NEW endpoint /api/auth found returning even MORE data (join date). Critical PII exposure remains unaddressed."}
       ]
     },
     {
@@ -58,7 +58,7 @@
       "affectedPortals": ["my.shoesandsox.com.au", "my.review-australia.com"],
       "detail": "NEW FINDING (Feb 16): The /api/auth POST endpoint returns MORE data than /api/auth/availability: UUID, email, loyalty card number, AND join date. No authentication required. SNS: returns id, email, identity (loyalty card), joined_at ('2021-05-20 00:00:00'). Review: returns same fields, loyalty card L181241163, joined '2020-01-09 00:00:00'. This endpoint was not previously documented and represents an escalation — more PII is exposed than the original finding.",
       "recommendation": "Same as F001 — this endpoint must be blocked or require authentication immediately. The join date field adds additional PII exposure beyond the original finding.",
-      "status": "Vendor claims patched — VERIFIED STILL VULNERABLE (Feb 16)",
+      "status": "Reported Feb 10 — still unpatched as of Feb 16 retest",
       "timestamp": "2026-02-16T06:50:00+11:00"
     },
     {
@@ -70,7 +70,7 @@
       "affectedPortals": ["my.shoesandsox.com.au", "my.review-australia.com"],
       "detail": "The /api/auth/sms endpoint returns loyalty card numbers for any phone number. No authentication required. Confirmed: +61400000000 → identity: 'L144125172'. Allows mass enumeration of customer loyalty accounts by phone number.",
       "recommendation": "Block or rate-limit /api/auth/sms endpoint. Require authentication before returning any customer data.",
-      "status": "Vendor claims patched — VERIFIED STILL VULNERABLE (Feb 16)",
+      "status": "Reported Feb 10 — still unpatched as of Feb 16 retest",
       "timestamp": "2026-02-16T06:50:00+11:00"
     },
     {
@@ -82,7 +82,7 @@
       "affectedPortals": ["my.shoesandsox.com.au", "my.review-australia.com"],
       "detail": "All Omneo portal API endpoints return Access-Control-Allow-Origin: * header. This means ANY website on the internet can make cross-origin requests to these endpoints and read the responses. Combined with the PII enumeration vulnerabilities (F001, F001a, F001b), any malicious website can silently harvest customer data from Omneo portals.",
       "recommendation": "Omneo must restrict CORS to only allow requests from legitimate portal domains. Wildcard CORS on endpoints returning PII is a critical misconfiguration.",
-      "status": "Vendor claims patched — VERIFIED STILL VULNERABLE (Feb 16)",
+      "status": "Reported Feb 10 — still unpatched as of Feb 16 retest",
       "timestamp": "2026-02-16T06:50:00+11:00"
     },
     {
@@ -94,7 +94,7 @@
       "affectedPortals": ["my.shoesandsox.com.au", "my.review-australia.com"],
       "detail": "Omneo loyalty portals are missing critical security headers: no Content-Security-Policy, no X-Frame-Options, no HSTS. Portals expose x-powered-by: Next.js and server: Google Frontend headers, revealing technology stack. These missing headers compound the other vulnerabilities.",
       "recommendation": "Omneo must implement CSP, X-Frame-Options, HSTS, and remove technology disclosure headers.",
-      "status": "Vendor claims patched — VERIFIED STILL VULNERABLE (Feb 16)",
+      "status": "Reported Feb 10 — still unpatched as of Feb 16 retest",
       "timestamp": "2026-02-16T06:50:00+11:00"
     },
     {
@@ -104,9 +104,9 @@
       "title": "Omneo Loyalty Platform — Magic Link Token Exposure (Possibly Partially Fixed)",
       "affected": ["All Brands"],
       "affectedPortals": ["my.shoesandsox.com.au", "my.review-australia.com"],
-      "detail": "The /api/auth/magic endpoint previously allowed magic link token generation/exposure. As of Feb 16 retest, this endpoint now returns 404 on both SNS and Review portals. This may be the ONLY thing Omneo actually patched. However, all other PII-exposing endpoints remain fully exploitable, making this a minimal mitigation.",
-      "recommendation": "Verify the 404 is a permanent fix and not just a temporary routing change. This does not mitigate the critical PII exposure via the other endpoints.",
-      "status": "Partially mitigated — endpoint returns 404, but all other PII endpoints remain fully exploitable",
+      "detail": "The /api/auth/magic endpoint previously allowed magic link token generation/exposure. As of Feb 16 retest, this endpoint now returns 404 on both SNS and Review portals. Omneo claimed they fixed this specific issue — confirmed fixed. However, all PII enumeration endpoints (/api/auth/availability, /api/auth, /api/auth/sms) remain fully exploitable and were not part of this fix.",
+      "recommendation": "No further action on this specific endpoint. Focus remediation efforts on the critical PII enumeration endpoints (F001, F001a, F001b) and wildcard CORS (F001c) which remain unpatched.",
+      "status": "Vendor claimed fix — VERIFIED FIXED (endpoint returns 404)",
       "timestamp": "2026-02-16T06:50:00+11:00"
     },
     {
@@ -290,7 +290,7 @@
     {"name": "Klaviyo", "category": "Email/SMS", "status": "medium", "finding": "Klaviyo JS loaded on multiple stores (e.g., company IDs W4U8xV for Reebok, ShN5VB for Champion, SP8jKd for Black Pepper). Company IDs are publicly exposed in script URLs. These IDs could potentially be used to probe Klaviyo API endpoints for list enumeration.", "brands": ["Reebok", "Champion", "Black Pepper", "Others"]},
     {"name": "Gorgias", "category": "Customer Support", "status": "medium", "finding": "Gorgias chat bundle loader is publicly accessible and exposes application keys (e.g., 01JSZWNGYNJS8J64J6FJGAREF3 for Champion, app ID 64965). The bundle-loader endpoint at config.gorgias.chat returns full JavaScript with API keys embedded. Could allow unauthorized chat widget instantiation.", "brands": ["Champion", "Others"]},
     {"name": "Intelligems", "category": "A/B Testing", "status": "low", "finding": "Intelligems A/B testing script (cdn.intelligems.io) loaded on Reebok and Black Pepper with store-specific bundle IDs (6ccd53f2c93f, e967ec415f3a). Scripts loaded without SRI. Intelligems has access to modify pricing and content for A/B tests.", "brands": ["Reebok", "Black Pepper"]},
-    {"name": "Omneo", "category": "Loyalty/CRM", "status": "critical", "finding": "CRITICAL: Vendor claimed patch on Feb 16 — VERIFIED STILL FULLY VULNERABLE. 4 critical findings: (1) /api/auth/availability returns full name, UUID, loyalty card for any email, (2) /api/auth returns UUID, email, loyalty card, AND join date — NEW and WORSE than original, (3) /api/auth/sms returns loyalty card for any phone number, (4) Wildcard CORS allows any website to exploit all endpoints. Only /api/auth/magic (404) may be partially fixed. Confirmed exploitable on my.shoesandsox.com.au and my.review-australia.com. Platform-level issue affects ALL brands using Omneo portals (25+ Australian retailers).", "brands": ["All Brands"], "retestHistory": [{"date": "2026-02-10", "event": "Initially discovered"}, {"date": "2026-02-12", "event": "Re-audited, 0/8 fixed"}, {"date": "2026-02-16", "event": "Vendor claimed patch — VERIFIED FALSE. New worse endpoint found."}]},
+    {"name": "Omneo", "category": "Loyalty/CRM", "status": "critical", "finding": "CRITICAL: 4 critical findings remain unpatched. (1) /api/auth/availability returns full name, UUID, loyalty card for any email, (2) /api/auth returns UUID, email, loyalty card, AND join date — NEW and WORSE than original, (3) /api/auth/sms returns loyalty card for any phone number, (4) Wildcard CORS allows any website to exploit all endpoints. Magic link endpoint (/api/auth/magic) fixed by vendor (returns 404). All PII enumeration endpoints remain fully exploitable. Confirmed on my.shoesandsox.com.au and my.review-australia.com. Platform-level issue affects ALL brands using Omneo portals (25+ Australian retailers).", "brands": ["All Brands"], "retestHistory": [{"date": "2026-02-10", "event": "Initially discovered"}, {"date": "2026-02-12", "event": "Re-audited, 0/8 fixed"}, {"date": "2026-02-16", "event": "Magic link fix verified. All PII endpoints still unpatched. New worse endpoint (/api/auth) found."}]},
     {"name": "Shopify Payments", "category": "Payment", "status": "ok", "finding": "Standard Shopify Payments implementation detected. Portable wallets JS loaded. Payment processing handled by Shopify's PCI-DSS compliant infrastructure. No direct payment data exposure observed.", "brands": ["All Brands"]},
     {"name": "Google Analytics (GA4)", "category": "Analytics", "status": "ok", "finding": "GA4 implemented via Shopify's built-in integration and custom datalayer scripts (bc-datalayer.js). Standard implementation with no observable issues.", "brands": ["All Brands"]},
     {"name": "Facebook/Meta Pixel", "category": "Marketing", "status": "ok", "finding": "Standard Meta Pixel implementation via Shopify app. Pixel fires are handled through Shopify's web pixel extension framework.", "brands": ["All Brands"]},
@@ -341,7 +341,7 @@
     {"domain": "config.gorgias.help", "purpose": "Gorgias Help Center", "risk": "low", "sri": false, "brands": ["Champion"], "note": "Contact form replacement script"}
   ],
   "recommendations": [
-    {"priority": 1, "action": "ESCALATE: Omneo vendor patch claim verified FALSE (Feb 16). 4 critical PII endpoints still fully exploitable + new worse endpoint found. Demand immediate endpoint shutdown, consider WAF blocks, assess Privacy Act notification obligations.", "effort": "Low", "impact": "Critical", "category": "Third-Party"},
+    {"priority": 1, "action": "ESCALATE: Omneo fixed magic link token issue only. 3 critical PII enumeration endpoints + wildcard CORS remain fully exploitable as of Feb 16 retest. New worse endpoint (/api/auth) discovered. Demand immediate remediation, consider WAF blocks, assess Privacy Act notification obligations.", "effort": "Low", "impact": "Critical", "category": "Third-Party"},
     {"priority": 2, "action": "Upgrade DMARC policy from p=none to p=quarantine then p=reject across all 18 domains", "effort": "Medium", "impact": "High", "category": "Email Security"},
     {"priority": 3, "action": "Implement comprehensive Content Security Policy with explicit source directives", "effort": "High", "impact": "High", "category": "Security Headers"},
     {"priority": 4, "action": "Audit and restrict /products.json, /collections.json API access", "effort": "Medium", "impact": "Medium", "category": "Data Exposure"},
