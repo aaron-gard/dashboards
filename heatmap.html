@@ -2423,7 +2423,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
       <h3 style="color:#e53935">&#128293; The Halo Effect</h3>
       <p><span class="highlight" style="color:#e53935">48.3%</span> of online demand ($4.74M) comes from postcodes within <span class="highlight" style="color:#e53935">10km of a store</span>. With 96 locations &mdash; approximately 37 standalone stores and 59 Myer concessions &mdash; this is the <strong>lowest halo in the Brand Collective portfolio</strong>. For context: Shoes &amp; Sox captures 69.1% within 10km, Review 62%, and Elka 60.8% (boutiques only). Black Pepper&rsquo;s low halo tells a fundamentally different story.</p>
       <p style="font-size:12px;color:var(--tx2)">Where a high halo (like Elka&rsquo;s 60.8% from just 11 boutiques) means &ldquo;stores drive online,&rdquo; Black Pepper&rsquo;s 48% means <strong>the online customer exists independently of the store network</strong>. Over half of BP&rsquo;s $9.84M in online demand comes from customers who don&rsquo;t live near any store. This isn&rsquo;t a weakness &mdash; it&rsquo;s evidence of a brand that resonates with regional and suburban women across Australia who have <em>no local fashion option</em> and buy online out of necessity. The halo is moderate because the customer base is genuinely distributed.</p>
-      <div class="insight-card">
+      <div class="insight-card" style="cursor:pointer" onclick="showBrandCatchment('bp-map',-34.05,150.7,'Camden')">
         <div style="font-weight:600;margin-bottom:8px">Online demand by distance to nearest store</div>
         <div class="metric-row"><span class="metric-label">0&ndash;5km</span><span class="metric-val">$2.99M (30.5%)</span></div>
         <div class="bar-container"><div class="bar-fill" style="width:100%;background:linear-gradient(90deg,#e53935,#ff6b6b)"></div></div>
@@ -2448,7 +2448,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
 
       <h3 style="color:#e53935">&#128176; AOV by Distance &mdash; Flat = Need-Based</h3>
       <p>AOV is <span class="highlight" style="color:#e53935">remarkably flat at ~$133&ndash;$140</span> across all distance bands. This is the clearest signal of <strong>need-based purchasing</strong> in the portfolio. Compare to Elka ($240 &rarr; $259, +8%) or Yarra Trail ($159 &rarr; $204, +29%) where remote customers consolidate into larger baskets. Black Pepper customers buy what they need, when they need it, regardless of proximity.</p>
-      <div class="insight-card">
+      <div class="insight-card" style="cursor:pointer" onclick="showBrandCatchment('bp-map',-24.87,152.35,'Bundaberg')">
         <div style="font-weight:600;margin-bottom:8px">AOV by distance band</div>
         <div class="metric-row"><span class="metric-label">0&ndash;5km</span><span class="metric-val">$132.72</span></div>
         <div class="metric-row"><span class="metric-label">5&ndash;10km</span><span class="metric-val">$132.37</span></div>
@@ -2572,7 +2572,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
       <h3 style="color:#e53935">&#128205; Store Expansion Recommendations</h3>
       <p style="font-size:12px;color:var(--tx2);margin-bottom:12px">Top opportunities ranked by composite score: demand (40%), target demographic density &mdash; women 45&ndash;65 (25%), competitive white space (20%), household income (15%). All locations validated against existing demand data and ABS 2021 Census demographics.</p>
 
-      <div class="insight-card" style="border-left:3px solid #e53935;margin-bottom:16px">
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #e53935;margin-bottom:16px" onclick="showBrandCatchment('bp-map',-32.73,151.55,'Maitland')">
         <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#e53935">1. Maitland / Hunter Valley &mdash; NSW <span style="font-size:11px;font-weight:400;background:#e53935;color:#fff;padding:1px 6px;border-radius:3px;margin-left:6px">Score: 0.82</span></div>
         <div class="metric-row"><span class="metric-label">Catchment demand</span><span class="metric-val" style="color:#ff6b6b">$63,768</span></div>
         <div class="metric-row"><span class="metric-label">Orders</span><span class="metric-val">446</span></div>
@@ -2587,7 +2587,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
         <p style="margin-top:8px;font-size:12px"><strong>Why #1:</strong> Highest demand cluster ($64K) with above-average AOV ($143). The Hunter Valley corridor from Maitland through Cessnock has <strong>89,587 people in the catchment</strong> with a median age perfectly aligned to BP&rsquo;s core customer. <span class="highlight" style="color:#ff6b6b">Stockland Green Hills or Maitland Levee</span> would serve a proven customer base currently buying online by default.</p>
       </div>
 
-      <div class="insight-card" style="border-left:3px solid #e53935;margin-bottom:16px">
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #e53935;margin-bottom:16px" onclick="showBrandCatchment('bp-map',-24.87,152.35,'Bundaberg')">
         <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#e53935">2. Bundaberg &mdash; QLD <span style="font-size:11px;font-weight:400;background:#e53935;color:#fff;padding:1px 6px;border-radius:3px;margin-left:6px">Score: 0.79</span></div>
         <div class="metric-row"><span class="metric-label">Catchment demand</span><span class="metric-val" style="color:#ff6b6b">$42,666</span></div>
         <div class="metric-row"><span class="metric-label">Orders</span><span class="metric-val">308</span></div>
@@ -2602,7 +2602,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
         <p style="margin-top:8px;font-size:12px"><strong>Why #2:</strong> The <strong>demographic bull&rsquo;s-eye</strong> for Black Pepper. Median age 46, 211km from the nearest store, and a catchment of 84,718 in a regional city with limited fashion retail. Bundaberg&rsquo;s customer base is <em>exactly</em> who BP serves: women 45+ in regional Australia buying quality casual wear. <span class="highlight" style="color:#ff6b6b">Hinkler Central</span> is the dominant retail destination.</p>
       </div>
 
-      <div class="insight-card" style="border-left:3px solid #e53935;margin-bottom:16px">
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #e53935;margin-bottom:16px" onclick="showBrandCatchment('bp-map',-37.56,143.85,'Ballarat')">
         <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#e53935">3. Ballarat &mdash; VIC <span style="font-size:11px;font-weight:400;background:#e53935;color:#fff;padding:1px 6px;border-radius:3px;margin-left:6px">Score: 0.71</span></div>
         <div class="metric-row"><span class="metric-label">Catchment demand</span><span class="metric-val" style="color:#ff6b6b">$43,971</span></div>
         <div class="metric-row"><span class="metric-label">Orders</span><span class="metric-val">365</span></div>
@@ -2617,7 +2617,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
         <p style="margin-top:8px;font-size:12px"><strong>Why #3:</strong> Victoria&rsquo;s largest regional city with 94,682 catchment population. $44K in demand despite being 78km from the nearest BP store. Lower AOV ($120) suggests <strong>price-conscious shoppers buying essentials</strong> &mdash; a standalone store would capture impulse and browsing purchases that don&rsquo;t convert online. <span class="highlight" style="color:#ff6b6b">Stockland Wendouree or Bridge Mall</span>.</p>
       </div>
 
-      <div class="insight-card" style="border-left:3px solid #e53935;margin-bottom:16px">
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #e53935;margin-bottom:16px" onclick="showBrandCatchment('bp-map',-34.07,150.81,'Macarthur')">
         <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#e53935">4. Camden / Macarthur &mdash; NSW <span style="font-size:11px;font-weight:400;background:#e53935;color:#fff;padding:1px 6px;border-radius:3px;margin-left:6px">Score: 0.63</span></div>
         <div class="metric-row"><span class="metric-label">Catchment demand</span><span class="metric-val" style="color:#ff6b6b">$41,743</span></div>
         <div class="metric-row"><span class="metric-label">Orders</span><span class="metric-val">275</span></div>
@@ -2632,7 +2632,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
         <p style="margin-top:8px;font-size:12px"><strong>Why #4:</strong> The <strong>highest AOV ($152)</strong> among all expansion opportunities &mdash; 14% above the portfolio average. Camden/Macarthur is one of Sydney&rsquo;s fastest-growing corridors with a median household income of $120K. The younger median age (34) suggests BP is capturing the daughters shopping for mothers, or style-conscious younger women crossing into BP&rsquo;s range. <span class="highlight" style="color:#ff6b6b">Narellan Town Centre or Macarthur Square</span>.</p>
       </div>
 
-      <div class="insight-card" style="border-left:3px solid #e53935;margin-bottom:16px">
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #e53935;margin-bottom:16px" onclick="showBrandCatchment('bp-map',-25.29,152.85,'Hervey Bay')">
         <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#e53935">5. Hervey Bay / Fraser Coast &mdash; QLD <span style="font-size:11px;font-weight:400;background:#e53935;color:#fff;padding:1px 6px;border-radius:3px;margin-left:6px">Score: 0.63</span></div>
         <div class="metric-row"><span class="metric-label">Catchment demand</span><span class="metric-val" style="color:#ff6b6b">$36,257</span></div>
         <div class="metric-row"><span class="metric-label">Orders</span><span class="metric-val">256</span></div>
@@ -2781,7 +2781,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
       </div>
       <h3 style="color:#CC0000">&#128205; Store Expansion Recommendations</h3>
       <p style="font-size:12px;color:var(--tx2);margin-bottom:12px">Top opportunities ranked by composite score: catchment demand (30%), distance gap (20%), target demographic &mdash; adults 18&ndash;44 (20%), population (15%), income (15%). Note: as a licensed brand, all expansion is subject to ABG approval. Total addressable opportunity: <span class="highlight" style="color:#CC0000">$398K</span> across 5 catchments.</p>
-      <div class="insight-card" style="border-left:3px solid #CC0000;margin-bottom:16px">
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #CC0000;margin-bottom:16px" onclick="showBrandCatchment('reebok-map',-37.9,144.75,'Point Cook')">
         <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#CC0000">1. Werribee / Point Cook &mdash; VIC <span style="font-size:11px;font-weight:400;background:#CC0000;color:#fff;padding:1px 6px;border-radius:3px;margin-left:6px">Score: 0.74</span></div>
         <div class="metric-row"><span class="metric-label">Demand</span><span class="metric-val" style="color:#ff4444">$87,430</span></div>
         <div class="metric-row"><span class="metric-label">Orders</span><span class="metric-val">660</span></div>
@@ -2795,7 +2795,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
         <p style="margin-top:8px;font-size:12px"><strong>Key postcodes:</strong> 3029 Hoppers Crossing ($37,250), 3030 Chartwell ($36,268), 3028 Altona Meadows ($7,720), 3026 Derrimut ($2,727), 3027 Laverton ($2,321).</p>
         <p style="margin-top:6px;font-size:12px;color:var(--tx2)"><strong>Why #1:</strong> Melbourne&rsquo;s western growth corridor is one of Australia&rsquo;s fastest-growing regions, with the City of Wyndham adding ~10,000 residents annually. $87K online demand from just 6 postcodes shows concentrated interest in a catchment of 277K people. At 27km from the nearest Reebok store, these customers are outside the effective halo range. <span class="highlight">Pacific Werribee</span> (formerly Werribee Plaza) is the natural anchor &mdash; a major regional shopping centre with strong foot traffic and an existing athletic retail precinct (Rebel Sport, Athletes Foot). A branded Reebok store here would serve the entire 3029/3030 corridor.</p>
       </div>
-      <div class="insight-card" style="border-left:3px solid #CC0000;margin-bottom:16px">
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #CC0000;margin-bottom:16px" onclick="showBrandCatchment('reebok-map',-38.15,144.36,'Geelong')">
         <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#CC0000">2. Geelong &mdash; VIC <span style="font-size:11px;font-weight:400;background:#CC0000;color:#fff;padding:1px 6px;border-radius:3px;margin-left:6px">Score: 0.67</span></div>
         <div class="metric-row"><span class="metric-label">Demand</span><span class="metric-val" style="color:#ff4444">$119,460</span></div>
         <div class="metric-row"><span class="metric-label">Orders</span><span class="metric-val">916</span></div>
@@ -2809,7 +2809,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
         <p style="margin-top:8px;font-size:12px"><strong>Key postcodes:</strong> 3216 Belmont ($36,224), 3228 Bellbrae ($17,068), 3220 Geelong ($13,216), 3217 Armstrong Creek ($12,758), 3215 Bell Park ($12,693).</p>
         <p style="margin-top:6px;font-size:12px;color:var(--tx2)"><strong>Why #2:</strong> The highest absolute demand of any recommendation at $119K, spread across 10 postcodes. Geelong is 69km from the nearest Reebok store &mdash; completely outside any halo effect. Australia&rsquo;s 12th-largest city (270K metro) with a strong sporting culture (AFL, surfing, gym culture). <span class="highlight">Westfield Geelong</span> is the dominant retail destination, with Nike and Adidas already present. A Reebok branded store would complete the athletic footwear lineup and capture a market that currently buys entirely online.</p>
       </div>
-      <div class="insight-card" style="border-left:3px solid #CC0000;margin-bottom:16px">
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #CC0000;margin-bottom:16px" onclick="showBrandCatchment('reebok-map',-27.56,151.95,'Toowoomba')">
         <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#CC0000">3. Toowoomba &mdash; QLD <span style="font-size:11px;font-weight:400;background:#CC0000;color:#fff;padding:1px 6px;border-radius:3px;margin-left:6px">Score: 0.60</span></div>
         <div class="metric-row"><span class="metric-label">Demand</span><span class="metric-val" style="color:#ff4444">$40,072</span></div>
         <div class="metric-row"><span class="metric-label">Orders</span><span class="metric-val">307</span></div>
@@ -2823,7 +2823,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
         <p style="margin-top:8px;font-size:12px"><strong>Key postcodes:</strong> 4350 Toowoomba ($31,542), 4352 Highfields ($7,663), 4400 Dalby ($867).</p>
         <p style="margin-top:6px;font-size:12px;color:var(--tx2)"><strong>Why #3:</strong> At 117km from the nearest Reebok store, Toowoomba is a completely unserved regional market of 148K people. QLD&rsquo;s second-largest inland city has a strong fitness culture (multiple CrossFit boxes, F45 studios) that aligns perfectly with Reebok&rsquo;s training heritage. <span class="highlight">Grand Central Shopping Centre</span> is the clear anchor &mdash; Toowoomba&rsquo;s premier retail destination with 220+ stores. Lower income ($88K) is offset by lower operating costs and zero competition in the athletic footwear specialty space.</p>
       </div>
-      <div class="insight-card" style="border-left:3px solid #CC0000;margin-bottom:16px">
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #CC0000;margin-bottom:16px" onclick="showBrandCatchment('reebok-map',-34.42,150.89,'Wollongong')">
         <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#CC0000">4. Wollongong &mdash; NSW <span style="font-size:11px;font-weight:400;background:#CC0000;color:#fff;padding:1px 6px;border-radius:3px;margin-left:6px">Score: 0.59</span></div>
         <div class="metric-row"><span class="metric-label">Demand</span><span class="metric-val" style="color:#ff4444">$114,256</span></div>
         <div class="metric-row"><span class="metric-label">Orders</span><span class="metric-val">897</span></div>
@@ -2837,7 +2837,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
         <p style="margin-top:8px;font-size:12px"><strong>Key postcodes:</strong> 2500 Wollongong ($33,734), 2518 Bellambi ($15,167), 2530 Unanderra ($12,612), 2517 Russell Vale ($12,376), 2526 Figtree ($9,019).</p>
         <p style="margin-top:6px;font-size:12px;color:var(--tx2)"><strong>Why #4:</strong> NSW&rsquo;s third-largest city generates $114K in online demand &mdash; the second-highest absolute figure across all recommendations. At 48km from Sydney&rsquo;s southern stores, Wollongong sits just outside the halo boundary. The Illawarra region has a strong outdoor/active lifestyle culture. <span class="highlight">Wollongong Central</span> or <span class="highlight">Westfield Figtree</span> would serve the coastal strip from Helensburgh to Kiama. Lower household income ($81K) tempers the score, but the volume signal is strong at 897 orders.</p>
       </div>
-      <div class="insight-card" style="border-left:3px solid #CC0000;margin-bottom:16px">
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #CC0000;margin-bottom:16px" onclick="showBrandCatchment('reebok-map',-34.07,150.81,'Macarthur')">
         <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#CC0000">5. Camden / Macarthur &mdash; NSW <span style="font-size:11px;font-weight:400;background:#CC0000;color:#fff;padding:1px 6px;border-radius:3px;margin-left:6px">Score: 0.39</span></div>
         <div class="metric-row"><span class="metric-label">Demand</span><span class="metric-val" style="color:#ff4444">$37,258</span></div>
         <div class="metric-row"><span class="metric-label">Orders</span><span class="metric-val">276</span></div>
@@ -3004,7 +3004,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
       
 <h3 style="color:#FF6B00">&#128205; Store Expansion Recommendations</h3>
       <p>Top opportunities ranked by composite score (demand 30%, distance gap 20%, target demographic 20%, population 15%, income 15%). <strong>Note:</strong> Given the strategic assessment above, these recommendations should be treated as <span class="highlight" style="color:#e53935">selective opportunities</span> rather than a full expansion roadmap. Only #1 and #2 warrant serious consideration.</p>
-      <div class="insight-card" style="border-left:3px solid #FF6B00;margin-bottom:16px">
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #FF6B00;margin-bottom:16px" onclick="showBrandCatchment('superdry-map',-37.9,144.75,'Point Cook')">
         <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#FF6B00">1. Werribee / Point Cook &mdash; VIC <span style="font-size:11px;font-weight:400;background:#FF6B00;color:#fff;padding:1px 6px;border-radius:3px;margin-left:6px">Score: 0.79</span></div>
         <div class="metric-row"><span class="metric-label">Demand</span><span class="metric-val" style="color:#ff9a44">$282,853</span></div>
         <div class="metric-row"><span class="metric-label">Orders</span><span class="metric-val">1,719</span></div>
@@ -3018,7 +3018,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
         <p style="margin-top:8px;font-size:12px"><strong>Key postcodes:</strong> 3029 Hoppers Crossing ($128,925), 3030 Chartwell ($113,098), 3028 Altona Meadows ($18,097), 3027 Laverton Raaf ($11,735), 3026 Derrimut ($10,999)</p>
         <p style="margin-top:6px;font-size:12px;color:var(--tx2)"><strong>Why #1:</strong> $283K unserved demand across 5 postcodes with 277K catchment population. 31km from nearest store &mdash; beyond effective halo range. Wyndham is one of Australia&rsquo;s fastest-growing LGAs. <span class="highlight">Pacific Werribee</span> is the natural anchor. Cotton On and General Pants already validate the youth market here.</p>
       </div>
-      <div class="insight-card" style="border-left:3px solid #FF6B00;margin-bottom:16px">
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #FF6B00;margin-bottom:16px" onclick="showBrandCatchment('superdry-map',-33.73,150.83,'Marsden Park')">
         <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#FF6B00">2. Marsden Park / NW Sydney &mdash; NSW <span style="font-size:11px;font-weight:400;background:#FF6B00;color:#fff;padding:1px 6px;border-radius:3px;margin-left:6px">Score: 0.70</span></div>
         <div class="metric-row"><span class="metric-label">Demand</span><span class="metric-val" style="color:#ff9a44">$308,851</span></div>
         <div class="metric-row"><span class="metric-label">Orders</span><span class="metric-val">1,754</span></div>
@@ -3032,7 +3032,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
         <p style="margin-top:8px;font-size:12px"><strong>Key postcodes:</strong> 2155 Beaumont Hills ($76,582), 2765 Angus ($66,082), 2762 Schofields ($35,860), 2763 Acacia Gardens ($25,068), 2747 Caddens ($20,442)</p>
         <p style="margin-top:6px;font-size:12px;color:var(--tx2)"><strong>Why #2:</strong> Highest raw demand ($309K) with the highest income corridor ($144K/yr median HH). The $176 AOV exceeds the portfolio average &mdash; premium customers already self-selecting. <span class="highlight">Rouse Hill Town Centre</span> would capture this high-income NW Sydney corridor.</p>
       </div>
-      <div class="insight-card" style="border-left:3px solid #FF6B00;margin-bottom:16px">
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #FF6B00;margin-bottom:16px" onclick="showBrandCatchment('superdry-map',-38.1,145.28,'Cranbourne')">
         <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#FF6B00">3. Cranbourne / Casey &mdash; VIC <span style="font-size:11px;font-weight:400;background:#FF6B00;color:#fff;padding:1px 6px;border-radius:3px;margin-left:6px">Score: 0.64</span></div>
         <div class="metric-row"><span class="metric-label">Demand</span><span class="metric-val" style="color:#ff9a44">$187,375</span></div>
         <div class="metric-row"><span class="metric-label">Orders</span><span class="metric-val">1,081</span></div>
@@ -3046,7 +3046,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
         <p style="margin-top:8px;font-size:12px"><strong>Key postcodes:</strong> 3977 Botanic Ridge ($46,251), 3978 Cardinia ($37,741), 3805 Fountain Gate ($20,827), 3809 Officer ($20,227), 3199 Frankston ($17,456)</p>
         <p style="margin-top:6px;font-size:12px;color:var(--tx2)"><strong>Why #3:</strong> $187K demand across 10 postcodes in Melbourne&rsquo;s fastest-growing SE corridor. 219K catchment, 33km from nearest store. <span class="highlight">Cranbourne Park</span> or Casey Central would serve this corridor. Solid opportunity but lower priority than #1 and #2 given the &ldquo;manage for margin&rdquo; strategy.</p>
       </div>
-      <div class="insight-card" style="border-left:3px solid #FF6B00;margin-bottom:16px">
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #FF6B00;margin-bottom:16px" onclick="showBrandCatchment('superdry-map',-38.15,144.36,'Geelong')">
         <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#FF6B00">4. Geelong &mdash; VIC <span style="font-size:11px;font-weight:400;background:#FF6B00;color:#fff;padding:1px 6px;border-radius:3px;margin-left:6px">Score: 0.48</span></div>
         <div class="metric-row"><span class="metric-label">Demand</span><span class="metric-val" style="color:#ff9a44">$96,470</span></div>
         <div class="metric-row"><span class="metric-label">Orders</span><span class="metric-val">591</span></div>
@@ -3060,7 +3060,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
         <p style="margin-top:8px;font-size:12px"><strong>Key postcodes:</strong> 3216 Belmont ($28,320), 3217 Armstrong Creek ($16,562), 3220 Bareena ($13,128), 3228 Bellbrae ($10,707), 3215 Bell Park ($6,721)</p>
         <p style="margin-top:6px;font-size:12px;color:var(--tx2)"><strong>Why #4:</strong> Regional centre 72km from nearest store with $96K demand. Geelong has metro-scale demographics (280K+ urban area). Cotton On and General Pants validate the retail corridor. However, the $163 AOV (below portfolio average) and 36 median age suggest a more price-sensitive customer &mdash; an outlet might outperform a mainline store here.</p>
       </div>
-      <div class="insight-card" style="border-left:3px solid #FF6B00;margin-bottom:16px">
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #FF6B00;margin-bottom:16px" onclick="showBrandCatchment('superdry-map',-37.56,143.85,'Ballarat')">
         <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#FF6B00">5. Ballarat &mdash; VIC <span style="font-size:11px;font-weight:400;background:#FF6B00;color:#fff;padding:1px 6px;border-radius:3px;margin-left:6px">Score: 0.43</span></div>
         <div class="metric-row"><span class="metric-label">Demand</span><span class="metric-val" style="color:#ff9a44">$45,520</span></div>
         <div class="metric-row"><span class="metric-label">Orders</span><span class="metric-val">251</span></div>
@@ -3407,7 +3407,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
       <h3 style="color:#C17817">&#x1F525; The Halo Effect</h3>
       <p>Yarra Trail generates <span class="highlight" style="color:#C17817">$1.82M</span> in online demand from <span class="highlight" style="color:#C17817">11,541 orders</span> across Australia. With <span class="highlight" style="color:#C17817">109 stockists</span> (92 independent boutiques + 17 David Jones), the brand operates the largest independent boutique network in the Brand Collective portfolio.</p>
       <p>Unlike Myer-dependent brands with concentrated CBD halos, Yarra Trail&rsquo;s network creates a <span class="highlight" style="color:#C17817">broad, diffuse halo</span> across regional and suburban Australia. Each stockist generates approximately <strong>$16.7K</strong> in proximate online demand &mdash; modest per-location, but the sheer number of touchpoints creates nationwide coverage.</p>
-<div class="insight-card"><div style="font-weight:600;margin-bottom:8px">Halo metrics</div><div class="metric-row"><span class="metric-label">Total online demand (CY2025)</span><span class="metric-val">$1,817,737</span></div><div class="metric-row"><span class="metric-label">Total orders</span><span class="metric-val">11,541</span></div><div class="metric-row"><span class="metric-label">Physical locations</span><span class="metric-val">109 (92 indie + 17 DJ)</span></div><div class="metric-row"><span class="metric-label">Online demand per store</span><span class="metric-val">~$16.7K</span></div><div class="metric-row"><span class="metric-label">Unique postcodes served</span><span class="metric-val">984+</span></div><div class="metric-row"><span class="metric-label">Halo type</span><span class="metric-val" style="color:#C17817">Broad &amp; diffuse (stockist-driven)</span></div></div>
+<div class="insight-card" style="cursor:pointer" onclick="showBrandCatchment('yt-map',-31.95,115.86,'Perth')"><div style="font-weight:600;margin-bottom:8px">Halo metrics</div><div class="metric-row"><span class="metric-label">Total online demand (CY2025)</span><span class="metric-val">$1,817,737</span></div><div class="metric-row"><span class="metric-label">Total orders</span><span class="metric-val">11,541</span></div><div class="metric-row"><span class="metric-label">Physical locations</span><span class="metric-val">109 (92 indie + 17 DJ)</span></div><div class="metric-row"><span class="metric-label">Online demand per store</span><span class="metric-val">~$16.7K</span></div><div class="metric-row"><span class="metric-label">Unique postcodes served</span><span class="metric-val">984+</span></div><div class="metric-row"><span class="metric-label">Halo type</span><span class="metric-val" style="color:#C17817">Broad &amp; diffuse (stockist-driven)</span></div></div>
       <p>The diffuse halo model means Yarra Trail captures demand from <strong>regional corridors</strong> that CBD-centric brands miss entirely. Top postcodes include Tamworth (2340), Ballarat (3350), Katoomba (2780), and Bundaberg (4670) &mdash; towns where Myer-dependent brands have <strong>zero physical presence</strong>.</p>
       <h3 style="color:#C17817">&#x1F4B0; AOV by State &mdash; Remarkable Geographic Flatness</h3>
       <p>Unlike most BC brands where AOV varies significantly by state, Yarra Trail shows <span class="highlight" style="color:#C17817">extraordinary price consistency</span>. Mainland AOVs range from just <strong>$156.32</strong> (QLD) to <strong>$162.08</strong> (WA) &mdash; a spread of only <strong>$5.76</strong> or 3.7%.</p>
@@ -3485,11 +3485,11 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
 <div class="insight-card"><div style="font-weight:600;margin-bottom:6px">No NT stockists despite $7.5K demand</div><p style="font-size:13px">The Northern Territory generates $7,518 in online demand with <strong>zero physical presence</strong>. While NT&rsquo;s small population (250K) limits ROI for own stores, a single stockist in Darwin or Alice Springs would test whether physical presence lifts the existing $7.5K online baseline. The $193 AOV suggests a <strong>high-value customer base</strong>.</p></div>
       <h3 style="color:#C17817;margin-top:24px">&#x1F4CD; Store Expansion Recommendations</h3>
       <p>Top 5 opportunities for new stockists, based on online demand density, geographic gaps, demographic alignment (women 45+), and absence of existing coverage.</p>
-      <div class="insight-card" style="border-left:3px solid #C17817;margin-bottom:16px"><div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#C17817">1. Toowoomba &mdash; QLD</div><div class="metric-row"><span class="metric-label">Online demand in area</span><span class="metric-val">$13.9K</span></div><div class="metric-row"><span class="metric-label">Nearest current stockist</span><span class="metric-val">~78km</span></div><div class="metric-row"><span class="metric-label">Catchment population</span><span class="metric-val">261,000+ (ABS 2021)</span></div><div class="metric-row"><span class="metric-label">Median age</span><span class="metric-val">38</span></div><div class="metric-row"><span class="metric-label">Median HH income</span><span class="metric-val">$84,188/yr</span></div><div class="metric-row"><span class="metric-label">Key postcodes</span><span class="metric-val">4350, 4352</span></div><p style="margin-top:8px;font-size:12px">Largest gap in the QLD network. Toowoomba&rsquo;s 261K population draws from the entire Darling Downs region. Grand Central Shopping Centre has strong foot traffic. The $170+ AOV from this area suggests customers are already consolidated buyers. <strong>Ideal for an independent boutique partner.</strong></p></div>
-      <div class="insight-card" style="border-left:3px solid #C17817;margin-bottom:16px"><div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#C17817">2. Blue Mountains &mdash; NSW</div><div class="metric-row"><span class="metric-label">Online demand in area</span><span class="metric-val">$20.9K</span></div><div class="metric-row"><span class="metric-label">Nearest current stockist</span><span class="metric-val">~43km</span></div><div class="metric-row"><span class="metric-label">Catchment population</span><span class="metric-val">119,000+ (ABS 2021)</span></div><div class="metric-row"><span class="metric-label">Median age</span><span class="metric-val">47 &mdash; perfect YT demo</span></div><div class="metric-row"><span class="metric-label">Median HH income</span><span class="metric-val">$83,564/yr</span></div><div class="metric-row"><span class="metric-label">Key postcodes</span><span class="metric-val">2780 Katoomba ($5.7K), 2785 Blackheath</span></div><p style="margin-top:8px;font-size:12px">Highest demand cluster with <strong>$188 AOV</strong> &mdash; the premium buyer signal. Median age 47 is squarely in YT&rsquo;s core demographic. Blue Mountains attracts 3M+ tourists annually. Katoomba Street or Leura Mall would suit the boutique aesthetic perfectly. <strong>Strong brand alignment with mountain lifestyle.</strong></p></div>
-      <div class="insight-card" style="border-left:3px solid #C17817;margin-bottom:16px"><div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#C17817">3. Western Melbourne / Keilor &mdash; VIC</div><div class="metric-row"><span class="metric-label">Online demand in area</span><span class="metric-val">$17.9K</span></div><div class="metric-row"><span class="metric-label">Nearest current stockist</span><span class="metric-val">~20km</span></div><div class="metric-row"><span class="metric-label">Catchment population</span><span class="metric-val">393,000+ (ABS 2021)</span></div><div class="metric-row"><span class="metric-label">Median HH income</span><span class="metric-val">$102,544/yr</span></div><div class="metric-row"><span class="metric-label">Key postcodes</span><span class="metric-val">3038 Keilor Downs, 3029 Hoppers Crossing</span></div><p style="margin-top:8px;font-size:12px">Largest population base (393K) with strong household income ($103K). Western Melbourne&rsquo;s growth corridors are adding thousands of residents annually. Watergardens Shopping Centre catchment. <strong>Higher income area could support premium positioning.</strong></p></div>
-      <div class="insight-card" style="border-left:3px solid #C17817;margin-bottom:16px"><div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#C17817">4. Gosford / Central Coast &mdash; NSW</div><div class="metric-row"><span class="metric-label">Online demand in area</span><span class="metric-val">$11.9K</span></div><div class="metric-row"><span class="metric-label">Nearest current stockist</span><span class="metric-val">~46km</span></div><div class="metric-row"><span class="metric-label">Catchment population</span><span class="metric-val">289,000+ (ABS 2021)</span></div><div class="metric-row"><span class="metric-label">Median age</span><span class="metric-val">44</span></div><div class="metric-row"><span class="metric-label">Key postcodes</span><span class="metric-val">2250, 2251, 2257</span></div><p style="margin-top:8px;font-size:12px">Central Coast has 289K people across Gosford&ndash;Wyong corridor, 46km from the nearest YT location. Erina Fair is the dominant shopping centre and suits the boutique model. Median age 44 is right in the demo sweet spot. <strong>Single stockist could serve the entire region.</strong></p></div>
-      <div class="insight-card" style="border-left:3px solid #C17817;margin-bottom:16px"><div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#C17817">5. SE Melbourne / Casey&ndash;Cardinia &mdash; VIC</div><div class="metric-row"><span class="metric-label">Online demand in area</span><span class="metric-val">$14.6K</span></div><div class="metric-row"><span class="metric-label">Nearest current stockist</span><span class="metric-val">~25km</span></div><div class="metric-row"><span class="metric-label">Catchment population</span><span class="metric-val">372,000+ (ABS 2021)</span></div><div class="metric-row"><span class="metric-label">Median HH income</span><span class="metric-val">$97,821/yr</span></div><div class="metric-row"><span class="metric-label">Key postcodes</span><span class="metric-val">3806 Berwick ($4.5K), 3810 Pakenham</span></div><p style="margin-top:8px;font-size:12px">Melbourne&rsquo;s fastest-growing SE corridor. 372K people across Berwick&ndash;Pakenham&ndash;Cranbourne. 25km gap to nearest stockist. Fountain Gate or Casey Central would capture the entire corridor. <strong>Growth area with affluent family demographic transitioning into YT&rsquo;s age bracket.</strong></p></div>
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #C17817;margin-bottom:16px" onclick="showBrandCatchment('yt-map',-27.56,151.95,'Toowoomba')"><div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#C17817">1. Toowoomba &mdash; QLD</div><div class="metric-row"><span class="metric-label">Online demand in area</span><span class="metric-val">$13.9K</span></div><div class="metric-row"><span class="metric-label">Nearest current stockist</span><span class="metric-val">~78km</span></div><div class="metric-row"><span class="metric-label">Catchment population</span><span class="metric-val">261,000+ (ABS 2021)</span></div><div class="metric-row"><span class="metric-label">Median age</span><span class="metric-val">38</span></div><div class="metric-row"><span class="metric-label">Median HH income</span><span class="metric-val">$84,188/yr</span></div><div class="metric-row"><span class="metric-label">Key postcodes</span><span class="metric-val">4350, 4352</span></div><p style="margin-top:8px;font-size:12px">Largest gap in the QLD network. Toowoomba&rsquo;s 261K population draws from the entire Darling Downs region. Grand Central Shopping Centre has strong foot traffic. The $170+ AOV from this area suggests customers are already consolidated buyers. <strong>Ideal for an independent boutique partner.</strong></p></div>
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #C17817;margin-bottom:16px" onclick="showBrandCatchment('yt-map',-33.72,150.31,'Blue Mountains')"><div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#C17817">2. Blue Mountains &mdash; NSW</div><div class="metric-row"><span class="metric-label">Online demand in area</span><span class="metric-val">$20.9K</span></div><div class="metric-row"><span class="metric-label">Nearest current stockist</span><span class="metric-val">~43km</span></div><div class="metric-row"><span class="metric-label">Catchment population</span><span class="metric-val">119,000+ (ABS 2021)</span></div><div class="metric-row"><span class="metric-label">Median age</span><span class="metric-val">47 &mdash; perfect YT demo</span></div><div class="metric-row"><span class="metric-label">Median HH income</span><span class="metric-val">$83,564/yr</span></div><div class="metric-row"><span class="metric-label">Key postcodes</span><span class="metric-val">2780 Katoomba ($5.7K), 2785 Blackheath</span></div><p style="margin-top:8px;font-size:12px">Highest demand cluster with <strong>$188 AOV</strong> &mdash; the premium buyer signal. Median age 47 is squarely in YT&rsquo;s core demographic. Blue Mountains attracts 3M+ tourists annually. Katoomba Street or Leura Mall would suit the boutique aesthetic perfectly. <strong>Strong brand alignment with mountain lifestyle.</strong></p></div>
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #C17817;margin-bottom:16px" onclick="showBrandCatchment('yt-map',-37.72,144.83,'Keilor')"><div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#C17817">3. Western Melbourne / Keilor &mdash; VIC</div><div class="metric-row"><span class="metric-label">Online demand in area</span><span class="metric-val">$17.9K</span></div><div class="metric-row"><span class="metric-label">Nearest current stockist</span><span class="metric-val">~20km</span></div><div class="metric-row"><span class="metric-label">Catchment population</span><span class="metric-val">393,000+ (ABS 2021)</span></div><div class="metric-row"><span class="metric-label">Median HH income</span><span class="metric-val">$102,544/yr</span></div><div class="metric-row"><span class="metric-label">Key postcodes</span><span class="metric-val">3038 Keilor Downs, 3029 Hoppers Crossing</span></div><p style="margin-top:8px;font-size:12px">Largest population base (393K) with strong household income ($103K). Western Melbourne&rsquo;s growth corridors are adding thousands of residents annually. Watergardens Shopping Centre catchment. <strong>Higher income area could support premium positioning.</strong></p></div>
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #C17817;margin-bottom:16px" onclick="showBrandCatchment('yt-map',-33.43,151.34,'Gosford')"><div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#C17817">4. Gosford / Central Coast &mdash; NSW</div><div class="metric-row"><span class="metric-label">Online demand in area</span><span class="metric-val">$11.9K</span></div><div class="metric-row"><span class="metric-label">Nearest current stockist</span><span class="metric-val">~46km</span></div><div class="metric-row"><span class="metric-label">Catchment population</span><span class="metric-val">289,000+ (ABS 2021)</span></div><div class="metric-row"><span class="metric-label">Median age</span><span class="metric-val">44</span></div><div class="metric-row"><span class="metric-label">Key postcodes</span><span class="metric-val">2250, 2251, 2257</span></div><p style="margin-top:8px;font-size:12px">Central Coast has 289K people across Gosford&ndash;Wyong corridor, 46km from the nearest YT location. Erina Fair is the dominant shopping centre and suits the boutique model. Median age 44 is right in the demo sweet spot. <strong>Single stockist could serve the entire region.</strong></p></div>
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #C17817;margin-bottom:16px" onclick="showBrandCatchment('yt-map',-38.07,145.28,'Casey')"><div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#C17817">5. SE Melbourne / Casey&ndash;Cardinia &mdash; VIC</div><div class="metric-row"><span class="metric-label">Online demand in area</span><span class="metric-val">$14.6K</span></div><div class="metric-row"><span class="metric-label">Nearest current stockist</span><span class="metric-val">~25km</span></div><div class="metric-row"><span class="metric-label">Catchment population</span><span class="metric-val">372,000+ (ABS 2021)</span></div><div class="metric-row"><span class="metric-label">Median HH income</span><span class="metric-val">$97,821/yr</span></div><div class="metric-row"><span class="metric-label">Key postcodes</span><span class="metric-val">3806 Berwick ($4.5K), 3810 Pakenham</span></div><p style="margin-top:8px;font-size:12px">Melbourne&rsquo;s fastest-growing SE corridor. 372K people across Berwick&ndash;Pakenham&ndash;Cranbourne. 25km gap to nearest stockist. Fountain Gate or Casey Central would capture the entire corridor. <strong>Growth area with affluent family demographic transitioning into YT&rsquo;s age bracket.</strong></p></div>
       <h3 style="color:#C17817;margin-top:24px">&#x1F4C8; Methodology</h3>
       <p style="font-size:12px;color:rgba(255,255,255,.4)">CY2025 (Jan&ndash;Dec 2025) demand data sourced from Polar Analytics, filtered to AU-only orders. Total demand = $1,817,737 across 11,541 orders. State breakdown by shipping address. AOV = demand / orders per state. Store network: 109 AU stockists (92 independent boutiques + 17 David Jones) as per Brand Collective retail records. No Myer presence. Top postcodes by gross demand. YoY growth excluded &mdash; brand was replatformed during the comparison period, making year-on-year comparisons unreliable. Competitive landscape based on publicly available store counts and market positioning. Expansion recommendations use ABS 2021 Census data for population, median age, household income, and catchment demographics. All currency in AUD.</p>
     </div>
@@ -3671,7 +3671,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
         <div class="metric-row"><span class="metric-label">100 km+</span><span class="metric-val">$485K (28.2%)</span></div>
         <div class="bar-container"><div class="bar-fill" style="width:83%;background:linear-gradient(90deg,#1C3A6E,#FF6659)"></div></div>
       </div>
-      <div class="insight-card" style="border-left:3px solid #1C3A6E">
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #1C3A6E" onclick="showBrandCatchment('champ-map',-33.81,150.93,'Western Sydney')">
         <p style="font-size:12px;margin:0"><strong>&#128161; Key insight:</strong> Only <span class="highlight" style="color:#1C3A6E">19.4%</span> of demand ($335K) falls within 10 km of a store &mdash; among the lowest halo ratios in the Brand Collective portfolio. The 100 km+ band alone accounts for 28.2% ($485K), confirming Champion is fundamentally an <strong>online-first brand</strong> where physical stores serve as brand touchpoints rather than demand drivers.</p>
       </div>
 
@@ -3687,7 +3687,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
         <div class="metric-row"><span class="metric-label">50&ndash;100 km (regional)</span><span class="metric-val">$106.25</span></div>
         <div class="metric-row"><span class="metric-label">100 km+ (remote/storeless states)</span><span class="metric-val">$105.10</span></div>
       </div>
-      <div class="insight-card" style="border-left:3px solid #1C3A6E">
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #1C3A6E" onclick="showBrandCatchment('champ-map',-37.84,144.7,'Tarneit')">
         <p style="font-size:12px;margin:0"><strong>&#128161; Key insight:</strong> The $11.65 spread between nearest and furthest bands is minimal (~10%). Champion&rsquo;s flat AOV confirms that <strong>brand recognition, not store proximity, drives purchase behaviour</strong>.</p>
       </div>
 
@@ -3720,7 +3720,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
         <div class="metric-row"><span class="metric-label">Julius Marlow</span><span class="metric-val">19 stores &mdash; mixed format</span></div>
         <div class="bar-container"><div class="bar-fill" style="width:20%;background:#666"></div></div>
       </div>
-      <div class="insight-card" style="border-left:3px solid #1C3A6E">
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #1C3A6E" onclick="showBrandCatchment('champ-map',-27.47,153.03,'Brisbane')">
         <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--accent)">Why This Matters</div>
         <p style="font-size:12px;margin-bottom:6px"><strong>DFO locations are destination shopping.</strong> Customers drive specifically to outlet centres &mdash; they don&rsquo;t stumble upon Champion while walking past:</p>
         <div style="font-size:12px;line-height:1.8;color:var(--tx2)">
@@ -3797,7 +3797,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
         <div class="metric-row"><span class="metric-label">NT &mdash; 0 stores</span><span class="metric-val">$6,715 (0.4%) &middot; 68 orders &middot; $98.75 AOV</span></div>
         <div class="bar-container"><div class="bar-fill" style="width:1.0%;background:linear-gradient(90deg,#1C3A6E,#FF6659)"></div></div>
       </div>
-      <div class="insight-card" style="border-left:3px solid #1C3A6E">
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #1C3A6E" onclick="showBrandCatchment('champ-map',-31.95,115.86,'Perth')">
         <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--accent)">State-Level Insights</div>
         <div style="font-size:12px;line-height:1.8">
           &bull; <strong>VIC dominance (39.7%)</strong> correlates with having 3 of 6 stores, but even here the outlet model limits halo<br>
@@ -3811,7 +3811,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
       <!-- ═══════════════ 7. CY2025 SUMMARY ═══════════════ -->
       <h3 style="color:#1C3A6E">&#128161; Strategic Implications</h3>
 
-      <div class="insight-card" style="border-left:3px solid #1C3A6E">
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #1C3A6E" onclick="showBrandCatchment('champ-map',-37.68,144.92,'Broadmeadows')">
         <div style="font-size:13px;font-weight:700;margin-bottom:6px">1. Online-First Brand with Minimal Physical Footprint</div>
         <p style="font-size:12px;margin:0">With only 6 physical outlets generating a 19.4% halo ratio, Champion is fundamentally an <strong>online business</strong>. Over 80% of demand comes from customers who are 10+ km from any store. The physical network serves as a brand awareness channel, not a primary revenue driver.</p>
       </div>
@@ -4038,18 +4038,18 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
       <!-- 5. CY2025 Summary -->
       <h3 style="color:#1B5E20">&#128161; Strategic Implications</h3>
 
-      <div class="insight-card" style="border-left:3px solid #1B5E20">
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #1B5E20" onclick="showBrandCatchment('volley-map',-28.02,153.43,'Gold Coast')">
         <div style="font-size:13px;font-weight:700;margin-bottom:6px;color:#1B5E20">1. True National Brand &mdash; Broadest Geographic Distribution</div>
         <p style="font-size:12px">With demand across ~1,000 postcodes and the top 10 accounting for just 4.2%, Volley has the <strong>broadest geographic distribution of any BC brand</strong>. This isn&rsquo;t accidental &mdash; an 85-year heritage brand that Australians grew up with has universal awareness. No amount of marketing can buy what Volley has organically: a brand that every Australian knows.</p>
       </div>
 
       
-      <div class="insight-card" style="border-left:3px solid #1B5E20">
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #1B5E20" onclick="showBrandCatchment('volley-map',-34.42,150.89,'Wollongong')">
         <div style="font-size:13px;font-weight:700;margin-bottom:6px;color:#1B5E20">3. VIC Under-Representation Is the Growth Gap</div>
         <p style="font-size:12px">VIC at 20.1% vs 26% population share is a <strong>-5.9pp under-index</strong> &mdash; the largest gap of any state. That&rsquo;s roughly <strong>$95K in &ldquo;missing&rdquo; demand</strong> if VIC performed at population parity. Potential causes: stronger local sneaker culture favouring Vans/Converse, cooler climate reducing canvas season, higher fashion expectations. This is Volley&rsquo;s single biggest growth opportunity by state.</p>
       </div>
 
-      <div class="insight-card" style="border-left:3px solid #1B5E20">
+      <div class="insight-card" style="cursor:pointer;border-left:3px solid #1B5E20" onclick="showBrandCatchment('volley-map',-31.95,115.86,'Perth')">
         <div style="font-size:13px;font-weight:700;margin-bottom:6px;color:#1B5E20">4. Heritage Brand = Regional Resilience</div>
         <p style="font-size:12px">32.2% regional demand ($515K) is <strong>portfolio-best</strong>. Regional Australians have fewer retail options, and Volley&rsquo;s brand recognition from decades of school shoes, trade footwear, and backyard cricket means it&rsquo;s the default canvas sneaker. No competitor has this regional depth &mdash; Vans and Converse are metro-concentrated via their physical stores.</p>
       </div>
@@ -4407,7 +4407,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
 
       <h3 style="color:#2C3E50">&#128293; The Halo Effect</h3>
       <p><span class="highlight" style="color:#2C3E50">77.1%</span> of online demand (<span class="highlight" style="color:#2C3E50">$1.02M</span>) comes from postcodes within <span class="highlight" style="color:#2C3E50">10km of a stockist</span>. With <strong>221 stockists</strong> across Myer, Shoe Warehouse, and independent retailers, Julius Marlow commands the <strong>broadest physical footprint</strong> in Brand Collective&rsquo;s footwear portfolio &mdash; driving substantial online demand through store proximity.</p>
-      <div class="insight-card">
+      <div class="insight-card" style="cursor:pointer" onclick="showBrandCatchment('jm-map',-28.02,153.43,'Gold Coast')">
         <div style="font-weight:600;margin-bottom:8px">Online demand by distance to nearest stockist</div>
         <div class="metric-row"><span class="metric-label">0&ndash;5km</span><span class="metric-val">$795K (59.9%)</span></div>
         <div class="bar-container"><div class="bar-fill" style="width:100%;background:linear-gradient(90deg,#2C3E50,#5D6D7E)"></div></div>
@@ -4566,15 +4566,15 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
       </div>
 
       <h3 style="color:#2C3E50">&#128161; Strategic Implications</h3>
-                  <div class="insight-card" style="margin-top:8px">
+                  <div class="insight-card" style="cursor:pointer;margin-top:8px" onclick="showBrandCatchment('jm-map',-37.9,144.66,'Werribee')">
         <div style="font-weight:600;margin-bottom:4px">&#127970; 221 stockists = strongest physical network</div>
         <p style="margin:0;font-size:13px;color:var(--tx2)">Broadest stockist network in BC&rsquo;s footwear portfolio (vs HP 200+, SNS 96). National coverage across all 8 states/territories ensures brand accessibility for the target male customer.</p>
       </div>
-                  <div class="insight-card" style="margin-top:8px">
+                  <div class="insight-card" style="cursor:pointer;margin-top:8px" onclick="showBrandCatchment('jm-map',-37.9,144.66,'Werribee')">
         <div style="font-weight:600;margin-bottom:4px">&#127963; NSW leads at 35.9% &mdash; population-proportional</div>
         <p style="margin:0;font-size:13px;color:var(--tx2)">No concerning geographic concentration. NSW&rsquo;s 35.9% demand share aligns with its ~32% population share. VIC at 29.5% is similarly proportional. Healthy national distribution.</p>
       </div>
-      <div class="insight-card" style="margin-top:8px">
+      <div class="insight-card" style="cursor:pointer;margin-top:8px" onclick="showBrandCatchment('jm-map',-31.95,115.86,'Perth')">
         <div style="font-weight:600;margin-bottom:4px">&#128200; Western Melbourne (3030) is #1 postcode</div>
         <p style="margin:0;font-size:13px;color:var(--tx2)">Werribee/Point Cook delivers $8.8K &mdash; a growth corridor with young families and new housing developments. Strong indicator of JM&rsquo;s appeal to suburban family men.</p>
       </div>
@@ -4585,7 +4585,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
         <div style="font-weight:600;margin-bottom:4px;color:#2C3E50">1. Gold Coast / Northern NSW (QLD)</div>
         <p style="margin:0;font-size:13px;color:var(--tx2)">QLD delivers 15.2% of demand but under-indexes vs 20% population share. Gold Coast&ndash;Tweed corridor has 700K+ residents, high male 25&ndash;55 density, and limited premium men&rsquo;s footwear options. <strong>Estimated opportunity: $15&ndash;20K additional annual demand per new stockist.</strong></p>
       </div>
-      <div class="insight-card" style="margin-top:8px">
+      <div class="insight-card" style="cursor:pointer;margin-top:8px" onclick="showBrandCatchment('jm-map',-35.28,149.13,'Canberra')">
         <div style="font-weight:600;margin-bottom:4px;color:#2C3E50">2. Perth Northern Corridor (WA)</div>
         <p style="margin:0;font-size:13px;color:var(--tx2)">Joondalup (6065) already at $4.6K postcode demand. Perth&rsquo;s northern growth corridor (Joondalup&ndash;Wanneroo&ndash;Yanchep) has 400K+ residents with above-average household income. WA has only 25 stockists for 8.3% demand share. <strong>Estimated opportunity: $12&ndash;18K per new stockist.</strong></p>
       </div>
