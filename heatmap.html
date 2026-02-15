@@ -255,6 +255,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
       <div class="view-tab" data-view="yt-map">Yarra Trail</div>
     </div>
     <div style="display:flex;align-items:center;gap:8px;margin:12px 16px">
+      <label for="viewSelect" style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--tx3);white-space:nowrap">Select Brand ▸</label>
       <select class="view-select" id="viewSelect" style="margin:0;flex:1">
         <option value="summary">Summary — All Brands</option>
         <option value="map">Review</option>
@@ -274,7 +275,10 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
           <h2 style="font-size:16px;font-weight:700;color:var(--tx1);margin:0 0 12px 0">📖 How to Use This Document</h2>
           <div style="font-size:13px;color:var(--tx2);line-height:1.8">
             <p style="margin:0 0 10px 0"><strong style="color:var(--tx1)">This page (Summary)</strong> provides the portfolio-wide view: halo effect benchmarks across all 13 brands, white-space opportunities by state, and cross-brand expansion targets. Start here for the strategic picture.</p>
-            <p style="margin:0 0 10px 0"><strong style="color:var(--tx1)">Brand tabs</strong> (use the tabs above, or the dropdown on mobile) drill into each brand individually. Each brand view includes an interactive heatmap of online demand overlaid with store locations, a ranked list of expansion opportunities with composite scores, and detailed catchment metrics for each recommended location.</p>
+            <div style="margin:12px 0 16px 0;padding:14px 18px;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.3);border-radius:8px;display:flex;align-items:center;gap:12px">
+              <span style="font-size:22px">👆</span>
+              <p style="margin:0;font-size:13px;color:var(--tx1);line-height:1.6"><strong>To view a specific brand:</strong> Use the <strong>brand selector dropdown at the top of the page</strong> to switch between brands. Each brand has its own interactive heatmap with store locations, demand overlay, and ranked expansion targets.</p>
+            </div>
             <p style="margin:0 0 10px 0"><strong style="color:var(--tx1)">Heatmap colours</strong> represent online demand density &mdash; red/orange = high concentration of DTC orders, blue/green = lower density. Store pins show existing physical locations (own stores, Myer concessions, DJ concessions). Gaps between hot zones and store pins are where opportunity lives.</p>
             <p style="margin:0"><strong style="color:var(--tx1)">Expansion targets</strong> are ranked by a composite score (explained below in methodology). Click any target card in the brand view to see full catchment detail including postcodes, demographics, competitor presence, and the rationale for inclusion.</p>
           </div>
