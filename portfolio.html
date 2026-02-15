@@ -140,6 +140,158 @@ tr.brand-row:hover{background:var(--surface-hover)}
 <div class="card"><div class="card-header"><span class="card-title">Daily Demand Sales</span><span class="port-label">TY vs LY (DOW-aligned)</span></div><div class="chart-wrap"><canvas id="trendChart"></canvas></div></div>
 <div class="card"><div class="card-header"><span class="card-title">Portfolio Breakdown</span><span class="port-label">By Demand Sales</span></div><div class="donut-wrap"><div class="donut-chart"><canvas id="portfolioChart"></canvas></div><div class="donut-legend" id="portfolioLegend"></div></div></div>
 </div>
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- WEEKLY TRADING REVIEW — Week 33 -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<section id="tradingReview" style="margin-top:16px;margin-bottom:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+<div style="display:flex;align-items:center;gap:12px">
+<div style="width:4px;height:28px;border-radius:2px;background:linear-gradient(180deg,#6366f1,#8b5cf6)"></div>
+<div><h2 style="font-size:18px;font-weight:700;letter-spacing:-0.3px">Week 33 Trading Review</h2><p style="font-size:12px;color:var(--text-muted);margin-top:2px">Retail Week 33 | Feb 9–15, 2026</p></div>
+</div>
+<button onclick="document.getElementById('trContent').style.display=document.getElementById('trContent').style.display==='none'?'block':'none'" style="padding:6px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text-muted);cursor:pointer;font-size:12px;font-weight:500">Toggle</button>
+</div>
+<div id="trContent">
+
+<!-- KPI Row 1: Invoiced -->
+<div class="grid" style="grid-template-columns:1fr 1fr;margin-bottom:12px">
+<div class="card">
+<div class="kpi-label">Invoiced Sales</div>
+<div class="kpi-value" style="font-size:28px">$1,552,989</div>
+<div class="kpi-sub">
+<span class="badge up">↑ +$293,711 (+23%) vs Budget</span>
+<span class="badge up">↑ +$419,571 (+37%) vs LY</span>
+</div>
+</div>
+<div class="card">
+<div class="kpi-label">Trading Margin</div>
+<div class="kpi-value" style="font-size:28px">57.8%</div>
+<div class="kpi-sub">
+<span>vs 61.6% LY</span>
+<span class="badge down">↓ -3.8pp</span>
+</div>
+</div>
+</div>
+
+<!-- KPI Row 2: Demand -->
+<div class="grid grid-4" style="margin-bottom:16px">
+<div class="card">
+<div class="kpi-label">Demand Sales</div>
+<div class="kpi-value" style="font-size:24px">$1,401,259</div>
+<div class="kpi-sub"><span class="badge up">↑ +$287,874 (+26%) vs LY</span></div>
+</div>
+<div class="card">
+<div class="kpi-label">Conversion Rate</div>
+<div class="kpi-value" style="font-size:24px">1.99%</div>
+<div class="kpi-sub"><span>vs 1.54% LY</span><span class="badge up">↑ +29%</span></div>
+</div>
+<div class="card">
+<div class="kpi-label">Sessions</div>
+<div class="kpi-value" style="font-size:24px">541,354</div>
+<div class="kpi-sub"><span>vs 538,996 LY</span><span style="color:var(--text-muted)">flat</span></div>
+</div>
+<div class="card">
+<div class="kpi-label">Ad Spend</div>
+<div class="kpi-value" style="font-size:24px">$96,293</div>
+<div class="kpi-sub"><span class="badge up">↓ -$14,185 / -13% under budget</span></div>
+</div>
+</div>
+
+<!-- Portfolio Performance -->
+<div class="grid grid-4" style="margin-bottom:16px">
+<div class="card" style="border-left:3px solid #6366f1">
+<div class="kpi-label">Apparel</div>
+<div class="kpi-value" style="font-size:22px">$384,845</div>
+<div class="kpi-sub" style="flex-direction:column;align-items:flex-start;gap:4px">
+<span><span class="badge up">+27% tgt</span> <span class="badge up">+40% LY</span></span>
+<span>Margin <strong>67.4%</strong></span>
+</div>
+</div>
+<div class="card" style="border-left:3px solid #22c55e">
+<div class="kpi-label">Licensed</div>
+<div class="kpi-value" style="font-size:22px">$462,627</div>
+<div class="kpi-sub" style="flex-direction:column;align-items:flex-start;gap:4px">
+<span><span class="badge up">+66% tgt</span> <span class="badge up">+71% LY</span></span>
+<span>Margin <strong>63.2%</strong></span>
+</div>
+</div>
+<div class="card" style="border-left:3px solid #f59e0b">
+<div class="kpi-label">Footwear ⚠️</div>
+<div class="kpi-value" style="font-size:22px">$656,203</div>
+<div class="kpi-sub" style="flex-direction:column;align-items:flex-start;gap:4px">
+<span><span class="badge up">+7% tgt</span> <span class="badge up">+22% LY</span></span>
+<span>Margin <strong style="color:var(--red)">47.9%</strong> <span style="color:var(--text-muted)">(was 59.8% LY)</span></span>
+</div>
+</div>
+<div class="card" style="border-left:3px solid #ef4444">
+<div class="kpi-label">Designworks</div>
+<div class="kpi-value" style="font-size:22px">$49,314</div>
+<div class="kpi-sub" style="flex-direction:column;align-items:flex-start;gap:4px">
+<span><span class="badge down">-26% tgt</span> <span class="badge up">+3% LY</span></span>
+<span>Margin <strong>63.7%</strong></span>
+</div>
+</div>
+</div>
+
+<!-- Brand Performance Table -->
+<div class="card" style="margin-bottom:16px">
+<div class="card-header"><span class="card-title">Brand Invoiced Performance — Week 33</span><span class="port-label">Sorted by Invoiced</span></div>
+<div style="overflow-x:auto">
+<table id="trBrandTable">
+<thead><tr>
+<th onclick="sortTrTable(0)">Brand</th>
+<th onclick="sortTrTable(1)">Invoiced</th>
+<th onclick="sortTrTable(2)">Budget</th>
+<th onclick="sortTrTable(3)">Var $</th>
+<th onclick="sortTrTable(4)">Var %</th>
+<th onclick="sortTrTable(5)">LY</th>
+<th onclick="sortTrTable(6)">vs LY %</th>
+<th onclick="sortTrTable(7)">Margin</th>
+<th onclick="sortTrTable(8)">Margin LY</th>
+</tr></thead>
+<tbody id="trBrandTableBody"></tbody>
+</table>
+</div>
+</div>
+
+<!-- Alerts -->
+<div class="grid grid-2" style="margin-bottom:16px">
+<div class="card">
+<div class="card-header"><span class="card-title">⚠️ Margin Alerts</span><span class="port-label">TY &gt; 5pp below LY</span></div>
+<div id="trMarginAlerts">
+</div>
+</div>
+<div class="card">
+<div class="card-header"><span class="card-title">📊 Conversion Insights</span><span class="port-label">Demand data from Polar</span></div>
+<div>
+<div style="font-size:11px;font-weight:600;text-transform:uppercase;color:var(--green);margin-bottom:8px;letter-spacing:0.5px">Top Improvers</div>
+<div class="perf-item" style="cursor:default"><div style="font-size:16px;min-width:24px">🏆</div><div class="perf-info"><div class="perf-name">Superdry</div><div class="perf-detail">CR 3.62% vs 2.06% LY <span class="yoy-up">(+76%)</span> — highest CR in portfolio</div></div></div>
+<div class="perf-item" style="cursor:default"><div style="font-size:16px;min-width:24px">📈</div><div class="perf-info"><div class="perf-name">Champion</div><div class="perf-detail">CR 1.18% vs 0.54% LY <span class="yoy-up">(+119%)</span> — sessions -27%</div></div></div>
+<div class="perf-item" style="cursor:default"><div style="font-size:16px;min-width:24px">📈</div><div class="perf-info"><div class="perf-name">Shoes &amp; Sox</div><div class="perf-detail">CR 2.94% vs 1.58% LY <span class="yoy-up">(+86%)</span> — sessions -13%</div></div></div>
+<div class="perf-item" style="cursor:default"><div style="font-size:16px;min-width:24px">📈</div><div class="perf-info"><div class="perf-name">Shoe Warehouse</div><div class="perf-detail">CR 2.73% vs 2.03% LY <span class="yoy-up">(+34%)</span> — sessions +35%</div></div></div>
+<div style="font-size:11px;font-weight:600;text-transform:uppercase;color:var(--red);margin:12px 0 8px;letter-spacing:0.5px">Red Flags</div>
+<div class="perf-item" style="cursor:default"><div style="font-size:16px;min-width:24px">🚩</div><div class="perf-info"><div class="perf-name">Volley</div><div class="perf-detail">CR 1.30% vs 4.47% LY <span class="yoy-down">(-71%)</span> — sessions +138%, quality issue</div></div></div>
+<div class="perf-item" style="cursor:default"><div style="font-size:16px;min-width:24px">🚩</div><div class="perf-info"><div class="perf-name">Julius Marlow</div><div class="perf-detail">CR 1.21% vs 1.76% LY <span class="yoy-down">(-31%)</span> — sessions -46%</div></div></div>
+<div class="perf-item" style="cursor:default"><div style="font-size:16px;min-width:24px">🚩</div><div class="perf-info"><div class="perf-name">Canada Goose</div><div class="perf-detail">CR 0.08% vs 0.11% LY <span class="yoy-down">(-27%)</span> — 13K sessions, 11 orders</div></div></div>
+</div>
+</div>
+</div>
+
+<!-- Week Ahead -->
+<div class="card" style="margin-bottom:16px">
+<div class="card-header"><span class="card-title">📅 Week 34 Outlook</span></div>
+<div class="grid grid-4">
+<div style="background:var(--bg);border-radius:10px;padding:14px"><div class="kpi-label">Budget</div><div style="font-size:22px;font-weight:700">$1,323,738</div></div>
+<div style="background:var(--bg);border-radius:10px;padding:14px"><div class="kpi-label">Outstanding</div><div style="font-size:22px;font-weight:700">$489,886</div></div>
+<div style="background:var(--bg);border-radius:10px;padding:14px"><div class="kpi-label">Balance</div><div style="font-size:22px;font-weight:700">$833,852</div></div>
+<div style="background:var(--bg);border-radius:10px;padding:14px"><div class="kpi-label">Daily Target</div><div style="font-size:22px;font-weight:700">$185,300</div></div>
+</div>
+<p style="margin-top:12px;font-size:13px;color:var(--amber);padding:10px 14px;background:rgba(245,158,11,0.08);border-radius:8px">⚡ Soft budget period — SNS, Champion, Superdry well below seasonal average</p>
+</div>
+
+</div><!-- end trContent -->
+</section>
+
 <div class="grid grid-perf" style="margin-top:0">
 <div class="card"><div class="card-header"><span class="card-title">&#128293; Top Performers</span><span class="port-label">30d Sales</span></div><div id="topPerformers"></div></div>
 <div class="card"><div class="card-header"><span class="card-title">&#128200; Biggest YoY Movers</span><span class="port-label">30d vs LY</span></div><div id="yoyMovers"></div></div>
@@ -157,7 +309,7 @@ tr.brand-row:hover{background:var(--surface-hover)}
 <th onclick="sortTable(7)">Portfolio</th>
 </tr></thead><tbody id="brandTable"></tbody></table></div>
 </div>
-<div class="footer">Data as of Thursday, 12 February 2026 at 12:23 PM AEST &middot; LY: 52 weeks back (day-of-week aligned) &middot; Powered by Polar Analytics &middot; Built by The Claw &#129408;</div>
+<div class="footer">Data as of Monday, 16 February 2026 &middot; LY: 52 weeks back (day-of-week aligned) &middot; Powered by Polar Analytics &middot; Built by The Claw &#129408;</div>
 </div>
 <script>
 const DATA={"kpis": {"yesterday": {"demand_sales": 216981, "orders": 1629, "aov": 133, "ly_sales": 138170, "ly_orders": 1121, "ly_aov": 123}, "week": {"demand_sales": 1718691, "orders": 13717, "aov": 125, "ly_sales": 1114725, "ly_orders": 8805, "ly_aov": 127}, "month": {"demand_sales": 7679655, "orders": 58519, "aov": 131, "ly_sales": 6042012, "ly_orders": 47077, "ly_aov": 128}}, "trend": {"ty": {"labels": ["13 Jan", "14 Jan", "15 Jan", "16 Jan", "17 Jan", "18 Jan", "19 Jan", "20 Jan", "21 Jan", "22 Jan", "23 Jan", "24 Jan", "25 Jan", "26 Jan", "27 Jan", "28 Jan", "29 Jan", "30 Jan", "31 Jan", "1 Feb", "2 Feb", "3 Feb", "4 Feb", "5 Feb", "6 Feb", "7 Feb", "8 Feb", "9 Feb", "10 Feb", "11 Feb"], "sales": [262801, 271552, 275831, 253246, 241738, 311760, 293932, 290551, 290762, 303702, 265256, 249498, 255991, 288110, 249338, 252318, 263091, 209143, 237433, 275284, 223684, 196677, 199266, 230516, 200271, 244419, 406227, 219597, 200681, 216981], "orders": [2011, 2068, 2056, 1888, 1831, 2212, 2212, 2181, 2168, 2306, 1961, 1884, 1870, 2141, 1946, 1903, 1942, 1641, 1751, 2002, 1744, 1546, 1538, 1786, 1566, 1864, 3540, 1779, 1553, 1629]}, "ly": {"labels": ["14 Jan", "15 Jan", "16 Jan", "17 Jan", "18 Jan", "19 Jan", "20 Jan", "21 Jan", "22 Jan", "23 Jan", "24 Jan", "25 Jan", "26 Jan", "27 Jan", "28 Jan", "29 Jan", "30 Jan", "31 Jan", "1 Feb", "2 Feb", "3 Feb", "4 Feb", "5 Feb", "6 Feb", "7 Feb", "8 Feb", "9 Feb", "10 Feb", "11 Feb", "12 Feb"], "sales": [235538, 260368, 247600, 211259, 211733, 231867, 235020, 220123, 226128, 229354, 249418, 211109, 197616, 241673, 204573, 209608, 194860, 188408, 176900, 210046, 178063, 178140, 177883, 177845, 153467, 160292, 201372, 136155, 147425, 138170], "orders": [1816, 2050, 1970, 1666, 1551, 1810, 1873, 1746, 1797, 1752, 1783, 1549, 1438, 1743, 1647, 1651, 1606, 1494, 1387, 1590, 1457, 1451, 1445, 1515, 1199, 1193, 1532, 1104, 1141, 1121]}}, "brands": [{"name": "Shoes & Sox", "portfolio": "Footwear", "demand_sales": 1914483, "orders": 16981, "aov": 113, "yesterday_sales": 33256, "yesterday_orders": 351, "week_sales": 233476, "week_orders": 2405, "ly_30_sales": 1388587, "ly_30_orders": 12517, "ly_yest_sales": 16346, "ly_yest_orders": 193, "ly_week_sales": 179067, "ly_week_orders": 1875, "ty_sales_series": [78438, 84399, 83662, 79073, 66249, 96066, 101100, 94252, 93444, 82893, 80204, 71642, 74977, 93749, 84386, 74723, 63995, 49959, 50775, 63349, 49128, 33100, 31444, 36497, 29040, 28490, 51119, 26200, 28874, 33256], "ty_orders_series": [675, 687, 692, 679, 578, 772, 836, 762, 766, 710, 666, 620, 627, 796, 727, 673, 579, 485, 501, 595, 497, 338, 315, 369, 313, 291, 497, 283, 301, 351], "ly_sales_series": [56202, 68531, 63266, 56998, 53956, 61318, 66826, 60883, 62894, 51343, 47233, 48837, 45411, 60155, 61261, 53688, 42851, 43111, 33636, 38706, 44214, 47807, 40393, 46617, 21387, 23401, 31886, 20333, 19097, 16346], "ly_orders_series": [465, 578, 550, 481, 436, 529, 547, 519, 534, 444, 405, 412, 379, 507, 537, 481, 417, 408, 313, 352, 460, 464, 424, 506, 217, 242, 313, 192, 212, 193], "rank": 1}, {"name": "Reebok", "portfolio": "Licenced", "demand_sales": 790753, "orders": 5785, "aov": 137, "yesterday_sales": 30416, "yesterday_orders": 213, "week_sales": 182237, "week_orders": 1271, "ly_30_sales": 696762, "ly_30_orders": 4815, "ly_yest_sales": 24982, "ly_yest_orders": 193, "ly_week_sales": 181631, "ly_week_orders": 1396, "ty_sales_series": [23057, 26363, 31798, 26477, 28881, 30172, 33779, 27778, 25595, 24307, 23924, 31880, 25990, 27236, 27242, 26521, 23512, 21557, 24837, 26219, 24078, 22858, 24455, 24739, 22652, 27559, 24754, 28810, 23307, 30416], "ty_orders_series": [187, 206, 245, 198, 215, 226, 217, 215, 209, 180, 171, 239, 175, 200, 211, 188, 168, 168, 174, 189, 175, 173, 185, 193, 160, 193, 163, 188, 161, 213], "ly_sales_series": [16051, 19234, 18980, 20603, 18043, 18531, 20410, 15025, 15923, 13548, 53155, 27236, 19399, 25621, 21136, 23685, 24355, 19866, 24024, 33554, 19275, 22171, 25306, 22074, 24472, 25374, 34906, 26947, 22876, 24982], "ly_orders_series": [121, 144, 144, 144, 125, 130, 152, 120, 113, 102, 269, 164, 119, 151, 155, 168, 165, 137, 155, 225, 114, 132, 170, 173, 187, 190, 263, 201, 189, 193], "rank": 2}, {"name": "Black Pepper", "portfolio": "Apparel", "demand_sales": 780898, "orders": 5924, "aov": 132, "yesterday_sales": 25845, "yesterday_orders": 182, "week_sales": 154540, "week_orders": 1133, "ly_30_sales": 646702, "ly_30_orders": 5478, "ly_yest_sales": 11455, "ly_yest_orders": 104, "ly_week_sales": 101540, "ly_week_orders": 836, "ty_sales_series": [34299, 37804, 29932, 27314, 25948, 27875, 24211, 34548, 32612, 40433, 28462, 24119, 26983, 24527, 26927, 23583, 25217, 20807, 22905, 22162, 22417, 19389, 23884, 28186, 20224, 19691, 18750, 23710, 18134, 25845], "ty_orders_series": [269, 276, 224, 194, 199, 200, 195, 251, 252, 319, 214, 187, 189, 187, 198, 178, 209, 169, 164, 176, 187, 164, 190, 218, 158, 146, 130, 166, 133, 182], "ly_sales_series": [22946, 39285, 26880, 26760, 19821, 26664, 32844, 21137, 33693, 25784, 23322, 20009, 16141, 23244, 16746, 26089, 18647, 26841, 20106, 22457, 19813, 15467, 20466, 18074, 15212, 10111, 16857, 13553, 16278, 11455], "ly_orders_series": [195, 323, 254, 212, 156, 238, 309, 183, 298, 228, 194, 154, 125, 184, 135, 241, 176, 205, 178, 189, 169, 133, 163, 145, 129, 93, 132, 109, 124, 104], "rank": 3}, {"name": "Hush Puppies", "portfolio": "Footwear", "demand_sales": 730385, "orders": 4970, "aov": 147, "yesterday_sales": 26390, "yesterday_orders": 177, "week_sales": 182402, "week_orders": 1228, "ly_30_sales": 582509, "ly_30_orders": 4267, "ly_yest_sales": 16084, "ly_yest_orders": 111, "ly_week_sales": 113311, "ly_week_orders": 787, "ty_sales_series": [29869, 32803, 25351, 24036, 21961, 31815, 18809, 20319, 19181, 20516, 23378, 18307, 23875, 24390, 14924, 21736, 21764, 21074, 29984, 28849, 24619, 23827, 26596, 27602, 24425, 27207, 37735, 19898, 19145, 26390], "ty_orders_series": [205, 228, 179, 171, 148, 218, 126, 140, 134, 147, 159, 123, 157, 156, 115, 150, 148, 155, 197, 175, 163, 166, 182, 193, 163, 183, 236, 143, 133, 177], "ly_sales_series": [23014, 23535, 24025, 19422, 17787, 23364, 23589, 23262, 19022, 24636, 21719, 18807, 18641, 17881, 16218, 19547, 16715, 17366, 18337, 27393, 17624, 21227, 16067, 16380, 17552, 15386, 12673, 12974, 22262, 16084], "ly_orders_series": [180, 179, 185, 155, 141, 164, 181, 180, 147, 180, 168, 142, 146, 120, 130, 135, 119, 134, 138, 181, 122, 137, 116, 115, 126, 103, 88, 102, 142, 111], "rank": 4}, {"name": "Superdry", "portfolio": "Licenced", "demand_sales": 697348, "orders": 5518, "aov": 126, "yesterday_sales": 25636, "yesterday_orders": 209, "week_sales": 348746, "week_orders": 3043, "ly_30_sales": 326785, "ly_30_orders": 2322, "ly_yest_sales": 12779, "ly_yest_orders": 97, "ly_week_sales": 90161, "ly_week_orders": 631, "ty_sales_series": [13857, 15119, 17115, 12363, 19935, 22177, 13170, 12624, 14269, 14058, 13227, 15865, 12492, 16566, 11157, 10850, 10861, 12240, 16967, 17733, 19647, 21425, 14885, 35913, 27078, 54128, 129873, 46068, 30050, 25636], "ty_orders_series": [106, 111, 122, 79, 132, 126, 100, 89, 109, 91, 97, 121, 95, 122, 82, 83, 84, 81, 120, 111, 127, 161, 126, 269, 218, 477, 1198, 412, 260, 209], "ly_sales_series": [19970, 18827, 13777, 7460, 13265, 13029, 8872, 10248, 9144, 9121, 7079, 9501, 10864, 7619, 4812, 9694, 8105, 8009, 8060, 12970, 8183, 7969, 10046, 11860, 11028, 14193, 18161, 10719, 11421, 12779], "ly_orders_series": [132, 142, 89, 59, 87, 83, 60, 79, 75, 65, 54, 66, 72, 55, 41, 67, 63, 58, 63, 87, 64, 64, 66, 92, 70, 91, 119, 79, 83, 97], "rank": 5}, {"name": "Review", "portfolio": "Apparel", "demand_sales": 653195, "orders": 3240, "aov": 202, "yesterday_sales": 20070, "yesterday_orders": 82, "week_sales": 149140, "week_orders": 710, "ly_30_sales": 585346, "ly_30_orders": 3244, "ly_yest_sales": 13773, "ly_yest_orders": 74, "ly_week_sales": 114164, "ly_week_orders": 613, "ty_sales_series": [10778, 10007, 16945, 18559, 15696, 21235, 15766, 14079, 19864, 42566, 18151, 18459, 20280, 23880, 28048, 35952, 33748, 21808, 31915, 41682, 15643, 14120, 14874, 18863, 24779, 21310, 23237, 15074, 25807, 20070], "ty_orders_series": [55, 59, 80, 93, 78, 99, 74, 62, 68, 256, 112, 88, 108, 126, 170, 171, 162, 115, 129, 196, 84, 69, 76, 89, 129, 89, 117, 76, 128, 82], "ly_sales_series": [18450, 17862, 16831, 16316, 16785, 16463, 12447, 16269, 20183, 35769, 35288, 28752, 29758, 40205, 21371, 15824, 17052, 17938, 18832, 18589, 10204, 13738, 16256, 12642, 16447, 24298, 23576, 10823, 12605, 13773], "ly_orders_series": [108, 109, 105, 107, 92, 100, 74, 90, 125, 179, 191, 159, 176, 219, 129, 80, 99, 91, 104, 88, 67, 70, 69, 78, 102, 128, 103, 70, 58, 74], "rank": 6}, {"name": "Clarks", "portfolio": "Footwear", "demand_sales": 509438, "orders": 4173, "aov": 122, "yesterday_sales": 8398, "yesterday_orders": 81, "week_sales": 84532, "week_orders": 721, "ly_30_sales": 531126, "ly_30_orders": 3877, "ly_yest_sales": 7315, "ly_yest_orders": 48, "ly_week_sales": 75710, "ly_week_orders": 524, "ty_sales_series": [17285, 15339, 18958, 17021, 17864, 22626, 29182, 23821, 22834, 20207, 18785, 16150, 17367, 18735, 12654, 10716, 24390, 17312, 16202, 18795, 17078, 16519, 15066, 14124, 13001, 12865, 15858, 9028, 11258, 8398], "ty_orders_series": [139, 124, 151, 135, 140, 177, 235, 187, 180, 166, 140, 128, 132, 143, 111, 100, 212, 141, 135, 159, 149, 146, 122, 118, 115, 108, 129, 83, 87, 81], "ly_sales_series": [17625, 21780, 21227, 20159, 20779, 24933, 24821, 27538, 20478, 25562, 21801, 16013, 16965, 22643, 24905, 22318, 18876, 14291, 14596, 16483, 15336, 14733, 11554, 11569, 9702, 9957, 17313, 10658, 9196, 7315], "ly_orders_series": [126, 152, 160, 147, 156, 173, 182, 203, 161, 183, 157, 121, 121, 159, 185, 166, 153, 109, 100, 118, 122, 109, 90, 86, 69, 68, 109, 77, 67, 48], "rank": 7}, {"name": "Shoe Warehouse", "portfolio": "Footwear", "demand_sales": 503022, "orders": 5113, "aov": 98, "yesterday_sales": 15018, "yesterday_orders": 145, "week_sales": 157544, "week_orders": 1758, "ly_30_sales": 366999, "ly_30_orders": 3773, "ly_yest_sales": 8244, "ly_yest_orders": 94, "ly_week_sales": 67521, "ly_week_orders": 723, "ty_sales_series": [13562, 12191, 14336, 12675, 14091, 16839, 14051, 14830, 16722, 16655, 17387, 14671, 13990, 14633, 11981, 14744, 17527, 13960, 13533, 20534, 16674, 15261, 14631, 12141, 11355, 17479, 66182, 22251, 13118, 15018], "ty_orders_series": [136, 122, 143, 128, 143, 159, 136, 150, 156, 172, 163, 137, 127, 142, 124, 149, 162, 143, 136, 182, 150, 154, 141, 126, 120, 172, 834, 224, 137, 145], "ly_sales_series": [16371, 15031, 16674, 12076, 13201, 16158, 13671, 15150, 12919, 13183, 13412, 10403, 10970, 14570, 13494, 12886, 15284, 9556, 10925, 11994, 8817, 12030, 10703, 10527, 9805, 6924, 13173, 9588, 9260, 8244], "ly_orders_series": [158, 153, 167, 129, 127, 153, 142, 152, 129, 132, 135, 113, 112, 149, 139, 133, 157, 113, 113, 115, 91, 127, 111, 110, 98, 76, 147, 106, 92, 94], "rank": 8}, {"name": "Elka Collective", "portfolio": "Apparel", "demand_sales": 338112, "orders": 1326, "aov": 255, "yesterday_sales": 9780, "yesterday_orders": 32, "week_sales": 58297, "week_orders": 244, "ly_30_sales": 189354, "ly_30_orders": 969, "ly_yest_sales": 4987, "ly_yest_orders": 25, "ly_week_sales": 35254, "ly_week_orders": 169, "ty_sales_series": [9028, 12555, 10804, 11088, 9662, 13589, 13078, 19346, 19859, 11088, 9625, 14742, 11520, 12468, 13994, 11623, 12667, 9771, 9316, 14436, 11489, 9398, 8669, 9515, 5866, 8557, 7440, 8393, 8746, 9780], "ty_orders_series": [31, 47, 37, 41, 38, 46, 46, 78, 91, 54, 46, 53, 44, 51, 50, 44, 50, 40, 34, 49, 47, 31, 34, 37, 25, 36, 34, 38, 42, 32], "ly_sales_series": [8804, 12608, 12221, 11065, 6891, 7577, 5736, 8495, 4687, 4218, 4509, 6704, 6331, 6427, 6289, 3837, 3915, 7217, 3205, 9392, 5069, 3770, 5133, 4951, 3889, 7541, 5426, 4286, 4174, 4987], "ly_orders_series": [53, 60, 59, 50, 39, 42, 38, 46, 24, 28, 27, 34, 32, 30, 36, 17, 20, 36, 19, 41, 27, 17, 25, 19, 21, 31, 31, 23, 19, 25], "rank": 9}, {"name": "Yarra Trail", "portfolio": "Apparel", "demand_sales": 153903, "orders": 1107, "aov": 139, "yesterday_sales": 6641, "yesterday_orders": 35, "week_sales": 29099, "week_orders": 173, "ly_30_sales": 131636, "ly_30_orders": 1092, "ly_yest_sales": 1262, "ly_yest_orders": 14, "ly_week_sales": 25027, "ly_week_orders": 209, "ty_sales_series": [4725, 5453, 4970, 6131, 5545, 5315, 10875, 9896, 4568, 6377, 6520, 6311, 9534, 5824, 3176, 3546, 2873, 3949, 2775, 3425, 3564, 3860, 5592, 3826, 4477, 3252, 2694, 2479, 5730, 6641], "ty_orders_series": [38, 48, 35, 44, 38, 38, 90, 86, 36, 50, 48, 46, 72, 50, 22, 21, 23, 28, 18, 24, 24, 21, 34, 23, 24, 18, 18, 19, 36, 35], "ly_sales_series": [11340, 6107, 10288, 5165, 4810, 5851, 3488, 2303, 3758, 5695, 3409, 3580, 3231, 4675, 4493, 3007, 3712, 2779, 5866, 3225, 3492, 3246, 3089, 2811, 4892, 2344, 7363, 3693, 2662, 1262], "ly_orders_series": [96, 56, 89, 45, 45, 45, 34, 21, 35, 50, 28, 29, 28, 38, 31, 24, 30, 24, 36, 26, 24, 22, 27, 26, 35, 18, 59, 34, 23, 14], "rank": 10}, {"name": "Volley", "portfolio": "Design Works", "demand_sales": 117774, "orders": 1044, "aov": 113, "yesterday_sales": 3867, "yesterday_orders": 34, "week_sales": 35797, "week_orders": 289, "ly_30_sales": 112484, "ly_30_orders": 1527, "ly_yest_sales": 4332, "ly_yest_orders": 56, "ly_week_sales": 27743, "ly_week_orders": 389, "ty_sales_series": [3505, 3749, 3703, 3259, 3185, 3315, 3530, 3791, 4140, 4421, 5387, 2695, 1187, 3818, 2563, 2470, 4377, 4625, 2483, 4999, 4598, 3074, 3103, 4151, 4771, 7274, 7561, 4580, 3593, 3867], "ty_orders_series": [32, 35, 35, 27, 26, 30, 27, 41, 37, 39, 51, 28, 12, 38, 27, 28, 40, 37, 24, 47, 41, 28, 25, 35, 36, 51, 63, 37, 33, 34], "ly_sales_series": [3113, 4073, 4283, 3556, 3982, 2683, 3425, 3914, 3909, 3587, 4197, 2874, 3349, 3229, 3948, 3568, 4467, 3148, 3787, 3588, 3668, 4653, 3740, 5168, 3982, 3075, 4439, 2612, 4135, 4332], "ly_orders_series": [43, 46, 53, 46, 50, 38, 44, 51, 56, 54, 63, 44, 48, 42, 53, 48, 58, 49, 48, 48, 50, 51, 55, 66, 55, 51, 62, 40, 59, 56], "rank": 11}, {"name": "Champion", "portfolio": "Licenced", "demand_sales": 105323, "orders": 1030, "aov": 102, "yesterday_sales": 2676, "yesterday_orders": 26, "week_sales": 22335, "week_orders": 205, "ly_30_sales": 102037, "ly_30_orders": 1060, "ly_yest_sales": 2191, "ly_yest_orders": 16, "ly_week_sales": 13215, "ly_week_orders": 101, "ty_sales_series": [3159, 2919, 2977, 2996, 2839, 3445, 3572, 2357, 4508, 3847, 3022, 2977, 4330, 3951, 3866, 5298, 3740, 2897, 5592, 4886, 3906, 3204, 2700, 3257, 2721, 2597, 4148, 3282, 3654, 2676], "ty_orders_series": [37, 32, 35, 32, 27, 32, 29, 25, 47, 42, 27, 33, 37, 35, 39, 48, 41, 36, 48, 45, 36, 34, 28, 34, 26, 22, 34, 33, 30, 26], "ly_sales_series": [4023, 3638, 3763, 2474, 3973, 2625, 3741, 4067, 2351, 2998, 2735, 2031, 1437, 1155, 3401, 3215, 9778, 9401, 5308, 4264, 6454, 4177, 1813, 1287, 1015, 2999, 1655, 2427, 1641, 2191], "ly_orders_series": [51, 36, 42, 20, 29, 36, 26, 30, 20, 22, 24, 26, 17, 22, 29, 41, 89, 83, 66, 66, 83, 73, 28, 13, 14, 12, 11, 17, 18, 16], "rank": 12}, {"name": "Canada Goose", "portfolio": "Licenced", "demand_sales": 92219, "orders": 58, "aov": 1590, "yesterday_sales": 2300, "yesterday_orders": 1, "week_sales": 19727, "week_orders": 13, "ly_30_sales": 83683, "ly_30_orders": 53, "ly_yest_sales": 1336, "ly_yest_orders": 1, "ly_week_sales": 9828, "ly_week_orders": 8, "ty_sales_series": [7064, -300, 6400, 3364, 5700, 200, 1300, 1300, 7100, 7000, 1500, 3200, 6200, -118, 2200, 7400, 4282, 1300, 2100, 2500, 2800, 3200, 1800, 4800, 5800, 1609, 218, 2300], "ty_orders_series": [5, 0, 4, 2, 5, 1, 1, 1, 4, 1, 1, 2, 4, 0, 2, 5, 2, 1, 1, 1, 2, 2, 1, 4, 3, 1, 1, 1], "ly_sales_series": [4464, 1500, 5782, 227, 9200, 1600, 4600, 1500, 4800, 3736, 3600, 5300, 5800, 5300, 100, 4755, 2600, 2200, 1800, 4991, -245, 555, 1582, 3500, 1900, 1200, 1336], "ly_orders_series": [3, 1, 3, 1, 4, 1, 2, 1, 4, 2, 2, 2, 3, 3, 1, 3, 1, 2, 2, 4, 0, 1, 1, 2, 2, 1, 1], "rank": 13}, {"name": "Everlast", "portfolio": "Design Works", "demand_sales": 71726, "orders": 483, "aov": 149, "yesterday_sales": 2526, "yesterday_orders": 24, "week_sales": 18192, "week_orders": 169, "ly_30_sales": 87659, "ly_30_orders": 652, "ly_yest_sales": 4593, "ly_yest_orders": 26, "ly_week_sales": 24385, "ly_week_orders": 153, "ty_sales_series": [6039, 3371, 2723, 1888, 2606, 2746, 514, 2173, 1650, 1253, 2875, 1242, 439, 1680, 1595, 2000, 4955, 2246, 2759, 660, 1851, 3347, 2922, 2522, 2814, 2093, 3119, 2212, 2906, 2526], "ty_orders_series": [28, 19, 20, 12, 13, 15, 5, 18, 13, 14, 8, 10, 6, 11, 10, 15, 11, 15, 18, 4, 14, 18, 17, 24, 21, 19, 24, 28, 29, 24], "ly_sales_series": [4187, 2976, 2196, 3112, 2364, 1636, 2236, 2431, 4522, 3289, 1789, 3017, 2671, 3382, 1531, 2655, 1523, 2005, 3317, 1638, 4527, 3177, 3093, 4015, 3355, 2928, 2633, 3022, 3839, 4593], "ly_orders_series": [27, 23, 22, 30, 19, 18, 22, 20, 23, 38, 22, 31, 18, 30, 13, 15, 12, 16, 19, 12, 20, 22, 27, 24, 22, 22, 18, 25, 16, 26], "rank": 14}, {"name": "Julius Marlow", "portfolio": "Footwear", "demand_sales": 67724, "orders": 395, "aov": 171, "yesterday_sales": 1903, "yesterday_orders": 13, "week_sales": 15166, "week_orders": 94, "ly_30_sales": 124379, "ly_30_orders": 809, "ly_yest_sales": 5952, "ly_yest_orders": 40, "ly_week_sales": 35254, "ly_week_orders": 238, "ty_sales_series": [1894, 2987, 1162, 2862, 2734, 3703, 2262, 1847, 4402, 2019, 1005, 1710, 1960, 3834, 1623, 2122, 1728, 1259, 1931, 1924, 3334, 1747, 2509, 2960, 2133, 2748, 2036, 1200, 2186, 1903], "ty_orders_series": [13, 21, 10, 14, 16, 19, 14, 12, 16, 12, 8, 9, 13, 16, 13, 12, 9, 8, 10, 13, 16, 13, 14, 15, 15, 15, 16, 7, 13, 13], "ly_sales_series": [6871, 2735, 5143, 3226, 4943, 6810, 5960, 5284, 4323, 3283, 4013, 5502, 4560, 2095, 1951, 2117, 3344, 955, 1048, 2987, 2516, 2340, 7119, 5315, 3870, 6769, 6297, 2978, 4073, 5952], "ly_orders_series": [44, 22, 33, 22, 29, 38, 41, 32, 22, 22, 30, 31, 25, 14, 14, 14, 19, 6, 8, 20, 18, 12, 55, 39, 34, 42, 45, 17, 21, 40], "rank": 15}, {"name": "Marco Polo", "portfolio": "Apparel", "demand_sales": 50383, "orders": 428, "aov": 118, "yesterday_sales": 810, "yesterday_orders": 8, "week_sales": 10988, "week_orders": 97, "ly_30_sales": 33512, "ly_30_orders": 261, "ly_yest_sales": 2078, "ly_yest_orders": 13, "ly_week_sales": 8966, "ly_week_orders": 71, "ty_sales_series": [3902, 2872, 2264, 1038, 792, 967, 4629, 3636, 1641, 1685, 1601, 3733, 2736, 1854, 1113, 297, 904, 35, 446, 513, 1464, 620, 653, 2301, 2252, 1557, 1591, 1351, 1126, 810], "ty_orders_series": [31, 21, 18, 13, 5, 8, 36, 25, 15, 15, 13, 31, 26, 15, 10, 4, 7, 3, 5, 5, 13, 6, 6, 19, 20, 17, 11, 12, 10, 8], "ly_sales_series": [919, 2276, 855, 1270, 1231, 1350, 1251, 580, 2215, 592, 501, 296, 949, 1694, 1094, 1163, 976, 1483, 720, 403, 996, 517, 1215, 1056, 573, 2522, 1720, 592, 425, 2078], "ly_orders_series": [6, 21, 7, 7, 8, 11, 9, 5, 20, 5, 4, 2, 9, 10, 9, 9, 9, 9, 6, 3, 8, 5, 8, 10, 5, 18, 16, 5, 4, 13], "rank": 16}, {"name": "Harrison", "portfolio": "Footwear", "demand_sales": 38962, "orders": 321, "aov": 121, "yesterday_sales": 82, "yesterday_orders": 1, "week_sales": 3128, "week_orders": 26, "ly_30_sales": 0, "ly_30_orders": 0, "ly_yest_sales": 0, "ly_yest_orders": 0, "ly_week_sales": 0, "ly_week_orders": 0, "ty_sales_series": [685, 1569, 1429, 1720, 2056, 2219, 2968, 2481, 2759, 1800, 1500, 1376, 1627, 1385, 1875, 2481, 1128, 735, 1212, 592, 538, 925, 774, 316, 634, 704, 496, 428, 468, 82], "ty_orders_series": [6, 12, 10, 14, 19, 19, 24, 20, 20, 11, 12, 12, 13, 12, 17, 22, 9, 7, 12, 5, 6, 7, 6, 2, 6, 5, 5, 3, 4, 1], "ly_sales_series": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "ly_orders_series": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "rank": 17}, {"name": "Happy Socks", "portfolio": "Licenced", "demand_sales": 27791, "orders": 336, "aov": 83, "yesterday_sales": 645, "yesterday_orders": 9, "week_sales": 7124, "week_orders": 77, "ly_30_sales": 0, "ly_30_orders": 0, "ly_yest_sales": 0, "ly_yest_orders": 0, "ly_week_sales": 0, "ly_week_orders": 0, "ty_sales_series": [998, 539, 637, 638, 656, 1441, 1048, 886, 904, 670, 1175, 679, 1411, 1577, 950, 950, 1164, 367, 751, 966, 373, 401, 1486, 1276, 650, 505, 1472, 2270, 306, 645], "ty_orders_series": [12, 6, 10, 8, 7, 18, 13, 11, 11, 9, 14, 7, 19, 20, 11, 9, 12, 6, 12, 13, 7, 6, 18, 15, 9, 6, 16, 18, 4, 9], "ly_sales_series": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "ly_orders_series": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "rank": 18}, {"name": "Umbro", "portfolio": "Design Works", "demand_sales": 26202, "orders": 230, "aov": 114, "yesterday_sales": 575, "yesterday_orders": 5, "week_sales": 7511, "week_orders": 53, "ly_30_sales": 16549, "ly_30_orders": 156, "ly_yest_sales": 535, "ly_yest_orders": 6, "ly_week_sales": 3428, "ly_week_orders": 32, "ty_sales_series": [658, 1254, 401, 368, 1039, 515, 915, 604, 528, 1036, 940, 644, 1128, 1734, 597, 544, 731, 271, 830, 1004, 789, 623, 1538, 409, 1237, 1504, 1645, 595, 1546, 575], "ty_orders_series": [6, 11, 5, 2, 9, 5, 6, 8, 7, 10, 7, 6, 11, 16, 5, 6, 7, 2, 10, 10, 7, 7, 14, 5, 7, 11, 9, 7, 9, 5], "ly_sales_series": [345, 74, 195, 506, 525, 390, 356, 525, 510, 1100, 990, 853, 80, 325, 757, 435, 928, 551, 758, 1154, 509, 645, 610, 527, 200, 50, 985, 375, 756, 535], "ly_orders_series": [4, 2, 2, 5, 6, 5, 6, 5, 6, 9, 7, 8, 1, 4, 5, 4, 6, 4, 9, 12, 5, 5, 4, 5, 2, 1, 9, 3, 6, 6], "rank": 19}, {"name": "Replay", "portfolio": "Licenced", "demand_sales": 10026, "orders": 57, "aov": 176, "yesterday_sales": 145, "yesterday_orders": 1, "week_sales": 1909, "week_orders": 10, "ly_30_sales": 35926, "ly_30_orders": 205, "ly_yest_sales": 1262, "ly_yest_orders": 11, "ly_week_sales": 8839, "ly_week_orders": 51, "ty_sales_series": [561, 264, 377, 274, -13, -19, 769, 1088, 798, 965, 69, 786, -40, 411, -9, 919, 456, -6, 180, 287, 117, 160, 100, 718, 160, 509, 145], "ty_orders_series": [3, 1, 2, 2, 0, 0, 5, 4, 5, 5, 1, 4, 0, 4, 0, 3, 3, 0, 2, 3, 1, 1, 1, 3, 1, 2, 1], "ly_sales_series": [843, 299, 1216, 866, 178, 887, 747, 1514, 798, 1908, 665, 1395, 1060, 1453, 1065, 1126, 1733, 1690, 2575, 1249, 2376, 720, 724, 1391, 2588, 521, 1111, 577, 1389, 1262], "ly_orders_series": [4, 3, 6, 6, 2, 6, 4, 9, 5, 9, 3, 11, 7, 6, 5, 5, 13, 10, 10, 7, 9, 8, 6, 7, 11, 5, 6, 4, 7, 11], "rank": 20}], "portfolio": [{"name": "Footwear", "value": 3764014}, {"name": "Apparel", "value": 1976491}, {"name": "Licenced", "value": 1723460}, {"name": "Design Works", "value": 215702}]};
@@ -431,7 +583,89 @@ function closePanel(){
 }
 document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closePanel();});
 
+// === Trading Review Data ===
+const TR_BRANDS=[
+{n:"Superdry",inv:268902,bud:99816,varD:169086,varP:"+169%",ly:86797,lyP:"+210%",mg:"61.5%",mgLy:"65.0%"},
+{n:"Shoes & Sox",inv:157014,bud:105000,varD:52014,varP:"+50%",ly:99768,lyP:"+57%",mg:"51.4%",mgLy:"52.9%"},
+{n:"Reebok",inv:145428,bud:156407,varD:-10979,varP:"-7%",ly:150841,lyP:"-4%",mg:"65.4%",mgLy:"61.6%"},
+{n:"Shoe Warehouse",inv:129756,bud:48263,varD:81493,varP:"+169%",ly:47316,lyP:"+174%",mg:"23.1%",mgLy:"49.1%"},
+{n:"Hush Puppies",inv:125255,bud:88000,varD:37255,varP:"+42%",ly:82711,lyP:"+51%",mg:"63.6%",mgLy:"68.8%"},
+{n:"Black Pepper",inv:110109,bud:89915,varD:20194,varP:"+22%",ly:80443,lyP:"+37%",mg:"71.1%",mgLy:"71.0%"},
+{n:"Review",inv:95465,bud:93085,varD:2380,varP:"+3%",ly:86664,lyP:"+10%",mg:"65.4%",mgLy:"59.2%"},
+{n:"Shoes & Sox Myer",inv:85437,bud:98000,varD:-12563,varP:"-13%",ly:100782,lyP:"-15%",mg:"53.7%",mgLy:"53.1%"},
+{n:"Review Myer",inv:60519,bud:40744,varD:19775,varP:"+49%",ly:35886,lyP:"+69%",mg:"69.0%",mgLy:"65.3%"},
+{n:"Clarks",inv:58345,bud:52905,varD:5439,varP:"+10%",ly:49675,lyP:"+17%",mg:"39.2%",mgLy:"68.1%"},
+{n:"MFM (Myer Marketplace)",inv:57953,bud:70551,varD:-12598,varP:"-18%",ly:2281,lyP:"+2441%",mg:"59.4%",mgLy:"76.6%"},
+{n:"Elka",inv:35702,bud:28268,varD:7433,varP:"+26%",ly:26858,lyP:"+33%",mg:"69.6%",mgLy:"64.2%"},
+{n:"Volley",inv:28538,bud:32104,varD:-3565,varP:"-11%",ly:25217,lyP:"+13%",mg:"65.6%",mgLy:"60.2%"},
+{n:"Superdry Iconic",inv:23144,bud:5123,varD:18021,varP:"+352%",ly:27423,lyP:"-16%",mg:"67.9%",mgLy:"74.6%"},
+{n:"Yarra Trail",inv:23771,bud:16597,varD:7175,varP:"+43%",ly:16136,lyP:"+47%",mg:"60.9%",mgLy:"50.9%"},
+{n:"Shoes & Sox Iconic",inv:19435,bud:78704,varD:-59268,varP:"-75%",ly:83472,lyP:"-77%",mg:"55.3%",mgLy:"57.8%"},
+{n:"Champion",inv:17045,bud:11787,varD:5259,varP:"+45%",ly:0,lyP:"new",mg:"67.7%",mgLy:"-"},
+{n:"Canada Goose",inv:16545,bud:11616,varD:4929,varP:"+42%",ly:14636,lyP:"+13%",mg:"77.3%",mgLy:"77.5%"},
+{n:"Review Iconic",inv:15822,bud:1960,varD:13862,varP:"+707%",ly:6259,lyP:"+153%",mg:"68.0%",mgLy:"66.8%"},
+{n:"Everlast",inv:14671,bud:24179,varD:-9507,varP:"-39%",ly:19482,lyP:"-25%",mg:"63.5%",mgLy:"64.5%"},
+{n:"Yarra Trail DJs",inv:14170,bud:7075,varD:7095,varP:"+100%",ly:5053,lyP:"+180%",mg:"55.5%",mgLy:"56.1%"},
+{n:"Julius Marlow",inv:12663,bud:29569,varD:-16906,varP:"-57%",ly:27311,lyP:"-54%",mg:"66.0%",mgLy:"66.1%"},
+{n:"Elka DJs",inv:12493,bud:8031,varD:4462,varP:"+56%",ly:6824,lyP:"+83%",mg:"70.6%",mgLy:"60.7%"},
+{n:"Clarks Iconic",inv:9970,bud:9344,varD:626,varP:"+7%",ly:10679,lyP:"-7%",mg:"4.0%",mgLy:"72.4%"},
+{n:"Marco Polo",inv:7404,bud:7542,varD:-138,varP:"-2%",ly:7183,lyP:"+3%",mg:"52.6%",mgLy:"57.7%"},
+{n:"Happy Socks",inv:6223,bud:4850,varD:1373,varP:"+28%",ly:0,lyP:"new",mg:"62.7%",mgLy:"-"},
+{n:"Umbro",inv:6104,bud:10720,varD:-4616,varP:"-43%",ly:3081,lyP:"+98%",mg:"54.8%",mgLy:"51.8%"},
+{n:"Black Pepper DJs",inv:6084,bud:3723,varD:2361,varP:"+63%",ly:2867,lyP:"+112%",mg:"64.8%",mgLy:"75.0%"},
+{n:"Review DJs",inv:3306,bud:5439,varD:-2133,varP:"-39%",ly:0,lyP:"new",mg:"68.2%",mgLy:"-"},
+{n:"Replay",inv:1884,bud:0,varD:1884,varP:"-",ly:5947,lyP:"-68%",mg:"36.9%",mgLy:"30.5%"},
+{n:"Harrison",inv:1041,bud:0,varD:1041,varP:"-",ly:0,lyP:"new",mg:"71.8%",mgLy:"-"},
+{n:"Hush Puppies Iconic",inv:-632,bud:22034,varD:-22666,varP:"-103%",ly:25334,lyP:"-102%",mg:"-78.7%",mgLy:"74.6%"},
+{n:"Julius Marlow Iconic",inv:-34,bud:9542,varD:-9576,varP:"-100%",ly:10079,lyP:"-100%",mg:"384.3%",mgLy:"72.6%"},
+{n:"Black Pepper Myer",inv:0,bud:0,varD:0,varP:"-",ly:1047,lyP:"-100%",mg:"-",mgLy:"30.5%"}
+];
+
+let trSortCol=1,trSortDir=-1;
+function renderTrTable(){
+const sorted=[...TR_BRANDS];
+sorted.sort((a,b)=>{
+const keys=['n','inv','bud','varD','varD','ly','ly','mg','mgLy'];
+const k=keys[trSortCol];
+if(trSortCol===0)return trSortDir*a.n.localeCompare(b.n);
+if(trSortCol===4)return trSortDir*(a.varD-b.varD);
+if(trSortCol===6)return trSortDir*(a.ly-b.ly);
+if(trSortCol===7||trSortCol===8){const pa=parseFloat(a[k])||0,pb=parseFloat(b[k])||0;return trSortDir*(pa-pb);}
+return trSortDir*((a[k]||0)-(b[k]||0));
+});
+const tbody=document.getElementById('trBrandTableBody');
+let html='';
+sorted.forEach(b=>{
+const vc=b.varD>=0?'yoy-up':'yoy-down';
+const lc=b.lyP.startsWith('-')?'yoy-down':b.lyP==='new'?'':'yoy-up';
+html+='<tr><td style="font-weight:600">'+b.n+'</td><td>'+fmtFull(b.inv)+'</td><td style="color:var(--text-muted)">'+fmtFull(b.bud)+'</td><td class="'+vc+'">'+fmtFull(b.varD)+'</td><td class="'+vc+'">'+b.varP+'</td><td style="color:var(--text-muted)">'+fmtFull(b.ly)+'</td><td class="'+lc+'">'+b.lyP+'</td><td>'+b.mg+'</td><td style="color:var(--text-muted)">'+b.mgLy+'</td></tr>';
+});
+tbody.innerHTML=html;
+}
+function sortTrTable(col){if(trSortCol===col)trSortDir*=-1;else{trSortCol=col;trSortDir=col===0?1:-1;}renderTrTable();}
+
+// Margin alerts
+const MARGIN_ALERTS=[
+{n:"Clarks Iconic",ty:"4.0%",ly:"72.4%",pp:"-68.4pp"},
+{n:"Clarks",ty:"39.2%",ly:"68.1%",pp:"-28.9pp"},
+{n:"Shoe Warehouse",ty:"23.1%",ly:"49.1%",pp:"-26.0pp"},
+{n:"MFM",ty:"59.4%",ly:"76.6%",pp:"-17.2pp"},
+{n:"Black Pepper DJs",ty:"64.8%",ly:"75.0%",pp:"-10.2pp"},
+{n:"Superdry Iconic",ty:"67.9%",ly:"74.6%",pp:"-6.7pp"},
+{n:"Hush Puppies",ty:"63.6%",ly:"68.8%",pp:"-5.2pp"},
+{n:"Marco Polo",ty:"52.6%",ly:"57.7%",pp:"-5.1pp"}
+];
+function renderMarginAlerts(){
+let html='';
+MARGIN_ALERTS.forEach(a=>{
+html+='<div class="perf-item" style="cursor:default"><div style="font-size:16px;min-width:24px">⚠️</div><div class="perf-info"><div class="perf-name">'+a.n+'</div><div class="perf-detail"><span style="color:var(--red);font-weight:600">'+a.ty+'</span> vs '+a.ly+' LY <span class="badge down">'+a.pp+'</span></div></div></div>';
+});
+document.getElementById('trMarginAlerts').innerHTML=html;
+}
+
 // Init
+renderTrTable();
+renderMarginAlerts();
 updateKPIs('month');
 createTrendChart();
 createPortfolioChart();
