@@ -26,6 +26,17 @@
   --zm-bg:rgba(255,255,255,.9);--zm-c:#333;--zm-bd:rgba(0,0,0,.2);
   --sel-arrow:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23666' stroke-width='1.5'/%3E%3C/svg%3E");
 }
+body.font-large { font-size:17px }
+body.font-large .insights-column { font-size:17px }
+body.font-large .ins { font-size:17px }
+body.font-large .metric-row { font-size:15px }
+body.font-large .metric-label { font-size:14px }
+body.font-large .metric-val { font-size:15px }
+body.font-large .insight-card { font-size:15px }
+body.font-large .insight-card p { font-size:15px !important }
+body.font-large h2 { font-size:24px !important }
+body.font-large h3 { font-size:20px !important }
+body.font-large h4 { font-size:17px !important }
 body.dark-mode {
   --bg:#0a0a0a;--bg2:#111;--bg3:#1a1a1a;
   --tx:#fff;--tx2:rgba(255,255,255,.6);--tx3:rgba(255,255,255,.35);
@@ -262,6 +273,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
         <option value="yt-map">Yarra Trail</option>
       </select>
       <button id="themeToggleTop" style="background:var(--bg2);border:1px solid var(--bd);border-radius:8px;padding:10px 12px;font-size:14px;cursor:pointer;color:var(--tx2);flex-shrink:0;line-height:1" title="Toggle dark/light mode">&#127763;</button>
+      <button id="fontToggle" style="background:var(--bg2);border:1px solid var(--bd);border-radius:8px;padding:10px 12px;font-size:12px;cursor:pointer;color:var(--tx2);flex-shrink:0;line-height:1;font-weight:600;font-family:inherit" title="Increase font size">A+</button>
     </div>
     <div class="summary-view active" id="summaryView">
       <div style="max-width:900px;margin:0 auto;padding:48px 24px 40px">
@@ -4651,6 +4663,19 @@ let mapInitialized = false;
     const dark = document.body.classList.toggle('dark-mode');
     themeToggle.innerHTML = dark ? '&#9728;&#65039;' : '&#127763;';
     localStorage.setItem('review-heatmap-theme', dark ? 'dark' : 'light');
+
+  // Font size toggle
+  const fontToggle = document.getElementById('fontToggle');
+  const savedFont = localStorage.getItem('review-heatmap-font');
+  if (savedFont === 'large') {
+    document.body.classList.add('font-large');
+    fontToggle.textContent = 'A-';
+  }
+  fontToggle.addEventListener('click', function() {
+    const large = document.body.classList.toggle('font-large');
+    fontToggle.textContent = large ? 'A-' : 'A+';
+    localStorage.setItem('review-heatmap-font', large ? 'large' : 'normal');
+  });
     // Update map tiles
     const url = dark
       ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
