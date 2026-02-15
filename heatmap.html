@@ -4590,6 +4590,7 @@ try { buildSummaryCards(); } catch(e) { document.getElementById('locationCards')
   // View tab/select switching (data-driven via BRAND_MAPS registry)
   var brandMapInitialized = {};
   function switchView(view) {
+    console.log('[switchView]', view);
     document.querySelectorAll('.view-tab').forEach(function(t) {
       t.classList.toggle('active', t.getAttribute('data-view') === view);
     });
@@ -4644,6 +4645,12 @@ try { buildSummaryCards(); } catch(e) { document.getElementById('locationCards')
     // Scroll insights column back to top on brand switch
     var ic = document.querySelector('.insights-column');
     if (ic) ic.scrollTop = 0;
+    // Scroll page to top
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+    var mc = document.querySelector('.map-column');
+    if (mc) mc.scrollTop = 0;
+    console.log('[switchView] done, body classes:', document.body.className);
   }
   // Tab clicks
   document.querySelectorAll('.view-tab').forEach(function(tab) {
