@@ -3206,7 +3206,7 @@ function initMap() {
     ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
     : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
 
-  const map = L.map('map', {center:[-28.5,134], zoom:2, zoomControl:true, attributionControl:false, minZoom:4, maxZoom:18, scrollWheelZoom:true});
+  const map = L.map('map', {center:[-28.5,134], zoom:4, zoomControl:true, attributionControl:false, minZoom:4, maxZoom:18, scrollWheelZoom:true});
   tileLayer = L.tileLayer(tileUrl, {subdomains:'abcd', maxZoom:20}).addTo(map);
   window._map = map;
   window._tileLayer = tileLayer;
@@ -3378,7 +3378,7 @@ function initBrandMap(cfg) {
     ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
     : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
 
-  const map = L.map(cfg.mapElId, {center:[-28.5,134], zoom:2, zoomControl:true, attributionControl:false, minZoom:4, maxZoom:18, scrollWheelZoom:true});
+  const map = L.map(cfg.mapElId, {center:[-28.5,134], zoom:4, zoomControl:true, attributionControl:false, minZoom:4, maxZoom:18, scrollWheelZoom:true});
   const tileLayer = L.tileLayer(tileUrl, {subdomains:'abcd', maxZoom:20}).addTo(map);
   window[cfg.mapKey] = map;
   window[cfg.tileKey] = tileLayer;
