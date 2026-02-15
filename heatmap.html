@@ -114,6 +114,8 @@ body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSyst
 .ins .bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#bc3754,#fca50a)}
 
 /* View tabs */
+.insight-card.highlight-pulse{animation:highlightPulse 2s ease-out;box-shadow:0 0 0 3px var(--accent)}
+@keyframes highlightPulse{0%{box-shadow:0 0 0 6px var(--accent)}50%{box-shadow:0 0 0 3px var(--accent)}100%{box-shadow:none}}
 .view-tabs{display:none}.view-select{display:block;width:100%;max-width:320px;padding:12px 16px;font-size:14px;font-weight:600;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;cursor:pointer;margin:12px 16px}.view-select:focus{outline:2px solid var(--accent);outline-offset:1px}
 .view-tab{padding:14px 24px;font-size:13px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--tx3);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;user-select:none}
 .view-tab:hover{color:var(--tx2)}
@@ -379,7 +381,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
           <h2 style="font-size:20px;font-weight:700;color:var(--tx1);margin:0 0 6px 0">All Expansion Opportunities</h2>
           <p style="font-size:13px;color:var(--tx3);margin:0 0 20px 0">50 locations across 10 brands, ranked by catchment demand. Click any row to view the full brand analysis.</p>
           <div style="display:flex;flex-direction:column;gap:6px">
-        <div onclick="switchView('superdry-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#FF6B00'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('superdry-map','Marsden Park / NW Sydney')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#FF6B00'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">1</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Marsden Park / NW Sydney <span style="font-size:12px;font-weight:400;color:var(--tx3)">NSW</span></div>
@@ -393,7 +395,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.7</div>
           </div>
         </div>
-        <div onclick="switchView('superdry-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#FF6B00'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('superdry-map','Werribee / Point Cook')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#FF6B00'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">2</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Werribee / Point Cook <span style="font-size:12px;font-weight:400;color:var(--tx3)">VIC</span></div>
@@ -407,7 +409,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.79</div>
           </div>
         </div>
-        <div onclick="switchView('map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#e74c3c'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('map','NW Sydney Corridor')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#e74c3c'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">3</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">NW Sydney Corridor <span style="font-size:12px;font-weight:400;color:var(--tx3)">NSW</span></div>
@@ -421,7 +423,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.71</div>
           </div>
         </div>
-        <div onclick="switchView('sw-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#E85D00'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('sw-map','NW Sydney / Hills District')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#E85D00'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">4</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">NW Sydney / Hills District <span style="font-size:12px;font-weight:400;color:var(--tx3)">NSW</span></div>
@@ -435,7 +437,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.66</div>
           </div>
         </div>
-        <div onclick="switchView('map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#e74c3c'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('map','Western Melbourne Corridor')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#e74c3c'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">5</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Western Melbourne Corridor <span style="font-size:12px;font-weight:400;color:var(--tx3)">VIC</span></div>
@@ -449,7 +451,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.7</div>
           </div>
         </div>
-        <div onclick="switchView('superdry-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#FF6B00'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('superdry-map','Cranbourne / Casey')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#FF6B00'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">6</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Cranbourne / Casey <span style="font-size:12px;font-weight:400;color:var(--tx3)">VIC</span></div>
@@ -463,7 +465,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.64</div>
           </div>
         </div>
-        <div onclick="switchView('map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#e74c3c'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('map','SE Melbourne / Cranbourne')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#e74c3c'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">7</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">SE Melbourne / Cranbourne <span style="font-size:12px;font-weight:400;color:var(--tx3)">VIC</span></div>
@@ -477,7 +479,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.54</div>
           </div>
         </div>
-        <div onclick="switchView('map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#e74c3c'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('map','Springfield / Greater Ipswich')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#e74c3c'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">8</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Springfield / Greater Ipswich <span style="font-size:12px;font-weight:400;color:var(--tx3)">QLD</span></div>
@@ -491,7 +493,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.3</div>
           </div>
         </div>
-        <div onclick="switchView('reebok-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#CC0000'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('reebok-map','Geelong')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#CC0000'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">9</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Geelong <span style="font-size:12px;font-weight:400;color:var(--tx3)">VIC</span></div>
@@ -505,7 +507,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.67</div>
           </div>
         </div>
-        <div onclick="switchView('sns-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#FF4B0F'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('sns-map','Macarthur South / Camden')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#FF4B0F'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">10</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Macarthur South / Camden <span style="font-size:12px;font-weight:400;color:var(--tx3)">NSW</span></div>
@@ -519,7 +521,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.84</div>
           </div>
         </div>
-        <div onclick="switchView('sw-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#E85D00'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('sw-map','Western Melbourne / Hoppers Crossing')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#E85D00'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">11</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Western Melbourne / Hoppers Crossing <span style="font-size:12px;font-weight:400;color:var(--tx3)">VIC</span></div>
@@ -533,7 +535,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.49</div>
           </div>
         </div>
-        <div onclick="switchView('reebok-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#CC0000'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('reebok-map','Wollongong')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#CC0000'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">12</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Wollongong <span style="font-size:12px;font-weight:400;color:var(--tx3)">NSW</span></div>
@@ -547,7 +549,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.59</div>
           </div>
         </div>
-        <div onclick="switchView('superdry-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#FF6B00'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('superdry-map','Geelong')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#FF6B00'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">13</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Geelong <span style="font-size:12px;font-weight:400;color:var(--tx3)">VIC</span></div>
@@ -561,7 +563,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.48</div>
           </div>
         </div>
-        <div onclick="switchView('reebok-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#CC0000'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('reebok-map','Werribee / Point Cook')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#CC0000'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">14</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Werribee / Point Cook <span style="font-size:12px;font-weight:400;color:var(--tx3)">VIC</span></div>
@@ -575,7 +577,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.74</div>
           </div>
         </div>
-        <div onclick="switchView('sns-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#FF4B0F'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('sns-map','Wollongong / Illawarra')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#FF4B0F'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">15</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Wollongong / Illawarra <span style="font-size:12px;font-weight:400;color:var(--tx3)">NSW</span></div>
@@ -589,7 +591,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.58</div>
           </div>
         </div>
-        <div onclick="switchView('sns-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#FF4B0F'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('sns-map','Craigieburn / Northern Growth')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#FF4B0F'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">16</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Craigieburn / Northern Growth <span style="font-size:12px;font-weight:400;color:var(--tx3)">VIC</span></div>
@@ -603,7 +605,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.76</div>
           </div>
         </div>
-        <div onclick="switchView('map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#e74c3c'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('map','Ellenbrook / Swan')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#e74c3c'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">17</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Ellenbrook / Swan <span style="font-size:12px;font-weight:400;color:var(--tx3)">WA</span></div>
@@ -617,7 +619,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.22</div>
           </div>
         </div>
-        <div onclick="switchView('sw-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#E85D00'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('sw-map','SE Melbourne / Cranbourne')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#E85D00'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">18</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">SE Melbourne / Cranbourne <span style="font-size:12px;font-weight:400;color:var(--tx3)">VIC</span></div>
@@ -631,7 +633,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.3</div>
           </div>
         </div>
-        <div onclick="switchView('sw-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#E85D00'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('sw-map','Craigieburn / Northern Growth')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#E85D00'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">19</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Craigieburn / Northern Growth <span style="font-size:12px;font-weight:400;color:var(--tx3)">VIC</span></div>
@@ -645,7 +647,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.35</div>
           </div>
         </div>
-        <div onclick="switchView('sns-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#FF4B0F'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('sns-map','Melton / Aintree')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#FF4B0F'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">20</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Melton / Aintree <span style="font-size:12px;font-weight:400;color:var(--tx3)">VIC</span></div>
@@ -659,7 +661,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.64</div>
           </div>
         </div>
-        <div onclick="switchView('sns-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#FF4B0F'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('sns-map','Springfield / Ipswich')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#FF4B0F'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">21</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Springfield / Ipswich <span style="font-size:12px;font-weight:400;color:var(--tx3)">QLD</span></div>
@@ -673,7 +675,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.68</div>
           </div>
         </div>
-        <div onclick="switchView('elka-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#5B7553'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('elka-map','Western Sydney')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#5B7553'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">22</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Western Sydney <span style="font-size:12px;font-weight:400;color:var(--tx3)">NSW</span></div>
@@ -687,7 +689,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.8</div>
           </div>
         </div>
-        <div onclick="switchView('superdry-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#FF6B00'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('superdry-map','Ballarat')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#FF6B00'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">23</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Ballarat <span style="font-size:12px;font-weight:400;color:var(--tx3)">VIC</span></div>
@@ -701,7 +703,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.43</div>
           </div>
         </div>
-        <div onclick="switchView('sw-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#E85D00'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('sw-map','Springfield / Ipswich')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#E85D00'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">24</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Springfield / Ipswich <span style="font-size:12px;font-weight:400;color:var(--tx3)">QLD</span></div>
@@ -715,7 +717,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.35</div>
           </div>
         </div>
-        <div onclick="switchView('reebok-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#CC0000'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('reebok-map','Toowoomba')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#CC0000'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">25</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Toowoomba <span style="font-size:12px;font-weight:400;color:var(--tx3)">QLD</span></div>
@@ -729,7 +731,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.6</div>
           </div>
         </div>
-        <div onclick="switchView('reebok-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#CC0000'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('reebok-map','Camden / Macarthur')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#CC0000'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">26</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Camden / Macarthur <span style="font-size:12px;font-weight:400;color:var(--tx3)">NSW</span></div>
@@ -743,7 +745,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.39</div>
           </div>
         </div>
-        <div onclick="switchView('elka-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#5B7553'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('elka-map','Gold Coast / Burleigh')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#5B7553'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">27</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Gold Coast / Burleigh <span style="font-size:12px;font-weight:400;color:var(--tx3)">QLD</span></div>
@@ -757,7 +759,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.64</div>
           </div>
         </div>
-        <div onclick="switchView('hp-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#8B5E3C'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('hp-map','Craigieburn / Northern Melbourne')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#8B5E3C'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">28</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Craigieburn / Northern Melbourne <span style="font-size:12px;font-weight:400;color:var(--tx3)">VIC</span></div>
@@ -771,7 +773,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.72</div>
           </div>
         </div>
-        <div onclick="switchView('hp-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#8B5E3C'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('hp-map','Ballarat')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#8B5E3C'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">29</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Ballarat <span style="font-size:12px;font-weight:400;color:var(--tx3)">VIC</span></div>
@@ -785,7 +787,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.82</div>
           </div>
         </div>
-        <div onclick="switchView('elka-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#5B7553'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('elka-map','Outer North Melbourne')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#5B7553'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">30</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Outer North Melbourne <span style="font-size:12px;font-weight:400;color:var(--tx3)">VIC</span></div>
@@ -799,7 +801,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.72</div>
           </div>
         </div>
-        <div onclick="switchView('elka-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#5B7553'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('elka-map','Newcastle / Hunter')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#5B7553'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">31</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Newcastle / Hunter <span style="font-size:12px;font-weight:400;color:var(--tx3)">NSW</span></div>
@@ -813,7 +815,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.56</div>
           </div>
         </div>
-        <div onclick="switchView('elka-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#5B7553'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('elka-map','Hobart / Southern Tasmania')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#5B7553'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">32</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Hobart / Southern Tasmania <span style="font-size:12px;font-weight:400;color:var(--tx3)">TAS</span></div>
@@ -827,7 +829,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.48</div>
           </div>
         </div>
-        <div onclick="switchView('hp-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#8B5E3C'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('hp-map','Weston Creek / Canberra')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#8B5E3C'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">33</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Weston Creek / Canberra <span style="font-size:12px;font-weight:400;color:var(--tx3)">ACT</span></div>
@@ -841,7 +843,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.68</div>
           </div>
         </div>
-        <div onclick="switchView('hp-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#8B5E3C'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('hp-map','NW Sydney / Marsden Park')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#8B5E3C'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">34</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">NW Sydney / Marsden Park <span style="font-size:12px;font-weight:400;color:var(--tx3)">NSW</span></div>
@@ -855,7 +857,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.78</div>
           </div>
         </div>
-        <div onclick="switchView('hp-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#8B5E3C'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('hp-map','SW Sydney / Campbelltown-Camden')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#8B5E3C'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">35</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">SW Sydney / Campbelltown-Camden <span style="font-size:12px;font-weight:400;color:var(--tx3)">NSW</span></div>
@@ -869,7 +871,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.75</div>
           </div>
         </div>
-        <div onclick="switchView('bp-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#e53935'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('bp-map','Maitland / Hunter Valley')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#e53935'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">36</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Maitland / Hunter Valley <span style="font-size:12px;font-weight:400;color:var(--tx3)">NSW</span></div>
@@ -883,7 +885,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.82</div>
           </div>
         </div>
-        <div onclick="switchView('bp-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#e53935'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('bp-map','Bundaberg')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#e53935'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">37</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Bundaberg <span style="font-size:12px;font-weight:400;color:var(--tx3)">QLD</span></div>
@@ -897,7 +899,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.79</div>
           </div>
         </div>
-        <div onclick="switchView('bp-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#e53935'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('bp-map','Ballarat')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#e53935'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">38</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Ballarat <span style="font-size:12px;font-weight:400;color:var(--tx3)">VIC</span></div>
@@ -911,7 +913,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.71</div>
           </div>
         </div>
-        <div onclick="switchView('bp-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#e53935'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('bp-map','Camden / Macarthur')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#e53935'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">39</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Camden / Macarthur <span style="font-size:12px;font-weight:400;color:var(--tx3)">NSW</span></div>
@@ -925,7 +927,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.63</div>
           </div>
         </div>
-        <div onclick="switchView('bp-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#e53935'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('bp-map','Hervey Bay / Fraser Coast')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#e53935'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">40</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Hervey Bay / Fraser Coast <span style="font-size:12px;font-weight:400;color:var(--tx3)">QLD</span></div>
@@ -939,7 +941,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.63</div>
           </div>
         </div>
-        <div onclick="switchView('yt-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#6B4C3B'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('yt-map','Toowoomba')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#6B4C3B'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">41</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Toowoomba <span style="font-size:12px;font-weight:400;color:var(--tx3)">QLD</span></div>
@@ -953,7 +955,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)"></div>
           </div>
         </div>
-        <div onclick="switchView('yt-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#6B4C3B'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('yt-map','Blue Mountains')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#6B4C3B'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">42</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Blue Mountains <span style="font-size:12px;font-weight:400;color:var(--tx3)">NSW</span></div>
@@ -967,7 +969,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)"></div>
           </div>
         </div>
-        <div onclick="switchView('yt-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#6B4C3B'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('yt-map','Western Melbourne / Keilor')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#6B4C3B'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">43</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Western Melbourne / Keilor <span style="font-size:12px;font-weight:400;color:var(--tx3)">VIC</span></div>
@@ -981,7 +983,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)"></div>
           </div>
         </div>
-        <div onclick="switchView('yt-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#6B4C3B'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('yt-map','Gosford / Central Coast')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#6B4C3B'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">44</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Gosford / Central Coast <span style="font-size:12px;font-weight:400;color:var(--tx3)">NSW</span></div>
@@ -995,7 +997,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)"></div>
           </div>
         </div>
-        <div onclick="switchView('yt-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#6B4C3B'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('yt-map','SE Melbourne / Casey–Cardinia')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#6B4C3B'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">45</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">SE Melbourne / Casey–Cardinia <span style="font-size:12px;font-weight:400;color:var(--tx3)">VIC</span></div>
@@ -1009,7 +1011,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)"></div>
           </div>
         </div>
-        <div onclick="switchView('champ-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#D32F2F'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('champ-map','Western Sydney (Parramatta/Westmead)')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#D32F2F'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">46</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Western Sydney (Parramatta/Westmead) <span style="font-size:12px;font-weight:400;color:var(--tx3)">NSW</span></div>
@@ -1023,7 +1025,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.82</div>
           </div>
         </div>
-        <div onclick="switchView('champ-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#D32F2F'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('champ-map','Western Melbourne / Tarneit')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#D32F2F'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">47</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Western Melbourne / Tarneit <span style="font-size:12px;font-weight:400;color:var(--tx3)">VIC</span></div>
@@ -1037,7 +1039,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.79</div>
           </div>
         </div>
-        <div onclick="switchView('champ-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#D32F2F'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('champ-map','SE Queensland / Brisbane')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#D32F2F'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">48</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">SE Queensland / Brisbane <span style="font-size:12px;font-weight:400;color:var(--tx3)">QLD</span></div>
@@ -1051,7 +1053,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.75</div>
           </div>
         </div>
-        <div onclick="switchView('champ-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#D32F2F'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('champ-map','Perth')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#D32F2F'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">49</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Perth <span style="font-size:12px;font-weight:400;color:var(--tx3)">WA</span></div>
@@ -1065,7 +1067,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <div style="font-size:11px;color:var(--tx3)">Score 0.68</div>
           </div>
         </div>
-        <div onclick="switchView('champ-map')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#D32F2F'" onmouseout="this.style.borderColor='var(--bd)'">
+        <div onclick="switchView('champ-map','Campbellfield/Broadmeadows')" style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='#D32F2F'" onmouseout="this.style.borderColor='var(--bd)'">
           <div style="font-size:16px;font-weight:800;color:var(--tx3);text-align:center">50</div>
           <div style="min-width:0">
             <div style="font-size:14px;font-weight:600;color:var(--tx1)">Campbellfield/Broadmeadows <span style="font-size:12px;font-weight:400;color:var(--tx3)">VIC</span></div>
@@ -1402,7 +1404,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
 
       <h3 style="color:#5B7553">&#128205; Store Expansion Recommendations</h3>
       <p style="font-size:12px;color:var(--tx2);margin-bottom:12px">Ranked by composite score: cluster demand (40%), target demo density &mdash; women 25&ndash;54 (20%), competitive white space (25%), household income (15%). These are <strong>stockist recruitment targets</strong>, not own-store recommendations &mdash; Elka&rsquo;s model scales through partners.</p>
-      <div class="insight-card" style="border-left:3px solid #5B7553;cursor:pointer" onclick="showElkaCatchment(-33.71,150.87,'Western Sydney')">
+      <div class="insight-card" data-location="Western Sydney" style="border-left:3px solid #5B7553;cursor:pointer" onclick="showElkaCatchment(-33.71,150.87,'Western Sydney')">
         <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#5B7553">1. Western Sydney &mdash; NSW <span style="font-size:11px;font-weight:400;background:#5B7553;color:#fff;padding:1px 6px;border-radius:3px;margin-left:6px">Score: 0.80</span></div>
         <div class="metric-row"><span class="metric-label">Demand</span><span class="metric-val" style="color:#5B7553">$46,205</span></div>
         <div class="metric-row"><span class="metric-label">Orders</span><span class="metric-val">193</span></div>
@@ -2382,7 +2384,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
             <h3>&#128205; Store Location Recommendations</h3>
       <p style="font-size:12px;color:var(--tx2);margin-bottom:12px">Ranked by composite score: catchment demand (40%), target demo density (25%), competitive white space (20%), household income (15%). Total opportunity: <span class="highlight">$845K</span> across 5 catchments.</p>
 
-      <div class="insight-card" style="border-left:3px solid #d4380d;cursor:pointer" onclick="showCatchment(-33.71,150.87,'NW Sydney')">
+      <div class="insight-card" data-location="NW Sydney Corridor" style="border-left:3px solid #d4380d;cursor:pointer" onclick="showCatchment(-33.71,150.87,'NW Sydney')">
         <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#ff6666">1. NW Sydney Corridor &mdash; NSW <span style="font-size:11px;font-weight:400;background:#d4380d;color:#fff;padding:1px 6px;border-radius:3px;margin-left:6px">Score: 0.71</span></div>
         <div class="metric-row"><span class="metric-label">Demand</span><span class="metric-val highlight">$280,369</span></div>
         <div class="metric-row"><span class="metric-label">Orders</span><span class="metric-val">948</span></div>
@@ -2542,7 +2544,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
       <p><strong>6. Melbourne&rsquo;s outer corridors are underserved.</strong> Craigieburn ($85K) and Melton ($58K) represent Melbourne&rsquo;s two largest unserved family corridors &mdash; both 20km+ from the nearest store.</p>
                   <h3 style="color:#FF4B0F">&#128205; Store Location Recommendations</h3>
       <p style="font-size:12px;color:var(--tx2);margin-bottom:12px">Ranked by composite score: cluster demand (40%), children population (25%), competitive white space (20%), household income (15%). Total opportunity: <span class="highlight" style="color:#FF4B0F">$3.09M</span> across 25 clusters.</p>
-      <div class="insight-card" style="border-left:3px solid #FF4B0F;cursor:pointer" onclick="showSnsCatchment(-33.99,150.56,'Macarthur South')">
+      <div class="insight-card" data-location="Macarthur South / Camden" style="border-left:3px solid #FF4B0F;cursor:pointer" onclick="showSnsCatchment(-33.99,150.56,'Macarthur South')">
         <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#FF4B0F">1. Macarthur South / Camden &mdash; NSW <span style="font-size:11px;font-weight:400;background:#FF4B0F;color:#fff;padding:1px 6px;border-radius:3px;margin-left:6px">Score: 0.84</span></div>
         <div class="metric-row"><span class="metric-label">Demand</span><span class="metric-val" style="color:#FF4B0F">$119,296</span></div>
         <div class="metric-row"><span class="metric-label">Orders</span><span class="metric-val">1,263</span></div>
@@ -2806,7 +2808,7 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
 
       <h3 style="color:#E85D00">&#128205; Store Expansion Recommendations</h3>
       <p style="font-size:12px;color:var(--tx2);margin-bottom:12px">Ranked by composite score: catchment demand (40%), family population (25%), competitive white space (20%), household income (15%).</p>
-      <div class="insight-card" style="border-left:3px solid #E85D00;cursor:pointer" onclick="showSwCatchment(-33.731523,150.931074,'NW Sydney')">
+      <div class="insight-card" data-location="NW Sydney / Hills District" style="border-left:3px solid #E85D00;cursor:pointer" onclick="showSwCatchment(-33.731523,150.931074,'NW Sydney')">
         <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#E85D00">1. NW Sydney / Hills District &mdash; NSW <span style="font-size:11px;font-weight:400;background:#E85D00;color:#fff;padding:1px 6px;border-radius:3px;margin-left:6px">Score: 0.66</span></div>
         <div class="metric-row"><span class="metric-label">Demand</span><span class="metric-val" style="color:#FFB74D">$211K</span></div>
         <div class="metric-row"><span class="metric-label">Orders</span><span class="metric-val">2,043</span></div>
@@ -4647,7 +4649,7 @@ function buildSummaryCards() {
 
   // View tab/select switching (data-driven via BRAND_MAPS registry)
   var brandMapInitialized = {};
-  function switchView(view) {
+  function switchView(view, highlightLocation) {
     console.log('[switchView]', view);
     document.querySelectorAll('.view-tab').forEach(function(t) {
       t.classList.toggle('active', t.getAttribute('data-view') === view);
@@ -4708,6 +4710,38 @@ function buildSummaryCards() {
     document.body.scrollTop = 0;
     var mc = document.querySelector('.map-column');
     if (mc) mc.scrollTop = 0;
+
+    // Highlight matching expansion card if location provided
+    if (highlightLocation && ic) {
+      setTimeout(function() {
+        // Remove any previous highlights
+        document.querySelectorAll('.insight-card.highlight-pulse').forEach(function(el) {
+          el.classList.remove('highlight-pulse');
+        });
+        // Search for matching card by text content
+        var cards = ic.querySelectorAll('.insight-card');
+        var target = null;
+        var locClean = highlightLocation.replace(/\s+/g, ' ').trim().toLowerCase();
+        cards.forEach(function(card) {
+          var text = card.textContent.toLowerCase();
+          // Match on location name (first significant word)
+          var words = locClean.split(/[\s\/]+/);
+          var firstWord = words[0];
+          if (firstWord.length > 3 && text.indexOf(firstWord) !== -1) {
+            // Check for more specific match
+            if (words.length > 1 && text.indexOf(words[1]) !== -1) {
+              target = card;
+            } else if (!target) {
+              target = card;
+            }
+          }
+        });
+        if (target) {
+          target.classList.add('highlight-pulse');
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 300);
+    }
     console.log('[switchView] done, body classes:', document.body.className);
   }
   // Tab clicks
