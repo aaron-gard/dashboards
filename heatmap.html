@@ -3915,12 +3915,20 @@ try { buildSummaryCards(); } catch(e) { document.getElementById('locationCards')
       if (window[cfg.mapKey]) setTimeout(function(){ window[cfg.mapKey].invalidateSize(); window.dispatchEvent(new Event('resize')); }, 100);
     }
 
-    // Toggle insights panels
+    // Toggle insights panels — hide all first, then show the active one
     var insClass = view === 'map' ? 'review-ins' : (BRAND_MAPS[view] ? BRAND_MAPS[view].insClass : null);
-    document.querySelectorAll('.insights-column .ins').forEach(function(el) {
-      if (view === 'summary') { el.style.display = 'none'; }
-      else { el.style.display = (insClass && el.classList.contains(insClass)) ? 'block' : 'none'; }
-    });
+    var panels = document.querySelectorAll('.insights-column .ins');
+    // First pass: hide everything
+    panels.forEach(function(el) { el.style.display = 'none'; });
+    // Second pass: show the active panel
+    if (view !== 'summary' && insClass) {
+      panels.forEach(function(el) {
+        if (el.classList.contains(insClass)) el.style.display = 'block';
+      });
+    }
+    // Scroll insights column back to top on brand switch
+    var ic = document.querySelector('.insights-column');
+    if (ic) ic.scrollTop = 0;
   }
   // Tab clicks
   document.querySelectorAll('.view-tab').forEach(function(tab) {
