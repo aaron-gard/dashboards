@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security Audit — The Claw 🦀</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iIzFhMWExYSIvPjx0ZXh0IHg9IjE2IiB5PSIyMS41IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iLWFwcGxlLXN5c3RlbSxCbGlua01hY1N5c3RlbUZvbnQsc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjMwMCIgZm9udC1zaXplPSIxNCIgbGV0dGVyLXNwYWNpbmc9IjEiIGZpbGw9IiM5OTkiPkFHPC90ZXh0Pjwvc3ZnPg==">
+<style>
+:root{--bg:#0a0a0f;--bg2:#12121a;--bg3:#1a1a24;--bg4:#222230;--text:#f0f0f0;--text2:rgba(255,255,255,.7);--text3:rgba(255,255,255,.4);--border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.15);--accent:#2563eb;--accent2:#3b82f6;--green:#22c55e;--red:#ef4444;--amber:#f59e0b;--purple:#8b5cf6;--shadow:0 4px 24px rgba(0,0,0,.4);--radius:12px;--radius-sm:8px;--critical:#ef4444;--high:#f97316;--medium:#f59e0b;--low:#3b82f6;--info:#6b7280}
+[data-theme="light"]{--bg:#f5f5f7;--bg2:#fff;--bg3:#f0f0f2;--bg4:#e5e5ea;--text:#111;--text2:rgba(0,0,0,.65);--text3:rgba(0,0,0,.35);--border:rgba(0,0,0,.08);--border2:rgba(0,0,0,.15);--shadow:0 4px 24px rgba(0,0,0,.06)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+.container{max-width:1100px;margin:0 auto;padding:20px 16px 80px}
+.header{text-align:center;padding:32px 0 24px}
+.header-date{font-size:13px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);margin-bottom:8px}
+.header-title{font-size:28px;font-weight:700;margin-bottom:4px}
+.header-sub{font-size:13px;color:var(--text3)}
+.theme-toggle{position:fixed;top:16px;right:16px;width:36px;height:36px;border-radius:50%;border:1px solid var(--border2);background:var(--bg2);color:var(--text2);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:100;transition:all .2s}
+.theme-toggle:hover{background:var(--bg3)}
+.section{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;opacity:0;transform:translateY(12px);animation:fadeUp .4s ease forwards}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+.section:nth-child(1){animation-delay:.05s}.section:nth-child(2){animation-delay:.1s}.section:nth-child(3){animation-delay:.15s}
+.section-title{font-size:16px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.section-title .icon{font-size:18px}
+
+/* Grade circle */
+.grade-container{display:flex;align-items:center;justify-content:center;gap:32px;flex-wrap:wrap}
+.grade-circle{width:120px;height:120px;border-radius:50%;border:4px solid var(--amber);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+.grade-letter{font-size:36px;font-weight:700;line-height:1}
+.grade-score{font-size:13px;color:var(--text2);margin-top:2px}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;flex:1;min-width:280px}
+.stat-card{background:var(--bg3);border-radius:var(--radius-sm);padding:14px;text-align:center}
+.stat-value{font-size:24px;font-weight:700}
+.stat-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+
+/* Severity chart */
+.severity-bars{display:flex;gap:8px;align-items:flex-end;height:120px;padding:0 20px}
+.sev-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.sev-bar{width:100%;border-radius:6px 6px 0 0;min-height:4px;transition:height .6s ease}
+.sev-bar-label{font-size:11px;color:var(--text3);text-transform:uppercase}
+.sev-bar-count{font-size:18px;font-weight:700}
+
+/* Findings table */
+.filters{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.filter-btn{padding:6px 14px;border-radius:16px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-size:12px;cursor:pointer;transition:all .2s}
+.filter-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.filter-btn:hover:not(.active){background:var(--bg3)}
+.search-input{padding:6px 14px;border-radius:16px;border:1px solid var(--border2);background:var(--bg3);color:var(--text);font-size:12px;width:200px;outline:none}
+.search-input:focus{border-color:var(--accent)}
+
+.finding-row{border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px;overflow:hidden;transition:all .2s}
+.finding-row:hover{border-color:var(--border2)}
+.finding-header{display:flex;align-items:center;gap:12px;padding:12px 16px;cursor:pointer;user-select:none}
+.finding-header:hover{background:var(--bg3)}
+.sev-badge{padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+.sev-critical{background:rgba(239,68,68,.15);color:var(--critical)}
+.sev-high{background:rgba(249,115,22,.15);color:var(--high)}
+.sev-medium{background:rgba(245,158,11,.15);color:var(--medium)}
+.sev-low{background:rgba(59,130,246,.15);color:var(--low)}
+.sev-info{background:rgba(107,114,128,.15);color:var(--info)}
+.finding-title{flex:1;font-size:14px;font-weight:500}
+.finding-category{font-size:11px;color:var(--text3);white-space:nowrap}
+.finding-chevron{color:var(--text3);transition:transform .2s;font-size:12px}
+.finding-row.open .finding-chevron{transform:rotate(90deg)}
+.finding-detail{padding:0 16px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease}
+.finding-row.open .finding-detail{max-height:600px;padding:0 16px 16px}
+.finding-detail-inner{border-top:1px solid var(--border);padding-top:12px}
+.finding-detail p{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:8px}
+.finding-detail .label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:4px}
+.finding-brands{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;margin-bottom:12px}
+.brand-tag{padding:2px 8px;border-radius:8px;font-size:11px;background:var(--bg4);color:var(--text2)}
+
+/* Brand scorecard */
+.brand-table{width:100%;border-collapse:collapse;font-size:13px}
+.brand-table th{text-align:left;padding:8px 12px;border-bottom:2px solid var(--border2);color:var(--text3);font-size:11px;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;user-select:none;white-space:nowrap}
+.brand-table th:hover{color:var(--text)}
+.brand-table td{padding:8px 12px;border-bottom:1px solid var(--border)}
+.brand-table tr:hover td{background:var(--bg3)}
+.brand-grade{font-weight:700;font-size:14px}
+.count-badge{display:inline-block;min-width:20px;text-align:center;padding:1px 6px;border-radius:8px;font-size:11px;font-weight:600}
+
+/* Integration cards */
+.int-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.int-card{background:var(--bg3);border-radius:var(--radius-sm);padding:14px;border:1px solid var(--border)}
+.int-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.int-card-name{font-weight:600;font-size:14px}
+.int-card-cat{font-size:11px;color:var(--text3)}
+.int-card-finding{font-size:12px;color:var(--text2);line-height:1.5}
+.status-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.status-ok{background:var(--green)}.status-low{background:var(--low)}.status-medium{background:var(--medium)}.status-high{background:var(--high)}.status-critical{background:var(--critical)}
+
+/* DNS table */
+.dns-table{width:100%;border-collapse:collapse;font-size:12px}
+.dns-table th{text-align:left;padding:6px 8px;border-bottom:2px solid var(--border2);color:var(--text3);font-size:10px;text-transform:uppercase;letter-spacing:.5px}
+.dns-table td{padding:6px 8px;border-bottom:1px solid var(--border);word-break:break-all}
+.dns-table tr:hover td{background:var(--bg3)}
+.policy-badge{padding:2px 8px;border-radius:8px;font-size:10px;font-weight:600}
+.policy-none{background:rgba(239,68,68,.15);color:var(--critical)}
+.policy-reject{background:rgba(34,197,94,.15);color:var(--green)}
+.policy-missing{background:rgba(107,114,128,.15);color:var(--info)}
+
+/* Script inventory */
+.script-row{display:flex;align-items:center;gap:12px;padding:8px 12px;border-bottom:1px solid var(--border)}
+.script-row:hover{background:var(--bg3)}
+.script-domain{font-weight:500;font-size:13px;min-width:200px}
+.script-purpose{font-size:12px;color:var(--text2);flex:1}
+.script-risk{font-size:11px;font-weight:600}
+
+/* Recommendations */
+.rec-item{display:flex;gap:12px;padding:12px;border-bottom:1px solid var(--border);align-items:flex-start}
+.rec-item:last-child{border-bottom:none}
+.rec-num{width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.rec-content{flex:1}
+.rec-action{font-size:14px;font-weight:500;margin-bottom:4px}
+.rec-meta{display:flex;gap:12px;font-size:11px;color:var(--text3)}
+
+/* Export button */
+.export-btn{padding:8px 20px;border-radius:20px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-size:13px;font-weight:500;cursor:pointer;transition:all .2s}
+.export-btn:hover{background:var(--bg3);border-color:var(--accent)}
+
+/* Tabs */
+.tab-row{display:flex;gap:4px;margin-bottom:20px;flex-wrap:wrap}
+.tab-btn{padding:8px 16px;border-radius:8px;border:none;background:transparent;color:var(--text3);font-size:13px;font-weight:500;cursor:pointer;transition:all .2s}
+.tab-btn.active{background:var(--bg3);color:var(--text)}
+.tab-btn:hover:not(.active){color:var(--text2)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+@media(max-width:640px){
+  .grade-container{flex-direction:column}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .filters{flex-direction:column;align-items:stretch}
+  .search-input{width:100%}
+  .finding-header{flex-wrap:wrap;gap:8px}
+  .finding-category{display:none}
+  .brand-table{font-size:11px}
+  .brand-table td,.brand-table th{padding:6px 4px}
+  .int-grid{grid-template-columns:1fr}
+  .dns-table{font-size:10px}
+}
+</style>
+</head>
+<body>
+<button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">🌓</button>
+<div class="container">
+  <div class="header">
+    <div class="header-date" id="auditDate"></div>
+    <div class="header-title">Security Audit 🛡️</div>
+    <div class="header-sub">The Claw 🦀 — Brand Collective External Security Assessment</div>
+  </div>
+
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
+    <button class="tab-btn" onclick="showTab('findings')">Findings</button>
+    <button class="tab-btn" onclick="showTab('brands')">Brand Scorecard</button>
+    <button class="tab-btn" onclick="showTab('integrations')">Integrations</button>
+    <button class="tab-btn" onclick="showTab('dns')">DNS & Email</button>
+    <button class="tab-btn" onclick="showTab('scripts')">Third-Party Scripts</button>
+    <button class="tab-btn" onclick="showTab('recommendations')">Action Items</button>
+  </div>
+
+  <!-- OVERVIEW TAB -->
+  <div class="tab-content active" id="tab-overview">
+    <div class="section">
+      <div class="section-title"><span class="icon">📊</span> Executive Summary</div>
+      <div class="grade-container">
+        <div class="grade-circle" id="gradeCircle">
+          <div class="grade-letter" id="gradeLetter"></div>
+          <div class="grade-score" id="gradeScore"></div>
+        </div>
+        <div class="stats-grid" id="statsGrid"></div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-title"><span class="icon">📈</span> Severity Breakdown</div>
+      <div class="severity-bars" id="severityBars"></div>
+    </div>
+    <div class="section">
+      <div class="section-title"><span class="icon">🔑</span> Key Findings</div>
+      <div id="keyFindings"></div>
+    </div>
+  </div>
+
+  <!-- FINDINGS TAB -->
+  <div class="tab-content" id="tab-findings">
+    <div class="section">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:16px">
+        <div class="section-title" style="margin-bottom:0"><span class="icon">🔍</span> All Findings</div>
+        <button class="export-btn" onclick="exportCSV()">📥 Export CSV</button>
+      </div>
+      <div class="filters" id="filters"></div>
+      <div id="findingsTable"></div>
+    </div>
+  </div>
+
+  <!-- BRANDS TAB -->
+  <div class="tab-content" id="tab-brands">
+    <div class="section">
+      <div class="section-title"><span class="icon">🏪</span> Brand Security Scorecard</div>
+      <div style="overflow-x:auto">
+        <table class="brand-table" id="brandTable"></table>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTEGRATIONS TAB -->
+  <div class="tab-content" id="tab-integrations">
+    <div class="section">
+      <div class="section-title"><span class="icon">🔌</span> Integration Audit</div>
+      <div class="int-grid" id="intGrid"></div>
+    </div>
+  </div>
+
+  <!-- DNS TAB -->
+  <div class="tab-content" id="tab-dns">
+    <div class="section">
+      <div class="section-title"><span class="icon">📧</span> DNS & Email Security</div>
+      <div style="overflow-x:auto">
+        <table class="dns-table" id="dnsTable"></table>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS TAB -->
+  <div class="tab-content" id="tab-scripts">
+    <div class="section">
+      <div class="section-title"><span class="icon">📜</span> Third-Party Script Inventory</div>
+      <div id="scriptList"></div>
+    </div>
+  </div>
+
+  <!-- RECOMMENDATIONS TAB -->
+  <div class="tab-content" id="tab-recommendations">
+    <div class="section">
+      <div class="section-title"><span class="icon">✅</span> Prioritized Action Items</div>
+      <div id="recList"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+let DATA=null;
+let currentSevFilter='all';
+let currentSearch='';
+
+async function loadData(){
+  const r=await fetch('security-audit-data.json');
+  DATA=await r.json();
+  render();
+}
+
+function render(){
+  renderOverview();
+  renderFindings();
+  renderBrands();
+  renderIntegrations();
+  renderDNS();
+  renderScripts();
+  renderRecommendations();
+}
+
+function renderOverview(){
+  const m=DATA.metadata;
+  document.getElementById('auditDate').textContent=new Date(m.auditDate).toLocaleDateString('en-AU',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('gradeLetter').textContent=m.overallGrade;
+  document.getElementById('gradeScore').textContent=m.overallScore+'/100';
+
+  const sevCounts={critical:0,high:0,medium:0,low:0,info:0};
+  DATA.findings.forEach(f=>sevCounts[f.severity]++);
+  const total=DATA.findings.length;
+
+  document.getElementById('statsGrid').innerHTML=`
+    <div class="stat-card"><div class="stat-value">${m.brandsScanned}</div><div class="stat-label">Brands Scanned</div></div>
+    <div class="stat-card"><div class="stat-value">${m.checksPerformed}</div><div class="stat-label">Checks Run</div></div>
+    <div class="stat-card"><div class="stat-value">${m.integrationsAudited}</div><div class="stat-label">Integrations</div></div>
+    <div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">Total Findings</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--high)">${sevCounts.high}</div><div class="stat-label">High Severity</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--medium)">${sevCounts.medium}</div><div class="stat-label">Medium</div></div>
+  `;
+
+  // Severity bars
+  const maxCount=Math.max(...Object.values(sevCounts),1);
+  const colors={critical:'var(--critical)',high:'var(--high)',medium:'var(--medium)',low:'var(--low)',info:'var(--info)'};
+  document.getElementById('severityBars').innerHTML=Object.entries(sevCounts).map(([k,v])=>`
+    <div class="sev-bar-wrap">
+      <div class="sev-bar-count">${v}</div>
+      <div class="sev-bar" style="height:${Math.max(v/maxCount*100,4)}%;background:${colors[k]}"></div>
+      <div class="sev-bar-label">${k}</div>
+    </div>
+  `).join('');
+
+  // Key findings (high and above)
+  const key=DATA.findings.filter(f=>f.severity==='critical'||f.severity==='high');
+  document.getElementById('keyFindings').innerHTML=key.map(f=>`
+    <div style="padding:12px 0;border-bottom:1px solid var(--border)">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <span class="sev-badge sev-${f.severity}">${f.severity}</span>
+        <strong style="font-size:14px">${f.title}</strong>
+      </div>
+      <p style="font-size:12px;color:var(--text2);line-height:1.5">${f.detail.substring(0,200)}...</p>
+    </div>
+  `).join('');
+}
+
+function renderFindings(){
+  // Filters
+  const sevs=['all','critical','high','medium','low','info'];
+  const cats=[...new Set(DATA.findings.map(f=>f.category))];
+  
+  document.getElementById('filters').innerHTML=`
+    ${sevs.map(s=>`<button class="filter-btn ${s===currentSevFilter?'active':''}" onclick="filterSev('${s}')">${s==='all'?'All':s.charAt(0).toUpperCase()+s.slice(1)}</button>`).join('')}
+    <input class="search-input" type="text" placeholder="Search findings..." oninput="searchFindings(this.value)" value="${currentSearch}">
+  `;
+
+  let findings=DATA.findings;
+  if(currentSevFilter!=='all') findings=findings.filter(f=>f.severity===currentSevFilter);
+  if(currentSearch) findings=findings.filter(f=>(f.title+f.detail+f.category).toLowerCase().includes(currentSearch.toLowerCase()));
+
+  const sevOrder={critical:0,high:1,medium:2,low:3,info:4};
+  findings.sort((a,b)=>sevOrder[a.severity]-sevOrder[b.severity]);
+
+  document.getElementById('findingsTable').innerHTML=findings.map((f,i)=>`
+    <div class="finding-row" id="finding-${i}">
+      <div class="finding-header" onclick="toggleFinding(${i})">
+        <span class="sev-badge sev-${f.severity}">${f.severity}</span>
+        <span class="finding-title">${f.title}</span>
+        <span class="finding-category">${f.category}</span>
+        <span class="finding-chevron">▶</span>
+      </div>
+      <div class="finding-detail">
+        <div class="finding-detail-inner">
+          <div class="label">Detail</div>
+          <p>${f.detail}</p>
+          <div class="label">Affected Brands</div>
+          <div class="finding-brands">${f.affected.map(b=>`<span class="brand-tag">${b}</span>`).join('')}</div>
+          <div class="label">Recommendation</div>
+          <p>${f.recommendation}</p>
+          <div style="display:flex;gap:12px;margin-top:8px">
+            <span style="font-size:11px;color:var(--text3)">Status: ${f.status==='ok'?'✅ Resolved':'⚠️ Open'}</span>
+            <span style="font-size:11px;color:var(--text3)">ID: ${f.id}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderBrands(){
+  const brands=DATA.brands.sort((a,b)=>a.score-b.score);
+  document.getElementById('brandTable').innerHTML=`
+    <thead><tr>
+      <th>Brand</th><th>Domain</th><th>Grade</th><th>Score</th>
+      <th>🔴</th><th>🟠</th><th>🟡</th><th>🔵</th><th>⚪</th>
+    </tr></thead>
+    <tbody>${brands.map(b=>`<tr>
+      <td><strong>${b.name}</strong></td>
+      <td style="font-size:11px;color:var(--text2)">${b.domain}</td>
+      <td><span class="brand-grade">${b.grade}</span></td>
+      <td>${b.score}</td>
+      <td><span class="count-badge" style="background:rgba(239,68,68,.15);color:var(--critical)">${b.critical}</span></td>
+      <td><span class="count-badge" style="background:rgba(249,115,22,.15);color:var(--high)">${b.high}</span></td>
+      <td><span class="count-badge" style="background:rgba(245,158,11,.15);color:var(--medium)">${b.medium}</span></td>
+      <td><span class="count-badge" style="background:rgba(59,130,246,.15);color:var(--low)">${b.low}</span></td>
+      <td><span class="count-badge" style="background:rgba(107,114,128,.15);color:var(--info)">${b.info}</span></td>
+    </tr>`).join('')}</tbody>
+  `;
+}
+
+function renderIntegrations(){
+  document.getElementById('intGrid').innerHTML=DATA.integrations.map(i=>`
+    <div class="int-card">
+      <div class="int-card-header">
+        <div>
+          <div class="int-card-name"><span class="status-dot status-${i.status}"></span> ${i.name}</div>
+          <div class="int-card-cat">${i.category}</div>
+        </div>
+      </div>
+      <div class="int-card-finding">${i.finding}</div>
+      ${i.brands?`<div style="margin-top:8px;font-size:11px;color:var(--text3)">Brands: ${i.brands.join(', ')}</div>`:''}
+    </div>
+  `).join('');
+}
+
+function renderDNS(){
+  document.getElementById('dnsTable').innerHTML=`
+    <thead><tr><th>Domain</th><th>DMARC</th><th>SPF</th><th>MX</th></tr></thead>
+    <tbody>${DATA.dnsEmail.map(d=>`<tr>
+      <td><strong>${d.domain}</strong></td>
+      <td><span class="policy-badge policy-${d.dmarcPolicy}">${d.dmarcPolicy}</span></td>
+      <td style="max-width:400px;font-size:10px;color:var(--text2)">${d.spf.length>80?d.spf.substring(0,80)+'...':d.spf}</td>
+      <td style="font-size:10px;color:var(--text2)">${d.mx.split('.')[0]||'—'}</td>
+    </tr>`).join('')}</tbody>
+  `;
+}
+
+function renderScripts(){
+  const riskColors={high:'var(--critical)',medium:'var(--medium)',low:'var(--low)'};
+  document.getElementById('scriptList').innerHTML=DATA.thirdPartyScripts.map(s=>`
+    <div class="script-row">
+      <div class="script-domain">${s.domain}</div>
+      <div class="script-purpose">${s.purpose}</div>
+      <div style="font-size:11px;color:var(--text3)">${s.sri?'✅ SRI':'❌ No SRI'}</div>
+      <div class="script-risk" style="color:${riskColors[s.risk]||'var(--green)'}">${s.risk}</div>
+    </div>
+  `).join('');
+}
+
+function renderRecommendations(){
+  document.getElementById('recList').innerHTML=DATA.recommendations.map(r=>`
+    <div class="rec-item">
+      <div class="rec-num">${r.priority}</div>
+      <div class="rec-content">
+        <div class="rec-action">${r.action}</div>
+        <div class="rec-meta">
+          <span>Effort: ${r.effort}</span>
+          <span>Impact: ${r.impact}</span>
+          <span>Category: ${r.category}</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function showTab(name){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function toggleFinding(i){
+  document.getElementById('finding-'+i).classList.toggle('open');
+}
+
+function filterSev(s){
+  currentSevFilter=s;
+  renderFindings();
+}
+
+function searchFindings(v){
+  currentSearch=v;
+  renderFindings();
+}
+
+function exportCSV(){
+  let csv='ID,Severity,Category,Title,Affected Brands,Recommendation,Status\n';
+  DATA.findings.forEach(f=>{
+    csv+=`"${f.id}","${f.severity}","${f.category}","${f.title}","${f.affected.join('; ')}","${f.recommendation.replace(/"/g,'""')}","${f.status}"\n`;
+  });
+  const blob=new Blob([csv],{type:'text/csv'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='brand-collective-security-audit.csv';
+  a.click();
+}
+
+function toggleTheme(){
+  const html=document.documentElement;
+  html.dataset.theme=html.dataset.theme==='light'?'':'light';
+  localStorage.setItem('theme',html.dataset.theme);
+}
+
+// Init
+if(localStorage.getItem('theme')==='light') document.documentElement.dataset.theme='light';
+loadData();
+</script>
+</body>
+</html>
