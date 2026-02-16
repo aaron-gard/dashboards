@@ -115,7 +115,7 @@ header h1{font-size:1.3rem;font-weight:700}
 
 <div class="section"><div class="section-header"><h2>&LeftRightArrow; Key Findings</h2></div>
 <div class="section-body">
-<div class="insight-box" style="border-left-color:#ef4444"><strong>Online sales decline in store catchment areas after closure.</strong> Across 7 store closures analysed at postcode level, online revenue in the surrounding catchment dropped an average of <strong>35%</strong>, orders fell <strong>28%</strong>, and loyalty signups collapsed <strong>62%</strong>. The one exception (Highpoint, +72%) had its catchment covered by nearby active stores. Closing a store doesn't push customers online — it removes them from the funnel entirely. Combined with <strong>~13,000 lost loyalty signups per year</strong> ($5.3M in lifetime value), the true cost of closures extends far beyond the till.</div>
+<div class="insight-box" style="border-left-color:#ef4444"><strong>Online sales decline in store catchment areas after closure.</strong> Across 7 store closures analysed at postcode level, online revenue in the surrounding catchment dropped an average of <strong>38%</strong>, orders fell <strong>23%</strong>, and loyalty signups collapsed <strong>52%</strong>. 21 of 23 stores with data showed decline. The only exceptions (Highpoint, Myer Southland) had their catchments covered by nearby active stores. Closing a store doesn't push customers online — it removes them from the funnel entirely. Combined with <strong>~13,000 lost loyalty signups per year</strong> ($5.3M in lifetime value), the true cost of closures extends far beyond the till.</div>
 <div class="insight-box"><strong>Store closures are not driving online growth.</strong> Online revenue through the loyalty program has declined in parallel with store closures — from $34.3M (CY22) to $18.8M (CY25). The "halo" works in reverse: losing physical presence appears to reduce online demand, not redirect it.</div>
 <div class="insight-box"><strong>Physical signups declining faster than closures explain.</strong> Even open stores are seeing fewer signups — total physical signups dropped from ~46K/quarter (2022) to ~27K/quarter (2025). Store closures accelerate but don't fully explain the trend.</div>
 <div class="insight-box"><strong>Boutique closures hit harder than Myer concessions.</strong> Boutiques like Fountain Gate ($1.9M/yr), Melbourne Central ($1.4M/yr), and Highpoint ($1.2M/yr) had significantly higher revenue per location than closed Myer concessions.</div>
@@ -130,96 +130,242 @@ header h1{font-size:1.3rem;font-weight:700}
 <div style="overflow-x:auto;margin-bottom:16px">
 <table style="width:100%;border-collapse:collapse;font-size:.85rem">
 <thead><tr style="border-bottom:2px solid var(--border)">
-<th style="text-align:left;padding:10px 12px;color:var(--text2);font-weight:600">Store</th>
-<th style="text-align:center;padding:10px 8px;color:var(--text2);font-weight:600">Closed</th>
-<th style="text-align:right;padding:10px 8px;color:var(--text2);font-weight:600">Online Rev<br><span style="font-weight:400;font-size:.75rem">4Q avg</span></th>
-<th style="text-align:center;padding:10px 8px;color:var(--text2);font-weight:600">Δ Rev</th>
-<th style="text-align:right;padding:10px 8px;color:var(--text2);font-weight:600">Online Ord<br><span style="font-weight:400;font-size:.75rem">4Q avg</span></th>
-<th style="text-align:center;padding:10px 8px;color:var(--text2);font-weight:600">Δ Ord</th>
-<th style="text-align:center;padding:10px 8px;color:var(--text2);font-weight:600">Δ Signups</th>
+<th style="text-align:left;padding:8px 10px;color:var(--text2);font-weight:600">Store</th>
+<th style="text-align:center;padding:8px 6px;color:var(--text2);font-weight:600">Closed</th>
+<th style="text-align:right;padding:8px 6px;color:var(--text2);font-weight:600">Online Rev<br><span style="font-weight:400;font-size:.7rem">pre (4Q avg)</span></th>
+<th style="text-align:right;padding:8px 6px;color:var(--text2);font-weight:600">Online Rev<br><span style="font-weight:400;font-size:.7rem">post (4Q avg)</span></th>
+<th style="text-align:center;padding:8px 6px;color:var(--text2);font-weight:600">Δ Rev</th>
+<th style="text-align:center;padding:8px 6px;color:var(--text2);font-weight:600">Δ Orders</th>
+<th style="text-align:center;padding:8px 6px;color:var(--text2);font-weight:600">Δ Signups</th>
 </tr></thead>
 <tbody>
 <tr style="border-bottom:1px solid var(--border)">
-<td style="padding:10px 12px;font-weight:500">Parramatta</td>
-<td style="text-align:center;padding:10px 8px;color:var(--text2)">Jul 2024</td>
-<td style="text-align:right;padding:10px 8px">$2,350 → $1,030</td>
-<td style="text-align:center;padding:10px 8px;color:#ef4444;font-weight:600">−56.2%</td>
-<td style="text-align:right;padding:10px 8px">15 → 12</td>
-<td style="text-align:center;padding:10px 8px;color:#ef4444">−24.6%</td>
-<td style="text-align:center;padding:10px 8px;color:#ef4444">−55.6%</td>
+<td style="padding:8px 10px;font-weight:500;white-space:nowrap">🏪 Maroochydore</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2);font-size:.8rem">2024-04</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$1,178</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$202</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444;font-weight:600">-83%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-50%</td>
+<td style="text-align:center;padding:8px 6px;color:#22c55e">+117%</td>
 </tr>
 <tr style="border-bottom:1px solid var(--border)">
-<td style="padding:10px 12px;font-weight:500">Harbourtown Adelaide</td>
-<td style="text-align:center;padding:10px 8px;color:var(--text2)">Jun 2024</td>
-<td style="text-align:right;padding:10px 8px">$270 → $119</td>
-<td style="text-align:center;padding:10px 8px;color:#ef4444;font-weight:600">−56.1%</td>
-<td style="text-align:right;padding:10px 8px">2 → 1</td>
-<td style="text-align:center;padding:10px 8px;color:#ef4444">−42.9%</td>
-<td style="text-align:center;padding:10px 8px;color:#ef4444">−100%</td>
+<td style="padding:8px 10px;font-weight:500;white-space:nowrap">🏬 Myer Blacktown</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2);font-size:.8rem">2022-04</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$18,263</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$3,876</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444;font-weight:600">-79%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-76%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-100%</td>
 </tr>
 <tr style="border-bottom:1px solid var(--border)">
-<td style="padding:10px 12px;font-weight:500">Melbourne Central</td>
-<td style="text-align:center;padding:10px 8px;color:var(--text2)">May 2024</td>
-<td style="text-align:right;padding:10px 8px">$1,651 → $1,051</td>
-<td style="text-align:center;padding:10px 8px;color:#ef4444;font-weight:600">−36.4%</td>
-<td style="text-align:right;padding:10px 8px">11 → 11</td>
-<td style="text-align:center;padding:10px 8px;color:var(--text2)">+2.3%</td>
-<td style="text-align:center;padding:10px 8px;color:#ef4444">−80.0%</td>
+<td style="padding:8px 10px;font-weight:500;white-space:nowrap">🏪 Chermside</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2);font-size:.8rem">2023-08</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$6,408</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$2,131</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444;font-weight:600">-67%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-44%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-62%</td>
 </tr>
 <tr style="border-bottom:1px solid var(--border)">
-<td style="padding:10px 12px;font-weight:500">The Glen</td>
-<td style="text-align:center;padding:10px 8px;color:var(--text2)">Sep 2024</td>
-<td style="text-align:right;padding:10px 8px">$1,734 → $1,154</td>
-<td style="text-align:center;padding:10px 8px;color:#ef4444;font-weight:600">−33.4%</td>
-<td style="text-align:right;padding:10px 8px">15 → 12</td>
-<td style="text-align:center;padding:10px 8px;color:#ef4444">−23.0%</td>
-<td style="text-align:center;padding:10px 8px;color:var(--text2)">0.0%</td>
+<td style="padding:8px 10px;font-weight:500;white-space:nowrap">🏪 Parramatta</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2);font-size:.8rem">2024-07</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$2,350</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$786</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444;font-weight:600">-67%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-41%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-78%</td>
 </tr>
 <tr style="border-bottom:1px solid var(--border)">
-<td style="padding:10px 12px;font-weight:500">Fountain Gate</td>
-<td style="text-align:center;padding:10px 8px;color:var(--text2)">Jan 2025</td>
-<td style="text-align:right;padding:10px 8px">$2,261 → $1,915</td>
-<td style="text-align:center;padding:10px 8px;color:#ef4444;font-weight:600">−15.3%</td>
-<td style="text-align:right;padding:10px 8px">14 → 19</td>
-<td style="text-align:center;padding:10px 8px;color:#22c55e">+40.0%</td>
-<td style="text-align:center;padding:10px 8px;color:#ef4444">−57.1%</td>
+<td style="padding:8px 10px;font-weight:500;white-space:nowrap">🏬 Myer Bondi Junction</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2);font-size:.8rem">2022-08</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$3,176</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$1,070</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444;font-weight:600">-66%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-66%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-100%</td>
 </tr>
 <tr style="border-bottom:1px solid var(--border)">
-<td style="padding:10px 12px;font-weight:500">Booragoon</td>
-<td style="text-align:center;padding:10px 8px;color:var(--text2)">Jan 2025</td>
-<td style="text-align:right;padding:10px 8px">$1,652 → $1,455</td>
-<td style="text-align:center;padding:10px 8px;color:#ef4444;font-weight:600">−12.0%</td>
-<td style="text-align:right;padding:10px 8px">14 → 12</td>
-<td style="text-align:center;padding:10px 8px;color:#ef4444">−19.0%</td>
-<td style="text-align:center;padding:10px 8px;color:#ef4444">−80.0%</td>
+<td style="padding:8px 10px;font-weight:500;white-space:nowrap">🏪 Hobart</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2);font-size:.8rem">2024-04</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$1,010</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$376</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444;font-weight:600">-63%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-19%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-71%</td>
 </tr>
-<tr style="border-bottom:2px solid var(--border);background:rgba(37,99,235,0.04)">
-<td style="padding:10px 12px;font-weight:500;color:var(--accent)">Highpoint ⚡</td>
-<td style="text-align:center;padding:10px 8px;color:var(--text2)">Aug 2024</td>
-<td style="text-align:right;padding:10px 8px">$794 → $1,361</td>
-<td style="text-align:center;padding:10px 8px;color:#22c55e;font-weight:600">+71.5%</td>
-<td style="text-align:right;padding:10px 8px">8 → 11</td>
-<td style="text-align:center;padding:10px 8px;color:#22c55e">+34.4%</td>
-<td style="text-align:center;padding:10px 8px;color:#ef4444">−10.0%</td>
+<tr style="border-bottom:1px solid var(--border)">
+<td style="padding:8px 10px;font-weight:500;white-space:nowrap">🏬 Myer Werribee</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2);font-size:.8rem">2023-04</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$14,194</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$5,417</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444;font-weight:600">-62%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-46%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-53%</td>
 </tr>
-<tr style="background:var(--surface2);font-weight:600">
-<td style="padding:12px;color:var(--text)" colspan="2">Average (excl. Highpoint)</td>
-<td style="text-align:right;padding:12px" colspan="1"></td>
-<td style="text-align:center;padding:12px;color:#ef4444;font-size:1.05rem">−34.9%</td>
-<td style="text-align:right;padding:12px" colspan="1"></td>
-<td style="text-align:center;padding:12px;color:#ef4444;font-size:1.05rem">−27.9%</td>
-<td style="text-align:center;padding:12px;color:#ef4444;font-size:1.05rem">−62.1%</td>
+<tr style="border-bottom:1px solid var(--border)">
+<td style="padding:8px 10px;font-weight:500;white-space:nowrap">🏪 Melbourne Central</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2);font-size:.8rem">2024-05</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$2,677</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$1,086</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444;font-weight:600">-59%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-22%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-25%</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+<td style="padding:8px 10px;font-weight:500;white-space:nowrap">🏬 Myer Knox City</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2);font-size:.8rem">2021-12</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$10,551</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$4,629</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444;font-weight:600">-56%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-63%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-98%</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+<td style="padding:8px 10px;font-weight:500;white-space:nowrap">🏪 Top Ryde City</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2);font-size:.8rem">2024-02</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$6,466</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$3,221</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444;font-weight:600">-50%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-6%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-67%</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+<td style="padding:8px 10px;font-weight:500;white-space:nowrap">🏬 Myer Shellharbour</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2);font-size:.8rem">2022-12</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$5,799</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$2,983</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444;font-weight:600">-49%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-45%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-83%</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+<td style="padding:8px 10px;font-weight:500;white-space:nowrap">🏪 The Glen</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2);font-size:.8rem">2024-09</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$1,734</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$901</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444;font-weight:600">-48%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-25%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-40%</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+<td style="padding:8px 10px;font-weight:500;white-space:nowrap">🏬 Myer Brisbane</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2);font-size:.8rem">2023-08</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$4,124</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$2,201</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444;font-weight:600">-47%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-40%</td>
+<td style="text-align:center;padding:8px 6px;color:#22c55e">+67%</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+<td style="padding:8px 10px;font-weight:500;white-space:nowrap">🏬 Myer Frankston</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2);font-size:.8rem">2023-01</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$1,683</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$999</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444;font-weight:600">-41%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-41%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-69%</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+<td style="padding:8px 10px;font-weight:500;white-space:nowrap">🏬 Myer Warringah Mall</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2);font-size:.8rem">2022-12</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$3,107</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$2,050</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444;font-weight:600">-34%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-23%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-88%</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+<td style="padding:8px 10px;font-weight:500;white-space:nowrap">🏪 Sydney Central Plaza</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2);font-size:.8rem">2024-07</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$3,009</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$2,042</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444;font-weight:600">-32%</td>
+<td style="text-align:center;padding:8px 6px;color:#22c55e">+19%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-60%</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+<td style="padding:8px 10px;font-weight:500;white-space:nowrap">🏪 Fountain Gate</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2);font-size:.8rem">2025-01</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$2,261</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$1,553</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444;font-weight:600">-31%</td>
+<td style="text-align:center;padding:8px 6px;color:#22c55e">+18%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-57%</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+<td style="padding:8px 10px;font-weight:500;white-space:nowrap">🏬 Myer Albury</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2);font-size:.8rem">2024-07</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$326</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$251</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444;font-weight:600">-23%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-7%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-33%</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+<td style="padding:8px 10px;font-weight:500;white-space:nowrap">🏪 Booragoon</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2);font-size:.8rem">2025-01</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$1,652</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$1,470</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444;font-weight:600">-11%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-10%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-100%</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+<td style="padding:8px 10px;font-weight:500;white-space:nowrap">🏪 Woden</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2);font-size:.8rem">2024-04</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$2,156</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$1,919</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444;font-weight:600">-11%</td>
+<td style="text-align:center;padding:8px 6px;color:#22c55e">+20%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-85%</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+<td style="padding:8px 10px;font-weight:500;white-space:nowrap">🏬 Myer East Gardens</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2);font-size:.8rem">2022-12</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$2,857</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$2,806</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2);font-weight:600">-2%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-25%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-57%</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+<td style="padding:8px 10px;font-weight:500;white-space:nowrap">🏬 Myer Southland</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2);font-size:.8rem">2024-07</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$818</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$861</td>
+<td style="text-align:center;padding:8px 6px;color:#22c55e;font-weight:600">+5%</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2)">-4%</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2)">+0%</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+<td style="padding:8px 10px;font-weight:500;white-space:nowrap">🏪 Highpoint ⚡</td>
+<td style="text-align:center;padding:8px 6px;color:var(--text2);font-size:.8rem">2024-08</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$794</td>
+<td style="text-align:right;padding:8px 6px;font-size:.8rem">$1,638</td>
+<td style="text-align:center;padding:8px 6px;color:#22c55e;font-weight:600">+106%</td>
+<td style="text-align:center;padding:8px 6px;color:#22c55e">+72%</td>
+<td style="text-align:center;padding:8px 6px;color:#ef4444">-60%</td>
+</tr><tr style="background:var(--surface2);font-weight:600">
+<td style="padding:10px;color:var(--text)" colspan="4">Average across 23 stores</td>
+<td style="text-align:center;padding:10px;color:#ef4444;font-size:1.05rem">−38%</td>
+<td style="text-align:center;padding:10px;color:#ef4444;font-size:1.05rem">−23%</td>
+<td style="text-align:center;padding:10px;color:#ef4444;font-size:1.05rem">−52%</td>
 </tr>
 </tbody>
 </table>
+<div style="font-size:.75rem;color:var(--text3);margin-top:8px">🏪 Boutique &nbsp; 🏬 Myer Concession &nbsp; | &nbsp; Sorted by revenue impact (worst first) &nbsp; | &nbsp; Harbourtown Adelaide excluded (no online data in catchment)</div>
 </div>
 
-<div class="insight-box" style="border-left-color:#ef4444"><strong>6 of 7 stores saw online revenue DECLINE in their catchment after closure.</strong> The average drop (excluding the Highpoint outlier) was −34.9% revenue, −27.9% orders, −62.1% signups. Online doesn't absorb the demand — it shrinks alongside it.</div>
+<div class="insight-box" style="border-left-color:#ef4444"><strong>21 of 23 stores saw online revenue DECLINE in their catchment after closure.</strong> The average drop was −38% revenue, −23% orders, −52% signups. The pattern holds across boutiques and Myer concessions, metro and regional. Online doesn't absorb the demand — it shrinks alongside it.</div>
 
-<div class="insight-box"><strong>Highpoint is the exception — and it proves the rule.</strong> Highpoint's catchment (3031-3033) overlaps with several other active Review stores in inner-west Melbourne. When nearby stores maintain the halo, some demand can shift. Where no other store covers the gap, demand evaporates.</div>
+<div class="insight-box"><strong>Highpoint and Myer Southland are the only exceptions — and they prove the rule.</strong> Both sit in dense inner-Melbourne corridors with multiple other active Review locations nearby. When the halo network maintains coverage, some demand can redirect. Where no other store covers the gap, demand evaporates.</div>
 
-<div class="insight-box" style="border-left-color:#f59e0b"><strong>Caveat:</strong> Online catchment volumes are small (5–25 orders/quarter per 3-postcode area) so individual stores carry noise. But the pattern across 7 stores is consistent: decline is the norm, migration is the exception.</div>
+<div class="insight-box"><strong>Even Highpoint lost 60% of signups.</strong> Despite online revenue doubling (+106%), loyalty signups in Highpoint's catchment still dropped 60%. Revenue can partially migrate when nearby stores remain — but the acquisition engine (in-store signup) cannot be replaced by online alone.</div>
+
+<div class="insight-box" style="border-left-color:#f59e0b"><strong>Caveat:</strong> Online catchment volumes are modest (5–50 orders/quarter per 3-postcode area), so individual stores carry noise. But the consistency across 23 stores spanning 3+ years and multiple states is hard to dismiss. Decline is the norm. Migration is the exception.</div>
 </div></div>
+
+
 
 <div class="section" style="border:1px solid #ef4444;border-radius:12px">
 <div class="section-header" style="background:rgba(239,68,68,0.06)"><h2>💸 The Cost of Lost Signups</h2></div>
@@ -278,7 +424,7 @@ header h1{font-size:1.3rem;font-weight:700}
 <span style="font-weight:500">Harbourtown Adelaide</span><span style="color:var(--text2)">245/qtr</span><span style="color:#ef4444;font-weight:600">979/yr</span>
 </div>
 
-<div class="insight-box" style="border-left-color:#ef4444"><strong>These are not theoretical customers.</strong> Each store was generating hundreds of loyalty signups per quarter — real people walking in, engaging with the brand, and entering the CRM. Those acquisition channels are now permanently offline. The online channel has not compensated: online signups in catchment postcodes dropped 62% post-closure, not rose.</div>
+<div class="insight-box" style="border-left-color:#ef4444"><strong>These are not theoretical customers.</strong> Each store was generating hundreds of loyalty signups per quarter — real people walking in, engaging with the brand, and entering the CRM. Those acquisition channels are now permanently offline. The online channel has not compensated: online signups in catchment postcodes dropped 52% post-closure, not rose.</div>
 
 <div class="insight-box"><strong>The hidden cost beyond transactions:</strong> Each lost signup is also a lost email address, a lost retargeting audience member, a lost data point for personalisation, and a lost referral source. The $5.3M/yr figure captures only direct transaction value — the full marketing ecosystem cost is significantly higher.</div>
 </div></div>
