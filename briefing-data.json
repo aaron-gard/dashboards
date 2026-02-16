@@ -1,6 +1,6 @@
 {
   "morning": {
-    "generated": "2026-02-17T06:02:00+11:00",
+    "generated": "2026-02-17T06:04:00+11:00",
     "calendar": {
       "date": "Tuesday, 17 February 2026",
       "meetings": [
@@ -222,10 +222,10 @@
         "value": 0.706
       },
       "btc": {
-        "value": 67849
+        "value": 67880
       },
       "eth": {
-        "value": 1968
+        "value": 1969
       },
       "xrp": {
         "value": 1.47
@@ -237,29 +237,29 @@
       "low": 18,
       "condition": "Partly cloudy, showers later",
       "precip": 95,
-      "icon": "\ud83c\udf26"
+      "icon": "🌦"
     },
     "news": [
       {
-        "emoji": "\ud83e\udd16",
+        "emoji": "🤖",
         "topic": "AI",
-        "text": "Microsoft hits $81.3B quarterly revenue, cementing AI infrastructure pivot"
+        "text": "Microsoft hits $81.3B quarterly revenue, cementing AI-first infrastructure pivot"
       },
       {
-        "emoji": "\ud83c\udde6\ud83c\uddfa",
-        "topic": "AU Politics",
-        "text": "One Nation draws level with Coalition in polling; total fire ban declared for Melbourne today"
+        "emoji": "🏎",
+        "topic": "F1",
+        "text": "First 2026 pre-season test wraps in Bahrain — Antonelli tops timesheets for Mercedes"
       },
       {
-        "emoji": "\ud83c\udfc8",
+        "emoji": "🏈",
         "topic": "AFL",
-        "text": "2026 AAMI Community Series fixtures released \u2014 season starts March 5"
+        "text": "State of Origin returns: Victoria beat WA by 24 points at Optus Stadium"
       }
     ],
-    "comms_task": "In your first meeting today (ELT WIP), when you share an update or decision, add one sentence explaining the 'why' behind it before moving on. Not a justification \u2014 just the driving reason.",
+    "comms_task": "In your next 1:1 or delegation moment today, add one sentence of context: the 'why' behind the task. Not a justification — just the one reason that makes the priority obvious.",
     "quote": {
-      "text": "The best time to plant a tree was twenty years ago. The second best time is now.",
-      "author": "Chinese Proverb"
+      "text": "We do not rise to the level of our goals. We fall to the level of our systems.",
+      "author": "James Clear"
     }
   },
   "evening": {
@@ -384,8 +384,8 @@
       "low": 19,
       "condition": "Showers likely, hot",
       "precip": 80,
-      "icon": "\ud83c\udf26"
+      "icon": "🌦"
     },
-    "closing_thought": "Monday's done. The weeks that feel longest often hold the most progress \u2014 and this one's just getting started. Rest well tonight; tomorrow you'll see it more clearly."
+    "closing_thought": "Monday's done. The weeks that feel longest often hold the most progress — and this one's just getting started. Rest well tonight; tomorrow you'll see it more clearly."
   }
 }
