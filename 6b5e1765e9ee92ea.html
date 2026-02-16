@@ -100,6 +100,7 @@ tr:hover{background:var(--surface2)}
 <button class="tab-btn" onclick="showTab('retention',this)">Retention & Cohorts</button>
 <button class="tab-btn" onclick="showTab('tiers',this)">Tiers</button>
 <button class="tab-btn" onclick="showTab('loyalty',this)">Loyalty & Rewards</button>
+<button class="tab-btn" onclick="showTab('deep',this)">Deep Insights</button>
 </div>
 
 <!-- ═══ EXECUTIVE SUMMARY ═══ -->
@@ -177,6 +178,30 @@ tr:hover{background:var(--surface2)}
 <div class="title"><span class="severity green"></span>Online channel growing rapidly but from a low base</div>
 <span class="expand">▸</span>
 <div class="detail">Online loyalty revenue surged <strong>+65% YoY to $21.3M</strong> (from $12.9M), now representing 21% of total. The e-comm store alone did $13.9M with 88,542 transactions. However, the Myer dropship channel ($5.9M) is significant — Review is increasingly a marketplace brand. <em>Recommendation: Ensure loyalty is fully integrated into marketplace experiences (Myer online, etc).</em></div>
+</div>
+
+<div class="insight" onclick="this.classList.toggle('open')">
+<div class="title"><span class="severity green"></span>Boutique-acquired members worth 2.5× online — $348 vs $138 LTV</div>
+<span class="expand">▸</span>
+<div class="detail">Members who signed up in a <strong>Boutique</strong> have an average lifetime spend of <strong>$348</strong> over 1.97 transactions (AOV $183), compared to just <strong>$138</strong> for online-acquired members (0.96 txns, AOV $52). Concession-acquired sit at $300. In-store acquisition drives dramatically better long-term value — <strong>2.5× the LTV</strong>. <em>Recommendation: Invest in in-store loyalty sign-up programs and staff incentives.</em></div>
+</div>
+
+<div class="insight" onclick="this.classList.toggle('open')">
+<div class="title"><span class="severity red"></span>69% never return — 7-day window is critical for second purchase</div>
+<span class="expand">▸</span>
+<div class="detail"><strong>69.1% of members never make a second purchase.</strong> Of the 30.9% who do return, <strong>8% come back within 7 days</strong> — the single biggest conversion window. Only 14.4% return within 30 days. After 90 days, probability of return drops sharply. <em>Recommendation: Deploy aggressive post-purchase engagement (email/SMS) within the first week. A "welcome back" offer at day 3-5 could dramatically boost repeat rates.</em></div>
+</div>
+
+<div class="insight" onclick="this.classList.toggle('open')">
+<div class="title"><span class="severity amber"></span>Legacy members drive 49.5% of FY26 revenue — retention is critical</div>
+<span class="expand">▸</span>
+<div class="detail">FY26 YTD revenue breakdown: <strong>49.5% ($8.1M)</strong> from members acquired before FY23, <strong>33.8% ($5.5M)</strong> from brand-new FY26 members, and 16.7% from FY23-FY25 cohorts. The loyalty base is the revenue engine — members acquired 3+ years ago still drive half of all revenue. <em>Recommendation: Each churned legacy member represents outsized revenue loss. Prioritise retention.</em></div>
+</div>
+
+<div class="insight" onclick="this.classList.toggle('open')">
+<div class="title"><span class="severity green"></span>Multi-channel members spend 14× more — $6,499 vs $467 avg</div>
+<span class="expand">▸</span>
+<div class="detail">Members who shop <strong>both online and in-store</strong> spend an average of <strong>$6,499</strong> over 20.67 transactions, vs <strong>$560</strong> for online-only and <strong>$467</strong> for physical-only. Multi-channel members are only 10.5% of the base but are by far the most valuable. <em>Recommendation: Converting single-channel to multi-channel should be a top priority. Incentivise cross-channel visits.</em></div>
 </div>
 
 <div class="insight" onclick="this.classList.toggle('open')">
@@ -446,6 +471,124 @@ tr:hover{background:var(--surface2)}
 </div>
 </div>
 
+<!-- ═══ DEEP INSIGHTS ═══ -->
+<div id="tab-deep" class="tab-panel">
+
+<div class="kpi-row">
+<div class="kpi"><div class="label">Boutique LTV</div><div class="value">$348</div><div class="sub">2.5× higher than online ($138)</div></div>
+<div class="kpi"><div class="label">Repeat Rate</div><div class="value">30.9%</div><div class="delta down">69.1% never return</div></div>
+<div class="kpi"><div class="label">Legacy Revenue Share</div><div class="value">49.5%</div><div class="sub">Pre-FY23 members drive half of FY26</div></div>
+<div class="kpi"><div class="label">Multi-Channel Spend</div><div class="value">$6,499</div><div class="sub">14× single-channel avg ($467)</div></div>
+</div>
+
+<!-- LTV by Acquisition Channel -->
+<div class="section">
+<div class="section-header"><h2>📊 LTV by Acquisition Channel (Members 2021–2023)</h2></div>
+<div class="section-body">
+<div class="grid-2">
+<div class="chart-container"><canvas id="chart-ltv-channel"></canvas></div>
+<div>
+<table>
+<thead><tr><th>Channel</th><th>Members</th><th>Avg LTV</th><th>Avg Txns</th><th>Avg AOV</th></tr></thead>
+<tbody>
+<tr><td><span class="badge blue">Boutiques</span></td><td>44,058</td><td><strong>$348</strong></td><td>1.97</td><td>$183</td></tr>
+<tr><td><span class="badge orange">Concession</span></td><td>63,581</td><td>$300</td><td>1.77</td><td>$172</td></tr>
+<tr><td><span class="badge">Outlets</span></td><td>15,582</td><td>$256</td><td>1.80</td><td>$142</td></tr>
+<tr><td><span class="badge blue">Online</span></td><td>53,869</td><td>$138</td><td>0.96</td><td>$52</td></tr>
+<tr><td style="color:var(--text2)">No Location</td><td>21,972</td><td>$305</td><td>2.06</td><td>$94</td></tr>
+</tbody>
+</table>
+<div class="insight" style="margin-top:16px;border-left-color:var(--green);cursor:default">
+<div class="title" style="font-size:.88rem"><span class="severity green"></span>In-store acquisition drives 2.5× the lifetime value of online</div>
+<div class="detail" style="display:block">Boutique members average $348 LTV with nearly 2 transactions, while online members average just $138 — and most never even transact (0.96 avg). Physical stores are the loyalty engine.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Time to Second Purchase -->
+<div class="section">
+<div class="section-header"><h2>⏱️ Time to Second Purchase (2023 Cohort)</h2></div>
+<div class="section-body">
+<div class="grid-2">
+<div class="chart-container"><canvas id="chart-second-purchase"></canvas></div>
+<div>
+<table>
+<thead><tr><th>Window</th><th>Members</th><th>% of Cohort</th></tr></thead>
+<tbody>
+<tr><td>0–7 days</td><td>2,350</td><td><strong>8.0%</strong></td></tr>
+<tr><td>8–14 days</td><td>796</td><td>2.7%</td></tr>
+<tr><td>15–30 days</td><td>1,066</td><td>3.6%</td></tr>
+<tr><td>31–60 days</td><td>882</td><td>3.0%</td></tr>
+<tr><td>61–90 days</td><td>417</td><td>1.4%</td></tr>
+<tr><td>91–180 days</td><td>812</td><td>2.8%</td></tr>
+<tr><td>181–365 days</td><td>1,090</td><td>3.7%</td></tr>
+<tr><td>365+ days</td><td>1,637</td><td>5.6%</td></tr>
+<tr style="background:rgba(255,92,92,.08)"><td><strong>Never</strong></td><td><strong>20,234</strong></td><td><strong>69.1%</strong></td></tr>
+</tbody>
+</table>
+<div class="insight" style="margin-top:16px;border-left-color:var(--red);cursor:default">
+<div class="title" style="font-size:.88rem"><span class="severity red"></span>The first 7 days are make-or-break</div>
+<div class="detail" style="display:block">8% of all members return within week 1 — the single highest-converting window. After 90 days, only 9.3% will ever return. A post-purchase email/SMS at day 3-5 could be transformative.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- New vs Returning Revenue -->
+<div class="section">
+<div class="section-header"><h2>💰 New vs Returning Revenue (FY26 YTD)</h2></div>
+<div class="section-body">
+<div class="grid-2">
+<div class="chart-container"><canvas id="chart-new-vs-returning"></canvas></div>
+<div>
+<table>
+<thead><tr><th>Cohort</th><th>Members</th><th>Txns</th><th>Revenue</th><th>% Rev</th></tr></thead>
+<tbody>
+<tr><td><span class="badge blue">FY22 or older</span></td><td>27,845</td><td>57,162</td><td>$8.06M</td><td><strong>49.5%</strong></td></tr>
+<tr><td><span class="badge green">New (FY26)</span></td><td>25,434</td><td>36,757</td><td>$5.51M</td><td>33.8%</td></tr>
+<tr><td><span class="badge orange">FY25</span></td><td>4,164</td><td>8,746</td><td>$1.11M</td><td>6.8%</td></tr>
+<tr><td><span class="badge">FY24</span></td><td>3,109</td><td>6,270</td><td>$0.88M</td><td>5.4%</td></tr>
+<tr><td style="color:var(--text2)">FY23</td><td>2,706</td><td>5,410</td><td>$0.74M</td><td>4.5%</td></tr>
+</tbody>
+</table>
+<div class="insight" style="margin-top:16px;border-left-color:var(--orange);cursor:default">
+<div class="title" style="font-size:.88rem"><span class="severity amber"></span>Half of FY26 revenue depends on members acquired 3+ years ago</div>
+<div class="detail" style="display:block">Legacy members (pre-FY23) generate $8.1M in FY26 YTD — nearly half of all revenue. Each churned legacy member is an outsized loss. Meanwhile, 33.8% from new members shows healthy acquisition.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Multi-Channel Value -->
+<div class="section">
+<div class="section-header"><h2>🔀 Multi-Channel Member Value (Last 12m)</h2></div>
+<div class="section-body">
+<div class="grid-2">
+<div class="chart-container"><canvas id="chart-multi-channel"></canvas></div>
+<div>
+<table>
+<thead><tr><th>Type</th><th>Members</th><th>Avg Spend</th><th>Avg Txns</th><th>AOV</th></tr></thead>
+<tbody>
+<tr style="background:rgba(108,140,255,.08)"><td><strong>Multi-channel</strong></td><td>10,515</td><td><strong>$6,499</strong></td><td>20.67</td><td>$314</td></tr>
+<tr><td>Online only</td><td>11,263</td><td>$560</td><td>1.29</td><td>$434</td></tr>
+<tr><td>Physical only</td><td>78,848</td><td>$467</td><td>1.46</td><td>$321</td></tr>
+</tbody>
+</table>
+<div class="insight" style="margin-top:16px;border-left-color:var(--green);cursor:default">
+<div class="title" style="font-size:.88rem"><span class="severity green"></span>Multi-channel = 14× the value of single-channel</div>
+<div class="detail" style="display:block">Just 10.5% of members are multi-channel, but they average $6,499 spend and 20.67 transactions. Converting even 5% of single-channel members would be worth millions. Incentivise cross-channel visits urgently.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
 <div class="footer">Review Australia — Loyalty Intelligence Dashboard • Updated 17 Feb 2026 • Internal Use Only — Brand Collective</div>
 </div>
 
@@ -551,6 +694,26 @@ function initCharts(){
   document.getElementById('tbl-txn-yearly').innerHTML=txRows;
 
   document.getElementById('tbl-top-locations').innerHTML=DATA.topLocs.map((r,i)=>`<tr><td>${i+1}</td><td>${r[0]}</td><td><span class="badge ${r[1]==='Online'?'blue':r[1]==='Concession'?'orange':r[1]==='Outlets'?'green':''}"> ${r[1]}</span></td><td>${r[2].toLocaleString()}</td><td>${fmt$(r[3])}</td><td>$${r[4]}</td></tr>`).join('');
+
+  // ── Deep Insights Charts ──
+
+  // LTV by Channel
+  charts.ltvChannel=new Chart(document.getElementById('chart-ltv-channel'),{type:'bar',data:{labels:['Boutiques','Concession','Outlets','Online','No Location'],datasets:[
+    {label:'Avg Lifetime Spend',data:[348.13,299.67,255.55,137.68,304.50],backgroundColor:[accent+'cc',orange+'cc',green+'cc','#6c8cff66',text2+'66'],borderRadius:4}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{grid:{color:gridColor},ticks:{callback:v=>'$'+v}},x:{grid:{display:false}}}}});
+
+  // Time to Second Purchase histogram
+  charts.secondPurchase=new Chart(document.getElementById('chart-second-purchase'),{type:'bar',data:{labels:['0-7d','8-14d','15-30d','31-60d','61-90d','91-180d','181-365d','365+d','Never'],datasets:[
+    {label:'Members',data:[2350,796,1066,882,417,812,1090,1637,20234],backgroundColor:[green+'cc',green+'99',accent+'cc',accent+'99',orange+'99',orange+'77',red+'77',red+'55',red+'cc'],borderRadius:4}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{grid:{color:gridColor}},x:{grid:{display:false}}}}});
+
+  // New vs Returning donut
+  charts.newVsReturning=new Chart(document.getElementById('chart-new-vs-returning'),{type:'doughnut',data:{labels:['FY22 or older ($8.1M)','New FY26 ($5.5M)','FY25 ($1.1M)','FY24 ($0.9M)','FY23 ($0.7M)'],datasets:[{data:[8061293,5505810,1112922,878741,740985],backgroundColor:[accent+'cc',green+'cc',orange+'cc',yellow+'cc',text2+'88']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:11}}}}}});
+
+  // Multi-channel comparison
+  charts.multiChannel=new Chart(document.getElementById('chart-multi-channel'),{type:'bar',data:{labels:['Multi-channel','Online only','Physical only'],datasets:[
+    {label:'Avg Spend',data:[6498.61,559.87,467.40],backgroundColor:[accent+'cc',orange+'cc',green+'cc'],borderRadius:4}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{grid:{color:gridColor},ticks:{callback:v=>'$'+v.toLocaleString()}},x:{grid:{display:false}}}}});
 }
 </script>
 </body>
