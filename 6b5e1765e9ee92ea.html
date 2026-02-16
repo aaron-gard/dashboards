@@ -101,6 +101,7 @@ tr:hover{background:var(--surface2)}
 <button class="tab-btn" onclick="showTab('tiers',this)">Tiers</button>
 <button class="tab-btn" onclick="showTab('loyalty',this)">Loyalty & Rewards</button>
 <button class="tab-btn" onclick="showTab('deep',this)">Deep Insights</button>
+<button class="tab-btn" onclick="showTab('memvsnonmem',this)">Member vs Non-Member</button>
 </div>
 
 <!-- ═══ EXECUTIVE SUMMARY ═══ -->
@@ -208,6 +209,12 @@ tr:hover{background:var(--surface2)}
 <div class="title"><span class="severity amber"></span>High-value members concentrated at top — fragile base</div>
 <span class="expand">▸</span>
 <div class="detail">13.5% of transacting members (12,905) spend $1,000+ annually, while 15.7% (15,016) spend under $100. The top spenders are critical — losing even a small percentage has outsized revenue impact. With Dress Circle declining and only 4,915 members in Tiers 2-3, the high-value member pipeline is thinning. <em>Recommendation: Implement VIP retention program for $500+ spenders independent of tier status.</em></div>
+</div>
+
+<div class="insight open" onclick="this.classList.toggle('open')">
+<div class="title"><span class="severity red"></span>Non-member online revenue collapsed −68% while member sales surged +92%</div>
+<span class="expand">▸</span>
+<div class="detail">Member share of online revenue doubled from <strong>40% to 80%</strong> in one year. Member sales grew from $3.2M to $6.1M (+92%), but non-member sales collapsed from $4.7M to $1.5M (−68%). <strong>Total DTC is still down 18%</strong> despite member growth. The loyalty program is identifying more customers, but anonymous top-of-funnel demand has disappeared. Key question: is this reclassification (same people, now identified) or genuine demand loss? Check GA4 unique visitors and new-to-file rates. <em>See "Member vs Non-Member" tab for full breakdown by channel.</em></div>
 </div>
 
 </div>
@@ -478,7 +485,7 @@ tr:hover{background:var(--surface2)}
 <div id="tab-deep" class="tab-panel">
 
 <div class="kpi-row">
-<div class="kpi"><div class="label">Boutique LTV</div><div class="value">$348</div><div class="sub">2.5× higher than online ($138)</div></div>
+<div class="kpi"><div class="label">Physical Conversion</div><div class="value">96%</div><div class="sub">vs 37% online signup conversion</div></div>
 <div class="kpi"><div class="label">Repeat Rate</div><div class="value">30.9%</div><div class="delta down">69.1% never return</div></div>
 <div class="kpi"><div class="label">Legacy Revenue Share</div><div class="value">49.5%</div><div class="sub">Pre-FY23 members drive half of FY26</div></div>
 <div class="kpi"><div class="label">Multi-Channel 12m Spend</div><div class="value">$560</div><div class="sub">2.5× physical-only ($223)</div></div>
@@ -587,6 +594,63 @@ tr:hover{background:var(--surface2)}
 </div>
 </div>
 </div>
+</div>
+
+</div>
+
+<div id="tab-memvsnonmem" class="tab-panel">
+
+<div class="kpi-row">
+<div class="kpi"><div class="label">Member Share (Online)</div><div class="value" style="color:var(--accent)">80%</div><div class="sub">Up from 40% LY</div></div>
+<div class="kpi"><div class="label">Member Sales</div><div class="value" style="color:var(--green)">$6.1M</div><div class="delta up">+92% vs LY</div></div>
+<div class="kpi"><div class="label">Non-Member Sales</div><div class="value" style="color:var(--red)">$1.5M</div><div class="delta down">−68% vs LY</div></div>
+<div class="kpi"><div class="label">Non-Member Lost</div><div class="value" style="color:var(--red)">−$3.2M</div><div class="sub">Anonymous demand vanished</div></div>
+</div>
+
+<div class="section-header"><h2>📊 Member vs Non-Member Revenue — Online Channels FY26 YTD (to 15 Feb)</h2></div>
+<p style="color:var(--text2);font-size:.85rem;margin-bottom:16px">Member sales = Omneo loyalty-linked transactions. Non-member = Total actual sales minus member sales. Actual sales sourced from daily sales report.</p>
+
+<div class="grid-2">
+<div class="chart-container"><canvas id="chart-mem-split"></canvas></div>
+<div>
+<table>
+<thead><tr><th>Channel</th><th>Member TY</th><th>Non-Mem TY</th><th>Mem Share</th><th>Mem YoY</th><th>Non-Mem YoY</th></tr></thead>
+<tbody>
+<tr><td><strong>Review DTC</strong></td><td>$3,629,597</td><td style="color:var(--red)">$1,229,139</td><td><strong>75%</strong> <span style="color:var(--text2)">(was 35%)</span></td><td><span class="badge green">+77%</span></td><td><span class="badge red">−68%</span></td></tr>
+<tr><td><strong>Myer Online</strong></td><td>$1,910,213</td><td style="color:var(--red)">$342,189</td><td><strong>85%</strong> <span style="color:var(--text2)">(was 54%)</span></td><td><span class="badge green">+93%</span></td><td><span class="badge red">−59%</span></td></tr>
+<tr><td><strong>The Iconic</strong></td><td>$328,086</td><td>—</td><td>~100%</td><td><span class="badge green">+184%</span></td><td>—</td></tr>
+<tr><td><strong>DJs Online</strong></td><td>$157,925</td><td>—</td><td>~100%</td><td>New</td><td>—</td></tr>
+</tbody>
+<tfoot><tr style="font-weight:700;border-top:2px solid var(--border)"><td>TOTAL ONLINE</td><td>$6.08M</td><td style="color:var(--red)">$1.51M</td><td><strong>80%</strong></td><td><span class="badge green">+92%</span></td><td><span class="badge red">−68%</span></td></tr></tfoot>
+</table>
+</div>
+</div>
+
+<div class="section-header" style="margin-top:24px"><h2>📈 Member Share Shift — FY25 vs FY26</h2></div>
+<div class="grid-2">
+<div class="chart-container"><canvas id="chart-mem-share"></canvas></div>
+<div class="chart-container"><canvas id="chart-mem-waterfall"></canvas></div>
+</div>
+
+<div class="section-header" style="margin-top:24px"><h2>💡 What This Means</h2></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<div style="background:var(--surface2);border-radius:12px;padding:20px;border-left:4px solid var(--green)">
+<h3 style="font-size:.95rem;margin-bottom:8px">✅ The Positive Read</h3>
+<p style="font-size:.85rem;color:var(--text2)">Loyalty identification is working. 80% of online customers are now known members vs 40% a year ago. This means better CRM targeting, richer customer data, and the ability to personalise. The "growth" in member sales may partly be reclassification — same customers, now identified.</p>
+</div>
+<div style="background:var(--surface2);border-radius:12px;padding:20px;border-left:4px solid var(--red)">
+<h3 style="font-size:.95rem;margin-bottom:8px">⚠️ The Concerning Read</h3>
+<p style="font-size:.85rem;color:var(--text2)">Non-member revenue collapsed from $4.7M to $1.5M (−68%). Even if half of that is reclassification, there's still ~$1.6M of genuinely lost anonymous demand. Top-of-funnel acquisition may be failing — fewer new visitors converting without loyalty incentives. DTC total revenue is down 18% despite member growth.</p>
+</div>
+</div>
+
+<div style="background:var(--surface2);border-radius:12px;padding:20px;margin-top:16px;border-left:4px solid var(--orange)">
+<h3 style="font-size:.95rem;margin-bottom:8px">🔑 Key Question to Answer</h3>
+<p style="font-size:.85rem;color:var(--text2)">Is the non-member collapse driven by <strong>better identification</strong> (same people, now tracked) or <strong>genuine demand loss</strong> (fewer new customers)? Check: unique visitor counts and new-to-file rates in GA4. If site traffic is flat but non-member sales are down, it's identification. If traffic is down, it's demand.</p>
+</div>
+
+<div style="background:var(--surface2);border-radius:12px;padding:16px;margin-top:16px">
+<p style="font-size:.8rem;color:var(--text2)">⚙️ <strong>Data methodology:</strong> Member sales from Omneo v_v3_transactions (FY26 YTD, non-void, location IDs 44/107/150/154). Actual sales from BC daily sales report (YTD 15/02/26). Non-member = Actual minus Member. Iconic & DJs show ~100% member share (Omneo captures all marketplace transactions). This analysis requires periodic actual sales input — Omneo alone cannot distinguish member from non-member.</p>
 </div>
 
 </div>
@@ -716,6 +780,23 @@ function initCharts(){
   charts.multiChannel=new Chart(document.getElementById('chart-multi-channel'),{type:'bar',data:{labels:['Multi-channel','Online only','Physical only'],datasets:[
     {label:'Avg 12m Spend',data:[559.75,268.96,223.13],backgroundColor:[accent+'cc',orange+'cc',green+'cc'],borderRadius:4}
   ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{grid:{color:gridColor},ticks:{callback:v=>'$'+v.toLocaleString()}},x:{grid:{display:false}}}}});
+
+  // Member vs Non-Member charts
+  if(document.getElementById('chart-mem-split')){
+    charts.memSplit=new Chart(document.getElementById('chart-mem-split'),{type:'bar',data:{labels:['Review DTC','Myer Online','The Iconic','DJs Online'],datasets:[
+      {label:'Member Sales',data:[3629597,1910213,328086,157925],backgroundColor:accent+'cc',borderRadius:3},
+      {label:'Non-Member Sales',data:[1229139,342189,0,0],backgroundColor:red+'88',borderRadius:3}
+    ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:textColor}}},scales:{x:{stacked:true,grid:{display:false}},y:{stacked:true,grid:{color:gridColor},ticks:{callback:v=>fmt$(v)}}}}});
+
+    charts.memShare=new Chart(document.getElementById('chart-mem-share'),{type:'bar',data:{labels:['Review DTC','Myer Online','The Iconic','DJs Online'],datasets:[
+      {label:'FY25 Member Share %',data:[35,54,100,0],backgroundColor:text2+'66',borderRadius:3},
+      {label:'FY26 Member Share %',data:[75,85,100,100],backgroundColor:accent+'cc',borderRadius:3}
+    ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:textColor}}},scales:{y:{max:100,grid:{color:gridColor},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
+
+    charts.memWaterfall=new Chart(document.getElementById('chart-mem-waterfall'),{type:'bar',data:{labels:['FY25 Online Total','Member Growth','Non-Member Loss','FY26 Online Total'],datasets:[
+      {label:'Revenue',data:[7872050,2916601,-3191462,7597189],backgroundColor:[text2+'66',green+'cc',red+'cc',accent+'cc'],borderRadius:3}
+    ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{grid:{color:gridColor},ticks:{callback:v=>fmt$(v)}},x:{grid:{display:false}}}}});
+  }
 }
 </script>
 </body>
