@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Julius Marlow — Amazon AU Price Audit</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0f1117;--surface:#1a1d27;--surface2:#242836;--border:#2e3348;--text:#e4e6f0;--text2:#9ca3b8;--accent:#6c8cff;--accent2:#4a6adf;--red:#ff5c5c;--orange:#ffaa3c;--green:#5cdb7f;--yellow:#ffd64a}
+[data-theme=light]{--bg:#f4f5f7;--surface:#fff;--surface2:#eef0f4;--border:#d8dbe5;--text:#1a1d27;--text2:#5a6178;--accent:#4a6adf;--accent2:#3a56c0;--red:#d93636;--orange:#d88a1a;--green:#2a9d4e;--yellow:#c9a530}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;min-height:100vh}
+.gate{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.gate-box{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px;max-width:380px;width:100%;text-align:center}
+.gate-box h1{font-size:1.3rem;margin-bottom:8px}
+.gate-box p{color:var(--text2);font-size:.9rem;margin-bottom:24px}
+.gate-box input{width:100%;padding:12px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:1rem;margin-bottom:12px}
+.gate-box button{width:100%;padding:12px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-size:1rem;font-weight:600;cursor:pointer}
+.gate-box button:hover{background:var(--accent2)}
+.hidden{display:none!important}
+header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+header h1{font-size:1.4rem;font-weight:700}
+header .meta{color:var(--text2);font-size:.85rem}
+.controls{display:flex;gap:8px;align-items:center}
+.controls button{padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.85rem;cursor:pointer}
+.controls button:hover{border-color:var(--accent)}
+.container{max-width:1200px;margin:0 auto;padding:24px}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:28px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px}
+.kpi .label{font-size:.8rem;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.kpi .value{font-size:1.8rem;font-weight:700}
+.kpi .sub{font-size:.85rem;color:var(--text2);margin-top:4px}
+.kpi.critical .value{color:var(--red)}
+.kpi.warn .value{color:var(--orange)}
+.kpi.ok .value{color:var(--green)}
+.section{background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-bottom:20px;overflow:hidden}
+.section-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.section-header h2{font-size:1.1rem;font-weight:600}
+.badge{padding:3px 10px;border-radius:20px;font-size:.75rem;font-weight:600}
+.badge.red{background:rgba(255,92,92,.15);color:var(--red)}
+.badge.orange{background:rgba(255,170,60,.15);color:var(--orange)}
+.badge.green{background:rgba(92,219,127,.15);color:var(--green)}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th{text-align:left;padding:10px 16px;color:var(--text2);font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.3px;border-bottom:1px solid var(--border)}
+td{padding:12px 16px;border-bottom:1px solid var(--border)}
+tr:last-child td{border-bottom:none}
+tr:hover{background:var(--surface2)}
+.price{font-weight:600;font-variant-numeric:tabular-nums}
+.diff-neg{color:var(--red)}
+.diff-pos{color:var(--green)}
+.diff-warn{color:var(--orange)}
+.flag{display:inline-flex;align-items:center;gap:4px;font-size:.85rem}
+.insight-box{padding:20px;border-left:3px solid var(--accent);background:var(--surface2);margin:16px 20px;border-radius:0 8px 8px 0}
+.insight-box h3{font-size:.95rem;margin-bottom:8px}
+.insight-box ul{margin-left:20px;color:var(--text2)}
+.insight-box li{margin-bottom:6px}
+.insight-box li strong{color:var(--text)}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}
+.tag.critical{background:rgba(255,92,92,.15);color:var(--red)}
+.tag.stale{background:rgba(255,170,60,.15);color:var(--orange)}
+.tag.matched{background:rgba(92,219,127,.15);color:var(--green)}
+.tag.missing{background:rgba(108,140,255,.15);color:var(--accent)}
+.footer{text-align:center;padding:32px;color:var(--text2);font-size:.8rem}
+@media(max-width:600px){
+  header{padding:16px}
+  .container{padding:16px}
+  .kpi .value{font-size:1.4rem}
+  table{font-size:.8rem}
+  th,td{padding:8px 10px}
+}
+</style>
+</head>
+<body>
+
+<div id="gate" class="gate">
+<div class="gate-box">
+<h1>🔒 Julius Marlow</h1>
+<p>Amazon AU Price Audit — Internal Only</p>
+<input type="password" id="pw" placeholder="Password" autofocus>
+<button onclick="unlock()">Access</button>
+</div>
+</div>
+
+<div id="app" class="hidden">
+<header>
+<div>
+<h1>Julius Marlow — Amazon AU Price Audit</h1>
+<div class="meta">134 Amazon listings audited • 16 February 2026</div>
+</div>
+<div class="controls">
+<button onclick="toggleTheme()">☀️ / 🌙</button>
+<button onclick="window.print()">📄 PDF</button>
+</div>
+</header>
+
+<div class="container">
+
+<div class="kpi-row">
+<div class="kpi critical">
+<div class="label">Critical Undercuts</div>
+<div class="value">1</div>
+<div class="sub">Argyle Black: −$70.00</div>
+</div>
+<div class="kpi warn">
+<div class="label">Price Mismatches</div>
+<div class="value">6</div>
+<div class="sub">of 7 overlap products</div>
+</div>
+<div class="kpi">
+<div class="label">Amazon-Only (Discontinued)</div>
+<div class="value">40+</div>
+<div class="sub">3P sellers, old stock</div>
+</div>
+<div class="kpi ok">
+<div class="label">New Range on Amazon</div>
+<div class="value">0</div>
+<div class="sub">20+ JM products not listed</div>
+</div>
+</div>
+
+<!-- Key Insights -->
+<div class="section">
+<div class="section-header">
+<h2>⚡ Key Insights</h2>
+</div>
+<div class="insight-box">
+<h3>Critical Issues</h3>
+<ul>
+<li><strong>Argyle Black</strong> — Amazon sells at $129.95 vs JM's full price $199.95. This is a <strong>$70 undercut on a current, full-price product</strong>. Likely a 3P seller or unauthorized distributor.</li>
+<li><strong>Lax Loafer</strong> — Amazon $89 vs JM sale price $99. Amazon is <strong>beating the DTC sale price</strong> by $10.</li>
+<li><strong>Banter</strong> — Amazon $122.30 vs JM sale price $129. Amazon $6.70 cheaper than JM's discounted price.</li>
+</ul>
+</div>
+<div class="insight-box">
+<h3>Stale Pricing / Consumer Confusion</h3>
+<ul>
+<li><strong>Jet Dark Burgundy</strong> — Amazon $134.95 vs JM $89. Consumer sees JM 34% cheaper → drives DTC, but signals messy marketplace.</li>
+<li><strong>Melbourne Black</strong> — Amazon $119.15 vs JM $79. Same dynamic — Amazon price stuck at old RRP.</li>
+<li><strong>Maven Brown</strong> — Amazon $129.95 vs JM $99. $30.95 delta, old stock at old pricing.</li>
+</ul>
+</div>
+<div class="insight-box">
+<h3>Strategic Observations</h3>
+<ul>
+<li><strong>40+ discontinued products</strong> still circulating on Amazon via 3P sellers — brand dilution risk.</li>
+<li><strong>Entire new season range missing from Amazon</strong> (Alpha, Axiom, Alto, Lexicon, Bourke, Flare, Luxe) — either by design or channel gap.</li>
+<li><strong>Only 1 of 7 overlap products matched</strong> on price (Vapour at $99).</li>
+<li>Multiple products have 3–5 duplicate Amazon listings with different ASINs — indicates fragmented seller base.</li>
+</ul>
+</div>
+</div>
+
+<!-- Overlap Products -->
+<div class="section">
+<div class="section-header">
+<h2>Products on Both Amazon & JM Website</h2>
+<span class="badge red">6 of 7 mismatched</span>
+</div>
+<table>
+<thead>
+<tr><th>Product</th><th>JM Price</th><th>Amazon Price</th><th>Difference</th><th>Flag</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Argyle Black</strong></td>
+<td class="price">$199.95</td>
+<td class="price">$129.95</td>
+<td class="price diff-neg">−$70.00</td>
+<td><span class="tag critical">🚨 CRITICAL</span></td>
+</tr>
+<tr>
+<td><strong>Lax (Loafer)</strong></td>
+<td class="price">$99.00 <small style="color:var(--text2)">was $179.95</small></td>
+<td class="price">$89.00</td>
+<td class="price diff-neg">−$10.00</td>
+<td><span class="tag critical">⚠️ Undercut</span></td>
+</tr>
+<tr>
+<td><strong>Banter</strong></td>
+<td class="price">$129.00 <small style="color:var(--text2)">was $229.95</small></td>
+<td class="price">$122.30</td>
+<td class="price diff-neg">−$6.70</td>
+<td><span class="tag critical">⚠️ Undercut</span></td>
+</tr>
+<tr>
+<td><strong>Vapour (Mule)</strong></td>
+<td class="price">$99.00 <small style="color:var(--text2)">was $169.95</small></td>
+<td class="price">$99.00</td>
+<td class="price">$0.00</td>
+<td><span class="tag matched">✅ Matched</span></td>
+</tr>
+<tr>
+<td><strong>Jet Dark Burgundy</strong></td>
+<td class="price">$89.00</td>
+<td class="price">$134.95</td>
+<td class="price diff-warn">+$45.95</td>
+<td><span class="tag stale">Stale Amazon price</span></td>
+</tr>
+<tr>
+<td><strong>Melbourne Black</strong></td>
+<td class="price">$79.00 <small style="color:var(--text2)">was $159.95</small></td>
+<td class="price">$119.15</td>
+<td class="price diff-warn">+$40.15</td>
+<td><span class="tag stale">Stale Amazon price</span></td>
+</tr>
+<tr>
+<td><strong>Maven Brown</strong></td>
+<td class="price">$99.00 <small style="color:var(--text2)">was $199.95</small></td>
+<td class="price">$129.95</td>
+<td class="price diff-warn">+$30.95</td>
+<td><span class="tag stale">Stale Amazon price</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- Amazon-Only -->
+<div class="section">
+<div class="section-header">
+<h2>Amazon-Only Products (Not on JM Website)</h2>
+<span class="badge orange">40+ discontinued products</span>
+</div>
+<table>
+<thead>
+<tr><th>Product</th><th>Amazon Price</th><th>Amazon RRP</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td>Kick Chelsea Boot</td><td class="price">$112.97</td><td class="price">$199.95</td><td>Popular (20+ bought/mo)</td></tr>
+<tr><td>Jet Black Patent</td><td class="price">$117.35</td><td class="price">$189.95</td><td>Two listings (old + new ASIN)</td></tr>
+<tr><td>Knock Black</td><td class="price">$103–$129</td><td class="price">$179.95</td><td>Multiple listings</td></tr>
+<tr><td>Knock Cognac</td><td class="price">$102–$117</td><td>—</td><td>Multiple size-specific</td></tr>
+<tr><td>Grand Derby</td><td class="price">$98.97</td><td>—</td><td></td></tr>
+<tr><td>Expand</td><td class="price">$98–$101</td><td class="price">$179.95</td><td></td></tr>
+<tr><td>Gaucho Black</td><td class="price">$159.95</td><td class="price">$199.95</td><td></td></tr>
+<tr><td>Gaucho Mocha</td><td class="price">$164.95</td><td class="price">$199.95</td><td></td></tr>
+<tr><td>Scuttle Boots</td><td class="price">$69–$189</td><td class="price">$229.95</td><td>Wide price range</td></tr>
+<tr><td>Jaded</td><td class="price">$100.78</td><td class="price">$179.95</td><td></td></tr>
+<tr><td>Wait</td><td class="price">$99–$107</td><td>—</td><td></td></tr>
+<tr><td>Jaunt Black</td><td class="price">$134.96</td><td class="price">$179.95</td><td></td></tr>
+<tr><td>Jaunt Mocha</td><td class="price">$136.95</td><td>—</td><td></td></tr>
+<tr><td>Jax</td><td class="price">$141.28</td><td class="price">$189.95</td><td></td></tr>
+<tr><td>Lisbon</td><td class="price">$100.44</td><td>—</td><td></td></tr>
+<tr><td>Oslo</td><td class="price">$82.00</td><td>—</td><td></td></tr>
+<tr><td>Finland</td><td class="price">$67.46</td><td class="price">$79.95</td><td></td></tr>
+<tr><td>Owen</td><td class="price">$48.46</td><td class="price">$79.95</td><td></td></tr>
+<tr><td>Longreach Cognac</td><td class="price">$169.95</td><td class="price">$249.95</td><td>Many size-specific listings</td></tr>
+<tr><td>Longreach Mocha</td><td class="price">$184.95</td><td class="price">$249.95</td><td></td></tr>
+<tr><td>Longreach Black</td><td class="price">$169.95</td><td>—</td><td></td></tr>
+<tr><td>Yonder Boat Shoe</td><td class="price">$62.94</td><td class="price">$179.95</td><td></td></tr>
+<tr><td>Cade</td><td class="price">$139.95</td><td class="price">$199.95</td><td></td></tr>
+<tr><td>Harry Chelsea</td><td class="price">$136–$158</td><td>—</td><td></td></tr>
+<tr><td>Spike Chukka</td><td class="price">$171.60</td><td>—</td><td></td></tr>
+<tr><td colspan="4" style="color:var(--text2);font-style:italic">+ ~15 more discontinued styles (Burwood, Keen, Waiver, London, Monash, Driver, Lotus, Masked, Merit, Borris, Oliver, Limbo, Direct…) and various 3P clearance sellers</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- JM-Only -->
+<div class="section">
+<div class="section-header">
+<h2>JM Website Products NOT on Amazon</h2>
+<span class="badge green">20+ current products</span>
+</div>
+<div style="padding:20px">
+<p style="margin-bottom:12px"><strong>Full Price Range:</strong></p>
+<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px">
+<span class="tag missing">Lexicon</span>
+<span class="tag missing">Alpha</span>
+<span class="tag missing">Axiom</span>
+<span class="tag missing">Alto</span>
+<span class="tag missing">Wake</span>
+<span class="tag missing">Wave</span>
+<span class="tag missing">Worth</span>
+<span class="tag missing">Bourke</span>
+<span class="tag missing">Flare</span>
+<span class="tag missing">Luxe</span>
+</div>
+<p style="margin-bottom:12px"><strong>Sale Range:</strong></p>
+<div style="display:flex;flex-wrap:wrap;gap:8px">
+<span class="tag missing">Bold</span>
+<span class="tag missing">Quake</span>
+<span class="tag missing">Valid</span>
+<span class="tag missing">Tamper</span>
+</div>
+</div>
+</div>
+
+<!-- Recommendations -->
+<div class="section">
+<div class="section-header">
+<h2>📋 Recommended Actions</h2>
+</div>
+<div style="padding:20px">
+<table>
+<thead><tr><th>Priority</th><th>Action</th><th>Detail</th></tr></thead>
+<tbody>
+<tr><td><span class="tag critical">P1</span></td><td><strong>Investigate Argyle Black seller</strong></td><td>Identify who's selling at $129.95 (vs $199.95 RRP). Likely unauthorized — consider brand registry complaint.</td></tr>
+<tr><td><span class="tag critical">P2</span></td><td><strong>Address active undercuts</strong></td><td>Lax (−$10) and Banter (−$6.70) selling below JM sale price. Contact Amazon channel manager.</td></tr>
+<tr><td><span class="tag stale">P3</span></td><td><strong>Clean up stale pricing</strong></td><td>Jet, Melbourne, Maven priced $30–$45 above JM — confusing, not harmful, but messy.</td></tr>
+<tr><td><span class="tag stale">P4</span></td><td><strong>3P seller audit</strong></td><td>40+ discontinued products still listed. Evaluate brand dilution risk and consider removal requests via Brand Registry.</td></tr>
+<tr><td><span class="tag missing">P5</span></td><td><strong>New range strategy</strong></td><td>Decide if new season (Alpha, Axiom, etc.) should be listed on Amazon or kept DTC-exclusive.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<div class="footer">
+Julius Marlow Amazon AU Price Audit • Generated 16 Feb 2026 • Internal Use Only — Brand Collective
+</div>
+</div>
+
+<script>
+const HASH='d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1';
+function sha256(s){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)).then(b=>Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join(''))}
+function unlock(){
+  const pw=document.getElementById('pw').value;
+  sha256(pw).then(h=>{
+    if(h===HASH){localStorage.setItem('jm_audit_auth','1');show()}
+    else{document.getElementById('pw').style.borderColor='var(--red)';document.getElementById('pw').value=''}
+  })
+}
+function show(){document.getElementById('gate').classList.add('hidden');document.getElementById('app').classList.remove('hidden')}
+if(localStorage.getItem('jm_audit_auth')==='1')show();
+document.getElementById('pw').addEventListener('keydown',e=>{if(e.key==='Enter')unlock()});
+function toggleTheme(){const t=document.documentElement.dataset.theme;document.documentElement.dataset.theme=t==='dark'?'light':'dark'}
+</script>
+</body>
+</html>
