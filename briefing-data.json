@@ -151,132 +151,129 @@
     }
   },
   "evening": {
-    "generated": "2026-02-16T18:00:00+11:00",
+    "generated": "2026-02-16T19:00:00+11:00",
     "calendar": {
       "date": "Monday, 16 February 2026",
-      "meetings": [
-        {
-          "time": "09:00",
-          "duration": 30,
-          "title": "Digital Standup",
-          "status": "completed"
-        },
-        {
-          "time": "10:00",
-          "duration": 60,
-          "title": "Brand Collective \u2014 Q3 Trading Review",
-          "status": "completed"
-        },
-        {
-          "time": "12:00",
-          "duration": 30,
-          "title": "1:1 with Jess (Reebok Launch)",
-          "status": "completed"
-        },
-        {
-          "time": "14:00",
-          "duration": 60,
-          "title": "CRO Working Session \u2014 Checkout Flow",
-          "status": "completed"
-        },
-        {
-          "time": "15:30",
-          "duration": 30,
-          "title": "Superdry Campaign Sign-off",
-          "status": "completed"
-        }
-      ],
-      "tomorrow": [
-        {
-          "time": "09:00",
-          "duration": 30,
-          "title": "Digital Standup",
-          "color": "#2563eb"
-        },
-        {
-          "time": "11:00",
-          "duration": 60,
-          "title": "Reebok Launch Sync",
-          "color": "#22c55e"
-        },
-        {
-          "time": "14:30",
-          "duration": 45,
-          "title": "Design Review \u2014 Happy Socks",
-          "color": "#8b5cf6"
-        }
-      ]
+      "meetings": [],
+      "tomorrow": [],
+      "note": "Calendar unavailable - browser service offline"
     },
     "sales": {
       "date": "Monday, 16 February 2026",
       "partial": true,
       "brands": [
         {
-          "name": "Reebok",
-          "demand": 31200,
-          "orders": 198
-        },
-        {
-          "name": "Review",
-          "demand": 28400,
-          "orders": 187
-        },
-        {
-          "name": "Superdry",
-          "demand": 22100,
-          "orders": 118
-        },
-        {
           "name": "Shoes & Sox",
-          "demand": 19800,
-          "orders": 162
+          "demand": 9991,
+          "orders": 97
         },
         {
           "name": "Black Pepper",
-          "demand": 18900,
-          "orders": 112
+          "demand": 5855,
+          "orders": 41
         },
         {
-          "name": "Champion",
-          "demand": 14500,
-          "orders": 108
+          "name": "Canada Goose",
+          "demand": 5600,
+          "orders": 3
+        },
+        {
+          "name": "Shoe Warehouse",
+          "demand": 5174,
+          "orders": 47
+        },
+        {
+          "name": "Superdry",
+          "demand": 4514,
+          "orders": 43
         },
         {
           "name": "Hush Puppies",
-          "demand": 13200,
-          "orders": 98
+          "demand": 4433,
+          "orders": 36
+        },
+        {
+          "name": "Reebok",
+          "demand": 3739,
+          "orders": 32
+        },
+        {
+          "name": "Review",
+          "demand": 2825,
+          "orders": 12
+        },
+        {
+          "name": "Elka Collective",
+          "demand": 1949,
+          "orders": 12
+        },
+        {
+          "name": "Clarks",
+          "demand": 1366,
+          "orders": 14
+        },
+        {
+          "name": "Champion",
+          "demand": 1314,
+          "orders": 10
+        },
+        {
+          "name": "Yarra Trail",
+          "demand": 1038,
+          "orders": 8
+        },
+        {
+          "name": "Volley",
+          "demand": 917,
+          "orders": 8
+        },
+        {
+          "name": "Everlast",
+          "demand": 527,
+          "orders": 3
+        },
+        {
+          "name": "Replay",
+          "demand": 308,
+          "orders": 2
+        },
+        {
+          "name": "Marco Polo",
+          "demand": 256,
+          "orders": 3
+        },
+        {
+          "name": "Julius Marlow",
+          "demand": 204,
+          "orders": 2
         }
       ],
       "total": {
-        "demand": 148100,
-        "orders": 983
+        "demand": 50010,
+        "orders": 373
       }
     },
     "markets": {
       "audusd": {
-        "value": 0.6358,
-        "prev": 0.6342
+        "value": 0.706
       },
       "btc": {
-        "value": 98120,
-        "prev": 97842
+        "value": 68518
       },
       "eth": {
-        "value": 3868,
-        "prev": 3842
+        "value": 1970
       },
       "xrp": {
-        "value": 2.84,
-        "prev": 2.87
+        "value": 1.46
       }
     },
     "weather": {
-      "high": 28,
-      "low": 16,
-      "condition": "Clear",
-      "precip": 0,
-      "icon": "\ud83c\udf19"
+      "high": 34,
+      "low": 19,
+      "condition": "Showers likely, hot",
+      "precip": 80,
+      "icon": "\ud83c\udf26"
     },
-    "closing_thought": "Solid Monday. Reebok had a strong day \u2014 keep an eye on that launch momentum. Tomorrow's lighter on meetings, good time to push the checkout CRO work forward."
+    "closing_thought": "Monday's done. The weeks that feel longest often hold the most progress \u2014 and this one's just getting started. Rest well tonight; tomorrow you'll see it more clearly."
   }
 }
