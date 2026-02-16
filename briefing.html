@@ -247,7 +247,7 @@ function render() {
     const hasLY = s.ly_date && s.total.ly_demand > 0;
     const lyLabel = s.ly_date ? s.ly_date.split(',')[0] + ' LY' : 'LY';
     html += `<div class="section"><div class="section-header"><span class="section-icon">💰</span><span class="section-title">Demand Sales</span><span class="section-meta">${s.date}${s.partial?'<span class="sales-partial">Partial</span>':''}${hasLY?' vs '+s.ly_date:''}</span></div>`;
-    html += '<table class="sales-table"><thead><tr><th>Brand</th><th>Demand</th>' + (hasLY ? '<th>LY</th><th>YoY</th>' : '') + '<th>Orders</th></tr></thead><tbody>';
+    html += '<table class="sales-table"><thead><tr><th>Brand</th><th>Demand</th>' + (hasLY ? '<th>LY</th><th>YoY</th>' : '') + '</tr></thead><tbody>';
     for (const b of s.brands) {
       const pct = (b.demand / maxDemand * 100).toFixed(0);
       let yoyCell = '';
@@ -258,7 +258,7 @@ function render() {
         const yoyCls = yoy > 0 ? 'yoy-up' : yoy < 0 ? 'yoy-down' : 'yoy-flat';
         yoyCell = `<td class="ly-val">${lyD > 0 ? fmt$(lyD) : '—'}</td><td class="${yoyCls}">${yoyStr}</td>`;
       }
-      html += `<tr><td><div class="brand-name">${b.name}<div class="demand-bar" style="width:${pct}px"></div></div></td><td>${fmt$(b.demand)}</td>${yoyCell}<td>${fmtN(b.orders)}</td></tr>`;
+      html += `<tr><td><div class="brand-name">${b.name}<div class="demand-bar" style="width:${pct}px"></div></div></td><td>${fmt$(b.demand)}</td>${yoyCell}</tr>`;
     }
     let totalLYCells = '';
     if (hasLY) {
@@ -267,7 +267,7 @@ function render() {
       const tyoyCls = tyoy > 0 ? 'yoy-up' : tyoy < 0 ? 'yoy-down' : 'yoy-flat';
       totalLYCells = `<td class="ly-val">${fmt$(s.total.ly_demand)}</td><td class="${tyoyCls}">${tyoyStr}</td>`;
     }
-    html += `<tr><td>Total</td><td>${fmt$(s.total.demand)}</td>${totalLYCells}<td>${fmtN(s.total.orders)}</td></tr>`;
+    html += `<tr><td>Total</td><td>${fmt$(s.total.demand)}</td>${totalLYCells}</tr>`;
     html += '</tbody></table></div>';
   }
 
