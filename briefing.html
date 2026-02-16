@@ -292,6 +292,11 @@ function render() {
     html += '</div>';
   }
 
+  // Communication task
+  if (d.comms_task) {
+    html += `<div class="section" style="border-left:3px solid var(--amber)"><div class="section-header"><span class="section-icon">🗣</span><span class="section-title">Today's Communication Focus</span></div><div style="font-size:15px;line-height:1.6;color:var(--text);margin-top:8px">${d.comms_task}</div></div>`;
+  }
+
   // Quote
   if (d.quote) {
     html += `<div class="section quote-section"><div class="quote-text">"${d.quote.text}"</div><div class="quote-author">— ${d.quote.author}</div></div>`;
