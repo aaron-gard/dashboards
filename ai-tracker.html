@@ -271,6 +271,56 @@ const SEED_DATA = [
     createdAt:'2026-02-12T08:00:00',updatedAt:'2026-02-16T08:00:00',
     createdBy:'The Claw',
     audit:[{date:'2026-02-12',action:'Initiative created — Review brand pilot'},{date:'2026-02-13',action:'Review heatmap built with 64 stores, 5 expansion targets identified'},{date:'2026-02-14',action:'Extended to 13 brands — portfolio summary added'},{date:'2026-02-14',action:'Reebok, SNS, Black Pepper, Elka, Superdry, HP, Shoe Warehouse, Champion, Yarra Trail brand views added'},{date:'2026-02-15',action:'Methodology documentation and instructions added'},{date:'2026-02-16',action:'Status → Complete. Live at aarongard.com/heatmap.html'}]
+  },{
+    id:'portfolio-dashboard',title:'Portfolio Performance Dashboard',dept:'digital',status:'complete',
+    description:'Real-time ecommerce portfolio dashboard covering all 20 brands. Hero KPIs, period toggle (daily/weekly/monthly), 30-day trend chart, portfolio donut breakdown, and brand leaderboard with dark/light mode.',
+    howAchieved:'Built as self-contained HTML with embedded CSS/JS and Chart.js. Data pulled from Polar Analytics API (generate_report). Demand sales formula: gross_sales + discounts (negative) + tax + shipping. Auto-deployed via Vercel.',
+    valueAdd:'Replaces manual spreadsheet pulls for daily trade checks. Instant visibility into portfolio performance without logging into Polar. Mobile-friendly for on-the-go checks.',
+    impact:'medium',impactLabel:'Daily time saving',
+    mediaUrl:'',mediaType:'',
+    createdAt:'2026-02-12T10:00:00',updatedAt:'2026-02-14T10:00:00',
+    createdBy:'The Claw',
+    audit:[{date:'2026-02-12',action:'Dashboard built with hero KPIs, trend chart, brand leaderboard'},{date:'2026-02-14',action:'Brand drill-down panel added'},{date:'2026-02-14',action:'Status → Complete. Live at aarongard.com/portfolio.html'}]
+  },{
+    id:'security-audit',title:'Shopify Security Audit Dashboard',dept:'it',status:'complete',
+    description:'External passive security assessment across all 20 Shopify stores. Scans SSL configuration, HTTP security headers, exposed endpoints, third-party scripts, DNS records, and cookie policies. Includes Omneo vulnerability retest.',
+    howAchieved:'Automated external scanning of all 20 store domains — SSL Labs grading, header analysis (CSP, HSTS, X-Frame-Options), endpoint enumeration (/admin, APIs, .json), third-party script inventory, DNS record checks, and cookie security flags. Omneo loyalty portal retested for previously reported vulnerabilities.',
+    valueAdd:'Provides board-ready security posture overview without requiring internal access. Identified missing security headers across all stores, exposed Shopify API endpoints, and confirmed Omneo vulnerabilities remain unpatched. Overall score: C+ (58/100).',
+    impact:'high',impactLabel:'Risk visibility across 20 stores',
+    mediaUrl:'',mediaType:'',
+    createdAt:'2026-02-14T08:00:00',updatedAt:'2026-02-16T12:00:00',
+    createdBy:'The Claw',
+    audit:[{date:'2026-02-14',action:'Initial scan of all 20 Shopify stores'},{date:'2026-02-14',action:'Dashboard built and deployed to aarongard.com/security-audit.html'},{date:'2026-02-16',action:'Omneo retest — vulnerabilities still exploitable'},{date:'2026-02-16',action:'Score dropped B- (68) → C+ (58). PDF export added.'}]
+  },{
+    id:'daily-briefing',title:'Automated Daily Briefing System',dept:'digital',status:'complete',
+    description:'Autonomous morning (5:45am) and evening (7pm) briefing system. Pulls sales data, calendar, weather, market prices, and curated news. Delivers compact Telegram summary with link to rich interactive web dashboard.',
+    howAchieved:'Two cron jobs run isolated sub-agent sessions that: query Polar Analytics for sales, check Outlook calendar via browser automation, pull weather from Open-Meteo, fetch market prices (AUD/USD, BTC, ETH, XRP), search for curated news, and generate quotes/closing thoughts. Data written as JSON, git pushed to Vercel for auto-deploy. Telegram summary sent via message tool.',
+    valueAdd:'Zero-effort daily intelligence. Aaron wakes up to a complete briefing without opening any apps. Evening wrap provides tomorrow preview. Replaces manual dashboard checks across 5+ tools.',
+    impact:'medium',impactLabel:'Daily cognitive load reduction',
+    mediaUrl:'',mediaType:'',
+    createdAt:'2026-02-15T06:00:00',updatedAt:'2026-02-16T19:00:00',
+    createdBy:'The Claw',
+    audit:[{date:'2026-02-15',action:'Morning briefing cron created'},{date:'2026-02-15',action:'Evening briefing cron created'},{date:'2026-02-15',action:'Rich web dashboard built at aarongard.com/briefing.html'},{date:'2026-02-16',action:'Added market prices, news, quotes'},{date:'2026-02-16',action:'Added daily communication task to morning brief'}]
+  },{
+    id:'jm-amazon-audit',title:'JM Amazon Pricing Compliance Audit',dept:'digital',status:'complete',
+    description:'Automated cross-channel pricing audit comparing Julius Marlow DTC (Shopify) vs Amazon AU marketplace. Identified 29 overlapping products with 21 confirmed undercuts averaging −$58 per pair.',
+    howAchieved:'Scraped JM Shopify product API (221 products) and Amazon AU search results. Cross-referenced by product name matching. Sub-agent spawned for browser-level price verification of all 29 overlap products on Amazon. Dashboard built with links to both JM and Amazon product pages for easy verification.',
+    valueAdd:'Quantified the Amazon pricing gap that was previously anecdotal. Key findings: Scuttle (−$99), Kick (−$87), Expand (−$81). 17 discontinued Amazon-only products identified. Provides evidence base for marketplace pricing policy enforcement.',
+    impact:'medium',impactLabel:'$58 avg undercut identified',
+    mediaUrl:'',mediaType:'',
+    createdAt:'2026-02-16T10:00:00',updatedAt:'2026-02-16T17:30:00',
+    createdBy:'The Claw',
+    audit:[{date:'2026-02-16',action:'Initial audit: 7 overlaps found from API scrape'},{date:'2026-02-16',action:'Re-scrape with full Shopify API: 29 overlaps, 21 undercuts'},{date:'2026-02-16',action:'Dashboard built at brandcollective.aarongard.com/jm-audit.html'},{date:'2026-02-16',action:'Browser-level price verification completed — 28/29 confirmed'},{date:'2026-02-16',action:'Status → Complete'}]
+  },{
+    id:'closure-impact',title:'Review Store Closure Impact Analysis',dept:'digital',status:'complete',
+    description:'Analysis of 24 Review store closures (2021–2025) and their impact on online sales, signups, and customer engagement. Key finding: store closures do NOT drive online growth — demand evaporates. $31M annual revenue lost.',
+    howAchieved:'Pulled closure dates from Omneo locations data (is_permanently_closed + updated_at as proxy). Cross-referenced with quarterly online sales, signup, and transaction data from Metabase (Review Omneo + tRS databases). Built interactive dashboard with individual store drill-down showing before/after closure trends with annotation lines.',
+    valueAdd:'Disproves the common assumption that closing physical stores redirects demand online. Online revenue −52% (CY22→CY25). Physical signups −47%. Directly reinforces the halo analysis: stores generate demand, they don\'t just capture it. Critical evidence for lease renewal and store investment decisions.',
+    impact:'high',impactLabel:'$31M revenue evaporation quantified',
+    mediaUrl:'',mediaType:'',
+    createdAt:'2026-02-16T14:00:00',updatedAt:'2026-02-16T18:00:00',
+    createdBy:'The Claw',
+    audit:[{date:'2026-02-16',action:'84 closed locations identified from Omneo data'},{date:'2026-02-16',action:'24 closures with reliable dates analysed (post-2021 migration)'},{date:'2026-02-16',action:'Dashboard built at brandcollective.aarongard.com/closure-impact.html'},{date:'2026-02-16',action:'Individual store drill-down with closure annotation lines added'},{date:'2026-02-16',action:'Status → Complete'}]
   }
 ];
 
