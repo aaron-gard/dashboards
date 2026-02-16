@@ -6,5 +6,11 @@
         { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
       ]
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/heatmap.html",
+      "destination": "/2ca056517cfa9119.html"
+    }
   ]
 }
