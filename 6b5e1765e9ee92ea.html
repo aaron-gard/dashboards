@@ -134,8 +134,14 @@ tr:hover{background:var(--surface2)}
 <div class="section-body" id="insights-panel">
 
 <div class="insight open" onclick="this.classList.toggle('open')">
-<div class="title"><span class="severity red"></span>Revenue recovery is channel-dependent, not organic growth</div>
+<div class="title"><span class="severity red"></span>Non-member online revenue collapsed −68% while member sales surged +92%</div>
 <span class="expand">▾</span>
+<div class="detail">Member share of online revenue doubled from <strong>40% to 80%</strong> in one year. Member sales grew from $3.2M to $6.1M (+92%), but non-member sales collapsed from $4.7M to $1.5M (−68%). <strong>Total DTC is still down 18%</strong> despite member growth. The loyalty program is identifying more customers, but anonymous top-of-funnel demand has disappeared. Key question: is this reclassification (same people, now identified) or genuine demand loss? Check GA4 unique visitors and new-to-file rates. <em>See "Member vs Non-Member" tab for full breakdown by channel.</em></div>
+</div>
+
+<div class="insight" onclick="this.classList.toggle('open')">
+<div class="title"><span class="severity red"></span>Revenue recovery is channel-dependent, not organic growth</div>
+<span class="expand">▸</span>
 <div class="detail">FY26 YTD tRS revenue is $82.5M vs $78.7M prior year (+4.8%), but this masks a structural shift. <strong>Concession surged +20% ($49.0M)</strong>, while <strong>Boutique collapsed −38% ($19.5M)</strong> and <strong>Outlets −36% ($9.2M)</strong>. Online channels are NOT one story: <strong>DTC +77% ($3.6M)</strong>, <strong>Myer Online +93% ($1.9M)</strong>, <strong>The Iconic +191% ($369K off a small base)</strong>, <strong>DJs Online $175K (new)</strong>. The DTC growth is real, but Myer Online nearly doubled — Review is increasingly a marketplace brand. <em>Recommendation: Track DTC, Myer Online, and Iconic separately. Blended "online" figures hide the dependency mix.</em></div>
 </div>
 
@@ -143,6 +149,18 @@ tr:hover{background:var(--surface2)}
 <div class="title"><span class="severity red"></span>Store closures are destroying demand, not just shifting it online</div>
 <span class="expand">▸</span>
 <div class="detail">84 of 165 locations (51%) are now closed. Analysis of closure catchments shows <strong>−40-60% online revenue decline</strong> in affected postcodes, <strong>−55% new signups</strong>, and zero evidence of online compensation. Physical stores drive digital awareness. Each closure permanently destroys local demand. <em>Recommendation: Model the revenue impact before any further closures. Consider pop-ups or partnerships to maintain local presence.</em></div>
+</div>
+
+<div class="insight" onclick="this.classList.toggle('open')">
+<div class="title"><span class="severity red"></span>69% never return — 7-day window is critical for second purchase</div>
+<span class="expand">▸</span>
+<div class="detail"><strong>69.1% of members never make a second purchase.</strong> Of the 30.9% who do return, <strong>8% come back within 7 days</strong> — the single biggest conversion window. Only 14.4% return within 30 days. After 90 days, probability of return drops sharply. <em>Recommendation: Deploy aggressive post-purchase engagement (email/SMS) within the first week. A "welcome back" offer at day 3-5 could dramatically boost repeat rates.</em></div>
+</div>
+
+<div class="insight" onclick="this.classList.toggle('open')">
+<div class="title"><span class="severity red"></span>63% of online signups never buy — physical stores convert at 96%</div>
+<span class="expand">▸</span>
+<div class="detail">Physical store signups (Boutique + Concession) convert to paying customers at <strong>96%</strong>. Online signups convert at just <strong>37%</strong> — 63% never buy anything. When online members DO transact, they actually spend more ($443 lifetime, $145 AOV) than physical ($358-$419 lifetime). The problem isn't value per customer — it's that <strong>most online signups aren't customers at all</strong>. Physical stores are acquisition engines with near-perfect conversion. <em>Recommendation: Reframe store ROI to include acquisition conversion rate, not just in-store revenue.</em></div>
 </div>
 
 <div class="insight" onclick="this.classList.toggle('open')">
@@ -158,6 +176,12 @@ tr:hover{background:var(--surface2)}
 </div>
 
 <div class="insight" onclick="this.classList.toggle('open')">
+<div class="title"><span class="severity amber"></span>Legacy members drive 49.5% of FY26 revenue — retention is critical</div>
+<span class="expand">▸</span>
+<div class="detail">FY26 YTD revenue breakdown: <strong>49.5% ($8.1M)</strong> from members acquired before FY23, <strong>33.8% ($5.5M)</strong> from brand-new FY26 members, and 16.7% from FY23-FY25 cohorts. The loyalty base is the revenue engine — members acquired 3+ years ago still drive half of all revenue. <em>Recommendation: Each churned legacy member represents outsized revenue loss. Prioritise retention.</em></div>
+</div>
+
+<div class="insight" onclick="this.classList.toggle('open')">
 <div class="title"><span class="severity amber"></span>Signups declining sharply — acquisition engine failing</div>
 <span class="expand">▸</span>
 <div class="detail">FY26 YTD signups are running ~22% below prior year (ex. the Dec 2024 anomaly of 21,633 — likely a data import). Monthly signups have dropped from 5,000-6,000 range in 2023 to 3,000-4,000 in 2025. Jan 2026 was just 2,977 — the lowest non-anomaly month in 3 years. <em>Recommendation: Audit signup capture at remaining locations. Ensure online checkout captures loyalty enrollment.</em></div>
@@ -170,51 +194,27 @@ tr:hover{background:var(--surface2)}
 </div>
 
 <div class="insight" onclick="this.classList.toggle('open')">
+<div class="title"><span class="severity amber"></span>High-value members concentrated at top — fragile base</div>
+<span class="expand">▸</span>
+<div class="detail">13.5% of transacting members (12,905) spend $1,000+ annually, while 15.7% (15,016) spend under $100. The top spenders are critical — losing even a small percentage has outsized revenue impact. With Dress Circle declining and only 4,915 members in Tiers 2-3, the high-value member pipeline is thinning. <em>Recommendation: Implement VIP retention program for $500+ spenders independent of tier status.</em></div>
+</div>
+
+<div class="insight" onclick="this.classList.toggle('open')">
 <div class="title"><span class="severity green"></span>Concession channel performing strongly</div>
 <span class="expand">▸</span>
 <div class="detail">Concession (Myer) revenue grew <strong>+20% YoY to $49.0M</strong>, accounting for 49% of all loyalty revenue. Myer Melbourne ($243 AOV), Myer Maroochydore ($297 AOV), and Myer Pitt Street ($183 AOV) are standout performers. This channel is partially offsetting boutique losses. <em>Recommendation: Invest in top Myer concessions. Negotiate for better positions/space in high-performing stores.</em></div>
 </div>
 
 <div class="insight" onclick="this.classList.toggle('open')">
-<div class="title"><span class="severity green"></span>Online channel growing rapidly but from a low base</div>
+<div class="title"><span class="severity green"></span>Online loyalty revenue growing but marketplace dependency rising</div>
 <span class="expand">▸</span>
 <div class="detail">Online loyalty revenue grew <strong>+92% FY26 YTD ($6.1M vs $3.2M)</strong>, but the channels tell different stories: <strong>DTC $3.6M (+77%)</strong> is the core, <strong>Myer Online $1.9M (+93%)</strong> nearly doubled, <strong>The Iconic $369K (+191%)</strong> tripled off a tiny base, and <strong>DJs Online $175K</strong> is new. Myer Online is now 31% of all online loyalty revenue — marketplace dependency is growing. <em>Recommendation: Monitor DTC share of online. If Myer Online keeps growing faster, the brand is renting its customer relationship.</em></div>
-</div>
-
-<div class="insight" onclick="this.classList.toggle('open')">
-<div class="title"><span class="severity red"></span>63% of online signups never buy — physical stores convert at 96%</div>
-<span class="expand">▸</span>
-<div class="detail">Physical store signups (Boutique + Concession) convert to paying customers at <strong>96%</strong>. Online signups convert at just <strong>37%</strong> — 63% never buy anything. When online members DO transact, they actually spend more ($443 lifetime, $145 AOV) than physical ($358-$419 lifetime). The problem isn't value per customer — it's that <strong>most online signups aren't customers at all</strong>. Physical stores are acquisition engines with near-perfect conversion. <em>Recommendation: Reframe store ROI to include acquisition conversion rate, not just in-store revenue.</em></div>
-</div>
-
-<div class="insight" onclick="this.classList.toggle('open')">
-<div class="title"><span class="severity red"></span>69% never return — 7-day window is critical for second purchase</div>
-<span class="expand">▸</span>
-<div class="detail"><strong>69.1% of members never make a second purchase.</strong> Of the 30.9% who do return, <strong>8% come back within 7 days</strong> — the single biggest conversion window. Only 14.4% return within 30 days. After 90 days, probability of return drops sharply. <em>Recommendation: Deploy aggressive post-purchase engagement (email/SMS) within the first week. A "welcome back" offer at day 3-5 could dramatically boost repeat rates.</em></div>
-</div>
-
-<div class="insight" onclick="this.classList.toggle('open')">
-<div class="title"><span class="severity amber"></span>Legacy members drive 49.5% of FY26 revenue — retention is critical</div>
-<span class="expand">▸</span>
-<div class="detail">FY26 YTD revenue breakdown: <strong>49.5% ($8.1M)</strong> from members acquired before FY23, <strong>33.8% ($5.5M)</strong> from brand-new FY26 members, and 16.7% from FY23-FY25 cohorts. The loyalty base is the revenue engine — members acquired 3+ years ago still drive half of all revenue. <em>Recommendation: Each churned legacy member represents outsized revenue loss. Prioritise retention.</em></div>
 </div>
 
 <div class="insight" onclick="this.classList.toggle('open')">
 <div class="title"><span class="severity green"></span>Multi-channel members spend 2.5× more on a 12-month basis — $560 vs $223</div>
 <span class="expand">▸</span>
 <div class="detail">Members who shop <strong>both online and in-store</strong> spend <strong>$560/year</strong> vs <strong>$223 for physical-only</strong> and <strong>$269 for online-only</strong> (12-month active members). On a lifetime basis, multi-channel members accumulate $4,069 over 28 transactions. They need physical stores to exist. <em>Recommendation: Converting single-channel to multi-channel should be a priority. Incentivise cross-channel visits — every physical customer who buys online becomes 2.5× more valuable.</em></div>
-</div>
-
-<div class="insight" onclick="this.classList.toggle('open')">
-<div class="title"><span class="severity amber"></span>High-value members concentrated at top — fragile base</div>
-<span class="expand">▸</span>
-<div class="detail">13.5% of transacting members (12,905) spend $1,000+ annually, while 15.7% (15,016) spend under $100. The top spenders are critical — losing even a small percentage has outsized revenue impact. With Dress Circle declining and only 4,915 members in Tiers 2-3, the high-value member pipeline is thinning. <em>Recommendation: Implement VIP retention program for $500+ spenders independent of tier status.</em></div>
-</div>
-
-<div class="insight open" onclick="this.classList.toggle('open')">
-<div class="title"><span class="severity red"></span>Non-member online revenue collapsed −68% while member sales surged +92%</div>
-<span class="expand">▸</span>
-<div class="detail">Member share of online revenue doubled from <strong>40% to 80%</strong> in one year. Member sales grew from $3.2M to $6.1M (+92%), but non-member sales collapsed from $4.7M to $1.5M (−68%). <strong>Total DTC is still down 18%</strong> despite member growth. The loyalty program is identifying more customers, but anonymous top-of-funnel demand has disappeared. Key question: is this reclassification (same people, now identified) or genuine demand loss? Check GA4 unique visitors and new-to-file rates. <em>See "Member vs Non-Member" tab for full breakdown by channel.</em></div>
 </div>
 
 </div>
