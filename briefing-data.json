@@ -1,6 +1,6 @@
 {
   "morning": {
-    "generated": "2026-02-17T06:04:00+11:00",
+    "generated": "2026-02-17T06:05:00+11:00",
     "calendar": {
       "date": "Tuesday, 17 February 2026",
       "meetings": [
@@ -222,10 +222,10 @@
         "value": 0.706
       },
       "btc": {
-        "value": 67880
+        "value": 67870
       },
       "eth": {
-        "value": 1969
+        "value": 1968
       },
       "xrp": {
         "value": 1.47
@@ -237,29 +237,29 @@
       "low": 18,
       "condition": "Partly cloudy, showers later",
       "precip": 95,
-      "icon": "🌦"
+      "icon": "\ud83c\udf26"
     },
     "news": [
       {
-        "emoji": "🤖",
+        "emoji": "\ud83e\udd16",
         "topic": "AI",
         "text": "Microsoft hits $81.3B quarterly revenue, cementing AI-first infrastructure pivot"
       },
       {
-        "emoji": "🏎",
-        "topic": "F1",
-        "text": "First 2026 pre-season test wraps in Bahrain — Antonelli tops timesheets for Mercedes"
+        "emoji": "\ud83c\udde6\ud83c\uddfa",
+        "topic": "AU Politics",
+        "text": "RBA rate hike minutes due today; Taylor assembling shadow cabinet after Ley exit"
       },
       {
-        "emoji": "🏈",
+        "emoji": "\ud83c\udfc8",
         "topic": "AFL",
-        "text": "State of Origin returns: Victoria beat WA by 24 points at Optus Stadium"
+        "text": "2026 AAMI Community Series fixtures locked in \u2014 season starts March 5"
       }
     ],
-    "comms_task": "In your next 1:1 or delegation moment today, add one sentence of context: the 'why' behind the task. Not a justification — just the one reason that makes the priority obvious.",
+    "comms_task": "When delegating a task today, include one sentence of context about WHY this task matters to the broader goal \u2014 not just what needs doing.",
     "quote": {
-      "text": "We do not rise to the level of our goals. We fall to the level of our systems.",
-      "author": "James Clear"
+      "text": "We are what we repeatedly do. Excellence, then, is not an act, but a habit.",
+      "author": "Aristotle (via Will Durant)"
     }
   },
   "evening": {
@@ -384,8 +384,8 @@
       "low": 19,
       "condition": "Showers likely, hot",
       "precip": 80,
-      "icon": "🌦"
+      "icon": "\ud83c\udf26"
     },
-    "closing_thought": "Monday's done. The weeks that feel longest often hold the most progress — and this one's just getting started. Rest well tonight; tomorrow you'll see it more clearly."
+    "closing_thought": "Monday's done. The weeks that feel longest often hold the most progress \u2014 and this one's just getting started. Rest well tonight; tomorrow you'll see it more clearly."
   }
 }
