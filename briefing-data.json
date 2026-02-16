@@ -1,119 +1,220 @@
 {
   "morning": {
-    "generated": "2026-02-17T05:45:00+11:00",
+    "generated": "2026-02-17T06:02:00+11:00",
     "calendar": {
       "date": "Tuesday, 17 February 2026",
-      "meetings": [],
-      "freeBlocks": [],
-      "note": "Calendar unavailable - browser service offline"
+      "meetings": [
+        {
+          "time": "09:00",
+          "duration": 60,
+          "title": "Executive Leadership Team weekly WIP catch up",
+          "color": "#2563eb"
+        },
+        {
+          "time": "11:00",
+          "duration": 60,
+          "title": "BC Outlet | Key Pages Concept Design Brief",
+          "color": "#f59e0b"
+        },
+        {
+          "time": "12:00",
+          "duration": 120,
+          "title": "Focus Time",
+          "color": "#22c55e"
+        },
+        {
+          "time": "12:30",
+          "duration": 30,
+          "title": "SNS APP - NEXT STEPS",
+          "color": "#8b5cf6"
+        },
+        {
+          "time": "13:00",
+          "duration": 60,
+          "title": "BC Corporate Site - Design Review",
+          "color": "#ef4444"
+        },
+        {
+          "time": "14:30",
+          "duration": 30,
+          "title": "7+5 Online Review",
+          "color": "#06b6d4"
+        },
+        {
+          "time": "15:00",
+          "duration": 90,
+          "title": "BC Group Trade Meeting (weekly)",
+          "color": "#ec4899"
+        },
+        {
+          "time": "16:30",
+          "duration": 45,
+          "title": "AI + BC catch up",
+          "color": "#2563eb"
+        }
+      ],
+      "freeBlocks": [
+        {
+          "start": "06:00",
+          "end": "09:00"
+        },
+        {
+          "start": "10:00",
+          "end": "11:00"
+        }
+      ]
     },
     "sales": {
       "date": "Monday, 16 February 2026",
+      "ly_date": "Monday, 17 February 2025",
       "brands": [
         {
           "name": "Shoes & Sox",
           "demand": 29845,
-          "orders": 314
+          "orders": 314,
+          "ly_demand": 20917,
+          "ly_orders": 215
         },
         {
           "name": "Reebok",
           "demand": 24126,
-          "orders": 158
+          "orders": 158,
+          "ly_demand": 25372,
+          "ly_orders": 198
         },
         {
           "name": "Black Pepper",
           "demand": 22382,
-          "orders": 176
+          "orders": 176,
+          "ly_demand": 19698,
+          "ly_orders": 162
         },
         {
           "name": "Hush Puppies",
           "demand": 19027,
-          "orders": 131
+          "orders": 131,
+          "ly_demand": 16008,
+          "ly_orders": 110
         },
         {
           "name": "Shoe Warehouse",
           "demand": 17082,
-          "orders": 161
+          "orders": 161,
+          "ly_demand": 7034,
+          "ly_orders": 75
         },
         {
           "name": "Superdry",
           "demand": 15685,
-          "orders": 144
+          "orders": 144,
+          "ly_demand": 15213,
+          "ly_orders": 113
         },
         {
           "name": "Review",
           "demand": 12299,
-          "orders": 53
+          "orders": 53,
+          "ly_demand": 13709,
+          "ly_orders": 73
         },
         {
           "name": "Elka Collective",
           "demand": 9593,
-          "orders": 43
+          "orders": 43,
+          "ly_demand": 5631,
+          "ly_orders": 24
         },
         {
           "name": "Clarks",
           "demand": 9423,
-          "orders": 82
+          "orders": 82,
+          "ly_demand": 9246,
+          "ly_orders": 67
         },
         {
           "name": "Canada Goose",
           "demand": 5600,
-          "orders": 3
+          "orders": 3,
+          "ly_demand": 0,
+          "ly_orders": 0
         },
         {
           "name": "Yarra Trail",
           "demand": 4685,
-          "orders": 28
+          "orders": 28,
+          "ly_demand": 2909,
+          "ly_orders": 19
         },
         {
           "name": "Volley",
           "demand": 3983,
-          "orders": 33
+          "orders": 33,
+          "ly_demand": 4605,
+          "ly_orders": 65
         },
         {
           "name": "Champion",
           "demand": 3013,
-          "orders": 27
+          "orders": 27,
+          "ly_demand": 2541,
+          "ly_orders": 20
         },
         {
           "name": "Everlast",
           "demand": 2478,
-          "orders": 19
+          "orders": 19,
+          "ly_demand": 2911,
+          "ly_orders": 16
         },
         {
           "name": "Julius Marlow",
           "demand": 1611,
-          "orders": 11
+          "orders": 11,
+          "ly_demand": 3909,
+          "ly_orders": 25
         },
         {
           "name": "Marco Polo",
           "demand": 1059,
-          "orders": 8
+          "orders": 8,
+          "ly_demand": 1116,
+          "ly_orders": 8
         },
         {
           "name": "Replay",
           "demand": 688,
-          "orders": 4
+          "orders": 4,
+          "ly_demand": 1059,
+          "ly_orders": 6
         },
         {
           "name": "Happy Socks",
           "demand": 641,
-          "orders": 8
+          "orders": 8,
+          "ly_demand": 0,
+          "ly_orders": 0
         },
         {
           "name": "Harrison",
           "demand": 498,
-          "orders": 5
+          "orders": 5,
+          "ly_demand": 0,
+          "ly_orders": 0
         },
         {
           "name": "Umbro",
           "demand": 37,
-          "orders": 1
+          "orders": 1,
+          "ly_demand": 788,
+          "ly_orders": 6
         }
       ],
       "total": {
         "demand": 183755,
-        "orders": 1409
+        "orders": 1409,
+        "ly_demand": 152666,
+        "ly_orders": 1202,
+        "yoy_pct": 20.4
       }
     },
     "markets": {
@@ -121,20 +222,20 @@
         "value": 0.706
       },
       "btc": {
-        "value": 67970
+        "value": 67849
       },
       "eth": {
-        "value": 1974
+        "value": 1968
       },
       "xrp": {
-        "value": 1.48
+        "value": 1.47
       }
     },
     "weather": {
       "current_temp": 23,
       "high": 35,
       "low": 18,
-      "condition": "Mostly clear, hot with afternoon showers likely",
+      "condition": "Partly cloudy, showers later",
       "precip": 95,
       "icon": "\ud83c\udf26"
     },
@@ -142,23 +243,23 @@
       {
         "emoji": "\ud83e\udd16",
         "topic": "AI",
-        "text": "FTC ramps up scrutiny of Microsoft over AI and cloud practices, questioning rivals"
+        "text": "Microsoft hits $81.3B quarterly revenue, cementing AI infrastructure pivot"
       },
       {
-        "emoji": "\ud83c\udfce\ufe0f",
-        "topic": "F1",
-        "text": "Bahrain pre-season test 1 done \u2014 Mercedes compression ratio interpretation unresolved; test 2 starts tomorrow"
+        "emoji": "\ud83c\udde6\ud83c\uddfa",
+        "topic": "AU Politics",
+        "text": "One Nation draws level with Coalition in polling; total fire ban declared for Melbourne today"
       },
       {
-        "emoji": "\ud83c\udfc9",
+        "emoji": "\ud83c\udfc8",
         "topic": "AFL",
-        "text": "2026 AAMI Community Series fixtures confirmed \u2014 season starts March 5"
+        "text": "2026 AAMI Community Series fixtures released \u2014 season starts March 5"
       }
     ],
-    "comms_task": "In your first meeting today, before sharing your decision or direction, pause and give the one reason that drove it. One sentence of 'why' before the 'what'.",
+    "comms_task": "In your first meeting today (ELT WIP), when you share an update or decision, add one sentence explaining the 'why' behind it before moving on. Not a justification \u2014 just the driving reason.",
     "quote": {
-      "text": "The best way to predict the future is to create it.",
-      "author": "Peter Drucker"
+      "text": "The best time to plant a tree was twenty years ago. The second best time is now.",
+      "author": "Chinese Proverb"
     }
   },
   "evening": {
