@@ -4,41 +4,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>JM Amazon Price Audit — Brand Collective</title>
+<title>JM Channel Pricing Audit — Brand Collective</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iIzFhMWExYSIvPjx0ZXh0IHg9IjE2IiB5PSIyMS41IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iLWFwcGxlLXN5c3RlbSxCbGlua01hY1N5c3RlbUZvbnQsc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjMwMCIgZm9udC1zaXplPSIxNCIgbGV0dGVyLXNwYWNpbmc9IjEiIGZpbGw9IiM5OTkiPkFHPC90ZXh0Pjwvc3ZnPg==">
 <style>
 :root{--bg:#0a0a0f;--bg2:#12121a;--bg3:#1a1a24;--bg4:#222230;--tx:#f0f0f0;--tx2:rgba(255,255,255,.7);--tx3:rgba(255,255,255,.4);--bd:rgba(255,255,255,.08);--bd2:rgba(255,255,255,.15);--accent:#2563eb;--green:#22c55e;--red:#ef4444;--amber:#f59e0b;--orange:#f97316;--radius:12px;--radius-sm:8px}
 [data-theme="light"]{--bg:#f5f5f7;--bg2:#fff;--bg3:#f0f0f2;--bg4:#e5e5ea;--tx:#111;--tx2:rgba(0,0,0,.65);--tx3:rgba(0,0,0,.35);--bd:rgba(0,0,0,.08);--bd2:rgba(0,0,0,.15)}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
-.container{max-width:1000px;margin:0 auto;padding:20px 16px 80px}
+.container{max-width:1060px;margin:0 auto;padding:20px 16px 80px}
 .header{text-align:center;padding:32px 0 8px}
 .header-brand{font-size:11px;text-transform:uppercase;letter-spacing:3px;color:var(--tx3);margin-bottom:8px}
 .header-title{font-size:28px;font-weight:700;margin-bottom:4px}
 .header-sub{font-size:13px;color:var(--tx3)}
 .header-date{font-size:12px;color:var(--tx3);margin-top:4px}
 .theme-toggle{position:fixed;top:16px;right:16px;width:36px;height:36px;border-radius:50%;border:1px solid var(--bd2);background:var(--bg2);color:var(--tx2);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:100}
-.theme-toggle:hover{background:var(--bg3)}
-
-/* Tabs */
 .tabs{display:flex;gap:4px;margin:24px 0 20px;flex-wrap:wrap;justify-content:center}
 .tab{padding:8px 18px;border-radius:20px;border:1px solid var(--bd2);background:transparent;color:var(--tx3);font-size:13px;font-weight:500;cursor:pointer;transition:all .2s}
 .tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
 .tab:hover:not(.active){background:var(--bg3);color:var(--tx2)}
 .tab-content{display:none}.tab-content.active{display:block}
-
-/* Cards */
 .section{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--radius);padding:20px;margin-bottom:16px;opacity:0;transform:translateY(12px);animation:fadeUp .4s ease forwards}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
 .section-title{font-size:16px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-
-/* KPI grid */
-.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:20px}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:20px}
 .kpi{background:var(--bg3);border-radius:var(--radius-sm);padding:16px;text-align:center}
 .kpi-value{font-size:26px;font-weight:700;letter-spacing:-1px}
-.kpi-label{font-size:11px;color:var(--tx3);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
-
-/* Table */
+.kpi-label{font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
 .tbl-wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:13px}
 th{text-align:left;padding:10px 12px;border-bottom:2px solid var(--bd2);color:var(--tx3);font-size:11px;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
@@ -46,53 +37,32 @@ td{padding:10px 12px;border-bottom:1px solid var(--bd)}
 tr:hover td{background:var(--bg3)}
 .price{font-weight:600;font-variant-numeric:tabular-nums}
 .was{font-size:11px;color:var(--tx3);text-decoration:line-through;margin-left:4px}
-
-/* Badges */
 .badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;white-space:nowrap}
 .badge-critical{background:rgba(239,68,68,.15);color:var(--red)}
 .badge-warn{background:rgba(249,115,22,.15);color:var(--orange)}
 .badge-stale{background:rgba(245,158,11,.15);color:var(--amber)}
 .badge-ok{background:rgba(34,197,94,.15);color:var(--green)}
 .badge-info{background:rgba(37,99,235,.15);color:var(--accent)}
-
-/* Diff bar */
 .diff-bar{display:flex;align-items:center;gap:6px}
 .diff-fill{height:8px;border-radius:4px;min-width:4px}
-
-/* Recommendation cards */
+.channel-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.channel-logo{font-size:20px;width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--bg3);flex-shrink:0}
+.channel-name{font-size:18px;font-weight:700}
+.channel-status{font-size:12px;color:var(--tx3)}
 .rec{display:flex;gap:12px;padding:14px;border-bottom:1px solid var(--bd);align-items:flex-start}
 .rec:last-child{border-bottom:none}
 .rec-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.rec-content{flex:1}
 .rec-title{font-size:14px;font-weight:500;margin-bottom:2px}
 .rec-desc{font-size:12px;color:var(--tx2);line-height:1.5}
-
-/* Product cards for discontinued */
-.disc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.disc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
 .disc-card{background:var(--bg3);border-radius:var(--radius-sm);padding:12px;border:1px solid var(--bd)}
 .disc-name{font-weight:600;font-size:13px;margin-bottom:4px}
 .disc-prices{display:flex;gap:12px;font-size:12px;color:var(--tx2)}
 .disc-note{font-size:11px;color:var(--tx3);margin-top:4px}
-
-/* Missing section */
 .missing-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .missing-tag{padding:4px 12px;border-radius:14px;font-size:12px;background:var(--bg3);color:var(--tx2);border:1px solid var(--bd)}
-
-@media(max-width:640px){
-  .kpi-grid{grid-template-columns:repeat(2,1fr)}
-  .tabs{gap:4px}
-  .tab{padding:6px 12px;font-size:12px}
-  .disc-grid{grid-template-columns:1fr}
-  table{font-size:11px}
-  td,th{padding:8px 6px}
-}
-
-@media print{
-  body{background:#fff!important;color:#111!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .theme-toggle,.tabs{display:none!important}
-  .tab-content{display:block!important}
-  .section{break-inside:avoid;border:1px solid #ddd;opacity:1;transform:none;animation:none}
-}
+@media(max-width:640px){.kpi-grid{grid-template-columns:repeat(2,1fr)}.tabs{gap:4px}.tab{padding:6px 12px;font-size:12px}.disc-grid{grid-template-columns:1fr}table{font-size:11px}td,th{padding:8px 6px}}
+@media print{body{background:#fff!important;color:#111!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}.theme-toggle,.tabs{display:none!important}.tab-content{display:block!important}.section{break-inside:avoid;border:1px solid #ddd;opacity:1;transform:none;animation:none}}
 </style>
 </head>
 <body>
@@ -100,174 +70,175 @@ tr:hover td{background:var(--bg3)}
 <div class="container">
   <div class="header">
     <div class="header-brand">Julius Marlow</div>
-    <div class="header-title">Amazon AU Price Audit 🔍</div>
-    <div class="header-sub">Channel Pricing Compliance — Brand Collective</div>
-    <div class="header-date">16 February 2026 · 134 Amazon listings audited</div>
+    <div class="header-title">Channel Pricing Audit 🔍</div>
+    <div class="header-sub">Amazon AU · Myer · The Iconic — Brand Collective</div>
+    <div class="header-date">16 February 2026</div>
   </div>
 
   <div class="tabs">
     <button class="tab active" onclick="showTab('overview')">Overview</button>
-    <button class="tab" onclick="showTab('matched')">Price Comparison</button>
-    <button class="tab" onclick="showTab('discontinued')">Amazon-Only (40+)</button>
-    <button class="tab" onclick="showTab('missing')">Not on Amazon</button>
+    <button class="tab" onclick="showTab('amazon')">Amazon</button>
+    <button class="tab" onclick="showTab('myer')">Myer</button>
+    <button class="tab" onclick="showTab('iconic')">The Iconic</button>
     <button class="tab" onclick="showTab('actions')">Recommendations</button>
   </div>
 
   <!-- OVERVIEW -->
   <div class="tab-content active" id="tab-overview">
     <div class="kpi-grid">
+      <div class="kpi"><div class="kpi-value" style="color:var(--red)">3</div><div class="kpi-label">Channels Audited</div></div>
       <div class="kpi"><div class="kpi-value" style="color:var(--red)">1</div><div class="kpi-label">Critical Undercut</div></div>
-      <div class="kpi"><div class="kpi-value" style="color:var(--orange)">2</div><div class="kpi-label">Amazon Cheaper</div></div>
-      <div class="kpi"><div class="kpi-value" style="color:var(--amber)">3</div><div class="kpi-label">Stale Amazon Price</div></div>
-      <div class="kpi"><div class="kpi-value" style="color:var(--green)">1</div><div class="kpi-label">Price Matched</div></div>
-      <div class="kpi"><div class="kpi-value">40+</div><div class="kpi-label">Discontinued on Amazon</div></div>
-      <div class="kpi"><div class="kpi-value">30+</div><div class="kpi-label">Not on Amazon</div></div>
+      <div class="kpi"><div class="kpi-value" style="color:var(--orange)">6</div><div class="kpi-label">Price Discrepancies</div></div>
+      <div class="kpi"><div class="kpi-value" style="color:var(--amber)">3</div><div class="kpi-label">Stale Pricing</div></div>
+      <div class="kpi"><div class="kpi-value" style="color:var(--green)">48</div><div class="kpi-label">Myer Compliant</div></div>
+      <div class="kpi"><div class="kpi-value">40+</div><div class="kpi-label">Discontinued on Mkts</div></div>
     </div>
 
+    <!-- Channel summary cards -->
     <div class="section">
-      <div class="section-title">🚨 Critical: Argyle Black</div>
+      <div class="channel-header">
+        <div class="channel-logo">🟠</div>
+        <div><div class="channel-name">Amazon AU</div><div class="channel-status">134 listings · 7 matched to JM website</div></div>
+      </div>
       <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap">
-        <div style="flex:1;min-width:200px">
-          <p style="font-size:14px;color:var(--tx2);line-height:1.7;margin-bottom:12px">Amazon is selling <strong style="color:var(--tx)">Argyle Black</strong> at <strong style="color:var(--red)">$129.95</strong> — that's <strong style="color:var(--red)">$70 below</strong> the JM website full price of $199.95.</p>
-          <p style="font-size:13px;color:var(--tx2);line-height:1.6">This is a current, full-price product being significantly undercut. Need to identify whether this is BC's own Amazon Selling Partner account (1P) or a third-party seller dumping stock.</p>
+        <div style="flex:1;min-width:200px;font-size:13px;color:var(--tx2);line-height:1.7">
+          <strong style="color:var(--red)">🚨 Argyle Black undercut by $70</strong> ($129.95 vs $199.95 RRP). Lax and Banter also cheaper on Amazon. Three products have stale pricing above JM sale prices. 40+ discontinued styles still circulating via 3P sellers. New season range completely absent.
         </div>
-        <div style="text-align:center;padding:20px;background:var(--bg3);border-radius:var(--radius);min-width:160px">
-          <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--tx3);margin-bottom:8px">Price Gap</div>
-          <div style="font-size:42px;font-weight:800;color:var(--red);letter-spacing:-2px">-$70</div>
-          <div style="font-size:12px;color:var(--tx3);margin-top:4px">35% below RRP</div>
+        <div style="text-align:center;padding:16px;background:var(--bg3);border-radius:var(--radius);min-width:120px">
+          <div style="font-size:32px;font-weight:800;color:var(--red)">-$70</div>
+          <div style="font-size:11px;color:var(--tx3)">Worst undercut</div>
         </div>
       </div>
     </div>
 
     <div class="section">
-      <div class="section-title">📊 Executive Summary</div>
-      <div style="font-size:14px;color:var(--tx2);line-height:1.8">
-        <p style="margin-bottom:12px">Audited 134 Julius Marlow listings on Amazon Australia against the current juliusmarlow.com.au catalogue. Of these, <strong style="color:var(--tx)">only 7 products overlap</strong> between both channels.</p>
-        <p style="margin-bottom:12px"><strong style="color:var(--tx)">The bigger story is the long tail:</strong> 40+ discontinued JM products are still actively sold on Amazon, mostly by third-party sellers with old stock. Many of these are listed at original RRP or above, creating brand confusion.</p>
-        <p>Meanwhile, <strong style="color:var(--tx)">the entire new season range</strong> (Alpha, Axiom, Alto, Lexicon, Bourke, Flare, Luxe) is <strong style="color:var(--tx)">completely absent from Amazon</strong>. This is either a deliberate channel strategy or a gap.</p>
+      <div class="channel-header">
+        <div class="channel-logo">🔴</div>
+        <div><div class="channel-name">Myer</div><div class="channel-status">132 listings · 48 scraped · All compliant</div></div>
+      </div>
+      <div style="font-size:13px;color:var(--tx2);line-height:1.7">
+        <strong style="color:var(--green)">✅ Full price compliance.</strong> Every product that matches the JM website is priced identically. Myer is honouring both full prices and sale prices. 25 Myer-exclusive styles found (wholesale/concession range not on JM DTC). No pricing issues detected.
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="channel-header">
+        <div class="channel-logo">⚫</div>
+        <div><div class="channel-name">The Iconic</div><div class="channel-status">107 listings · 89 scraped · 5 discrepancies</div></div>
+      </div>
+      <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap">
+        <div style="flex:1;min-width:200px;font-size:13px;color:var(--tx2);line-height:1.7">
+          <strong style="color:var(--orange)">⚠️ Mixed compliance.</strong> Jet, Zen, and Lax are at full RRP on Iconic while JM has them 50-55% off — stale pricing. Banter is <strong style="color:var(--red)">$30 cheaper</strong> on Iconic ($99) than JM ($129). 42 Iconic-exclusive/discontinued styles found. New season partially absent.
+        </div>
+        <div style="text-align:center;padding:16px;background:var(--bg3);border-radius:var(--radius);min-width:120px">
+          <div style="font-size:32px;font-weight:800;color:var(--orange)">5</div>
+          <div style="font-size:11px;color:var(--tx3)">Issues found</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- PRICE COMPARISON -->
-  <div class="tab-content" id="tab-matched">
+  <!-- AMAZON TAB -->
+  <div class="tab-content" id="tab-amazon">
     <div class="section">
-      <div class="section-title">💰 Matched Products — Price Comparison</div>
-      <p style="font-size:12px;color:var(--tx3);margin:-8px 0 16px">Products found on both Amazon AU and juliusmarlow.com.au</p>
+      <div class="section-title">🟠 Amazon AU — Price Comparison</div>
+      <p style="font-size:12px;color:var(--tx3);margin:-8px 0 16px">7 products found on both Amazon and juliusmarlow.com.au · 134 total Amazon listings</p>
       <div class="tbl-wrap">
         <table>
-          <thead>
-            <tr><th>Product</th><th>JM Website</th><th>Amazon</th><th>Difference</th><th>Status</th></tr>
-          </thead>
+          <thead><tr><th>Product</th><th>JM Price</th><th>Amazon</th><th>Difference</th><th>Status</th></tr></thead>
           <tbody>
-            <tr>
-              <td><strong>Argyle Black</strong></td>
-              <td class="price">$199.95</td>
-              <td class="price">$129.95</td>
-              <td>
-                <div class="diff-bar">
-                  <div class="diff-fill" style="width:70px;background:var(--red)"></div>
-                  <span class="price" style="color:var(--red)">-$70.00</span>
-                </div>
-              </td>
-              <td><span class="badge badge-critical">🚨 Undercut</span></td>
-            </tr>
-            <tr>
-              <td><strong>Lax</strong> <span class="was">$179.95</span></td>
-              <td class="price">$99.00</td>
-              <td class="price">$89.00</td>
-              <td>
-                <div class="diff-bar">
-                  <div class="diff-fill" style="width:20px;background:var(--orange)"></div>
-                  <span class="price" style="color:var(--orange)">-$10.00</span>
-                </div>
-              </td>
-              <td><span class="badge badge-warn">Amazon cheaper</span></td>
-            </tr>
-            <tr>
-              <td><strong>Banter</strong> <span class="was">$229.95</span></td>
-              <td class="price">$129.00</td>
-              <td class="price">$122.30</td>
-              <td>
-                <div class="diff-bar">
-                  <div class="diff-fill" style="width:14px;background:var(--orange)"></div>
-                  <span class="price" style="color:var(--orange)">-$6.70</span>
-                </div>
-              </td>
-              <td><span class="badge badge-warn">Amazon cheaper</span></td>
-            </tr>
-            <tr>
-              <td><strong>Vapour</strong> <span class="was">$169.95</span></td>
-              <td class="price">$99.00</td>
-              <td class="price">$99.00</td>
-              <td><span class="price" style="color:var(--green)">$0.00</span></td>
-              <td><span class="badge badge-ok">✅ Matched</span></td>
-            </tr>
-            <tr>
-              <td><strong>Jet Dark Burgundy</strong></td>
-              <td class="price">$89.00</td>
-              <td class="price">$134.95</td>
-              <td>
-                <div class="diff-bar">
-                  <div class="diff-fill" style="width:46px;background:var(--amber)"></div>
-                  <span class="price" style="color:var(--amber)">+$45.95</span>
-                </div>
-              </td>
-              <td><span class="badge badge-stale">Stale pricing</span></td>
-            </tr>
-            <tr>
-              <td><strong>Melbourne Black</strong> <span class="was">$159.95</span></td>
-              <td class="price">$79.00</td>
-              <td class="price">$119.15</td>
-              <td>
-                <div class="diff-bar">
-                  <div class="diff-fill" style="width:40px;background:var(--amber)"></div>
-                  <span class="price" style="color:var(--amber)">+$40.15</span>
-                </div>
-              </td>
-              <td><span class="badge badge-stale">Stale pricing</span></td>
-            </tr>
-            <tr>
-              <td><strong>Maven Brown</strong> <span class="was">$199.95</span></td>
-              <td class="price">$99.00</td>
-              <td class="price">$129.95</td>
-              <td>
-                <div class="diff-bar">
-                  <div class="diff-fill" style="width:31px;background:var(--amber)"></div>
-                  <span class="price" style="color:var(--amber)">+$30.95</span>
-                </div>
-              </td>
-              <td><span class="badge badge-stale">Stale pricing</span></td>
-            </tr>
+            <tr><td><strong>Argyle Black</strong></td><td class="price">$199.95</td><td class="price">$129.95</td><td><div class="diff-bar"><div class="diff-fill" style="width:70px;background:var(--red)"></div><span class="price" style="color:var(--red)">-$70.00</span></div></td><td><span class="badge badge-critical">🚨 Undercut</span></td></tr>
+            <tr><td><strong>Lax</strong> <span class="was">$179.95</span></td><td class="price">$99.00</td><td class="price">$89.00</td><td><div class="diff-bar"><div class="diff-fill" style="width:20px;background:var(--orange)"></div><span class="price" style="color:var(--orange)">-$10.00</span></div></td><td><span class="badge badge-warn">Amazon cheaper</span></td></tr>
+            <tr><td><strong>Banter</strong> <span class="was">$229.95</span></td><td class="price">$129.00</td><td class="price">$122.30</td><td><div class="diff-bar"><div class="diff-fill" style="width:14px;background:var(--orange)"></div><span class="price" style="color:var(--orange)">-$6.70</span></div></td><td><span class="badge badge-warn">Amazon cheaper</span></td></tr>
+            <tr><td><strong>Vapour</strong> <span class="was">$169.95</span></td><td class="price">$99.00</td><td class="price">$99.00</td><td><span class="price" style="color:var(--green)">$0.00</span></td><td><span class="badge badge-ok">✅ Matched</span></td></tr>
+            <tr><td><strong>Jet Dark Burgundy</strong></td><td class="price">$89.00</td><td class="price">$134.95</td><td><div class="diff-bar"><div class="diff-fill" style="width:46px;background:var(--amber)"></div><span class="price" style="color:var(--amber)">+$45.95</span></div></td><td><span class="badge badge-stale">Stale pricing</span></td></tr>
+            <tr><td><strong>Melbourne Black</strong> <span class="was">$159.95</span></td><td class="price">$79.00</td><td class="price">$119.15</td><td><div class="diff-bar"><div class="diff-fill" style="width:40px;background:var(--amber)"></div><span class="price" style="color:var(--amber)">+$40.15</span></div></td><td><span class="badge badge-stale">Stale pricing</span></td></tr>
+            <tr><td><strong>Maven Brown</strong> <span class="was">$199.95</span></td><td class="price">$99.00</td><td class="price">$129.95</td><td><div class="diff-bar"><div class="diff-fill" style="width:31px;background:var(--amber)"></div><span class="price" style="color:var(--amber)">+$30.95</span></div></td><td><span class="badge badge-stale">Stale pricing</span></td></tr>
           </tbody>
         </table>
       </div>
       <div style="margin-top:16px;padding:14px;background:var(--bg3);border-radius:var(--radius-sm);font-size:12px;color:var(--tx2);line-height:1.6">
-        <strong style="color:var(--tx)">Reading this table:</strong> Negative differences (red/orange) mean Amazon is cheaper than JM — a channel compliance concern. Positive differences (amber) mean Amazon is more expensive — stale pricing that hasn't been updated to match JM's current sales.
+        <strong style="color:var(--tx)">40+ discontinued products</strong> still actively sold on Amazon by 3P sellers (Kick, Knock, Grand, Expand, Longreach, Gaucho, Scuttle, Jaded, Jaunt, Lotus, Harry, etc.). Entire new season range (Alpha, Axiom, Alto, Lexicon, Bourke, Flare, Luxe) is absent from Amazon.
       </div>
     </div>
   </div>
 
-  <!-- DISCONTINUED / AMAZON-ONLY -->
-  <div class="tab-content" id="tab-discontinued">
+  <!-- MYER TAB -->
+  <div class="tab-content" id="tab-myer">
     <div class="section">
-      <div class="section-title">📦 Amazon-Only Products (Not on JM Website)</div>
-      <p style="font-size:13px;color:var(--tx2);line-height:1.6;margin:-8px 0 16px">These products are sold on Amazon but no longer listed on juliusmarlow.com.au. Likely discontinued styles or 3P seller old stock.</p>
-      <div class="disc-grid" id="discGrid"></div>
+      <div class="section-title">🔴 Myer — Price Comparison</div>
+      <p style="font-size:12px;color:var(--tx3);margin:-8px 0 16px">48 of 132 listings scraped · All matched products price-compliant</p>
+      <div style="padding:16px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:var(--radius-sm);margin-bottom:16px;font-size:14px;color:var(--green);font-weight:600;text-align:center">
+        ✅ Full Price Compliance — All matched products priced identically to JM website
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Product</th><th>JM Price</th><th>Myer Price</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Axiom Mocha</td><td class="price">$199.95</td><td class="price">$199.95</td><td><span class="badge badge-ok">✅</span></td></tr>
+            <tr><td>Alto Black</td><td class="price">$199.95</td><td class="price">$199.95</td><td><span class="badge badge-ok">✅</span></td></tr>
+            <tr><td>Alto Brown</td><td class="price">$199.95</td><td class="price">$199.95</td><td><span class="badge badge-ok">✅</span></td></tr>
+            <tr><td>Alpha Black</td><td class="price">$219.95</td><td class="price">$219.95</td><td><span class="badge badge-ok">✅</span></td></tr>
+            <tr><td>Alpha Mocha</td><td class="price">$219.95</td><td class="price">$219.95</td><td><span class="badge badge-ok">✅</span></td></tr>
+            <tr><td>Alpha Cognac</td><td class="price">$219.95</td><td class="price">$219.95</td><td><span class="badge badge-ok">✅</span></td></tr>
+            <tr><td>Axiom Black</td><td class="price">$199.95</td><td class="price">$199.95</td><td><span class="badge badge-ok">✅</span></td></tr>
+            <tr><td>Bourke Black</td><td class="price">$199.95</td><td class="price">$199.95</td><td><span class="badge badge-ok">✅</span></td></tr>
+            <tr><td>Bourke Bordeaux</td><td class="price">$199.95</td><td class="price">$199.95</td><td><span class="badge badge-ok">✅</span></td></tr>
+            <tr><td>Luxe Black</td><td class="price">$189.95</td><td class="price">$189.95</td><td><span class="badge badge-ok">✅</span></td></tr>
+            <tr><td>Lexicon Black</td><td class="price">$189.95</td><td class="price">$189.95</td><td><span class="badge badge-ok">✅</span></td></tr>
+            <tr><td>Worth Black</td><td class="price">$169.95</td><td class="price">$169.95</td><td><span class="badge badge-ok">✅</span></td></tr>
+            <tr><td>Wave Black</td><td class="price">$169.95</td><td class="price">$169.95</td><td><span class="badge badge-ok">✅</span></td></tr>
+            <tr><td>Wake Black</td><td class="price">$169.95</td><td class="price">$169.95</td><td><span class="badge badge-ok">✅</span></td></tr>
+            <tr><td>Vapour Black <span class="was">$169.95</span></td><td class="price">$99.00</td><td class="price">$99.00</td><td><span class="badge badge-ok">✅</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:16px;padding:14px;background:var(--bg3);border-radius:var(--radius-sm);font-size:12px;color:var(--tx2);line-height:1.6">
+        <strong style="color:var(--tx)">25 Myer-exclusive styles</strong> also found (Gaucho, Kick, Joust, Bay, Grand, Jaded, Decree, Oxide, Ignite, Jaunt, Launch, Divert, Scribble, Travel Slipper, Luxe Brown). These are wholesale/concession range not available on JM DTC.
+      </div>
     </div>
   </div>
 
-  <!-- NOT ON AMAZON -->
-  <div class="tab-content" id="tab-missing">
+  <!-- THE ICONIC TAB -->
+  <div class="tab-content" id="tab-iconic">
     <div class="section">
-      <div class="section-title">🆕 Current JM Range — Not on Amazon</div>
-      <p style="font-size:13px;color:var(--tx2);line-height:1.6;margin:-8px 0 16px">These products are live on juliusmarlow.com.au but have no Amazon listing. The entire new season range is absent.</p>
+      <div class="section-title">⚫ The Iconic — Price Comparison</div>
+      <p style="font-size:12px;color:var(--tx3);margin:-8px 0 16px">89 of 107 listings scraped · 5 pricing discrepancies</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Product</th><th>JM Price</th><th>Iconic Price</th><th>Difference</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Banter</strong> <span class="was">$229.95</span></td><td class="price">$129.00</td><td class="price">$99.00</td><td><div class="diff-bar"><div class="diff-fill" style="width:30px;background:var(--red)"></div><span class="price" style="color:var(--red)">-$30.00</span></div></td><td><span class="badge badge-critical">Iconic cheaper</span></td></tr>
+            <tr><td><strong>Zen</strong> <span class="was">$199.95</span></td><td class="price">$89.00</td><td class="price">$199.95</td><td><div class="diff-bar"><div class="diff-fill" style="width:80px;background:var(--amber)"></div><span class="price" style="color:var(--amber)">+$110.95</span></div></td><td><span class="badge badge-stale">Stale — full RRP</span></td></tr>
+            <tr><td><strong>Jet</strong></td><td class="price">$89.00</td><td class="price">$189.95</td><td><div class="diff-bar"><div class="diff-fill" style="width:73px;background:var(--amber)"></div><span class="price" style="color:var(--amber)">+$100.95</span></div></td><td><span class="badge badge-stale">Stale — full RRP</span></td></tr>
+            <tr><td><strong>Lax</strong> <span class="was">$179.95</span></td><td class="price">$99.00</td><td class="price">$179.95</td><td><div class="diff-bar"><div class="diff-fill" style="width:58px;background:var(--amber)"></div><span class="price" style="color:var(--amber)">+$80.95</span></div></td><td><span class="badge badge-stale">Stale — full RRP</span></td></tr>
+            <tr><td><strong>Zed</strong> <span class="was">$219.95</span></td><td class="price">$99.00</td><td class="price">$149.00</td><td><div class="diff-bar"><div class="diff-fill" style="width:36px;background:var(--amber)"></div><span class="price" style="color:var(--amber)">+$50.00</span></div></td><td><span class="badge badge-stale">Stale pricing</span></td></tr>
+          </tbody>
+        </table>
+      </div>
 
-      <h3 style="font-size:14px;font-weight:600;margin:20px 0 8px;color:var(--tx)">Full Price Range</h3>
-      <div class="missing-grid" id="missingFull"></div>
+      <h3 style="font-size:14px;font-weight:600;margin:24px 0 8px">Compliant Matches</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Product</th><th>JM Price</th><th>Iconic Price</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Argyle</td><td class="price">$199.95</td><td class="price">$199.95</td><td><span class="badge badge-ok">✅</span></td></tr>
+            <tr><td>Bourke</td><td class="price">$199.95</td><td class="price">$199.95</td><td><span class="badge badge-ok">✅</span></td></tr>
+            <tr><td>Luxe</td><td class="price">$189.95</td><td class="price">$189.95</td><td><span class="badge badge-ok">✅</span></td></tr>
+            <tr><td>Flare</td><td class="price">$189.95</td><td class="price">$189.95</td><td><span class="badge badge-ok">✅</span></td></tr>
+            <tr><td>Lexicon Suede</td><td class="price">$189.95</td><td class="price">$189.95</td><td><span class="badge badge-ok">✅</span></td></tr>
+            <tr><td>Invert</td><td class="price">$89.00</td><td class="price">$89.00</td><td><span class="badge badge-ok">✅</span></td></tr>
+            <tr><td>Quake</td><td class="price">$99.00</td><td class="price">$99.00</td><td><span class="badge badge-ok">✅</span></td></tr>
+            <tr><td>Quota</td><td class="price">$99.00</td><td class="price">$99.00</td><td><span class="badge badge-ok">✅</span></td></tr>
+            <tr><td>Quill</td><td class="price">$99.00</td><td class="price">$99.00</td><td><span class="badge badge-ok">✅</span></td></tr>
+            <tr><td>Coupe</td><td class="price">$99.00</td><td class="price">$99.00</td><td><span class="badge badge-ok">✅</span></td></tr>
+          </tbody>
+        </table>
+      </div>
 
-      <h3 style="font-size:14px;font-weight:600;margin:20px 0 8px;color:var(--tx)">Sale Range</h3>
-      <div class="missing-grid" id="missingSale"></div>
+      <div style="margin-top:16px;padding:14px;background:var(--bg3);border-radius:var(--radius-sm);font-size:12px;color:var(--tx2);line-height:1.6">
+        <strong style="color:var(--tx)">42 Iconic-exclusive styles</strong> not on JM website (Rocker, Longreach, Scuttle, Targa, Skittle, Cade, Halo, Octane, Wisdom, Belmont, etc.). <strong style="color:var(--tx)">32 JM website products</strong> not on Iconic, including Alpha, Axiom, Alto, Wake, Wave, Worth.
+      </div>
     </div>
   </div>
 
@@ -275,98 +246,81 @@ tr:hover td{background:var(--bg3)}
   <div class="tab-content" id="tab-actions">
     <div class="section">
       <div class="section-title">✅ Recommended Actions</div>
-      <div id="recList"></div>
+
+      <div class="rec">
+        <div class="rec-icon" style="background:rgba(239,68,68,.15)">🚨</div>
+        <div class="rec-content">
+          <div class="rec-title">Investigate Amazon Argyle Black seller</div>
+          <div class="rec-desc">$129.95 vs $199.95 RRP — 35% undercut. Identify if this is BC's 1P account or a 3P seller. Consider Brand Registry enforcement or MAP policy action.</div>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rec-icon" style="background:rgba(249,115,22,.15)">💰</div>
+        <div class="rec-content">
+          <div class="rec-title">Update The Iconic sale prices</div>
+          <div class="rec-desc">Jet ($189.95→$89), Zen ($199.95→$89), Lax ($179.95→$99), and Zed ($149→$99) need markdown alignment with JM website. Customers comparing channels see 50-55% higher prices on Iconic.</div>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rec-icon" style="background:rgba(245,158,11,.15)">📉</div>
+        <div class="rec-content">
+          <div class="rec-title">Update stale Amazon pricing</div>
+          <div class="rec-desc">Jet ($134.95→$89), Melbourne Black ($119.15→$79), Maven Brown ($129.95→$99) on Amazon haven't been marked down to match JM sale prices.</div>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rec-icon" style="background:rgba(239,68,68,.12)">🔍</div>
+        <div class="rec-content">
+          <div class="rec-title">Investigate Iconic Banter pricing</div>
+          <div class="rec-desc">The Iconic sells Banter at $99 while JM website is $129. Iconic is undercutting JM's own DTC channel by $30.</div>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rec-icon" style="background:rgba(107,114,128,.15)">📦</div>
+        <div class="rec-content">
+          <div class="rec-title">Audit 3P seller inventory on Amazon</div>
+          <div class="rec-desc">40+ discontinued styles still circulating via third-party sellers. Consider Brand Registry takedowns for very old stock that damages brand perception.</div>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rec-icon" style="background:rgba(37,99,235,.15)">🆕</div>
+        <div class="rec-content">
+          <div class="rec-title">New season distribution strategy</div>
+          <div class="rec-desc">Alpha, Axiom, Alto, Lexicon, Bourke, Flare, Luxe are absent from Amazon and partially from Iconic. Myer has the best new season coverage. Is this intentional channel exclusivity or a gap?</div>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rec-icon" style="background:rgba(34,197,94,.15)">✅</div>
+        <div class="rec-content">
+          <div class="rec-title">Myer — no action required</div>
+          <div class="rec-desc">Full price compliance across all matched products. Myer is honouring both full prices and sale prices. Best-performing channel for pricing integrity.</div>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rec-icon" style="background:rgba(34,197,94,.12)">🔄</div>
+        <div class="rec-content">
+          <div class="rec-title">Establish regular audit cadence</div>
+          <div class="rec-desc">Set up monthly automated price monitoring across all three channels. This audit should be repeatable.</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
-const DISC_DATA=[
-  {name:"Kick Chelsea Boot",price:"$112.97",rrp:"$199.95",note:"Popular — 20+ bought/month"},
-  {name:"Jet Dress Shoe (Black Patent)",price:"$117.35",rrp:"$189.95",note:"Two ASINs (old + new listing)"},
-  {name:"Knock Dress Shoe (Black)",price:"$103–$129",rrp:"$179.95",note:"Multiple listings"},
-  {name:"Knock (Cognac)",price:"$102–$118",rrp:"—",note:"Multiple size-specific listings"},
-  {name:"Grand Derby Shoe",price:"$98.97",rrp:"—",note:""},
-  {name:"Expand Dress Shoe",price:"$98–$101",rrp:"$179.95",note:""},
-  {name:"Gaucho Boots (Black)",price:"$159.95",rrp:"$199.95",note:""},
-  {name:"Gaucho Boots (Mocha)",price:"$164.95",rrp:"$199.95",note:""},
-  {name:"Scuttle Boots",price:"$69–$190",rrp:"$229.95",note:"Wide price range across sellers"},
-  {name:"Jaded Dress Shoe",price:"$100.78",rrp:"$179.95",note:""},
-  {name:"Wait Dress Shoe",price:"$99–$107",rrp:"—",note:""},
-  {name:"Jaunt Derby (Black)",price:"$134.96",rrp:"$179.95",note:""},
-  {name:"Jaunt (Mocha)",price:"$136.95",rrp:"—",note:""},
-  {name:"Jax Dress Shoe",price:"$141.28",rrp:"$189.95",note:""},
-  {name:"Lisbon Dress Shoe",price:"$100.44",rrp:"—",note:""},
-  {name:"Oslo Dress Shoe",price:"$82.00",rrp:"—",note:""},
-  {name:"Finland Dress Shoe",price:"$67.46",rrp:"$79.95",note:""},
-  {name:"Owen Dress Shoe",price:"$48.46",rrp:"$79.95",note:"Lowest price in audit"},
-  {name:"Burwood Dress Shoe",price:"$179.96",rrp:"—",note:""},
-  {name:"Keen Dress Shoe",price:"$103–$124",rrp:"—",note:""},
-  {name:"Longreach Boots (Cognac)",price:"$169.95",rrp:"$249.95",note:"Many size-specific listings"},
-  {name:"Longreach Boots (Mocha)",price:"$184.95",rrp:"$249.95",note:""},
-  {name:"Longreach Boots (Black)",price:"$169.95",rrp:"—",note:""},
-  {name:"Yonder Boat Shoe",price:"$62.94",rrp:"$179.95",note:"65% off RRP"},
-  {name:"Lotus (Black)",price:"$132.95",rrp:"—",note:""},
-  {name:"Lotus (Cognac)",price:"$131.95",rrp:"—",note:""},
-  {name:"Harry Chelsea Boot",price:"$136–$158",rrp:"—",note:""},
-  {name:"Cade Slip-On",price:"$139.95",rrp:"$199.95",note:""},
-  {name:"Driver",price:"$79.97",rrp:"—",note:""},
-  {name:"Spike Chukka Boots",price:"$171.60",rrp:"—",note:""},
-  {name:"Masked",price:"$128.95",rrp:"—",note:""},
-  {name:"Merit",price:"$135.95",rrp:"—",note:""},
-  {name:"Borris",price:"$109.95",rrp:"—",note:""},
-  {name:"Oliver",price:"$68.55",rrp:"—",note:""},
-  {name:"Limbo",price:"$141.95",rrp:"—",note:""},
-  {name:"Direct",price:"$123.95",rrp:"—",note:""},
-  {name:"Waiver",price:"$99.00",rrp:"—",note:""},
-  {name:"London",price:"$119.00",rrp:"—",note:""},
-  {name:"Monash",price:"$125.95",rrp:"—",note:""}
-];
-
-const MISSING_FULL=["Lexicon Black","Lexicon Suede","Alpha Black","Alpha Mocha","Alpha Cognac","Axiom Cognac","Axiom Black","Axiom Mocha","Alto Black","Alto Brown","Wake Black","Wave Black","Worth Black","Bourke Bordeaux","Bourke Black","Flare Navy Suede","Flare Taupe Suede","Luxe Black"];
-const MISSING_SALE=["Bold (4 colours)","Quake Black","Valid Brown","Valid Black","Tamper Black","Quota Black","Quill Black","Quill Brown","Quest Black","Impose Black","Impose Cognac","Invert Black","Invert Mocha","Lido Tan","Optimize Black","Render Brown","Master Dark Burgundy","Master Black","Vista Tan","Idylic Black","Zen Cognac","Zed Mocha","Zander Black","Zander Dark Tan","Coupe (4 colours)"];
-
-const RECS=[
-  {icon:"🚨",bg:"rgba(239,68,68,.15)",title:"Investigate Argyle Black seller",desc:"Identify if the $129.95 listing is from BC's own Amazon Selling Partner account or a third-party seller. If 3P, consider Brand Registry enforcement or MAP policy action."},
-  {icon:"💰",bg:"rgba(245,158,11,.15)",title:"Update stale Amazon pricing",desc:"Jet Dark Burgundy ($134.95→$89), Melbourne Black ($119.15→$79), and Maven Brown ($129.95→$99) need to be marked down on Amazon to match current JM website sale prices."},
-  {icon:"🔒",bg:"rgba(249,115,22,.15)",title:"Review MAP enforcement for 3P sellers",desc:"Lax ($10 below JM sale) and Banter ($6.70 below) are being undercut by Amazon sellers. Consider implementing or enforcing Minimum Advertised Price policies."},
-  {icon:"📦",bg:"rgba(107,114,128,.15)",title:"Audit 3P seller inventory",desc:"40+ discontinued styles still circulating on Amazon. Consider brand registry takedowns for counterfeit-risk listings or very old stock that damages brand perception."},
-  {icon:"🆕",bg:"rgba(37,99,235,.15)",title:"New season Amazon strategy",desc:"The entire new season range (Alpha, Axiom, Alto, Lexicon, Bourke, Flare, Luxe) is absent from Amazon. Decide: is this intentional channel exclusivity or a missed opportunity?"},
-  {icon:"🔄",bg:"rgba(34,197,94,.15)",title:"Establish regular audit cadence",desc:"Set up monthly automated price monitoring across Amazon AU to catch discrepancies early. This audit should be repeatable."}
-];
-
-// Render
-document.getElementById('discGrid').innerHTML=DISC_DATA.map(d=>`
-  <div class="disc-card">
-    <div class="disc-name">${d.name}</div>
-    <div class="disc-prices">
-      <span>Amazon: <strong>${d.price}</strong></span>
-      ${d.rrp!=='—'?`<span>RRP: <span style="text-decoration:line-through;color:var(--tx3)">${d.rrp}</span></span>`:''}
-    </div>
-    ${d.note?`<div class="disc-note">${d.note}</div>`:''}
-  </div>
-`).join('');
-
-document.getElementById('missingFull').innerHTML=MISSING_FULL.map(m=>`<span class="missing-tag">${m}</span>`).join('');
-document.getElementById('missingSale').innerHTML=MISSING_SALE.map(m=>`<span class="missing-tag">${m}</span>`).join('');
-
-document.getElementById('recList').innerHTML=RECS.map((r,i)=>`
-  <div class="rec">
-    <div class="rec-icon" style="background:${r.bg}">${r.icon}</div>
-    <div class="rec-content">
-      <div class="rec-title">${r.title}</div>
-      <div class="rec-desc">${r.desc}</div>
-    </div>
-  </div>
-`).join('');
-
 function showTab(name){
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
   document.getElementById('tab-'+name).classList.add('active');
   event.target.classList.add('active');
 }
-
 function toggleTheme(){
   const h=document.documentElement;
   h.dataset.theme=h.dataset.theme==='light'?'':'light';
