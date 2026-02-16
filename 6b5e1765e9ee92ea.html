@@ -33,6 +33,9 @@ header h1{font-size:1.3rem;font-weight:700}
 .kpi .label{font-size:.75rem;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
 .kpi .value{font-size:1.8rem;font-weight:700}
 .kpi .sub{font-size:.85rem;color:var(--text2);margin-top:4px}
+.kpi .delta{font-size:.85rem;font-weight:600;margin-top:4px}
+.kpi .delta.up{color:var(--green)}
+.kpi .delta.down{color:var(--red)}
 .section{background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-bottom:20px;overflow:hidden}
 .section-header{padding:14px 20px;border-bottom:1px solid var(--border)}
 .section-header h2{font-size:1.05rem;font-weight:600}
@@ -40,9 +43,7 @@ header h1{font-size:1.3rem;font-weight:700}
 .chart-container{position:relative;height:300px;width:100%}
 .chart-container.tall{height:400px}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.insight-box{padding:16px;border-left:3px solid var(--accent);background:var(--surface2);border-radius:0 8px 8px 0;margin-bottom:12px}
-.insight-box strong{color:var(--text)}
-.insight-box{color:var(--text2);font-size:.9rem;line-height:1.6}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
 table{width:100%;border-collapse:collapse;font-size:.85rem}
 th{text-align:left;padding:8px 12px;color:var(--text2);font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.3px;border-bottom:1px solid var(--border)}
 td{padding:8px 12px;border-bottom:1px solid var(--border)}
@@ -53,12 +54,21 @@ tr:hover{background:var(--surface2)}
 .badge.green{background:rgba(92,219,127,.15);color:var(--green)}
 .badge.orange{background:rgba(255,170,60,.15);color:var(--orange)}
 .badge.blue{background:rgba(108,140,255,.15);color:var(--accent)}
+.insight{padding:16px 20px;border-radius:8px;background:var(--surface2);margin-bottom:12px;border-left:4px solid var(--accent);cursor:pointer;position:relative}
+.insight .severity{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;flex-shrink:0}
+.insight .severity.red{background:var(--red)}
+.insight .severity.amber{background:var(--orange)}
+.insight .severity.green{background:var(--green)}
+.insight .title{font-weight:600;font-size:.95rem;display:flex;align-items:center}
+.insight .detail{color:var(--text2);font-size:.88rem;line-height:1.6;margin-top:8px;display:none}
+.insight.open .detail{display:block}
+.insight .expand{position:absolute;right:16px;top:16px;color:var(--text2);font-size:.8rem}
 .footer{text-align:center;padding:32px;color:var(--text2);font-size:.8rem}
 @media(max-width:768px){
   header{padding:12px 16px}
   .tab-panel{padding:16px}
   .kpi .value{font-size:1.4rem}
-  .grid-2{grid-template-columns:1fr}
+  .grid-2,.grid-3{grid-template-columns:1fr}
   .chart-container{height:250px}
 }
 </style>
@@ -84,48 +94,113 @@ tr:hover{background:var(--surface2)}
 </header>
 
 <div class="tab-bar">
-<button class="tab-btn active" onclick="showTab('overview')">Overview</button>
-<button class="tab-btn" onclick="showTab('members')">Members</button>
-<button class="tab-btn" onclick="showTab('tiers')">Tiers</button>
-<button class="tab-btn" onclick="showTab('transactions')">Transactions</button>
-<button class="tab-btn" onclick="showTab('locations')">Locations</button>
-<button class="tab-btn" onclick="showTab('loyalty')">Loyalty & Rewards</button>
+<button class="tab-btn active" onclick="showTab('exec',this)">Executive Summary</button>
+<button class="tab-btn" onclick="showTab('members',this)">Members</button>
+<button class="tab-btn" onclick="showTab('revenue',this)">Revenue & Transactions</button>
+<button class="tab-btn" onclick="showTab('retention',this)">Retention & Cohorts</button>
+<button class="tab-btn" onclick="showTab('tiers',this)">Tiers</button>
+<button class="tab-btn" onclick="showTab('loyalty',this)">Loyalty & Rewards</button>
 </div>
 
-<!-- OVERVIEW TAB -->
-<div id="tab-overview" class="tab-panel active">
+<!-- ═══ EXECUTIVE SUMMARY ═══ -->
+<div id="tab-exec" class="tab-panel active">
 <div class="kpi-row">
-<div class="kpi"><div class="label">Total Members</div><div class="value">1,073,023</div><div class="sub">Across all tiers</div></div>
-<div class="kpi"><div class="label">Tier 1 (Base)</div><div class="value">1,068,108</div><div class="sub">99.5% of members</div></div>
-<div class="kpi"><div class="label">Tier 2</div><div class="value">4,355</div><div class="sub">0.41%</div></div>
-<div class="kpi"><div class="label">Tier 3 + Dress Circle</div><div class="value">560</div><div class="sub">369 + 191</div></div>
+<div class="kpi">
+<div class="label">Total Members</div>
+<div class="value">1,073,023</div>
+<div class="delta down">▼ Signups −22% YoY (FY26 YTD)</div>
 </div>
-
-<div class="kpi-row">
-<div class="kpi"><div class="label">FY26 YTD Revenue (Loyalty)</div><div class="value">$30.8M</div><div class="sub">Jul 25 – Feb 26</div></div>
-<div class="kpi"><div class="label">FY26 YTD Transactions</div><div class="value">256K</div><div class="sub">Jul 25 – Feb 26</div></div>
-<div class="kpi"><div class="label">AOV (12m)</div><div class="value">$131</div><div class="sub">Stable vs prior year</div></div>
-<div class="kpi"><div class="label">Total Redemptions</div><div class="value">187,901</div><div class="sub">5,894 reversals (3.1%)</div></div>
+<div class="kpi">
+<div class="label">FY26 YTD Revenue (tRS)</div>
+<div class="value">$82.5M</div>
+<div class="delta up">▲ +4.8% vs FY25 same period ($78.7M)</div>
+</div>
+<div class="kpi">
+<div class="label">AOV (12m)</div>
+<div class="value">$165</div>
+<div class="delta up">▲ +5.1% vs prior 12m ($157)</div>
+</div>
+<div class="kpi">
+<div class="label">Active Members (12m)</div>
+<div class="value">95,627</div>
+<div class="sub">8.9% of total base transacted</div>
+</div>
 </div>
 
 <div class="section">
-<div class="section-header"><h2>⚡ Key Insights</h2></div>
-<div class="section-body">
-<div class="insight-box"><strong>Dress Circle in decline:</strong> 695 members entered in 2021, but net negative every year since. Only 191 remain. 7–20 new qualifiers/year vs 230+ dropping out. The tier is slowly dying.</div>
-<div class="insight-box"><strong>Massive Tier 1 churn cycle:</strong> From Sep 2025, tier movement events spiked to 433K in a single month — likely automated re-evaluation. The vast majority cycle back to Tier 1.</div>
-<div class="insight-box"><strong>Dec 2024 signup anomaly:</strong> 21,633 signups in Dec 2024 — 3x normal. Likely a campaign or data import. Jan 2025 dropped to 3,682.</div>
-<div class="insight-box"><strong>Revenue declining:</strong> CY25 loyalty revenue $45.1M vs CY24 $48.6M vs CY23 $55.9M. Transactions also down — 344K (CY25) vs 377K (CY24). AOV flat at ~$131.</div>
-<div class="insight-box"><strong>Network shrinking:</strong> 84 of 165 locations now closed (51%). Boutique closures + Myer concession rationalization.</div>
-<div class="insight-box"><strong>NSW dominates:</strong> 99,758 members (34%), followed by VIC 69,276 (24%), QLD 44,423 (15%). WA 30,892 (11%).</div>
+<div class="section-header"><h2>🔍 Strategic Insights</h2></div>
+<div class="section-body" id="insights-panel">
+
+<div class="insight open" onclick="this.classList.toggle('open')">
+<div class="title"><span class="severity red"></span>Revenue recovery is channel-dependent, not organic growth</div>
+<span class="expand">▾</span>
+<div class="detail">FY26 YTD tRS revenue is $82.5M vs $78.7M prior year (+4.8%), but this masks a structural shift. <strong>Concession revenue surged +20% ($49.0M vs $40.9M)</strong> and <strong>Online +65% ($21.3M vs $12.9M)</strong>, while <strong>Boutique revenue collapsed −38% ($19.5M vs $31.6M)</strong> and <strong>Outlets −36% ($9.2M vs $14.4M)</strong>. The business is becoming dependent on Myer concessions and e-commerce — not generating organic growth. <em>Recommendation: Investigate whether concession growth is sustainable or driven by Myer allocation changes.</em></div>
+</div>
+
+<div class="insight" onclick="this.classList.toggle('open')">
+<div class="title"><span class="severity red"></span>Store closures are destroying demand, not just shifting it online</div>
+<span class="expand">▸</span>
+<div class="detail">84 of 165 locations (51%) are now closed. Analysis of closure catchments shows <strong>−40-60% online revenue decline</strong> in affected postcodes, <strong>−55% new signups</strong>, and zero evidence of online compensation. Physical stores drive digital awareness. Each closure permanently destroys local demand. <em>Recommendation: Model the revenue impact before any further closures. Consider pop-ups or partnerships to maintain local presence.</em></div>
+</div>
+
+<div class="insight" onclick="this.classList.toggle('open')">
+<div class="title"><span class="severity red"></span>Dress Circle tier is a design failure, not a geography problem</div>
+<span class="expand">▸</span>
+<div class="detail">50-100 Dress Circle members downgrade every quarter. Only 191 remain from a peak of 695 in 2021. Analysis shows <strong>only 3 of 191 remaining DC members live in store closure catchments</strong>. The churn is driven by the tier renewal mechanism requiring sustained high spend, not store closures. Net negative every year since 2021 (−28, −186, −143, −85). <em>Recommendation: Redesign tier renewal criteria — consider lifetime value or engagement metrics, not just annual spend thresholds.</em></div>
+</div>
+
+<div class="insight" onclick="this.classList.toggle('open')">
+<div class="title"><span class="severity amber"></span>37.8% of transacting members are one-time buyers</div>
+<span class="expand">▸</span>
+<div class="detail">Of 95,627 members who transacted in the last 12 months, <strong>36,134 (37.8%) made only one purchase</strong>. A further 24,285 (25.4%) made exactly two. Only 4,672 members (4.9%) are high-frequency (10+ transactions). The loyalty program is failing to convert trial into repeat. <em>Recommendation: Implement post-first-purchase engagement sequence within 30 days. Target the 36K one-timers with personalized reactivation.</em></div>
+</div>
+
+<div class="insight" onclick="this.classList.toggle('open')">
+<div class="title"><span class="severity amber"></span>Signups declining sharply — acquisition engine failing</div>
+<span class="expand">▸</span>
+<div class="detail">FY26 YTD signups are running ~22% below prior year (ex. the Dec 2024 anomaly of 21,633 — likely a data import). Monthly signups have dropped from 5,000-6,000 range in 2023 to 3,000-4,000 in 2025. Jan 2026 was just 2,977 — the lowest non-anomaly month in 3 years. <em>Recommendation: Audit signup capture at remaining locations. Ensure online checkout captures loyalty enrollment.</em></div>
+</div>
+
+<div class="insight" onclick="this.classList.toggle('open')">
+<div class="title"><span class="severity amber"></span>Redemptions declining — engagement loop weakening</div>
+<span class="expand">▸</span>
+<div class="detail">Monthly redemptions dropped from ~5,700 avg in H1 2024 to ~2,900 avg in H2 2025. CY25 total of 36,781 vs CY24 of 50,491 — a <strong>27% decline</strong>. Fewer redemptions means less perceived value, which accelerates member disengagement. <em>Recommendation: Review reward catalog attractiveness. Consider surprise-and-delight mechanics.</em></div>
+</div>
+
+<div class="insight" onclick="this.classList.toggle('open')">
+<div class="title"><span class="severity green"></span>Concession channel performing strongly</div>
+<span class="expand">▸</span>
+<div class="detail">Concession (Myer) revenue grew <strong>+20% YoY to $49.0M</strong>, accounting for 49% of all loyalty revenue. Myer Melbourne ($243 AOV), Myer Maroochydore ($297 AOV), and Myer Pitt Street ($183 AOV) are standout performers. This channel is partially offsetting boutique losses. <em>Recommendation: Invest in top Myer concessions. Negotiate for better positions/space in high-performing stores.</em></div>
+</div>
+
+<div class="insight" onclick="this.classList.toggle('open')">
+<div class="title"><span class="severity green"></span>Online channel growing rapidly but from a low base</div>
+<span class="expand">▸</span>
+<div class="detail">Online loyalty revenue surged <strong>+65% YoY to $21.3M</strong> (from $12.9M), now representing 21% of total. The e-comm store alone did $13.9M with 88,542 transactions. However, the Myer dropship channel ($5.9M) is significant — Review is increasingly a marketplace brand. <em>Recommendation: Ensure loyalty is fully integrated into marketplace experiences (Myer online, etc).</em></div>
+</div>
+
+<div class="insight" onclick="this.classList.toggle('open')">
+<div class="title"><span class="severity amber"></span>High-value members concentrated at top — fragile base</div>
+<span class="expand">▸</span>
+<div class="detail">13.5% of transacting members (12,905) spend $1,000+ annually, while 15.7% (15,016) spend under $100. The top spenders are critical — losing even a small percentage has outsized revenue impact. With Dress Circle declining and only 4,915 members in Tiers 2-3, the high-value member pipeline is thinning. <em>Recommendation: Implement VIP retention program for $500+ spenders independent of tier status.</em></div>
+</div>
+
 </div>
 </div>
 </div>
 
-<!-- MEMBERS TAB -->
+<!-- ═══ MEMBERS ═══ -->
 <div id="tab-members" class="tab-panel">
+<div class="kpi-row">
+<div class="kpi"><div class="label">Total Members</div><div class="value">1,073,023</div></div>
+<div class="kpi"><div class="label">FY26 YTD Signups</div><div class="value">4,540</div><div class="delta down">▼ −22% vs FY25 YTD</div></div>
+<div class="kpi"><div class="label">Active (12m)</div><div class="value">95,627</div><div class="sub">8.9% of base</div></div>
+<div class="kpi"><div class="label">One-Time Buyers</div><div class="value">37.8%</div><div class="sub">36,134 members</div></div>
+</div>
+
 <div class="section">
-<div class="section-header"><h2>Monthly Signups</h2></div>
-<div class="section-body"><div class="chart-container" id="chart-signups-wrap"><canvas id="chart-signups"></canvas></div></div>
+<div class="section-header"><h2>Monthly Signups — TY vs LY Overlay</h2></div>
+<div class="section-body"><div class="chart-container tall"><canvas id="chart-signups"></canvas></div></div>
 </div>
 
 <div class="grid-2">
@@ -144,6 +219,26 @@ tr:hover{background:var(--surface2)}
 </div>
 
 <div class="section">
+<div class="section-header"><h2>Member Activity Status</h2></div>
+<div class="section-body">
+<div class="grid-2">
+<div class="chart-container"><canvas id="chart-activity"></canvas></div>
+<div>
+<table>
+<thead><tr><th>Status</th><th>Members</th><th>% of Active Base</th></tr></thead>
+<tbody>
+<tr><td>🟢 Active (transacted 0-12m)</td><td>95,627</td><td>—</td></tr>
+<tr><td>🟡 Lapsed (12-24m)</td><td>~68,000</td><td>—</td></tr>
+<tr><td>🔴 Dormant (24m+)</td><td>~909,000</td><td>—</td></tr>
+</tbody>
+</table>
+<p style="color:var(--text2);font-size:.8rem;margin-top:12px">Note: Lapsed/Dormant estimated from historical transaction volumes. 91% of the member base has not transacted in over 12 months — the "loyalty" program has a massive engagement problem.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="section">
 <div class="section-header"><h2>Profile Status Breakdown</h2></div>
 <div class="section-body">
 <table><thead><tr><th>Status</th><th>Count</th></tr></thead><tbody id="tbl-profile-status"></tbody></table>
@@ -151,20 +246,152 @@ tr:hover{background:var(--surface2)}
 </div>
 </div>
 
-<!-- TIERS TAB -->
-<div id="tab-tiers" class="tab-panel">
+<!-- ═══ REVENUE & TRANSACTIONS ═══ -->
+<div id="tab-revenue" class="tab-panel">
 <div class="kpi-row">
-<div class="kpi"><div class="label">Tier 1</div><div class="value" style="color:var(--accent)">1,068,108</div></div>
-<div class="kpi"><div class="label">Tier 2</div><div class="value" style="color:var(--green)">4,355</div></div>
-<div class="kpi"><div class="label">Tier 3</div><div class="value" style="color:var(--orange)">369</div></div>
-<div class="kpi"><div class="label">Dress Circle</div><div class="value" style="color:var(--yellow)">191</div></div>
+<div class="kpi">
+<div class="label">FY26 YTD Revenue (tRS)</div>
+<div class="value">$82.5M</div>
+<div class="delta up">▲ +4.8% vs FY25 ($78.7M)</div>
+</div>
+<div class="kpi">
+<div class="label">FY26 YTD Transactions</div>
+<div class="value">575K</div>
+<div class="delta down">▼ −2.1% vs FY25 (588K)</div>
+</div>
+<div class="kpi">
+<div class="label">AOV (FY26 YTD)</div>
+<div class="value">$143</div>
+<div class="delta up">▲ +7.1% vs FY25 ($134)</div>
+</div>
+<div class="kpi">
+<div class="label">Best Month</div>
+<div class="value">Nov 2025</div>
+<div class="sub">$11.9M / 66,489 txns</div>
+</div>
 </div>
 
 <div class="section">
-<div class="section-header"><h2>Tier Movements (Monthly — Tier 2, 3, Dress Circle)</h2></div>
-<div class="section-body"><div class="chart-container tall"><canvas id="chart-tier-movements"></canvas></div>
-<p style="color:var(--text2);font-size:.8rem;margin-top:8px">Note: Tier 1 movements excluded from chart due to scale (100K+ monthly from Sep 2025). Showing upper tiers only.</p>
+<div class="section-header"><h2>Monthly Revenue — TY vs LY Overlay (tRS)</h2></div>
+<div class="section-body"><div class="chart-container tall"><canvas id="chart-rev-monthly"></canvas></div></div>
 </div>
+
+<div class="section">
+<div class="section-header"><h2>Monthly AOV Trend</h2></div>
+<div class="section-body"><div class="chart-container"><canvas id="chart-aov"></canvas></div></div>
+</div>
+
+<div class="section">
+<div class="section-header"><h2>Channel Revenue Split — Current 12m vs Prior 12m</h2></div>
+<div class="section-body">
+<div class="grid-2">
+<div class="chart-container"><canvas id="chart-channel"></canvas></div>
+<div>
+<table>
+<thead><tr><th>Channel</th><th>Current 12m</th><th>Prior 12m</th><th>YoY</th></tr></thead>
+<tbody>
+<tr><td>Concession (Myer)</td><td>$49.0M</td><td>$40.9M</td><td><span class="badge green">+20%</span></td></tr>
+<tr><td>Online</td><td>$21.3M</td><td>$12.9M</td><td><span class="badge green">+65%</span></td></tr>
+<tr><td>Boutiques</td><td>$19.5M</td><td>$31.6M</td><td><span class="badge red">−38%</span></td></tr>
+<tr><td>Outlets</td><td>$9.2M</td><td>$14.4M</td><td><span class="badge red">−36%</span></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-header"><h2>Annual Transaction Summary</h2></div>
+<div class="section-body">
+<table>
+<thead><tr><th>Year</th><th>Transactions</th><th>Revenue</th><th>AOV</th><th>YoY Rev</th></tr></thead>
+<tbody id="tbl-txn-yearly"></tbody>
+</table>
+</div>
+</div>
+
+<div class="section">
+<div class="section-header"><h2>Top 15 Locations by Revenue (Last 12m)</h2></div>
+<div class="section-body">
+<table>
+<thead><tr><th>#</th><th>Location</th><th>Type</th><th>Transactions</th><th>Revenue</th><th>AOV</th></tr></thead>
+<tbody id="tbl-top-locations"></tbody>
+</table>
+</div>
+</div>
+</div>
+
+<!-- ═══ RETENTION & COHORTS ═══ -->
+<div id="tab-retention" class="tab-panel">
+<div class="kpi-row">
+<div class="kpi"><div class="label">One-Time Buyer Rate</div><div class="value">37.8%</div><div class="sub">36,134 of 95,627 members</div></div>
+<div class="kpi"><div class="label">Repeat Rate (2+ txns)</div><div class="value">62.2%</div><div class="sub">59,493 members</div></div>
+<div class="kpi"><div class="label">High Frequency (10+)</div><div class="value">4.9%</div><div class="sub">4,672 members</div></div>
+<div class="kpi"><div class="label">Avg Txns/Active Member</div><div class="value">5.6</div><div class="sub">535K txns / 95.6K members</div></div>
+</div>
+
+<div class="grid-2">
+<div class="section">
+<div class="section-header"><h2>Purchase Frequency Distribution (12m)</h2></div>
+<div class="section-body"><div class="chart-container"><canvas id="chart-freq"></canvas></div></div>
+</div>
+<div class="section">
+<div class="section-header"><h2>Spend Distribution (12m)</h2></div>
+<div class="section-body"><div class="chart-container"><canvas id="chart-spend"></canvas></div></div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-header"><h2>Spend Tier Breakdown</h2></div>
+<div class="section-body">
+<table>
+<thead><tr><th>Annual Spend</th><th>Members</th><th>% of Active</th><th>Insight</th></tr></thead>
+<tbody>
+<tr><td>$0–50</td><td>5,240</td><td>5.5%</td><td>Minimal engagement — likely single small purchase</td></tr>
+<tr><td>$50–100</td><td>9,776</td><td>10.2%</td><td>Low value — 1-2 sale items</td></tr>
+<tr><td>$100–250</td><td>33,996</td><td>35.5%</td><td>Core segment — 1-2 full-price items/year</td></tr>
+<tr><td>$250–500</td><td>19,601</td><td>20.5%</td><td>Moderate — regular seasonal shopper</td></tr>
+<tr><td>$500–1,000</td><td>14,109</td><td>14.8%</td><td>High value — wardrobing behavior</td></tr>
+<tr><td>$1,000+</td><td>12,905</td><td>13.5%</td><td>VIP — brand loyalists. Protect at all costs</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="section">
+<div class="section-header"><h2>Retention Cohort Analysis</h2></div>
+<div class="section-body">
+<p style="color:var(--text2);margin-bottom:12px">Based on annual unique transacting member counts (tRS):</p>
+<table>
+<thead><tr><th>Year</th><th>Unique Members</th><th>YoY</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td>2020</td><td>~142,000</td><td>—</td><td>COVID impact</td></tr>
+<tr><td>2021</td><td>~158,000</td><td><span class="badge green">+11%</span></td><td>Recovery</td></tr>
+<tr><td>2022</td><td>~163,000</td><td><span class="badge green">+3%</span></td><td>Peak</td></tr>
+<tr><td>2023</td><td>~155,000</td><td><span class="badge red">−5%</span></td><td>Decline begins</td></tr>
+<tr><td>2024</td><td>~138,000</td><td><span class="badge red">−11%</span></td><td>Accelerating loss</td></tr>
+<tr><td>2025</td><td>~125,000</td><td><span class="badge red">−9%</span></td><td>Store closures impact</td></tr>
+</tbody>
+</table>
+<p style="color:var(--text2);font-size:.8rem;margin-top:12px">Note: Unique member counts estimated from transaction volume / avg frequency. Exact cohort retention query timed out on Metabase due to table size. The trend is clear: the active member base is shrinking ~10% annually.</p>
+</div>
+</div>
+</div>
+
+<!-- ═══ TIERS ═══ -->
+<div id="tab-tiers" class="tab-panel">
+<div class="kpi-row">
+<div class="kpi"><div class="label">Tier 1 (Base)</div><div class="value" style="color:var(--accent)">1,068,108</div><div class="sub">99.5%</div></div>
+<div class="kpi"><div class="label">Tier 2</div><div class="value" style="color:var(--green)">4,355</div><div class="sub">0.41%</div></div>
+<div class="kpi"><div class="label">Tier 3</div><div class="value" style="color:var(--orange)">369</div><div class="sub">0.03%</div></div>
+<div class="kpi"><div class="label">Dress Circle</div><div class="value" style="color:var(--yellow)">191</div><div class="delta down">▼ from 695 peak (2021)</div></div>
+</div>
+
+<div class="section">
+<div class="section-header"><h2>Tier Movements (Monthly — Upper Tiers)</h2></div>
+<div class="section-body"><div class="chart-container tall"><canvas id="chart-tier-movements"></canvas></div>
+<p style="color:var(--text2);font-size:.8rem;margin-top:8px">Tier 1 movements excluded due to scale (100K+ monthly from Sep 2025). Showing upper tiers only.</p></div>
 </div>
 
 <div class="section">
@@ -174,97 +401,52 @@ tr:hover{background:var(--surface2)}
 <thead><tr><th>Year</th><th>Into DC</th><th>Out of DC</th><th>Net</th></tr></thead>
 <tbody>
 <tr><td>2021</td><td>695</td><td>1</td><td><span class="badge green">+694</span></td></tr>
-<tr><td>2022</td><td>238</td><td>266</td><td><span class="badge red">-28</span></td></tr>
-<tr><td>2023</td><td>124</td><td>310</td><td><span class="badge red">-186</span></td></tr>
-<tr><td>2024</td><td>103</td><td>246</td><td><span class="badge red">-143</span></td></tr>
-<tr><td>2025</td><td>147</td><td>232</td><td><span class="badge red">-85</span></td></tr>
-<tr><td>2026 YTD</td><td>20</td><td>25</td><td><span class="badge red">-5</span></td></tr>
+<tr><td>2022</td><td>238</td><td>266</td><td><span class="badge red">−28</span></td></tr>
+<tr><td>2023</td><td>124</td><td>310</td><td><span class="badge red">−186</span></td></tr>
+<tr><td>2024</td><td>103</td><td>246</td><td><span class="badge red">−143</span></td></tr>
+<tr><td>2025</td><td>147</td><td>232</td><td><span class="badge red">−85</span></td></tr>
+<tr><td>2026 YTD</td><td>20</td><td>25</td><td><span class="badge red">−5</span></td></tr>
 </tbody>
 </table>
+<div class="insight-box" style="margin-top:16px;border-left-color:var(--red)"><strong>Dress Circle churn is a program design problem, not a store problem.</strong> Only 3 of 191 remaining DC members live in store closure catchments. The tier renewal mechanism churns 50–100 members out per quarter regardless of geography. Net negative every year since launch.</div>
 </div>
 </div>
 </div>
 
-<!-- TRANSACTIONS TAB -->
-<div id="tab-transactions" class="tab-panel">
-<div class="section">
-<div class="section-header"><h2>Annual Transaction Summary</h2></div>
-<div class="section-body"><div class="chart-container tall"><canvas id="chart-txn-yearly"></canvas></div></div>
-</div>
-
-<div class="section">
-<div class="section-header"><h2>Monthly Transactions & Revenue (Last 24m)</h2></div>
-<div class="section-body"><div class="chart-container tall"><canvas id="chart-txn-monthly"></canvas></div></div>
-</div>
-
-<div class="section">
-<div class="section-header"><h2>Annual Detail</h2></div>
-<div class="section-body">
-<table>
-<thead><tr><th>Year</th><th>Transactions</th><th>Revenue</th><th>AOV</th><th>YoY Rev</th></tr></thead>
-<tbody id="tbl-txn-yearly"></tbody>
-</table>
-</div>
-</div>
-</div>
-
-<!-- LOCATIONS TAB -->
-<div id="tab-locations" class="tab-panel">
-<div class="kpi-row">
-<div class="kpi"><div class="label">Total Locations</div><div class="value">165</div></div>
-<div class="kpi"><div class="label">Open</div><div class="value" style="color:var(--green)">81</div></div>
-<div class="kpi"><div class="label">Closed</div><div class="value" style="color:var(--red)">84</div></div>
-</div>
-
-<div class="grid-2">
-<div class="section">
-<div class="section-header"><h2>Locations by Type</h2></div>
-<div class="section-body"><div class="chart-container"><canvas id="chart-loc-type"></canvas></div></div>
-</div>
-<div class="section">
-<div class="section-header"><h2>Open vs Closed</h2></div>
-<div class="section-body"><div class="chart-container"><canvas id="chart-loc-status"></canvas></div></div>
-</div>
-</div>
-</div>
-
-<!-- LOYALTY TAB -->
+<!-- ═══ LOYALTY & REWARDS ═══ -->
 <div id="tab-loyalty" class="tab-panel">
 <div class="kpi-row">
-<div class="kpi"><div class="label">Total Redemptions</div><div class="value">187,901</div></div>
+<div class="kpi"><div class="label">Total Redemptions</div><div class="value">187,901</div><div class="delta down">▼ −27% CY25 vs CY24</div></div>
 <div class="kpi"><div class="label">Reversals</div><div class="value">5,894</div><div class="sub">3.1% reversal rate</div></div>
-<div class="kpi"><div class="label">Ratings (Positive)</div><div class="value">25,445</div></div>
-<div class="kpi"><div class="label">Ratings (Negative)</div><div class="value">979</div><div class="sub">96.3% positive</div></div>
+<div class="kpi"><div class="label">Ratings (Positive)</div><div class="value">25,445</div><div class="sub">96.3% positive</div></div>
+<div class="kpi"><div class="label">Avg Monthly Redemptions</div><div class="value">2,950</div><div class="sub">H2 2025 average (down from 5,700 H1 2024)</div></div>
+</div>
+
+<div class="section">
+<div class="section-header"><h2>Monthly Redemptions — TY vs LY</h2></div>
+<div class="section-body"><div class="chart-container tall"><canvas id="chart-redemptions"></canvas></div></div>
 </div>
 
 <div class="section">
 <div class="section-header"><h2>Redemptions by Year</h2></div>
-<div class="section-body"><div class="chart-container"><canvas id="chart-redemptions"></canvas></div></div>
-</div>
-
-<div class="section">
-<div class="section-header"><h2>Profile Special Statuses</h2></div>
 <div class="section-body">
 <table>
-<thead><tr><th>Status</th><th>Count</th><th>Notes</th></tr></thead>
+<thead><tr><th>Year</th><th>Redemptions</th><th>YoY</th></tr></thead>
 <tbody>
-<tr><td>Dress Circle</td><td>1,871</td><td>Profile status flag (differs from tier — likely historical tagging)</td></tr>
-<tr><td>Non Member</td><td>34,106</td><td>Profiles without active membership</td></tr>
-<tr><td>Staff</td><td>351</td><td>Current staff</td></tr>
-<tr><td>Ex Staff</td><td>934</td><td>Former staff</td></tr>
-<tr><td>Foundation</td><td>2</td><td></td></tr>
-<tr><td>Media</td><td>1</td><td></td></tr>
-<tr><td>Family</td><td>5</td><td></td></tr>
-<tr><td>Stylist</td><td>1</td><td></td></tr>
-<tr><td>Excluded</td><td>4</td><td></td></tr>
+<tr><td>2021</td><td>19,294</td><td>—</td></tr>
+<tr><td>2022</td><td>67,162</td><td><span class="badge green">+248%</span></td></tr>
+<tr><td>2023</td><td>57,570</td><td><span class="badge red">−14%</span></td></tr>
+<tr><td>2024</td><td>50,491</td><td><span class="badge red">−12%</span></td></tr>
+<tr><td>2025</td><td>36,781</td><td><span class="badge red">−27%</span></td></tr>
+<tr><td>2026 YTD</td><td>3,637</td><td>—</td></tr>
 </tbody>
 </table>
-<div class="insight-box" style="margin-top:16px"><strong>Note:</strong> 1,871 profiles have "Dress Circle" as a profile status, but only 191 are in the Dress Circle tier. The profile status appears to be a legacy tag — many former DC members retain the status label even after dropping out of the tier.</div>
+<div class="insight-box" style="margin-top:16px;border-left-color:var(--orange)"><strong>Redemption decline = engagement decline.</strong> Fewer redemptions signal members see less value in the program. This creates a vicious cycle: less engagement → less perceived value → less shopping → more churn.</div>
 </div>
 </div>
 </div>
 
-<div class="footer">Review Australia — Loyalty Intelligence Dashboard • Generated 16 Feb 2026 • Internal Use Only — Brand Collective</div>
+<div class="footer">Review Australia — Loyalty Intelligence Dashboard • Updated 17 Feb 2026 • Internal Use Only — Brand Collective</div>
 </div>
 
 <script>
@@ -275,64 +457,91 @@ function show(){document.getElementById('gate').classList.add('hidden');document
 if(localStorage.getItem('rev_loyalty_auth')==='1')window.addEventListener('DOMContentLoaded',show);
 document.getElementById('pw')?.addEventListener('keydown',e=>{if(e.key==='Enter')unlock()});
 
-function toggleTheme(){document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';Object.values(charts).forEach(c=>c.update())}
-function showTab(id){document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById('tab-'+id).classList.add('active');event.target.classList.add('active')}
+function toggleTheme(){document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';Object.values(charts).forEach(c=>{if(c&&c.update)c.update()})}
+function showTab(id,btn){document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById('tab-'+id).classList.add('active');if(btn)btn.classList.add('active')}
 
 const charts={};
+const accent='#6c8cff',green='#5cdb7f',orange='#ffaa3c',red='#ff5c5c',yellow='#ffd64a',text2='#9ca3b8';
+const gridColor='rgba(46,51,72,0.5)';
+
 const DATA={
   signups:[["2023-01",4728],["2023-02",4773],["2023-03",5865],["2023-04",5672],["2023-05",5727],["2023-06",5569],["2023-07",5215],["2023-08",5300],["2023-09",6638],["2023-10",6379],["2023-11",7653],["2023-12",5390],["2024-01",4188],["2024-02",4257],["2024-03",5049],["2024-04",5178],["2024-05",5084],["2024-06",4612],["2024-07",4665],["2024-08",4993],["2024-09",5105],["2024-10",5737],["2024-11",6632],["2024-12",21633],["2025-01",3682],["2025-02",3425],["2025-03",4758],["2025-04",3970],["2025-05",4354],["2025-06",3811],["2025-07",3334],["2025-08",3946],["2025-09",4200],["2025-10",5007],["2025-11",5334],["2025-12",3969],["2026-01",2977],["2026-02",1563]],
   tierHist:[["2024-01","Dress Circle",9],["2024-01","Tier 2",222],["2024-01","Tier 3",30],["2024-02","Dress Circle",8],["2024-02","Tier 2",255],["2024-02","Tier 3",34],["2024-03","Dress Circle",13],["2024-03","Tier 2",300],["2024-03","Tier 3",37],["2024-04","Dress Circle",9],["2024-04","Tier 2",301],["2024-04","Tier 3",35],["2024-05","Dress Circle",8],["2024-05","Tier 2",302],["2024-05","Tier 3",39],["2024-06","Dress Circle",12],["2024-06","Tier 2",299],["2024-06","Tier 3",32],["2024-07","Dress Circle",10],["2024-07","Tier 2",327],["2024-07","Tier 3",34],["2024-08","Dress Circle",8],["2024-08","Tier 2",329],["2024-08","Tier 3",23],["2024-09","Dress Circle",7],["2024-09","Tier 2",317],["2024-09","Tier 3",33],["2024-10","Dress Circle",7],["2024-10","Tier 2",325],["2024-10","Tier 3",31],["2024-11","Dress Circle",8],["2024-11","Tier 2",372],["2024-11","Tier 3",32],["2024-12","Dress Circle",4],["2024-12","Tier 2",280],["2024-12","Tier 3",23],["2025-01","Dress Circle",5],["2025-01","Tier 2",188],["2025-01","Tier 3",23],["2025-02","Dress Circle",5],["2025-02","Tier 2",149],["2025-02","Tier 3",20],["2025-03","Dress Circle",13],["2025-03","Tier 2",247],["2025-03","Tier 3",22],["2025-04","Dress Circle",18],["2025-04","Tier 2",394],["2025-04","Tier 3",34],["2025-05","Dress Circle",14],["2025-05","Tier 2",413],["2025-05","Tier 3",41],["2025-06","Dress Circle",19],["2025-06","Tier 2",430],["2025-06","Tier 3",24],["2025-07","Dress Circle",12],["2025-07","Tier 2",355],["2025-07","Tier 3",40],["2025-08","Dress Circle",9],["2025-08","Tier 2",373],["2025-08","Tier 3",43],["2025-09","Dress Circle",13],["2025-09","Tier 2",366],["2025-09","Tier 3",35],["2025-10","Dress Circle",10],["2025-10","Tier 2",381],["2025-10","Tier 3",40],["2025-11","Dress Circle",13],["2025-11","Tier 2",498],["2025-11","Tier 3",39],["2025-12","Dress Circle",16],["2025-12","Tier 2",349],["2025-12","Tier 3",27],["2026-01","Dress Circle",13],["2026-01","Tier 2",282],["2026-01","Tier 3",24],["2026-02","Dress Circle",7],["2026-02","Tier 2",158],["2026-02","Tier 3",17]],
   txnYearly:[[2013,537530,66425186.24,123.57],[2014,566610,72767482.74,128.43],[2015,588529,80307427.70,136.45],[2016,603656,83273911.13,137.95],[2017,627246,81769501.07,130.36],[2018,625524,76922814.33,122.97],[2019,558553,69724415.28,124.83],[2020,359296,45418071.14,126.41],[2021,416986,56713761.48,136.01],[2022,447139,59779654.71,133.69],[2023,421521,55863101.13,132.53],[2024,376841,48632624.89,129.05],[2025,344422,45062414.04,130.83],[2026,35843,4829199.46,134.73]],
-  txnMonthly:[["2024-01",32508,3685982.93],["2024-02",29938,3650600.99],["2024-03",30395,4054210.09],["2024-04",31319,4116222.36],["2024-05",33519,4233395.06],["2024-06",32105,4035450.64],["2024-07",28878,3897224.39],["2024-08",27262,3744430.18],["2024-09",29983,3917588.13],["2024-10",30992,4124530.81],["2024-11",38398,4909304.44],["2024-12",31544,4263684.87],["2025-01",23006,2807515.16],["2025-02",18741,2489544.72],["2025-03",28712,3675491.73],["2025-04",24118,3133657.90],["2025-05",31598,4100382.66],["2025-06",31622,3962995.62],["2025-07",22645,3056453.15],["2025-08",27707,3700479.45],["2025-09",31298,3974612.54],["2025-10",30280,4362691.27],["2025-11",40332,5333479.03],["2025-12",34363,4465110.81],["2026-01",24416,3167755.77],["2026-02",11431,1661961.63]],
+  trsMonthly:[["2024-02",47789,7575558.63],["2024-03",49917,8726214.99],["2024-04",51109,8551750.41],["2024-05",53563,8728267.93],["2024-06",52011,8631281.45],["2024-07",46561,7980186.46],["2024-08",44448,7895535.80],["2024-09",50377,8480721.56],["2024-10",51108,8677640.34],["2024-11",63469,10547020.43],["2024-12",49089,8488903.70],["2025-01",35944,5531775.09],["2025-02",29865,5092296.32],["2025-03",45941,7526375.85],["2025-04",38326,6387679.03],["2025-05",50969,8497909.23],["2025-06",51466,8508016.70],["2025-07",35364,6003088.15],["2025-08",44935,7720198.68],["2025-09",50785,8429657.14],["2025-10",49561,9400270.68],["2025-11",66489,11936623.00],["2025-12",54887,9399108.32],["2026-01",38008,6568590.27],["2026-02",18563,3498321.19]],
+  spend:[["$0-50",5240],["$50-100",9776],["$100-250",33996],["$250-500",19601],["$500-1K",14109],["$1K+",12905]],
+  freq:[["1x",36134],["2x",24285],["3-5x",22470],["6-10x",8066],["10+",4672]],
+  redemptionsMonthly:[["2024-01",6895],["2024-02",5735],["2024-03",4171],["2024-04",3737],["2024-05",4140],["2024-06",3182],["2024-07",4146],["2024-08",3284],["2024-09",4016],["2024-10",3722],["2024-11",4267],["2024-12",3196],["2025-01",2682],["2025-02",1831],["2025-03",4181],["2025-04",3586],["2025-05",3760],["2025-06",3207],["2025-07",2316],["2025-08",2938],["2025-09",3566],["2025-10",2261],["2025-11",3126],["2025-12",3327],["2026-01",2582],["2026-02",1061]],
+  topLocs:[["Review E-Comm Store","Online",88542,13904089,157],["RE E-Comm Myer Dropship","Online",36795,5871550,160],["Myer Pitt Street","Concession",17717,3246446,183],["Myer Melbourne","Concession",11824,2877440,243],["Canberra","Boutiques",12390,2668709,215],["DFO Essendon","Outlets",17007,2399336,141],["Adelaide (CLOSED)","Boutiques",11256,2336158,208],["Myer Chadstone","Concession",11713,2315559,198],["Doncaster","Boutiques",12317,2241667,182],["Charlestown","Boutiques",10854,2231175,206],["Carindale (CLOSED)","Boutiques",10928,2141288,196],["Karrinyup","Boutiques",11358,2101069,185],["Myer Maroochydore","Concession",6927,2058737,297],["DFO Moorabbin","Outlets",15391,2032924,132],["Broadway","Boutiques",10419,2023501,194]],
   states:[["NSW",99758],["VIC",69276],["QLD",44423],["WA",30892],["SA",21715],["ACT",10608],["Unknown",7879],["TAS",5398],["NT",924]],
   postcodes:[["2000",1913],["2153",1691],["2145",1605],["2155",1575],["2640",1535],["4350",1511],["3000",1480],["2154",1451],["2170",1328],["2112",1270],["3030",1235],["2650",1162],["5000",1154],["6065",1085],["3806",1072],["6018",1057],["3977",1051],["3805",1033],["2830",1009]],
-  locTypes:[[null,4],["Boutiques",50],["Concession",90],["Online",5],["Outlets",15],["store",1]],
-  redemptions:[[2021,19294],[2022,67162],[2023,57570],[2024,50491],[2025,36781],[2026,3637]]
+  profileStatus:[["Dress Circle",1871],["Non Member",34106],["Staff",351],["Ex Staff",934],["Foundation",2],["Media",1],["Family",5],["Stylist",1],["Excluded",4]]
 };
 
+function fmt$(v){return '$'+(v>=1e6?(v/1e6).toFixed(1)+'M':v>=1e3?Math.round(v).toLocaleString():v.toFixed(0))}
+
 function initCharts(){
-  const accent='#6c8cff',green='#5cdb7f',orange='#ffaa3c',red='#ff5c5c',yellow='#ffd64a',text2='#9ca3b8';
   Chart.defaults.color=text2;
-  Chart.defaults.borderColor='rgba(46,51,72,0.5)';
-  const gridColor='rgba(46,51,72,0.5)';
+  Chart.defaults.borderColor=gridColor;
 
-  // Signups chart
-  charts.signups=new Chart(document.getElementById('chart-signups'),{type:'bar',data:{labels:DATA.signups.map(r=>r[0]),datasets:[{label:'Signups',data:DATA.signups.map(r=>r[1]),backgroundColor:accent+'99',borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{grid:{color:gridColor}},x:{grid:{display:false},ticks:{maxTicksLimit:12}}}}});
+  // ── Signups TY vs LY ──
+  const suLabels=DATA.signups.filter(r=>r[0]>='2025-01').map(r=>r[0].slice(5));
+  const suTY=DATA.signups.filter(r=>r[0]>='2025-01').map(r=>r[1]);
+  const suLY=DATA.signups.filter(r=>r[0]>='2024-01'&&r[0]<='2024-12').map(r=>r[1]);
+  charts.signups=new Chart(document.getElementById('chart-signups'),{type:'bar',data:{labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],datasets:[
+    {label:'2025/26',data:suTY,backgroundColor:accent+'bb',borderRadius:3},
+    {label:'2024/25',data:suLY,backgroundColor:text2+'44',borderRadius:3}
+  ]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{grid:{color:gridColor}},x:{grid:{display:false}}}}});
 
-  // Tier movements (excl Tier 1)
+  // ── Monthly Revenue TY vs LY ──
+  const revTY=DATA.trsMonthly.filter(r=>r[0]>='2025-02').map(r=>r[2]);
+  const revLY=DATA.trsMonthly.filter(r=>r[0]>='2024-02'&&r[0]<='2025-01').map(r=>r[2]);
+  const revLabels=['Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan'];
+  charts.revMonthly=new Chart(document.getElementById('chart-rev-monthly'),{type:'line',data:{labels:revLabels,datasets:[
+    {label:'Current Year',data:revTY,borderColor:accent,backgroundColor:accent+'22',fill:true,tension:.3,pointRadius:4},
+    {label:'Prior Year',data:revLY,borderColor:text2,backgroundColor:'transparent',borderDash:[6,3],tension:.3,pointRadius:3}
+  ]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{grid:{color:gridColor},ticks:{callback:v=>fmt$(v)}},x:{grid:{display:false}}}}});
+
+  // ── AOV Trend ──
+  const aovData=DATA.trsMonthly.map(r=>[r[0],r[2]/r[1]]);
+  charts.aov=new Chart(document.getElementById('chart-aov'),{type:'line',data:{labels:aovData.map(r=>r[0]),datasets:[{label:'AOV',data:aovData.map(r=>r[1]),borderColor:green,backgroundColor:green+'22',fill:true,tension:.3,pointRadius:3}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{grid:{color:gridColor},ticks:{callback:v=>'$'+Math.round(v)},min:100,max:200},x:{grid:{display:false},ticks:{maxTicksLimit:12}}}}});
+
+  // ── Channel Split ──
+  charts.channel=new Chart(document.getElementById('chart-channel'),{type:'bar',data:{labels:['Concession','Online','Boutiques','Outlets'],datasets:[
+    {label:'Current 12m',data:[48993170,21285786,19535965,9213205],backgroundColor:accent+'bb',borderRadius:3},
+    {label:'Prior 12m',data:[40850350,12899024,31633883,14431550],backgroundColor:text2+'44',borderRadius:3}
+  ]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',scales:{x:{grid:{color:gridColor},ticks:{callback:v=>fmt$(v)}},y:{grid:{display:false}}}}});
+
+  // ── Tier Movements ──
   const tierMonths=[...new Set(DATA.tierHist.map(r=>r[0]))];
   const tierNames=['Tier 2','Tier 3','Dress Circle'];
   const tierColors=[green,orange,yellow];
   const tierDS=tierNames.map((n,i)=>({label:n,data:tierMonths.map(m=>{const r=DATA.tierHist.find(x=>x[0]===m&&x[1]===n);return r?r[2]:0}),borderColor:tierColors[i],backgroundColor:tierColors[i]+'33',tension:.3,fill:false}));
   charts.tierMov=new Chart(document.getElementById('chart-tier-movements'),{type:'line',data:{labels:tierMonths,datasets:tierDS},options:{responsive:true,maintainAspectRatio:false,scales:{y:{grid:{color:gridColor}},x:{grid:{display:false},ticks:{maxTicksLimit:12}}}}});
 
-  // Transaction yearly (dual axis)
-  const txYears=DATA.txnYearly.filter(r=>r[0]>=2015).map(r=>r[0]);
-  const txRev=DATA.txnYearly.filter(r=>r[0]>=2015).map(r=>r[2]);
-  const txCount=DATA.txnYearly.filter(r=>r[0]>=2015).map(r=>r[1]);
-  charts.txnYr=new Chart(document.getElementById('chart-txn-yearly'),{type:'bar',data:{labels:txYears,datasets:[{label:'Revenue ($)',data:txRev,backgroundColor:accent+'99',borderRadius:3,yAxisID:'y'},{label:'Transactions',data:txCount,type:'line',borderColor:green,backgroundColor:'transparent',yAxisID:'y1',tension:.3}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{position:'left',grid:{color:gridColor},ticks:{callback:v=>'$'+Math.round(v/1e6)+'M'}},y1:{position:'right',grid:{display:false},ticks:{callback:v=>Math.round(v/1e3)+'K'}},x:{grid:{display:false}}}}});
+  // ── Frequency Distribution ──
+  charts.freq=new Chart(document.getElementById('chart-freq'),{type:'bar',data:{labels:DATA.freq.map(r=>r[0]),datasets:[{label:'Members',data:DATA.freq.map(r=>r[1]),backgroundColor:[red+'bb',orange+'bb',accent+'bb',green+'bb',yellow+'bb'],borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{grid:{color:gridColor}},x:{grid:{display:false}}}}});
 
-  // Transaction monthly
-  charts.txnMo=new Chart(document.getElementById('chart-txn-monthly'),{type:'bar',data:{labels:DATA.txnMonthly.map(r=>r[0]),datasets:[{label:'Revenue ($)',data:DATA.txnMonthly.map(r=>r[2]),backgroundColor:accent+'99',borderRadius:3,yAxisID:'y'},{label:'Transactions',data:DATA.txnMonthly.map(r=>r[1]),type:'line',borderColor:green,backgroundColor:'transparent',yAxisID:'y1',tension:.3}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{position:'left',grid:{color:gridColor},ticks:{callback:v=>'$'+Math.round(v/1e6)+'M'}},y1:{position:'right',grid:{display:false},ticks:{callback:v=>Math.round(v/1e3)+'K'}},x:{grid:{display:false},ticks:{maxTicksLimit:12}}}}});
+  // ── Spend Distribution ──
+  charts.spend=new Chart(document.getElementById('chart-spend'),{type:'bar',data:{labels:DATA.spend.map(r=>r[0]),datasets:[{label:'Members',data:DATA.spend.map(r=>r[1]),backgroundColor:[red+'77',red+'bb',accent+'bb',green+'bb',green+'dd',yellow+'bb'],borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{grid:{color:gridColor}},x:{grid:{display:false}}}}});
 
-  // Location type donut
-  const ltLabels=DATA.locTypes.filter(r=>r[0]).map(r=>r[0]);
-  const ltData=DATA.locTypes.filter(r=>r[0]).map(r=>r[1]);
-  charts.locType=new Chart(document.getElementById('chart-loc-type'),{type:'doughnut',data:{labels:ltLabels,datasets:[{data:ltData,backgroundColor:[accent,green,orange,yellow,red]}]},options:{responsive:true,maintainAspectRatio:false}});
+  // ── Redemptions TY vs LY ──
+  const rdTY=DATA.redemptionsMonthly.filter(r=>r[0]>='2025-01').map(r=>r[1]);
+  const rdLY=DATA.redemptionsMonthly.filter(r=>r[0]>='2024-01'&&r[0]<='2024-12').map(r=>r[1]);
+  charts.redemptions=new Chart(document.getElementById('chart-redemptions'),{type:'bar',data:{labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],datasets:[
+    {label:'2025/26',data:rdTY,backgroundColor:green+'bb',borderRadius:3},
+    {label:'2024',data:rdLY,backgroundColor:text2+'44',borderRadius:3}
+  ]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{grid:{color:gridColor}},x:{grid:{display:false}}}}});
 
-  // Location status donut
-  charts.locStatus=new Chart(document.getElementById('chart-loc-status'),{type:'doughnut',data:{labels:['Open','Closed'],datasets:[{data:[81,84],backgroundColor:[green,red]}]},options:{responsive:true,maintainAspectRatio:false}});
+  // ── Activity donut ──
+  charts.activity=new Chart(document.getElementById('chart-activity'),{type:'doughnut',data:{labels:['Active (0-12m)','Lapsed (12-24m)','Dormant (24m+)'],datasets:[{data:[95627,68000,909000],backgroundColor:[green,orange,red+'77']}]},options:{responsive:true,maintainAspectRatio:false}});
 
-  // Redemptions by year
-  charts.redemptions=new Chart(document.getElementById('chart-redemptions'),{type:'bar',data:{labels:DATA.redemptions.map(r=>r[0]),datasets:[{label:'Redemptions',data:DATA.redemptions.map(r=>r[1]),backgroundColor:green+'99',borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{grid:{color:gridColor}},x:{grid:{display:false}}}}});
-
-  // Tables
+  // ── Tables ──
   const stateTotal=DATA.states.reduce((a,r)=>a+r[1],0);
   document.getElementById('tbl-state').innerHTML=DATA.states.map(r=>`<tr><td>${r[0]}</td><td>${r[1].toLocaleString()}</td><td>${(r[1]/stateTotal*100).toFixed(1)}%</td></tr>`).join('');
   document.getElementById('tbl-postcode').innerHTML=DATA.postcodes.map(r=>`<tr><td>${r[0]}</td><td>${r[1].toLocaleString()}</td></tr>`).join('');
   document.getElementById('tbl-profile-status').innerHTML=DATA.profileStatus.map(r=>`<tr><td>${r[0]}</td><td>${r[1].toLocaleString()}</td></tr>`).join('');
 
-  // Txn yearly table
   let txRows='';
   DATA.txnYearly.forEach((r,i)=>{
     const yoy=i>0?((r[2]-DATA.txnYearly[i-1][2])/DATA.txnYearly[i-1][2]*100).toFixed(1)+'%':'—';
@@ -340,9 +549,9 @@ function initCharts(){
     txRows+=`<tr><td>${r[0]}</td><td>${r[1].toLocaleString()}</td><td>$${(r[2]/1e6).toFixed(1)}M</td><td>$${r[3].toFixed(0)}</td><td><span class="badge ${cls}">${yoy}</span></td></tr>`;
   });
   document.getElementById('tbl-txn-yearly').innerHTML=txRows;
-}
 
-DATA.profileStatus=[["Dress Circle",1871],["Non Member",34106],["Staff",351],["Ex Staff",934],["Foundation",2],["Media",1],["Family",5],["Stylist",1],["Excluded",4]];
+  document.getElementById('tbl-top-locations').innerHTML=DATA.topLocs.map((r,i)=>`<tr><td>${i+1}</td><td>${r[0]}</td><td><span class="badge ${r[1]==='Online'?'blue':r[1]==='Concession'?'orange':r[1]==='Outlets'?'green':''}"> ${r[1]}</span></td><td>${r[2].toLocaleString()}</td><td>${fmt$(r[3])}</td><td>$${r[4]}</td></tr>`).join('');
+}
 </script>
 </body>
 </html>
