@@ -1,153 +1,164 @@
 {
   "morning": {
-    "generated": "2026-02-16T06:45:00+11:00",
+    "generated": "2026-02-17T05:45:00+11:00",
     "calendar": {
-      "date": "Monday, 16 February 2026",
+      "date": "Tuesday, 17 February 2026",
       "meetings": [],
       "freeBlocks": [],
       "note": "Calendar unavailable - browser service offline"
     },
     "sales": {
-      "date": "Sunday, 15 February 2026",
+      "date": "Monday, 16 February 2026",
       "brands": [
         {
           "name": "Shoes & Sox",
-          "demand": 33830,
-          "orders": 363
+          "demand": 29845,
+          "orders": 314
         },
         {
           "name": "Reebok",
-          "demand": 26789,
-          "orders": 178
-        },
-        {
-          "name": "Superdry",
-          "demand": 21471,
-          "orders": 178
-        },
-        {
-          "name": "Shoe Warehouse",
-          "demand": 20127,
-          "orders": 179
-        },
-        {
-          "name": "Hush Puppies",
-          "demand": 19503,
-          "orders": 134
-        },
-        {
-          "name": "Review",
-          "demand": 19422,
-          "orders": 86
+          "demand": 24126,
+          "orders": 158
         },
         {
           "name": "Black Pepper",
-          "demand": 17342,
-          "orders": 122
+          "demand": 22382,
+          "orders": 176
+        },
+        {
+          "name": "Hush Puppies",
+          "demand": 19027,
+          "orders": 131
+        },
+        {
+          "name": "Shoe Warehouse",
+          "demand": 17082,
+          "orders": 161
+        },
+        {
+          "name": "Superdry",
+          "demand": 15685,
+          "orders": 144
+        },
+        {
+          "name": "Review",
+          "demand": 12299,
+          "orders": 53
         },
         {
           "name": "Elka Collective",
-          "demand": 9882,
-          "orders": 37
+          "demand": 9593,
+          "orders": 43
         },
         {
           "name": "Clarks",
-          "demand": 9766,
+          "demand": 9423,
           "orders": 82
         },
         {
-          "name": "Volley",
-          "demand": 6002,
-          "orders": 55
+          "name": "Canada Goose",
+          "demand": 5600,
+          "orders": 3
         },
         {
           "name": "Yarra Trail",
-          "demand": 4783,
-          "orders": 34
+          "demand": 4685,
+          "orders": 28
+        },
+        {
+          "name": "Volley",
+          "demand": 3983,
+          "orders": 33
         },
         {
           "name": "Champion",
-          "demand": 3940,
-          "orders": 38
-        },
-        {
-          "name": "Julius Marlow",
-          "demand": 3042,
-          "orders": 17
+          "demand": 3013,
+          "orders": 27
         },
         {
           "name": "Everlast",
-          "demand": 2418,
-          "orders": 26
+          "demand": 2478,
+          "orders": 19
+        },
+        {
+          "name": "Julius Marlow",
+          "demand": 1611,
+          "orders": 11
         },
         {
           "name": "Marco Polo",
-          "demand": 1707,
-          "orders": 12
-        },
-        {
-          "name": "Happy Socks",
-          "demand": 1337,
-          "orders": 16
-        },
-        {
-          "name": "Umbro",
-          "demand": 989,
+          "demand": 1059,
           "orders": 8
         },
         {
-          "name": "Canada Goose",
-          "demand": 800,
-          "orders": 1
+          "name": "Replay",
+          "demand": 688,
+          "orders": 4
+        },
+        {
+          "name": "Happy Socks",
+          "demand": 641,
+          "orders": 8
         },
         {
           "name": "Harrison",
-          "demand": 80,
+          "demand": 498,
+          "orders": 5
+        },
+        {
+          "name": "Umbro",
+          "demand": 37,
           "orders": 1
         }
       ],
       "total": {
-        "demand": 203230,
-        "orders": 1567
+        "demand": 183755,
+        "orders": 1409
       }
     },
     "markets": {
       "audusd": {
-        "value": 0.707
+        "value": 0.706
       },
       "btc": {
-        "value": 68216
+        "value": 67970
       },
       "eth": {
-        "value": 1934
+        "value": 1974
       },
       "xrp": {
-        "value": 1.45
+        "value": 1.48
       }
     },
     "weather": {
-      "current_temp": 19,
-      "high": 34,
+      "current_temp": 23,
+      "high": 35,
       "low": 18,
-      "condition": "Foggy morning, hot afternoon",
-      "precip": 0,
-      "icon": "\ud83c\udf2b"
+      "condition": "Mostly clear, hot with afternoon showers likely",
+      "precip": 95,
+      "icon": "\ud83c\udf26"
     },
     "news": [
       {
         "emoji": "\ud83e\udd16",
         "topic": "AI",
-        "text": "NASA's Perseverance rover now driving Mars routes planned entirely by AI instead of human operators"
+        "text": "FTC ramps up scrutiny of Microsoft over AI and cloud practices, questioning rivals"
       },
       {
         "emoji": "\ud83c\udfce\ufe0f",
         "topic": "F1",
-        "text": "Bahrain pre-season test 1 complete \u2014 Antonelli tops timesheets for Mercedes, season opens in Melbourne Mar 6-8"
+        "text": "Bahrain pre-season test 1 done \u2014 Mercedes compression ratio interpretation unresolved; test 2 starts tomorrow"
+      },
+      {
+        "emoji": "\ud83c\udfc9",
+        "topic": "AFL",
+        "text": "2026 AAMI Community Series fixtures confirmed \u2014 season starts March 5"
       }
     ],
+    "comms_task": "In your first meeting today, before sharing your decision or direction, pause and give the one reason that drove it. One sentence of 'why' before the 'what'.",
     "quote": {
-      "text": "We are what we repeatedly do. Excellence, then, is not an act, but a habit.",
-      "author": "Aristotle"
+      "text": "The best way to predict the future is to create it.",
+      "author": "Peter Drucker"
     }
   },
   "evening": {
