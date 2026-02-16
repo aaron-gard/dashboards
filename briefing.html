@@ -80,9 +80,13 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 /* Sales table */
 .sales-table { width:100%; border-collapse:collapse; font-size:13px; }
 .sales-table th { text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--text3); padding:6px 8px; border-bottom:1px solid var(--border2); font-weight:600; }
-.sales-table th:nth-child(2), .sales-table th:nth-child(3) { text-align:right; }
+.sales-table th:nth-child(2), .sales-table th:nth-child(3), .sales-table th:nth-child(4), .sales-table th:nth-child(5) { text-align:right; }
 .sales-table td { padding:7px 8px; border-bottom:1px solid var(--border); }
-.sales-table td:nth-child(2), .sales-table td:nth-child(3) { text-align:right; font-family:'SF Mono',SFMono-Regular,Consolas,monospace; font-size:12px; }
+.sales-table td:nth-child(2), .sales-table td:nth-child(3), .sales-table td:nth-child(4), .sales-table td:nth-child(5) { text-align:right; font-family:'SF Mono',SFMono-Regular,Consolas,monospace; font-size:12px; }
+.yoy-up { color:#22c55e; font-weight:600; }
+.yoy-down { color:#ef4444; font-weight:600; }
+.yoy-flat { color:var(--text3); }
+.ly-val { color:var(--text3); font-size:11px; }
 .sales-table tr:nth-child(even) td { background:rgba(255,255,255,.02); }
 [data-theme="light"] .sales-table tr:nth-child(even) td { background:rgba(0,0,0,.02); }
 .sales-table tr:last-child td { border-bottom:none; font-weight:700; border-top:2px solid var(--border2); background:rgba(37,99,235,.05) !important; }
@@ -240,13 +244,30 @@ function render() {
   if (d.sales) {
     const s = d.sales;
     const maxDemand = Math.max(...s.brands.map(b=>b.demand));
-    html += `<div class="section"><div class="section-header"><span class="section-icon">💰</span><span class="section-title">Demand Sales</span><span class="section-meta">${s.date}${s.partial?'<span class="sales-partial">Partial</span>':''}</span></div>`;
-    html += '<table class="sales-table"><thead><tr><th>Brand</th><th>Demand</th><th>Orders</th></tr></thead><tbody>';
+    const hasLY = s.ly_date && s.total.ly_demand > 0;
+    const lyLabel = s.ly_date ? s.ly_date.split(',')[0] + ' LY' : 'LY';
+    html += `<div class="section"><div class="section-header"><span class="section-icon">💰</span><span class="section-title">Demand Sales</span><span class="section-meta">${s.date}${s.partial?'<span class="sales-partial">Partial</span>':''}${hasLY?' vs '+s.ly_date:''}</span></div>`;
+    html += '<table class="sales-table"><thead><tr><th>Brand</th><th>Demand</th>' + (hasLY ? '<th>LY</th><th>YoY</th>' : '') + '<th>Orders</th></tr></thead><tbody>';
     for (const b of s.brands) {
       const pct = (b.demand / maxDemand * 100).toFixed(0);
-      html += `<tr><td><div class="brand-name">${b.name}<div class="demand-bar" style="width:${pct}px"></div></div></td><td>${fmt$(b.demand)}</td><td>${fmtN(b.orders)}</td></tr>`;
+      let yoyCell = '';
+      if (hasLY) {
+        const lyD = b.ly_demand || 0;
+        const yoy = lyD > 0 ? ((b.demand - lyD) / lyD * 100) : (b.demand > 0 ? 999 : 0);
+        const yoyStr = lyD > 0 ? (yoy >= 0 ? '+' : '') + yoy.toFixed(1) + '%' : (b.demand > 0 ? 'New' : '—');
+        const yoyCls = yoy > 0 ? 'yoy-up' : yoy < 0 ? 'yoy-down' : 'yoy-flat';
+        yoyCell = `<td class="ly-val">${lyD > 0 ? fmt$(lyD) : '—'}</td><td class="${yoyCls}">${yoyStr}</td>`;
+      }
+      html += `<tr><td><div class="brand-name">${b.name}<div class="demand-bar" style="width:${pct}px"></div></div></td><td>${fmt$(b.demand)}</td>${yoyCell}<td>${fmtN(b.orders)}</td></tr>`;
     }
-    html += `<tr><td>Total</td><td>${fmt$(s.total.demand)}</td><td>${fmtN(s.total.orders)}</td></tr>`;
+    let totalLYCells = '';
+    if (hasLY) {
+      const tyoy = s.total.yoy_pct || ((s.total.demand - s.total.ly_demand) / s.total.ly_demand * 100);
+      const tyoyStr = (tyoy >= 0 ? '+' : '') + tyoy.toFixed(1) + '%';
+      const tyoyCls = tyoy > 0 ? 'yoy-up' : tyoy < 0 ? 'yoy-down' : 'yoy-flat';
+      totalLYCells = `<td class="ly-val">${fmt$(s.total.ly_demand)}</td><td class="${tyoyCls}">${tyoyStr}</td>`;
+    }
+    html += `<tr><td>Total</td><td>${fmt$(s.total.demand)}</td>${totalLYCells}<td>${fmtN(s.total.orders)}</td></tr>`;
     html += '</tbody></table></div>';
   }
 
