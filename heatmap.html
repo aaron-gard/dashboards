@@ -243,10 +243,29 @@ body.summary-active .insights-column .ins.yt-ins{display:none}
 /* Leaflet zoom: below header */
 .leaflet-control-zoom{margin-top:50px!important}
 }
+.auth-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:#0a0a0f;z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px}
+.auth-overlay.hidden{display:none}
+.auth-overlay h1{font-size:1.2rem;font-weight:300;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.25)}
+.auth-overlay form{display:flex;gap:0;max-width:300px;width:100%}
+.auth-overlay input{flex:1;padding:.7rem 1rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-right:none;border-radius:6px 0 0 6px;color:rgba(255,255,255,.7);font-size:.95rem;outline:none}
+.auth-overlay input::placeholder{color:rgba(255,255,255,.15)}
+.auth-overlay input:focus{border-color:rgba(255,255,255,.2)}
+.auth-overlay button{padding:.7rem 1.25rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:0 6px 6px 0;color:rgba(255,255,255,.3);font-size:.85rem;cursor:pointer}
+.auth-overlay button:hover{background:rgba(255,255,255,.1);color:rgba(255,255,255,.5)}
+.auth-overlay .auth-err{color:rgba(239,68,68,.7);font-size:.8rem;height:1rem;opacity:0;transition:opacity .3s}
+.auth-overlay .auth-err.show{opacity:1}
 </style>
 </head>
 <body class="summary-active">
-<div class="app-layout">
+<div class="auth-overlay" id="authOverlay">
+  <h1>Store Halo Analysis</h1>
+  <form id="authForm">
+    <input type="password" id="authPass" placeholder="Password" autocomplete="off">
+    <button type="submit">→</button>
+  </form>
+  <div class="auth-err" id="authErr">Incorrect password</div>
+</div>
+<div class="app-layout" id="appLayout" style="display:none">
   <div class="map-column">
     <div class="view-tabs" id="viewTabs">
       <div class="view-tab active" data-view="summary">Summary &mdash; All Brands</div>
@@ -5471,6 +5490,40 @@ Object.keys(BRAND_MAPS).forEach(registerBrand);
 
 </script>
 </div>
+<script>
+(function(){
+  const HASH='1e0bbd6c686ba050b8eb03ffeedc64fdc9d80947fce821abbe5d6dc8d252c5ac';
+  const KEY='heatmap_auth';
+  const overlay=document.getElementById('authOverlay');
+  const app=document.getElementById('appLayout');
+
+  async function sha256(s){
+    const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));
+    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  }
+
+  function unlock(){
+    overlay.classList.add('hidden');
+    app.style.display='';
+    localStorage.setItem(KEY,Date.now().toString());
+  }
+
+  const saved=localStorage.getItem(KEY);
+  if(saved&&(Date.now()-parseInt(saved))<30*24*60*60*1000) unlock();
+
+  document.getElementById('authForm').addEventListener('submit',async function(e){
+    e.preventDefault();
+    const val=document.getElementById('authPass').value;
+    if(await sha256(val)===HASH){unlock();}
+    else{
+      const err=document.getElementById('authErr');
+      err.classList.add('show');
+      document.getElementById('authPass').value='';
+      setTimeout(()=>err.classList.remove('show'),2000);
+    }
+  });
+})();
+</script>
 </body>
 </html>
 <!-- v1771120016 -->
