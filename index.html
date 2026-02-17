@@ -109,6 +109,16 @@
     }
     .project-name { font-size: 1rem; font-weight: 500; }
     .project-desc { font-size: 0.78rem; color: rgba(255,255,255,0.3); margin-top: 0.3rem; }
+    .section-label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.15);
+      text-align: left;
+      margin: 2rem 0 0.5rem 0.25rem;
+    }
+    .section-label:first-of-type { margin-top: 0; }
     .logout {
       display: block;
       margin: 2.5rem auto 0;
@@ -137,10 +147,15 @@
 
   <div class="dashboard-screen" id="dashScreen">
     <h1>AG Projects</h1>
+    <div class="section-label">Analytics & Ops</div>
     <div class="project-list">
       <a href="/portfolio.html">
         <div class="project-name">Portfolio Dashboard</div>
         <div class="project-desc">Brand performance, KPIs, trends</div>
+      </a>
+      <a href="/briefing.html">
+        <div class="project-name">Daily Briefing</div>
+        <div class="project-desc">Morning & evening brief — weather, sales, markets, news</div>
       </a>
       <a href="/ai-tracker.html">
         <div class="project-name">AI Initiatives Tracker</div>
@@ -150,41 +165,73 @@
         <div class="project-name">Security Audit</div>
         <div class="project-desc">External security assessment across 20 Shopify stores</div>
       </a>
-      <a href="/briefing.html">
-        <div class="project-name">Daily Briefing</div>
-        <div class="project-desc">Morning & evening brief — weather, sales, markets, news</div>
-      </a>
-      <a href="https://brandcollective.aarongard.com/loyalty.html">
-        <div class="project-name">Review Loyalty Intelligence</div>
-        <div class="project-desc">Member analytics, tiers, transactions, engagement — Omneo/tRS</div>
-      </a>
-      <a href="https://brandcollective.aarongard.com/jm-audit.html">
-        <div class="project-name">JM Amazon Price Audit</div>
-        <div class="project-desc">Julius Marlow — Amazon AU vs DTC pricing compliance</div>
-      </a>
-      <a href="https://brandcollective.aarongard.com/heatmap.html">
-        <div class="project-name">Store Halo Analysis — Review</div>
-        <div class="project-desc">Location intelligence, halo effect, new store recommendations</div>
-      </a>
-      <a href="/yt-review-1771314820.html">
-        <div class="project-name">Store Halo Analysis — Yarra Trail</div>
-        <div class="project-desc">184 locations, wholesale network, competitor overlay, expansion recommendations</div>
-      </a>
-      <a href="https://brandcollective.aarongard.com/closure-impact.html">
-        <div class="project-name">Store Closure Impact</div>
-        <div class="project-desc">Review — 24 closures analysed, revenue evaporation vs online migration</div>
-      </a>
       <a href="/ux-audit.html">
         <div class="project-name">UX Audit Task Tracker</div>
         <div class="project-desc">Path-to-purchase audit — SNS, Amazon, Trybe. 28 tasks across 4 phases.</div>
       </a>
+    </div>
+
+    <div class="section-label">Store Intelligence</div>
+    <div class="project-list">
+      <a href="/heatmap.html">
+        <div class="project-name">Store Halo — Review</div>
+        <div class="project-desc">64 stores, halo effect, catchment analysis, new location recommendations</div>
+      </a>
+      <a href="/bp-heatmap.html">
+        <div class="project-name">Store Halo — Black Pepper</div>
+        <div class="project-desc">Store halo & heatmap CY2025</div>
+      </a>
+      <a href="/hp-heatmap.html">
+        <div class="project-name">Store Halo — Hush Puppies</div>
+        <div class="project-desc">Store halo & heatmap CY2025</div>
+      </a>
+      <a href="/reebok-heatmap.html">
+        <div class="project-name">Store Halo — Reebok</div>
+        <div class="project-desc">Store halo & heatmap CY2025</div>
+      </a>
+      <a href="/sns-heatmap.html">
+        <div class="project-name">Store Halo — Shoes & Sox</div>
+        <div class="project-desc">Sales heatmap & store opportunities CY2025</div>
+      </a>
+      <a href="/superdry-heatmap.html">
+        <div class="project-name">Store Halo — Superdry</div>
+        <div class="project-desc">Store halo & heatmap CY2025</div>
+      </a>
+      <a href="/yt-review-1771314820.html">
+        <div class="project-name">Store Halo — Yarra Trail</div>
+        <div class="project-desc">184 locations, wholesale network, competitor overlay, expansion recommendations</div>
+      </a>
+      <a href="/7076452a308836a5.html">
+        <div class="project-name">Store Closure Impact — Review</div>
+        <div class="project-desc">24 closures analysed, revenue evaporation vs online migration</div>
+      </a>
+    </div>
+
+    <div class="section-label">Brand Tools</div>
+    <div class="project-list">
+      <a href="/6b5e1765e9ee92ea.html">
+        <div class="project-name">Loyalty Intelligence — Review</div>
+        <div class="project-desc">Member analytics, tiers, transactions, engagement — Omneo/tRS</div>
+      </a>
+      <a href="/jm-amazon-audit.html">
+        <div class="project-name">Channel Pricing Audit — Julius Marlow</div>
+        <div class="project-desc">Amazon AU vs DTC pricing compliance</div>
+      </a>
+      <a href="/viv-report.html">
+        <div class="project-name">Monthly Marketing Report — Review</div>
+        <div class="project-desc">Review monthly marketing performance report</div>
+      </a>
+    </div>
+
+    <div class="section-label">For Grace 💛</div>
+    <div class="project-list">
       <a href="/bluey.html">
         <div class="project-name">Bluey's Backyard Adventure</div>
-        <div class="project-desc">3D bone collector for Grace 🐶</div>
+        <div class="project-desc">3D bone collector 🐶</div>
       </a>
       <a href="/balloon.html">
         <div class="project-name">Grace's Balloon Pop</div>
-        <div class="project-desc">Pop character balloons with the mouse 🎈</div>
+        <div class="project-desc">Pop character balloons 🎈</div>
       </a>
     </div>
     <button class="logout" id="logoutBtn">Sign out</button>
