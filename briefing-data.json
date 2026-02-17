@@ -237,33 +237,33 @@
       "low": 18,
       "condition": "Partly cloudy, showers later",
       "precip": 95,
-      "icon": "\ud83c\udf26"
+      "icon": "🌦"
     },
     "news": [
       {
-        "emoji": "\ud83e\udd16",
+        "emoji": "🤖",
         "topic": "AI",
         "text": "Microsoft hits $81.3B quarterly revenue, cementing AI-first infrastructure pivot"
       },
       {
-        "emoji": "\ud83c\udde6\ud83c\uddfa",
+        "emoji": "🇦🇺",
         "topic": "AU Politics",
         "text": "RBA rate hike minutes due today; Taylor assembling shadow cabinet after Ley exit"
       },
       {
-        "emoji": "\ud83c\udfc8",
+        "emoji": "🏈",
         "topic": "AFL",
-        "text": "2026 AAMI Community Series fixtures locked in \u2014 season starts March 5"
+        "text": "2026 AAMI Community Series fixtures locked in — season starts March 5"
       }
     ],
-    "comms_task": "When delegating a task today, include one sentence of context about WHY this task matters to the broader goal \u2014 not just what needs doing.",
+    "comms_task": "When delegating a task today, include one sentence of context about WHY this task matters to the broader goal — not just what needs doing.",
     "quote": {
       "text": "We are what we repeatedly do. Excellence, then, is not an act, but a habit.",
       "author": "Aristotle (via Will Durant)"
     }
   },
   "evening": {
-    "generated": "2026-02-17T19:00:00+11:00",
+    "generated": "2026-02-17T19:50:00+11:00",
     "calendar": {
       "date": "Tuesday, 17 February 2026",
       "meetings": [
@@ -379,97 +379,83 @@
       "brands": [
         {
           "name": "Reebok",
-          "demand": 14303,
-          "orders": 100
-        },
-        {
-          "name": "Black Pepper",
-          "demand": 13684,
-          "orders": 104
+          "demand": 15595
         },
         {
           "name": "Shoes & Sox",
-          "demand": 13607,
-          "orders": 162
+          "demand": 14885
+        },
+        {
+          "name": "Black Pepper",
+          "demand": 14647
         },
         {
           "name": "Hush Puppies",
-          "demand": 11433,
-          "orders": 82
+          "demand": 13266
         },
         {
           "name": "Shoe Warehouse",
-          "demand": 10942,
-          "orders": 115
+          "demand": 11645
         },
         {
           "name": "Review",
-          "demand": 9345,
-          "orders": 41
+          "demand": 9545
         },
         {
           "name": "Elka Collective",
-          "demand": 7413,
-          "orders": 28
-        },
-        {
-          "name": "Clarks",
-          "demand": 6369,
-          "orders": 58
+          "demand": 7557
         },
         {
           "name": "Superdry",
-          "demand": 6165,
-          "orders": 54
+          "demand": 6774
+        },
+        {
+          "name": "Clarks",
+          "demand": 6518
         },
         {
           "name": "Volley",
-          "demand": 3440,
-          "orders": 23
+          "demand": 3509
         },
         {
           "name": "Everlast",
-          "demand": 2783,
-          "orders": 16
+          "demand": 3204
         },
         {
           "name": "Canada Goose",
-          "demand": 2700,
-          "orders": 2
+          "demand": 2700
         },
         {
           "name": "Yarra Trail",
-          "demand": 2244,
-          "orders": 18
+          "demand": 2244
         },
         {
           "name": "Julius Marlow",
-          "demand": 1986,
-          "orders": 13
+          "demand": 2097
         },
         {
           "name": "Champion",
-          "demand": 1764,
-          "orders": 14
+          "demand": 2039
         },
         {
           "name": "Marco Polo",
-          "demand": 1055,
-          "orders": 8
+          "demand": 1055
         },
         {
           "name": "Happy Socks",
-          "demand": 772,
-          "orders": 10
+          "demand": 772
         },
         {
           "name": "Umbro",
-          "demand": 560,
-          "orders": 6
+          "demand": 560
+        },
+        {
+          "name": "Replay",
+          "demand": -38
         }
       ],
       "total": {
-        "demand": 110565,
+        "demand": 118574,
         "orders": 854
       }
     },
@@ -488,12 +474,33 @@
       }
     },
     "weather": {
-      "high": 26,
-      "low": 15,
-      "condition": "Partly cloudy",
+      "current_temp": 24,
+      "high": 36,
+      "low": 18,
+      "condition": "Light rain showers, clearing tonight",
+      "tomorrow_high": 26,
+      "tomorrow_low": 15,
+      "tomorrow_condition": "Overcast, no rain",
       "precip": 0,
-      "icon": "\u26c5"
+      "icon": "🌦"
     },
-    "closing_thought": "Tuesday's nearly done. Eight meetings, all behind you now. Tomorrow the sun comes out and the rain stays away. Sometimes the best evenings are the ones where you just stop, look around, and realise the hard part's already handled."
+    "closing_thought": "Eight meetings done. Tomorrow starts with AI Weekly and the Elka/Yarra Trail workshop — lighter afternoon with 1:1s. The loyalty dashboard corrections were a big win today. Rest up.",
+    "news": [
+      {
+        "emoji": "🏏",
+        "topic": "Cricket",
+        "text": "Australia thumped by Sri Lanka in T20 World Cup — facing group stage exit"
+      },
+      {
+        "emoji": "🇦🇺",
+        "topic": "Politics",
+        "text": "Angus Taylor unveils new Liberal shadow cabinet; govt blocks IS family repatriation"
+      },
+      {
+        "emoji": "📊",
+        "topic": "Markets",
+        "text": "AUD/USD steady at 0.708; BTC $68.4K"
+      }
+    ]
   }
 }
