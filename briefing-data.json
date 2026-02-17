@@ -265,24 +265,24 @@
     "reads": [
       {
         "type": "article",
-        "title": "How enterprises are building AI agents in 2026",
-        "url": "https://claude.com/blog/how-enterprises-are-building-ai-agents-in-2026",
-        "description": "New research from 500+ technical leaders. 80% report measurable ROI from AI agents already.",
-        "source": "Anthropic"
+        "title": "OpenClaw creator Peter Steinberger joins OpenAI",
+        "url": "https://www.cnbc.com/2026/02/15/openclaw-creator-peter-steinberger-joining-openai-altman-says.html",
+        "description": "The person who built the system you're reading this on just joined OpenAI. OpenClaw becomes a foundation project.",
+        "source": "CNBC"
       },
       {
         "type": "article",
         "title": "AI-driven search reshaping online retail as Shopify targets AU growth",
         "url": "https://www.channelnews.com.au/ai-driven-search-reshaping-online-retail-as-shopify-targets-growth-in-australia/",
-        "description": "AI search orders up 15x YoY on Shopify. Finkelstein: 2026 is the scale year.",
+        "description": "Shopify AI search orders up 15x YoY. 1,500+ AU retailers including JB, Bing Lee.",
         "source": "ChannelNews"
       },
       {
         "type": "article",
-        "title": "Global ecommerce giants squeeze Australia's marketplaces",
-        "url": "https://ecommercenews.com.au/story/global-ecommerce-giants-squeeze-australia-s-marketplaces",
-        "description": "Marketplace concentration intensifying. Amazon, Temu, social-led discovery reshaping AU landscape.",
-        "source": "eCommerce News AU"
+        "title": "Safe harbour and the high street",
+        "url": "https://insideretail.com.au/business/safe-harbour-and-the-high-street-202602",
+        "description": "Mosaic, Jeanswest, Ally Fashion \u2014 the AU retail collapse wave and what it means for survivors.",
+        "source": "Inside Retail"
       }
     ]
   },
@@ -529,31 +529,38 @@
     "reads": [
       {
         "type": "article",
-        "title": "How enterprises are building AI agents in 2026",
-        "url": "https://claude.com/blog/how-enterprises-are-building-ai-agents-in-2026",
-        "description": "Research from 500+ technical leaders reveals how enterprises are deploying AI agents \u2014 80% already report measurable ROI.",
-        "source": "Anthropic"
+        "title": "OpenClaw creator Peter Steinberger joins OpenAI",
+        "url": "https://techcrunch.com/2026/02/15/openclaw-creator-peter-steinberger-joins-openai/",
+        "description": "Altman: \"OpenClaw will live in a foundation as an open source project that OpenAI will continue to support.\" Your stack just got a lot more interesting.",
+        "source": "TechCrunch"
       },
       {
         "type": "article",
-        "title": "AI-driven search reshaping online retail as Shopify targets growth in Australia",
+        "title": "OpenClaw & the acqui-hire that explains where AI is going",
+        "url": "https://mondaymorning.substack.com/p/openclaw-and-the-acqui-hire-that",
+        "description": "Deep analysis of what Steinberger's move means for the open-source AI agent ecosystem and why OpenAI wanted him.",
+        "source": "Monday Morning"
+      },
+      {
+        "type": "article",
+        "title": "AI-driven search reshaping online retail as Shopify targets AU growth",
         "url": "https://www.channelnews.com.au/ai-driven-search-reshaping-online-retail-as-shopify-targets-growth-in-australia/",
-        "description": "Shopify says AI-driven search orders up 15x YoY. 2026 is the year they scale it broadly across 1,500+ AU retailers including JB Hi-Fi.",
+        "description": "AI search orders up 15x YoY on Shopify. Finkelstein calls 2026 the \"scale year.\" Directly relevant to your 19 stores.",
         "source": "ChannelNews"
       },
       {
         "type": "article",
         "title": "Global ecommerce giants squeeze Australia's marketplaces",
         "url": "https://ecommercenews.com.au/story/global-ecommerce-giants-squeeze-australia-s-marketplaces",
-        "description": "Pattern's 2026 Marketplace Consumer Report shows the landscape is becoming more concentrated. Amazon, Temu, and social-led discovery reshaping the game.",
+        "description": "Pattern's 2026 report: marketplace landscape concentrating fast. Amazon, Temu, social discovery reshaping AU.",
         "source": "eCommerce News AU"
       },
       {
         "type": "article",
-        "title": "Safe harbour and the high street",
-        "url": "https://insideretail.com.au/business/safe-harbour-and-the-high-street-202602",
-        "description": "Mosaic Brands, Jeanswest, Ally Fashion \u2014 the wave of AU retail collapses under store leases, supplier debt, and shifting consumer behaviour.",
-        "source": "Inside Retail"
+        "title": "OpenClaw 2026.2.12 patches 40+ vulnerabilities",
+        "url": "https://vpncentral.com/openclaw-2026-2-12-release-patches-40-vulnerabilities-in-ai-agents/",
+        "description": "Major security release. 40 patches from external researchers. You're on 2026.2.15 (latest).",
+        "source": "VPNCentral"
       }
     ]
   }
