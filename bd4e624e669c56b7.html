@@ -462,6 +462,8 @@ function render(){
     else if(currentFilter==='med')tasks=tasks.filter(t=>t.impact==='med');
     else if(currentFilter==='low')tasks=tasks.filter(t=>t.impact==='low');
     else if(currentFilter!=='all')tasks=tasks.filter(t=>t.brand===currentFilter);
+    const impOrd={high:0,med:1,low:2};
+    tasks.sort((a,b)=>(impOrd[a.impact]||1)-(impOrd[b.impact]||1));
     if(!tasks.length)return;
 
     const done=tasks.filter(t=>completed.includes(t.id)).length;
