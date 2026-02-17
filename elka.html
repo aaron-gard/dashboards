@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Elka Collective — Live Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:#0f0f0f; color:#e0e0e0; padding:1.5rem; }
+.header { text-align:center; margin-bottom:2rem; }
+.header h1 { font-size:1.6rem; font-weight:300; letter-spacing:0.15em; color:rgba(255,255,255,0.8); }
+.header .sub { font-size:0.8rem; color:rgba(255,255,255,0.3); margin-top:0.3rem; }
+.kpi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:0.75rem; margin-bottom:1.5rem; }
+.kpi { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06); border-radius:10px; padding:1rem; text-align:center; }
+.kpi .label { font-size:0.7rem; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:0.1em; }
+.kpi .value { font-size:1.5rem; font-weight:600; margin:0.3rem 0; }
+.kpi .delta { font-size:0.75rem; }
+.up { color:#4ade80; } .down { color:#f87171; } .neutral { color:rgba(255,255,255,0.4); }
+.section { margin-bottom:1.5rem; }
+.section h2 { font-size:0.75rem; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.2); margin-bottom:0.75rem; }
+.chart-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.5rem; }
+.chart-box { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:10px; padding:1rem; }
+.chart-box h3 { font-size:0.7rem; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.5rem; }
+.chart-box canvas { width:100% !important; }
+table { width:100%; border-collapse:collapse; font-size:0.82rem; }
+th { text-align:left; font-size:0.65rem; text-transform:uppercase; letter-spacing:0.1em; color:rgba(255,255,255,0.3); padding:0.5rem 0.75rem; border-bottom:1px solid rgba(255,255,255,0.08); }
+td { padding:0.5rem 0.75rem; border-bottom:1px solid rgba(255,255,255,0.04); }
+tr:hover { background:rgba(255,255,255,0.03); }
+.text-right { text-align:right; }
+.product-name { max-width:220px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.ret-warn { color:#f87171; font-weight:500; }
+@media(max-width:768px) {
+  .chart-row { grid-template-columns:1fr; }
+  .kpi-grid { grid-template-columns:repeat(2,1fr); }
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>ELKA COLLECTIVE</h1>
+  <div class="sub">Live Ecommerce Dashboard · Feb 2026 MTD · Updated 2026-02-17</div>
+</div>
+
+<div class="kpi-grid">
+  <div class="kpi">
+    <div class="label">MTD Demand Sales</div>
+    <div class="value">$145,680</div>
+    <div class="delta up">+62% vs LY</div>
+  </div>
+  <div class="kpi">
+    <div class="label">FY YTD Demand</div>
+    <div class="value">$2,608,936</div>
+    <div class="delta up">+65% vs LY</div>
+  </div>
+  <div class="kpi">
+    <div class="label">MTD Units</div>
+    <div class="value">661</div>
+    <div class="delta down">-10 vs LY (671)</div>
+  </div>
+  <div class="kpi">
+    <div class="label">AOV (MTD)</div>
+    <div class="value">$220</div>
+    <div class="delta neutral">per order</div>
+  </div>
+  <div class="kpi">
+    <div class="label">New Customers MTD</div>
+    <div class="value">379</div>
+    <div class="delta up">+18% vs LY (320)</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Return Rate (L30D)</div>
+    <div class="value">23.8%</div>
+    <div class="delta ret-warn down">of gross sales</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Discount Rate (MTD)</div>
+    <div class="value">9.3%</div>
+    <div class="delta neutral">of gross</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Returns $ (MTD)</div>
+    <div class="value">$43,217</div>
+    <div class="delta down">27% of gross</div>
+  </div>
+</div>
+
+<div class="chart-row">
+  <div class="chart-box">
+    <h3>Cumulative Demand — MTD vs LY</h3>
+    <canvas id="cumChart" height="200"></canvas>
+  </div>
+  <div class="chart-box">
+    <h3>FY Monthly Demand — TY vs LY</h3>
+    <canvas id="fyChart" height="200"></canvas>
+  </div>
+</div>
+
+<div class="chart-row">
+  <div class="chart-box">
+    <h3>Channel Mix (L30D Demand)</h3>
+    <canvas id="channelChart" height="200"></canvas>
+  </div>
+  <div class="chart-box">
+    <h3>Payment Methods (L30D Demand)</h3>
+    <canvas id="paymentChart" height="200"></canvas>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Top 15 Products — L30D by Demand Sales</h2>
+  <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;">
+  <table>
+    <thead><tr><th>#</th><th>Product</th><th class="text-right">Demand $</th><th class="text-right">Qty</th><th class="text-right">Returns $</th><th class="text-right">Ret %</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td class="product-name">Holland Shirt Blue Stripe</td>
+        <td class="text-right">$8,603</td>
+        <td class="text-right">47</td>
+        <td class="text-right">$1,393</td>
+        <td class="text-right">16%</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td class="product-name">Holland Mini Skirt Blue Stripe</td>
+        <td class="text-right">$7,427</td>
+        <td class="text-right">34</td>
+        <td class="text-right">$1,791</td>
+        <td class="text-right" class="ret-warn">24%</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td class="product-name">Chelsea Barrel Leg Jean Ivory</td>
+        <td class="text-right">$6,469</td>
+        <td class="text-right">35</td>
+        <td class="text-right">$1,094</td>
+        <td class="text-right">17%</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td class="product-name">Tessa Vest Gingham</td>
+        <td class="text-right">$6,042</td>
+        <td class="text-right">26</td>
+        <td class="text-right">$838</td>
+        <td class="text-right">14%</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td class="product-name">Miller Pant Midnight Ink</td>
+        <td class="text-right">$5,986</td>
+        <td class="text-right">23</td>
+        <td class="text-right">$1,339</td>
+        <td class="text-right" class="ret-warn">22%</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td class="product-name">Hayes Knit Top White</td>
+        <td class="text-right">$5,554</td>
+        <td class="text-right">38</td>
+        <td class="text-right">$154</td>
+        <td class="text-right">3%</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td class="product-name">Rae Jacket Taupe</td>
+        <td class="text-right">$5,449</td>
+        <td class="text-right">22</td>
+        <td class="text-right">$0</td>
+        <td class="text-right">0%</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td class="product-name">Victoria Knit Cardigan Chocolate</td>
+        <td class="text-right">$4,870</td>
+        <td class="text-right">28</td>
+        <td class="text-right">$914</td>
+        <td class="text-right">19%</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td class="product-name">Mina Pant Black</td>
+        <td class="text-right">$4,799</td>
+        <td class="text-right">20</td>
+        <td class="text-right">$1,030</td>
+        <td class="text-right" class="ret-warn">21%</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td class="product-name">Edra Shirt Ecru</td>
+        <td class="text-right">$4,674</td>
+        <td class="text-right">26</td>
+        <td class="text-right">$782</td>
+        <td class="text-right">17%</td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td class="product-name">Mina Pant Chocolate</td>
+        <td class="text-right">$4,437</td>
+        <td class="text-right">20</td>
+        <td class="text-right">$226</td>
+        <td class="text-right">5%</td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td class="product-name">Tessa Short Gingham</td>
+        <td class="text-right">$4,307</td>
+        <td class="text-right">24</td>
+        <td class="text-right">$335</td>
+        <td class="text-right">8%</td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td class="product-name">Clyde Knit Vest Top White</td>
+        <td class="text-right">$4,134</td>
+        <td class="text-right">16</td>
+        <td class="text-right">$1,456</td>
+        <td class="text-right" class="ret-warn">35%</td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td class="product-name">Edra Shirt Black</td>
+        <td class="text-right">$3,660</td>
+        <td class="text-right">25</td>
+        <td class="text-right">$146</td>
+        <td class="text-right">4%</td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td class="product-name">Edra Pant Ecru</td>
+        <td class="text-right">$3,914</td>
+        <td class="text-right">21</td>
+        <td class="text-right">$740</td>
+        <td class="text-right">19%</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Daily Breakdown — Feb MTD</h2>
+  <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;">
+  <table>
+    <thead><tr><th>Date</th><th class="text-right">Demand TY</th><th class="text-right">Demand LY</th><th class="text-right">Var %</th><th class="text-right">Units</th><th class="text-right">New Cust</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Sun 02-01</td>
+        <td class="text-right">$13,851</td>
+        <td class="text-right" style="color:rgba(255,255,255,0.35)">$5,906</td>
+        <td class="text-right up">+135%</td>
+        <td class="text-right">104</td>
+        <td class="text-right">53</td>
+      </tr>
+      <tr>
+        <td>Mon 02-02</td>
+        <td class="text-right">$4,666</td>
+        <td class="text-right" style="color:rgba(255,255,255,0.35)">$5,306</td>
+        <td class="text-right down">-12%</td>
+        <td class="text-right">29</td>
+        <td class="text-right">12</td>
+      </tr>
+      <tr>
+        <td>Tue 02-03</td>
+        <td class="text-right">$8,641</td>
+        <td class="text-right" style="color:rgba(255,255,255,0.35)">$5,649</td>
+        <td class="text-right up">+53%</td>
+        <td class="text-right">47</td>
+        <td class="text-right">15</td>
+      </tr>
+      <tr>
+        <td>Wed 02-04</td>
+        <td class="text-right">$8,280</td>
+        <td class="text-right" style="color:rgba(255,255,255,0.35)">$3,428</td>
+        <td class="text-right up">+142%</td>
+        <td class="text-right">27</td>
+        <td class="text-right">19</td>
+      </tr>
+      <tr>
+        <td>Thu 02-05</td>
+        <td class="text-right">$8,741</td>
+        <td class="text-right" style="color:rgba(255,255,255,0.35)">$4,824</td>
+        <td class="text-right up">+81%</td>
+        <td class="text-right">45</td>
+        <td class="text-right">23</td>
+      </tr>
+      <tr>
+        <td>Fri 02-06</td>
+        <td class="text-right">$5,490</td>
+        <td class="text-right" style="color:rgba(255,255,255,0.35)">$4,510</td>
+        <td class="text-right up">+22%</td>
+        <td class="text-right">20</td>
+        <td class="text-right">19</td>
+      </tr>
+      <tr>
+        <td>Sat 02-07</td>
+        <td class="text-right">$7,786</td>
+        <td class="text-right" style="color:rgba(255,255,255,0.35)">$3,628</td>
+        <td class="text-right up">+115%</td>
+        <td class="text-right">51</td>
+        <td class="text-right">24</td>
+      </tr>
+      <tr>
+        <td>Sun 02-08</td>
+        <td class="text-right">$6,714</td>
+        <td class="text-right" style="color:rgba(255,255,255,0.35)">$6,856</td>
+        <td class="text-right down">-2%</td>
+        <td class="text-right">40</td>
+        <td class="text-right">19</td>
+      </tr>
+      <tr>
+        <td>Mon 02-09</td>
+        <td class="text-right">$7,761</td>
+        <td class="text-right" style="color:rgba(255,255,255,0.35)">$4,841</td>
+        <td class="text-right up">+60%</td>
+        <td class="text-right">43</td>
+        <td class="text-right">18</td>
+      </tr>
+      <tr>
+        <td>Tue 02-10</td>
+        <td class="text-right">$8,294</td>
+        <td class="text-right" style="color:rgba(255,255,255,0.35)">$3,963</td>
+        <td class="text-right up">+109%</td>
+        <td class="text-right">25</td>
+        <td class="text-right">25</td>
+      </tr>
+      <tr>
+        <td>Wed 02-11</td>
+        <td class="text-right">$9,090</td>
+        <td class="text-right" style="color:rgba(255,255,255,0.35)">$3,767</td>
+        <td class="text-right up">+141%</td>
+        <td class="text-right">36</td>
+        <td class="text-right">20</td>
+      </tr>
+      <tr>
+        <td>Thu 02-12</td>
+        <td class="text-right">$7,950</td>
+        <td class="text-right" style="color:rgba(255,255,255,0.35)">$4,640</td>
+        <td class="text-right up">+71%</td>
+        <td class="text-right">34</td>
+        <td class="text-right">23</td>
+      </tr>
+      <tr>
+        <td>Fri 02-13</td>
+        <td class="text-right">$7,373</td>
+        <td class="text-right" style="color:rgba(255,255,255,0.35)">$6,306</td>
+        <td class="text-right up">+17%</td>
+        <td class="text-right">46</td>
+        <td class="text-right">22</td>
+      </tr>
+      <tr>
+        <td>Sat 02-14</td>
+        <td class="text-right">$8,821</td>
+        <td class="text-right" style="color:rgba(255,255,255,0.35)">$2,748</td>
+        <td class="text-right up">+221%</td>
+        <td class="text-right">48</td>
+        <td class="text-right">20</td>
+      </tr>
+      <tr>
+        <td>Sun 02-15</td>
+        <td class="text-right">$8,975</td>
+        <td class="text-right" style="color:rgba(255,255,255,0.35)">$8,470</td>
+        <td class="text-right up">+6%</td>
+        <td class="text-right">54</td>
+        <td class="text-right">23</td>
+      </tr>
+      <tr>
+        <td>Mon 02-16</td>
+        <td class="text-right">$9,123</td>
+        <td class="text-right" style="color:rgba(255,255,255,0.35)">$6,939</td>
+        <td class="text-right up">+31%</td>
+        <td class="text-right">27</td>
+        <td class="text-right">24</td>
+      </tr>
+      <tr>
+        <td>Tue 02-17</td>
+        <td class="text-right">$8,779</td>
+        <td class="text-right" style="color:rgba(255,255,255,0.35)">$5,127</td>
+        <td class="text-right up">+71%</td>
+        <td class="text-right">14</td>
+        <td class="text-right">21</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<script>
+const gridColor = 'rgba(255,255,255,0.05)';
+const tickColor = 'rgba(255,255,255,0.3)';
+Chart.defaults.color = tickColor;
+Chart.defaults.borderColor = gridColor;
+
+// Cumulative chart
+new Chart(document.getElementById('cumChart'), {
+  type: 'line',
+  data: {
+    labels: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17"],
+    datasets: [
+      { label:'TY', data:[13851, 18517, 27158, 35438, 44179, 49669, 57455, 64169, 71930, 80224, 89314, 97264, 104637, 113458, 122433, 131556, 140335], borderColor:'#818cf8', backgroundColor:'rgba(129,140,248,0.1)', fill:true, tension:0.3, pointRadius:2 },
+      { label:'LY', data:[5906, 11212, 16861, 20289, 25113, 29623, 33251, 40107, 44948, 48911, 52678, 57318, 63624, 66372, 74842, 81781, 86908], borderColor:'rgba(255,255,255,0.2)', borderDash:[4,4], fill:false, tension:0.3, pointRadius:0 }
+    ]
+  },
+  options: {
+    responsive:true,
+    plugins:{ legend:{ labels:{ boxWidth:12, padding:8 } } },
+    scales: {
+      y: { ticks:{ callback:v=>'$'+Math.round(v/1000)+'k' }, grid:{ color:gridColor } },
+      x: { grid:{ display:false } }
+    }
+  }
+});
+
+// FY chart
+new Chart(document.getElementById('fyChart'), {
+  type: 'bar',
+  data: {
+    labels: ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb*"],
+    datasets: [
+      { label:'FY26', data:[333404, 356322, 268551, 295595, 472462, 390621, 346301, 145680], backgroundColor:'rgba(129,140,248,0.7)', borderRadius:4 },
+      { label:'FY25', data:[190173, 178667, 195739, 183422, 271623, 261577, 209294, 90109], backgroundColor:'rgba(255,255,255,0.12)', borderRadius:4 }
+    ]
+  },
+  options: {
+    responsive:true,
+    plugins:{ legend:{ labels:{ boxWidth:12, padding:8 } } },
+    scales: {
+      y: { ticks:{ callback:v=>'$'+Math.round(v/1000)+'k' }, grid:{ color:gridColor } },
+      x: { grid:{ display:false } }
+    }
+  }
+});
+
+// Channel donut
+new Chart(document.getElementById('channelChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ["Paid Search", "Direct", "Afterpay", "Email/SMS", "Organic Search", "Undefined", "Paid Social", "Other", "Organic Social"],
+    datasets: [{ data:[118047, 84329, 46960, 35586, 30163, 17773, 13586, 11384, 3651], backgroundColor:['#818cf8','#6366f1','#a78bfa','#c084fc','#e879f9','#f472b6','#fb7185','#f97316','#fbbf24'], borderWidth:0 }]
+  },
+  options: {
+    responsive:true,
+    cutout:'60%',
+    plugins: {
+      legend: { position:'right', labels:{ boxWidth:10, padding:6, font:{ size:11 } } },
+      tooltip: { callbacks: { label: ctx => ctx.label + ': $' + ctx.raw.toLocaleString() } }
+    }
+  }
+});
+
+// Payment donut
+new Chart(document.getElementById('paymentChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ["Shopify Payments", "Afterpay", "PayPal", "Gift Card", "Zip Pay"],
+    datasets: [{ data:[225681, 46960, 33639, 5554, 2684], backgroundColor:['#818cf8','#a78bfa','#c084fc','#e879f9','#f472b6'], borderWidth:0 }]
+  },
+  options: {
+    responsive:true,
+    cutout:'60%',
+    plugins: {
+      legend: { position:'right', labels:{ boxWidth:10, padding:6, font:{ size:11 } } },
+      tooltip: { callbacks: { label: ctx => ctx.label + ': $' + ctx.raw.toLocaleString() } }
+    }
+  }
+});
+</script>
+
+<div style="text-align:center;margin-top:2rem;font-size:0.65rem;color:rgba(255,255,255,0.15);">
+  Data source: Polar Analytics · Shopify · Built by The Claw 🦀
+</div>
+</body>
+</html>
