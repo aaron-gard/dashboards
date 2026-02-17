@@ -49,6 +49,8 @@ header .meta{color:var(--text2);font-size:.85rem}
 .tag-low{background:rgba(108,140,255,.15);color:var(--accent)}
 .tag-brand{background:var(--surface2);color:var(--text2)}
 .tag-area{background:var(--surface2);color:var(--text2);font-size:.7rem}
+.jira-link{color:#4c9aff;text-decoration:none;font-size:.75rem;font-weight:600;background:rgba(76,154,255,.12);padding:1px 6px;border-radius:4px;margin-right:4px;vertical-align:middle}
+.jira-link:hover{background:rgba(76,154,255,.25);text-decoration:underline}
 .expand-arrow{color:var(--text2);font-size:.8rem;flex-shrink:0;transition:transform .2s}
 .task-card.open .expand-arrow{transform:rotate(90deg)}
 .task-body{display:none;border-top:1px solid var(--border)}
@@ -118,7 +120,7 @@ header .meta{color:var(--text2);font-size:.85rem}
 <script>
 const TASKS=[
 // ═══ PRE-PURCHASE ═══
-{id:1,phase:'Pre-Purchase',brand:'sns',title:'Simplify sizing chart',
+{id:1,jira:'OCT-2',phase:'Pre-Purchase',brand:'sns',title:'Simplify sizing chart',
 desc:'Current width sizing (E etc.) is confusing for parents and likely causing cart abandonment. Most parents don\'t know their child\'s foot width.',
 impact:'high',area:'conversion',
 imgs:[{src:'page-04.jpg',cap:'SNS — confusing width sizing'},{src:'page-10.jpg',cap:'Amazon — clearer sizing chart'}],
@@ -129,7 +131,7 @@ actions:[
   'Consider adding a "not sure? we\'ll help" live chat prompt on the sizing step'
 ]},
 
-{id:2,phase:'Pre-Purchase',brand:'sns',title:'Add delivery timeframes to PDP & cart',
+{id:2,jira:'OCT-3',phase:'Pre-Purchase',brand:'sns',title:'Add delivery timeframes to PDP & cart',
 desc:'No delivery times communicated before purchase. Amazon shows "arriving tomorrow" at every touchpoint — this is now a consumer expectation.',
 impact:'high',area:'conversion',
 imgs:[{src:'page-05.jpg',cap:'SNS — no delivery estimate shown'},{src:'page-08.jpg',cap:'Amazon — delivery date on every page'}],
@@ -140,7 +142,7 @@ actions:[
   'Highlight express shipping option with specific date promise'
 ]},
 
-{id:3,phase:'Pre-Purchase',brand:'sns',title:'Add customer reviews to product pages',
+{id:3,jira:'OCT-4',phase:'Pre-Purchase',brand:'sns',title:'Add customer reviews to product pages',
 desc:'Zero customer reviews on SNS products. Amazon has clear reviews at point of purchase that drive consumer confidence and reduce returns.',
 impact:'high',area:'conversion',
 imgs:[{src:'page-06.jpg',cap:'SNS — no product reviews'},{src:'page-09.jpg',cap:'Amazon — reviews drive confidence'}],
@@ -151,7 +153,7 @@ actions:[
   'Consider importing existing Google/Facebook reviews as seed content'
 ]},
 
-{id:4,phase:'Pre-Purchase',brand:'sns',title:'Add "customers also bought" recommendations',
+{id:4,jira:'OCT-5',phase:'Pre-Purchase',brand:'sns',title:'Add "customers also bought" recommendations',
 desc:'Amazon uses social proof recommendations to increase basket size and confidence. SNS has no equivalent.',
 impact:'med',area:'aov',
 imgs:[{src:'page-09.jpg',cap:'Amazon — "also bought" drives basket size'}],
@@ -161,7 +163,7 @@ actions:[
   'Use Shopify product recommendations or third-party app (Rebuy, Nosto)'
 ]},
 
-{id:5,phase:'Pre-Purchase',brand:'sns',title:'Improve product imagery & confidence signals',
+{id:5,jira:'OCT-6',phase:'Pre-Purchase',brand:'sns',title:'Improve product imagery & confidence signals',
 desc:'Amazon uses rich imagery at every touchpoint to build confidence. SNS product photography needs review for lifestyle and detail shots.',
 impact:'med',area:'conversion',
 imgs:[{src:'page-10.jpg',cap:'Amazon — rich imagery builds confidence'},{src:'page-03.jpg',cap:'SNS — current product listing'}],
@@ -172,7 +174,7 @@ actions:[
   'Show size comparison photos (e.g. shoe on child\'s foot)'
 ]},
 
-{id:6,phase:'Pre-Purchase',brand:'sns',title:'Add gift card CTA above the fold',
+{id:6,jira:'OCT-7',phase:'Pre-Purchase',brand:'sns',title:'Add gift card CTA above the fold',
 desc:'Amazon has a gift card purchase CTA above the fold for line extension buying. Relevant for SNS during back-to-school.',
 impact:'low',area:'aov',
 imgs:[{src:'page-09.jpg',cap:'Amazon — gift card CTA above fold'}],
@@ -181,7 +183,7 @@ actions:[
   'Position as "Not sure of size? Give a gift card" — solves the sizing friction'
 ]},
 
-{id:7,phase:'Pre-Purchase',brand:'sns',title:'Overhaul site look & feel',
+{id:7,jira:'OCT-8',phase:'Pre-Purchase',brand:'sns',title:'Overhaul site look & feel',
 desc:'Auditor described the experience as "not pleasant or encouraging, felt lacklustre" due to pastel branding. Needs energy and excitement for a kids/sports brand.',
 impact:'high',area:'conversion',
 imgs:[{src:'page-14.jpg',cap:'Trybe — lacklustre site experience'}],
@@ -192,7 +194,7 @@ actions:[
   'Prioritise mobile experience — this is where parents browse'
 ]},
 
-{id:8,phase:'Pre-Purchase',brand:'sns',title:'Improve product findability & navigation',
+{id:8,jira:'OCT-9',phase:'Pre-Purchase',brand:'sns',title:'Improve product findability & navigation',
 desc:'Auditor couldn\'t easily find "black boys runners". Core search paths need to work intuitively.',
 impact:'high',area:'conversion',
 imgs:[{src:'page-15.jpg',cap:'Trybe — hard to find specific products'},{src:'page-16.jpg',cap:'Trybe — sport category navigation'}],
@@ -203,7 +205,7 @@ actions:[
   'Test navigation with real parents — validate the paths they expect'
 ]},
 
-{id:9,phase:'Pre-Purchase',brand:'sns',title:'Add urgency & scarcity messaging',
+{id:9,jira:'OCT-10',phase:'Pre-Purchase',brand:'sns',title:'Add urgency & scarcity messaging',
 desc:'No urgency signals on Trybe. No stock indicators, no "selling fast", no limited-time offers.',
 impact:'med',area:'conversion',
 imgs:[{src:'page-15.jpg',cap:'Trybe — no urgency messaging'}],
@@ -214,7 +216,7 @@ actions:[
   'Test "back in stock" alerts for out-of-stock sizes'
 ]},
 
-{id:10,phase:'Pre-Purchase',brand:'sns',title:'Build customer reviews program',
+{id:10,jira:'OCT-11',phase:'Pre-Purchase',brand:'sns',title:'Build customer reviews program',
 desc:'Only 1 review of 5 stars across products — insufficient for consumer confidence.',
 impact:'med',area:'conversion',
 imgs:[{src:'page-15.jpg',cap:'Trybe — only 1 review visible'}],
@@ -225,7 +227,7 @@ actions:[
   'Add photo review capability — parent photos build more trust than text'
 ]},
 
-{id:11,phase:'Pre-Purchase',brand:'sns',title:'Add first-time customer incentive',
+{id:11,jira:'OCT-12',phase:'Pre-Purchase',brand:'sns',title:'Add first-time customer incentive',
 desc:'No reward for being a first-time customer. No welcome offer or signup discount.',
 impact:'med',area:'acquisition',
 imgs:[{src:'page-17.jpg',cap:'Trybe — no first-time reward'}],
@@ -236,7 +238,7 @@ actions:[
 ]},
 
 // ═══ CHECKOUT ═══
-{id:12,phase:'Checkout',brand:'sns',title:'Add delivery estimate to confirmation email',
+{id:12,jira:'OCT-13',phase:'Checkout',brand:'sns',title:'Add delivery estimate to confirmation email',
 desc:'Confirmation email was immediate (good) but no indication of when delivery is expected. Amazon provides specific date.',
 impact:'high',area:'cx',
 imgs:[{src:'page-06.jpg',cap:'SNS — confirmation lacks delivery ETA'},{src:'page-11.jpg',cap:'Amazon — instant confirmation with delivery date'}],
@@ -247,7 +249,7 @@ actions:[
   'Send shipping confirmation with live tracking when dispatched'
 ]},
 
-{id:13,phase:'Checkout',brand:'sns',title:'Remove or reduce $12 delivery charge',
+{id:13,jira:'OCT-14',phase:'Checkout',brand:'sns',title:'Remove or reduce $12 delivery charge',
 desc:'$12 delivery charge is a conversion killer. Auditor stated they "would not have purchased at this price".',
 impact:'high',area:'conversion',
 imgs:[{src:'page-18.jpg',cap:'Trybe — $12 delivery charge deters purchase'}],
@@ -258,7 +260,7 @@ actions:[
   'Test free shipping vs 10% discount — shipping is usually higher converting'
 ]},
 
-{id:14,phase:'Checkout',brand:'sns',title:'Add specific delivery timeframe to confirmation',
+{id:14,jira:'OCT-15',phase:'Checkout',brand:'sns',title:'Add specific delivery timeframe to confirmation',
 desc:'No specific delivery times — just "an email will follow to advise". Took 3 days (longest of all 3 brands).',
 impact:'med',area:'cx',
 imgs:[{src:'page-18.jpg',cap:'Trybe — vague delivery comms'},{src:'page-19.jpg',cap:'Trybe — full checkout flow'}],
@@ -269,7 +271,7 @@ actions:[
 ]},
 
 // ═══ POST-PURCHASE ═══
-{id:15,phase:'Post-Purchase',brand:'sns',title:'Build post-purchase remarketing sequence',
+{id:15,jira:'OCT-16',phase:'Post-Purchase',brand:'sns',title:'Build post-purchase remarketing sequence',
 desc:'No remarketing after purchase. Should offer "if you liked this, also available at discount" — e.g. a sneaker in the same size, delivered free with the same package.',
 impact:'high',area:'retention',
 imgs:[{src:'page-06.jpg',cap:'SNS — no remarketing triggered'}],
@@ -280,7 +282,7 @@ actions:[
   'Include seasonal prompts: "Term 2 coming up — need new sneakers?"'
 ]},
 
-{id:16,phase:'Post-Purchase',brand:'sns',title:'Add delivery notification',
+{id:16,jira:'OCT-17',phase:'Post-Purchase',brand:'sns',title:'Add delivery notification',
 desc:'No notification that the package was delivered. Amazon sends delivery confirmation. This is now a baseline expectation.',
 impact:'med',area:'cx',
 imgs:[{src:'page-07.jpg',cap:'SNS — no delivery notification'},{src:'page-13.jpg',cap:'Amazon — delivery confirmed + branded'}],
@@ -290,7 +292,7 @@ actions:[
   'Use delivery confirmation as trigger for review request (Day +2)'
 ]},
 
-{id:17,phase:'Post-Purchase',brand:'sns',title:'Add loyalty/repeat purchase CTA to unboxing',
+{id:17,jira:'OCT-18',phase:'Post-Purchase',brand:'sns',title:'Add loyalty/repeat purchase CTA to unboxing',
 desc:'No enticement to join loyalty program or repeat purchase once unboxed. Amazon includes QR code to cross-sell.',
 impact:'high',area:'retention',
 imgs:[{src:'page-07.jpg',cap:'SNS — plain unboxing, no loyalty CTA'}],
@@ -301,7 +303,7 @@ actions:[
   'Test seasonal inserts: back-to-school vs mid-year vs Christmas'
 ]},
 
-{id:18,phase:'Post-Purchase',brand:'sns',title:'Add branded packaging',
+{id:18,jira:'OCT-19',phase:'Post-Purchase',brand:'sns',title:'Add branded packaging',
 desc:'Missed branding opportunity. Amazon has Prime & Amazon branding on every box. SNS package is generic.',
 impact:'med',area:'brand',
 imgs:[{src:'page-07.jpg',cap:'SNS — no branded packaging'},{src:'page-13.jpg',cap:'Amazon — branded delivery box'}],
@@ -312,7 +314,7 @@ actions:[
   'Make unboxing Instagram-worthy for parent/kid shareable moments'
 ]},
 
-{id:19,phase:'Post-Purchase',brand:'sns',title:'Cross-sell other BC brands in-box',
+{id:19,jira:'OCT-20',phase:'Post-Purchase',brand:'sns',title:'Cross-sell other BC brands in-box',
 desc:'Missed opportunity to cross-sell "Not just for kids but also mums & dads brands" with an offer inside the box.',
 impact:'high',area:'aov',
 imgs:[{src:'page-07.jpg',cap:'SNS — no cross-brand material in box'}],
@@ -323,7 +325,7 @@ actions:[
   'Rotate inserts seasonally — Father\'s Day (JM), Mother\'s Day (Review/BP), Winter (HP)'
 ]},
 
-{id:20,phase:'Post-Purchase',brand:'sns',title:'Rethink returns cost messaging',
+{id:20,jira:'OCT-21',phase:'Post-Purchase',brand:'sns',title:'Rethink returns cost messaging',
 desc:'$10.95 return cost means many won\'t return. Consider offering deduction off next purchase — turns a negative into retention.',
 impact:'med',area:'retention',
 imgs:[{src:'page-06.jpg',cap:'SNS — $10.95 returns cost'}],
@@ -334,7 +336,7 @@ actions:[
   'Communicate returns policy clearly pre-purchase to reduce anxiety'
 ]},
 
-{id:21,phase:'Post-Purchase',brand:'sns',title:'Redesign unboxing experience',
+{id:21,jira:'OCT-22',phase:'Post-Purchase',brand:'sns',title:'Redesign unboxing experience',
 desc:'Described as "boring unboxing, no enticement to repurchase, no branding". The most uninspiring experience of all 3 brands.',
 impact:'med',area:'brand',
 imgs:[{src:'page-18.jpg',cap:'Trybe — boring, unbranded unboxing'}],
@@ -345,7 +347,7 @@ actions:[
   'Design packaging that kids want to keep or share on social'
 ]},
 
-{id:22,phase:'Post-Purchase',brand:'sns',title:'Add delivery confirmation email',
+{id:22,jira:'OCT-23',phase:'Post-Purchase',brand:'sns',title:'Add delivery confirmation email',
 desc:'No confirmation of delivery email sent. Basic customer expectation.',
 impact:'med',area:'cx',
 imgs:[{src:'page-18.jpg',cap:'Trybe — no delivery confirmation sent'}],
@@ -355,7 +357,7 @@ actions:[
   'Use as trigger point for review request flow'
 ]},
 
-{id:23,phase:'Post-Purchase',brand:'sns',title:'Replace generic EDMs with personalised remarketing',
+{id:23,jira:'OCT-24',phase:'Post-Purchase',brand:'sns',title:'Replace generic EDMs with personalised remarketing',
 desc:'Only received a generic database EDM on day 3. No personalised content, no relevant recommendations.',
 impact:'med',area:'retention',
 imgs:[{src:'page-18.jpg',cap:'Trybe — generic EDM, no personalisation'},{src:'page-19.jpg',cap:'Trybe — checkout to post-purchase flow'}],
@@ -367,7 +369,7 @@ actions:[
 ]},
 
 // ═══ STRATEGIC (ALL BRANDS) ═══
-{id:24,phase:'Strategic',brand:'all-brands',title:'Communicate delivery speed at every touchpoint',
+{id:24,jira:'OCT-25',phase:'Strategic',brand:'all-brands',title:'Communicate delivery speed at every touchpoint',
 desc:'Amazon reinforces FREE & FAST delivery at every stage — PDP, cart, checkout, confirmation, tracking. This is now the baseline expectation across all ecommerce.',
 impact:'high',area:'conversion',
 imgs:[{src:'page-08.jpg',cap:'Amazon — delivery date on product page'},{src:'page-09.jpg',cap:'Amazon — reinforced in cart'},{src:'page-20.jpg',cap:'Recommendations slide'}],
@@ -379,7 +381,7 @@ actions:[
   'Track delivery promise accuracy — broken promises destroy trust faster than no promise'
 ]},
 
-{id:25,phase:'Strategic',brand:'all-brands',title:'Implement QR-led landing pages in all packaging',
+{id:25,jira:'OCT-26',phase:'Strategic',brand:'all-brands',title:'Implement QR-led landing pages in all packaging',
 desc:'Use QR codes in packaging to drive loyalty signup, repeat purchase offers, and cross-brand discovery. Amazon uses them for cross-sell.',
 impact:'high',area:'retention',
 imgs:[{src:'page-13.jpg',cap:'Amazon — QR code in packaging'},{src:'page-20.jpg',cap:'Recommendations — QR landing pages'}],
@@ -390,7 +392,7 @@ actions:[
   'A/B test different offers: % off vs free shipping vs loyalty points'
 ]},
 
-{id:26,phase:'Strategic',brand:'all-brands',title:'Build cross-brand remarketing in fulfilment',
+{id:26,jira:'OCT-27',phase:'Strategic',brand:'all-brands',title:'Build cross-brand remarketing in fulfilment',
 desc:'Every BC package is a marketing opportunity for other BC brands. Insert cross-brand offers targeting the same customer profile.',
 impact:'med',area:'aov',
 imgs:[{src:'page-07.jpg',cap:'SNS — missed cross-brand opportunity'},{src:'page-20.jpg',cap:'Recommendations slide'}],
@@ -401,7 +403,7 @@ actions:[
   'Start with SNS → parent brands as pilot, then expand'
 ]},
 
-{id:27,phase:'Strategic',brand:'all-brands',title:'Audit and improve sizing guides across all brands',
+{id:27,jira:'OCT-28',phase:'Strategic',brand:'all-brands',title:'Audit and improve sizing guides across all brands',
 desc:'Sizing was a major friction point for SNS and noted as clearer on Amazon/Trybe. Common issue across apparel and footwear ecommerce.',
 impact:'med',area:'conversion',
 imgs:[{src:'page-04.jpg',cap:'SNS — confusing sizing'},{src:'page-10.jpg',cap:'Amazon — better sizing UX'},{src:'page-17.jpg',cap:'Trybe — simpler sizing'}],
@@ -412,7 +414,7 @@ actions:[
   'Consider virtual sizing tools (Fit Analytics, True Fit) for footwear brands'
 ]},
 
-{id:28,phase:'Strategic',brand:'all-brands',title:'Customer confidence program — reviews at scale',
+{id:28,jira:'OCT-29',phase:'Strategic',brand:'all-brands',title:'Customer confidence program — reviews at scale',
 desc:'Both SNS and Trybe lack reviews. Reviews are the #1 conversion driver on Amazon. Need automated collection across all brands.',
 impact:'high',area:'conversion',
 imgs:[{src:'page-09.jpg',cap:'Amazon — reviews everywhere'},{src:'page-15.jpg',cap:'Trybe — 1 lonely review'},{src:'page-20.jpg',cap:'Recommendations slide'}],
@@ -473,7 +475,7 @@ function render(){
         <div class="task-head" onclick="this.parentElement.classList.toggle('open')">
           <div class="task-check ${isDone?'done':''}" onclick="event.stopPropagation();toggleTask(${t.id})"></div>
           <div class="task-info">
-            <strong>${t.title}</strong>
+            <strong>${t.jira?`<a href="https://brandcollective.atlassian.net/browse/${t.jira}" target="_blank" class="jira-link" onclick="event.stopPropagation()">${t.jira}</a> `:''}${t.title}</strong>
             <div class="desc">${t.desc}</div>
           </div>
           <div class="task-tags">
