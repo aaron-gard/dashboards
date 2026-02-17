@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>BC UX Audit — Task Tracker</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0f1117;--surface:#1a1d27;--surface2:#242836;--border:#2e3348;--text:#e4e6f0;--text2:#9ca3b8;--accent:#6c8cff;--accent2:#4a6adf;--red:#ff5c5c;--orange:#ffaa3c;--green:#5cdb7f;--yellow:#ffd64a}
+[data-theme=light]{--bg:#f4f5f7;--surface:#fff;--surface2:#eef0f4;--border:#d8dbe5;--text:#1a1d27;--text2:#5a6178;--accent:#4a6adf;--accent2:#3a56c0;--red:#d93636;--orange:#d88a1a;--green:#2a9d4e;--yellow:#c9a530}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+header h1{font-size:1.4rem;font-weight:700}
+header .meta{color:var(--text2);font-size:.85rem}
+.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.controls button,.filter-btn{padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.85rem;cursor:pointer;transition:all .15s}
+.controls button:hover,.filter-btn:hover{border-color:var(--accent)}
+.filter-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.container{max-width:1200px;margin:0 auto;padding:24px}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:28px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
+.kpi .label{font-size:.75rem;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.kpi .value{font-size:1.8rem;font-weight:700}
+.kpi .sub{font-size:.8rem;color:var(--text2);margin-top:4px}
+.filters{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.phase-section{margin-bottom:28px}
+.phase-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;cursor:pointer}
+.phase-header h2{font-size:1.15rem;font-weight:700}
+.phase-header .count{color:var(--text2);font-size:.85rem}
+.progress-bar{height:6px;background:var(--surface2);border-radius:3px;overflow:hidden;width:120px}
+.progress-fill{height:100%;background:var(--green);border-radius:3px;transition:width .3s}
+.task-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-bottom:12px;overflow:hidden;transition:border-color .15s}
+.task-card:hover{border-color:var(--accent)}
+.task-card.completed{opacity:.6}
+.task-card.completed .task-head strong{text-decoration:line-through}
+.task-head{display:flex;align-items:center;gap:12px;padding:16px 20px;cursor:pointer}
+.task-check{width:22px;height:22px;border-radius:5px;border:2px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+.task-check.done{background:var(--green);border-color:var(--green)}
+.task-check.done::after{content:'✓';color:#fff;font-size:13px;font-weight:700}
+.task-info{flex:1;min-width:0}
+.task-info strong{font-size:.95rem;display:block;margin-bottom:2px}
+.task-info .desc{color:var(--text2);font-size:.82rem;display:none}
+.task-card.open .task-info .desc{display:block}
+.task-tags{display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap;align-items:center}
+.tag{padding:3px 10px;border-radius:20px;font-size:.72rem;font-weight:600;white-space:nowrap}
+.tag-high{background:rgba(255,92,92,.15);color:var(--red)}
+.tag-med{background:rgba(255,170,60,.15);color:var(--orange)}
+.tag-low{background:rgba(108,140,255,.15);color:var(--accent)}
+.tag-brand{background:var(--surface2);color:var(--text2)}
+.tag-area{background:var(--surface2);color:var(--text2);font-size:.7rem}
+.expand-arrow{color:var(--text2);font-size:.8rem;flex-shrink:0;transition:transform .2s}
+.task-card.open .expand-arrow{transform:rotate(90deg)}
+.task-body{display:none;border-top:1px solid var(--border)}
+.task-card.open .task-body{display:block}
+.task-detail{padding:16px 20px}
+.action-box{background:var(--surface2);border-radius:8px;padding:14px 16px;margin-bottom:12px;border-left:3px solid var(--accent)}
+.action-box h4{font-size:.85rem;color:var(--accent);margin-bottom:6px}
+.action-box p{font-size:.85rem;color:var(--text2)}
+.action-box ul{margin:6px 0 0 16px;font-size:.85rem;color:var(--text2)}
+.action-box li{margin-bottom:4px}
+.screenshots{display:flex;gap:12px;padding:0 20px 16px;overflow-x:auto}
+.screenshots figure{flex-shrink:0}
+.screenshots img{border-radius:8px;border:1px solid var(--border);cursor:pointer;height:200px;display:block;transition:transform .15s}
+.screenshots img:hover{transform:scale(1.02)}
+.screenshots figcaption{font-size:.7rem;color:var(--text2);text-align:center;margin-top:6px}
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:999;display:none;align-items:center;justify-content:center;cursor:zoom-out;padding:20px}
+.lightbox.show{display:flex}
+.lightbox img{max-width:95vw;max-height:95vh;border-radius:8px}
+.footer{text-align:center;padding:32px;color:var(--text2);font-size:.8rem}
+@media(max-width:700px){.task-tags{display:none}.kpi .value{font-size:1.4rem}.screenshots img{height:140px}}
+</style>
+</head>
+<body>
+
+<div id="gate" class="gate" style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px">
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px;max-width:380px;width:100%;text-align:center">
+<h1 style="font-size:1.3rem;margin-bottom:8px">🔒 UX Audit</h1>
+<p style="color:var(--text2);font-size:.9rem;margin-bottom:24px">BC Path-to-Purchase Audit — Internal Only</p>
+<input type="password" id="pw" placeholder="Password" autofocus style="width:100%;padding:12px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:1rem;margin-bottom:12px">
+<button onclick="unlock()" style="width:100%;padding:12px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-size:1rem;font-weight:600;cursor:pointer">Access</button>
+</div>
+</div>
+
+<div id="app" style="display:none">
+<header>
+<div>
+<h1>🛒 BC UX Audit — Task Tracker</h1>
+<div class="meta">Sourced from LK Group path-to-purchase audit • February 2026</div>
+</div>
+<div class="controls">
+<button onclick="toggleTheme()">☀️ / 🌙</button>
+<button onclick="expandAll()">⊞ Expand All</button>
+<button onclick="collapseAll()">⊟ Collapse</button>
+<button onclick="window.print()">📄 PDF</button>
+<button onclick="resetAll()">↺ Reset</button>
+</div>
+</header>
+
+<div class="container">
+
+<div class="kpi-row">
+<div class="kpi"><div class="label">Total Tasks</div><div class="value" id="kpi-total">0</div></div>
+<div class="kpi"><div class="label">High Impact</div><div class="value" style="color:var(--red)" id="kpi-high">0</div></div>
+<div class="kpi"><div class="label">Completed</div><div class="value" style="color:var(--green)" id="kpi-done">0</div><div class="sub" id="kpi-pct">0%</div></div>
+<div class="kpi"><div class="label">Remaining</div><div class="value" id="kpi-remaining">0</div></div>
+</div>
+
+<div class="filters">
+<button class="filter-btn active" data-filter="all" onclick="setFilter('all',this)">All</button>
+<button class="filter-btn" data-filter="sns" onclick="setFilter('sns',this)">Shoes & Sox</button>
+<button class="filter-btn" data-filter="trybe" onclick="setFilter('trybe',this)">Trybe</button>
+<button class="filter-btn" data-filter="all-brands" onclick="setFilter('all-brands',this)">All Brands</button>
+<span style="border-left:1px solid var(--border);margin:0 4px"></span>
+<button class="filter-btn" data-filter="high" onclick="setFilter('high',this)">🔴 High</button>
+<button class="filter-btn" data-filter="med" onclick="setFilter('med',this)">🟠 Medium</button>
+<button class="filter-btn" data-filter="low" onclick="setFilter('low',this)">🔵 Low</button>
+</div>
+
+<div id="task-sections"></div>
+
+</div>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('show')"><img id="lb-img"></div>
+
+<div class="footer">BC UX Audit Task Tracker • LK Group Audit, February 2026 • Internal Use Only — Brand Collective</div>
+</div>
+
+<script>
+const HASH='1e0bbd6c686ba050b8eb03ffeedc64fdc9d80947fce821abbe5d6dc8d252c5ac';
+function sha256(s){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)).then(b=>Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join(''))}
+function unlock(){sha256(document.getElementById('pw').value).then(h=>{if(h===HASH){localStorage.setItem('ux_audit_auth','1');show()}else{document.getElementById('pw').style.borderColor='var(--red)';document.getElementById('pw').value=''}})}
+function show(){document.getElementById('gate').style.display='none';document.getElementById('app').style.display='block'}
+if(localStorage.getItem('ux_audit_auth')==='1')show();
+document.getElementById('pw').addEventListener('keydown',e=>{if(e.key==='Enter')unlock()});
+
+const TASKS=[
+// ═══ PRE-PURCHASE ═══
+{id:1,phase:'Pre-Purchase',brand:'sns',title:'Simplify sizing chart',
+desc:'Current width sizing (E etc.) is confusing for parents and likely causing cart abandonment. Most parents don\'t know their child\'s foot width.',
+impact:'high',area:'conversion',
+imgs:[{src:'page-04.jpg',cap:'SNS — confusing width sizing'},{src:'page-10.jpg',cap:'Amazon — clearer sizing chart'}],
+actions:[
+  'Replace width-based sizing with a simplified age/length guide',
+  'Add visual "how to measure" illustration (foot outline + ruler)',
+  'Benchmark against Amazon\'s sizing UX which tested better in audit',
+  'Consider adding a "not sure? we\'ll help" live chat prompt on the sizing step'
+]},
+
+{id:2,phase:'Pre-Purchase',brand:'sns',title:'Add delivery timeframes to PDP & cart',
+desc:'No delivery times communicated before purchase. Amazon shows "arriving tomorrow" at every touchpoint — this is now a consumer expectation.',
+impact:'high',area:'conversion',
+imgs:[{src:'page-05.jpg',cap:'SNS — no delivery estimate shown'},{src:'page-08.jpg',cap:'Amazon — delivery date on every page'}],
+actions:[
+  'Add estimated delivery date to product detail pages (above Add to Cart)',
+  'Show delivery date in cart and checkout summary',
+  'Use postcode-based delivery estimation where possible',
+  'Highlight express shipping option with specific date promise'
+]},
+
+{id:3,phase:'Pre-Purchase',brand:'sns',title:'Add customer reviews to product pages',
+desc:'Zero customer reviews on SNS products. Amazon has clear reviews at point of purchase that drive consumer confidence and reduce returns.',
+impact:'high',area:'conversion',
+imgs:[{src:'page-06.jpg',cap:'SNS — no product reviews'},{src:'page-09.jpg',cap:'Amazon — reviews drive confidence'}],
+actions:[
+  'Implement review collection via post-purchase email (Klaviyo/Okendo/Judge.me)',
+  'Incentivise first reviews with small reward (e.g. $5 off next purchase)',
+  'Display star ratings on collection pages, not just PDP',
+  'Consider importing existing Google/Facebook reviews as seed content'
+]},
+
+{id:4,phase:'Pre-Purchase',brand:'sns',title:'Add "customers also bought" recommendations',
+desc:'Amazon uses social proof recommendations to increase basket size and confidence. SNS has no equivalent.',
+impact:'med',area:'aov',
+imgs:[{src:'page-09.jpg',cap:'Amazon — "also bought" drives basket size'}],
+actions:[
+  'Add "Frequently bought together" or "Customers also viewed" section on PDP',
+  'Prioritise complementary products (socks, shoe care, second pair)',
+  'Use Shopify product recommendations or third-party app (Rebuy, Nosto)'
+]},
+
+{id:5,phase:'Pre-Purchase',brand:'sns',title:'Improve product imagery & confidence signals',
+desc:'Amazon uses rich imagery at every touchpoint to build confidence. SNS product photography needs review for lifestyle and detail shots.',
+impact:'med',area:'conversion',
+imgs:[{src:'page-10.jpg',cap:'Amazon — rich imagery builds confidence'},{src:'page-03.jpg',cap:'SNS — current product listing'}],
+actions:[
+  'Add lifestyle/on-foot imagery alongside product shots',
+  'Add zoom functionality and multiple angles',
+  'Consider video for hero products (back-to-school range)',
+  'Show size comparison photos (e.g. shoe on child\'s foot)'
+]},
+
+{id:6,phase:'Pre-Purchase',brand:'sns',title:'Add gift card CTA above the fold',
+desc:'Amazon has a gift card purchase CTA above the fold for line extension buying. Relevant for SNS during back-to-school.',
+impact:'low',area:'aov',
+imgs:[{src:'page-09.jpg',cap:'Amazon — gift card CTA above fold'}],
+actions:[
+  'Add gift card banner/CTA on homepage and category pages during peak seasons',
+  'Position as "Not sure of size? Give a gift card" — solves the sizing friction'
+]},
+
+{id:7,phase:'Pre-Purchase',brand:'trybe',title:'Overhaul site look & feel',
+desc:'Auditor described the experience as "not pleasant or encouraging, felt lacklustre" due to pastel branding. Needs energy and excitement for a kids/sports brand.',
+impact:'high',area:'conversion',
+imgs:[{src:'page-14.jpg',cap:'Trybe — lacklustre site experience'}],
+actions:[
+  'Review brand guidelines — pastel palette doesn\'t match kids/sport energy',
+  'Add dynamic hero imagery, video content, athlete/ambassador endorsements',
+  'Benchmark against Nike Kids, Rebel Sport, The Athlete\'s Foot for tone',
+  'Prioritise mobile experience — this is where parents browse'
+]},
+
+{id:8,phase:'Pre-Purchase',brand:'trybe',title:'Improve product findability & navigation',
+desc:'Auditor couldn\'t easily find "black boys runners". Core search paths need to work intuitively.',
+impact:'high',area:'conversion',
+imgs:[{src:'page-15.jpg',cap:'Trybe — hard to find specific products'},{src:'page-16.jpg',cap:'Trybe — sport category navigation'}],
+actions:[
+  'Add quick filters: gender, colour, sport, size on collection pages',
+  'Improve search with autocomplete and synonym handling',
+  'Create curated collections for peak demand ("Back to School Boys", "Black School Shoes")',
+  'Test navigation with real parents — validate the paths they expect'
+]},
+
+{id:9,phase:'Pre-Purchase',brand:'trybe',title:'Add urgency & scarcity messaging',
+desc:'No urgency signals on Trybe. No stock indicators, no "selling fast", no limited-time offers.',
+impact:'med',area:'conversion',
+imgs:[{src:'page-15.jpg',cap:'Trybe — no urgency messaging'}],
+actions:[
+  'Show low stock warnings on PDP ("Only 3 left in this size")',
+  'Add countdown timers for sale events',
+  'Display "X people viewing this" or recent purchase notifications',
+  'Test "back in stock" alerts for out-of-stock sizes'
+]},
+
+{id:10,phase:'Pre-Purchase',brand:'trybe',title:'Build customer reviews program',
+desc:'Only 1 review of 5 stars across products — insufficient for consumer confidence.',
+impact:'med',area:'conversion',
+imgs:[{src:'page-15.jpg',cap:'Trybe — only 1 review visible'}],
+actions:[
+  'Implement automated review request emails (7 days post-delivery)',
+  'Offer entry into monthly draw for reviewers (lower friction than discount)',
+  'Prioritise review collection on top 20 products first',
+  'Add photo review capability — parent photos build more trust than text'
+]},
+
+{id:11,phase:'Pre-Purchase',brand:'trybe',title:'Add first-time customer incentive',
+desc:'No reward for being a first-time customer. No welcome offer or signup discount.',
+impact:'med',area:'acquisition',
+imgs:[{src:'page-17.jpg',cap:'Trybe — no first-time reward'}],
+actions:[
+  'Add email popup with 10-15% first purchase discount',
+  'Welcome email series with brand story + offer',
+  'Consider free shipping on first order as alternative to discount'
+]},
+
+// ═══ CHECKOUT ═══
+{id:12,phase:'Checkout',brand:'sns',title:'Add delivery estimate to confirmation email',
+desc:'Confirmation email was immediate (good) but no indication of when delivery is expected. Amazon provides specific date.',
+impact:'high',area:'cx',
+imgs:[{src:'page-06.jpg',cap:'SNS — confirmation lacks delivery ETA'},{src:'page-11.jpg',cap:'Amazon — instant confirmation with delivery date'}],
+actions:[
+  'Add estimated delivery date to order confirmation email template',
+  'Include tracking link even before dispatch (with "we\'ll update when shipped" message)',
+  'Add delivery date to order confirmation page post-checkout',
+  'Send shipping confirmation with live tracking when dispatched'
+]},
+
+{id:13,phase:'Checkout',brand:'trybe',title:'Remove or reduce $12 delivery charge',
+desc:'$12 delivery charge is a conversion killer. Auditor stated they "would not have purchased at this price".',
+impact:'high',area:'conversion',
+imgs:[{src:'page-18.jpg',cap:'Trybe — $12 delivery charge deters purchase'}],
+actions:[
+  'Offer free shipping over a threshold (e.g. $80) — most school shoe purchases would qualify',
+  'If free shipping not viable, reduce to $5.95 and clearly communicate it',
+  'Show "Free shipping in X more" progress bar in cart',
+  'Test free shipping vs 10% discount — shipping is usually higher converting'
+]},
+
+{id:14,phase:'Checkout',brand:'trybe',title:'Add specific delivery timeframe to confirmation',
+desc:'No specific delivery times — just "an email will follow to advise". Took 3 days (longest of all 3 brands).',
+impact:'med',area:'cx',
+imgs:[{src:'page-18.jpg',cap:'Trybe — vague delivery comms'},{src:'page-19.jpg',cap:'Trybe — full checkout flow'}],
+actions:[
+  'Add estimated delivery window to confirmation email (e.g. "Expected: Wed 19 - Fri 21 Feb")',
+  'Send proactive daily shipping updates (Trybe did this — keep it)',
+  'Add real-time tracking integration to order status page'
+]},
+
+// ═══ POST-PURCHASE ═══
+{id:15,phase:'Post-Purchase',brand:'sns',title:'Build post-purchase remarketing sequence',
+desc:'No remarketing after purchase. Should offer "if you liked this, also available at discount" — e.g. a sneaker in the same size, delivered free with the same package.',
+impact:'high',area:'retention',
+imgs:[{src:'page-06.jpg',cap:'SNS — no remarketing triggered'}],
+actions:[
+  'Create Klaviyo post-purchase flow: Day 1 (thank you + care tips), Day 3 (related products), Day 7 (review request)',
+  'Recommend complementary products in same child size — socks, sneakers, sandals',
+  'Offer "add to your order" within 2 hours of purchase (before dispatch)',
+  'Include seasonal prompts: "Term 2 coming up — need new sneakers?"'
+]},
+
+{id:16,phase:'Post-Purchase',brand:'sns',title:'Add delivery notification',
+desc:'No notification that the package was delivered. Amazon sends delivery confirmation. This is now a baseline expectation.',
+impact:'med',area:'cx',
+imgs:[{src:'page-07.jpg',cap:'SNS — no delivery notification'},{src:'page-13.jpg',cap:'Amazon — delivery confirmed + branded'}],
+actions:[
+  'Enable delivery confirmation via carrier integration (Starshipit/ShipStation)',
+  'Send email + SMS on delivery confirmation',
+  'Use delivery confirmation as trigger for review request (Day +2)'
+]},
+
+{id:17,phase:'Post-Purchase',brand:'sns',title:'Add loyalty/repeat purchase CTA to unboxing',
+desc:'No enticement to join loyalty program or repeat purchase once unboxed. Amazon includes QR code to cross-sell.',
+impact:'high',area:'retention',
+imgs:[{src:'page-07.jpg',cap:'SNS — plain unboxing, no loyalty CTA'}],
+actions:[
+  'Design branded insert card with QR code → loyalty signup landing page',
+  'Include a "next purchase" offer on the insert (e.g. 15% off within 30 days)',
+  'Add shoe care guide on reverse — useful content + brand touchpoint',
+  'Test seasonal inserts: back-to-school vs mid-year vs Christmas'
+]},
+
+{id:18,phase:'Post-Purchase',brand:'sns',title:'Add branded packaging',
+desc:'Missed branding opportunity. Amazon has Prime & Amazon branding on every box. SNS package is generic.',
+impact:'med',area:'brand',
+imgs:[{src:'page-07.jpg',cap:'SNS — no branded packaging'},{src:'page-13.jpg',cap:'Amazon — branded delivery box'}],
+actions:[
+  'Design branded outer shipping box or branded tape as minimum viable option',
+  'Add tissue paper with SNS branding inside box',
+  'Consider branded stickers as low-cost alternative to custom boxes',
+  'Make unboxing Instagram-worthy for parent/kid shareable moments'
+]},
+
+{id:19,phase:'Post-Purchase',brand:'sns',title:'Cross-sell other BC brands in-box',
+desc:'Missed opportunity to cross-sell "Not just for kids but also mums & dads brands" with an offer inside the box.',
+impact:'high',area:'aov',
+imgs:[{src:'page-07.jpg',cap:'SNS — no cross-brand material in box'}],
+actions:[
+  'Design a BC family of brands insert card with offers for parent brands',
+  'Target based on child age: parents of school-age kids → Review, Julius Marlow, Black Pepper',
+  'Include unique promo codes per brand to track conversion from insert',
+  'Rotate inserts seasonally — Father\'s Day (JM), Mother\'s Day (Review/BP), Winter (HP)'
+]},
+
+{id:20,phase:'Post-Purchase',brand:'sns',title:'Rethink returns cost messaging',
+desc:'$10.95 return cost means many won\'t return. Consider offering deduction off next purchase — turns a negative into retention.',
+impact:'med',area:'retention',
+imgs:[{src:'page-06.jpg',cap:'SNS — $10.95 returns cost'}],
+actions:[
+  'Offer "return cost credited to your next purchase" option',
+  'Test free returns for loyalty members — drives sign-ups + reduces friction',
+  'Add size exchange (free) vs refund return ($10.95) — incentivise exchange over refund',
+  'Communicate returns policy clearly pre-purchase to reduce anxiety'
+]},
+
+{id:21,phase:'Post-Purchase',brand:'trybe',title:'Redesign unboxing experience',
+desc:'Described as "boring unboxing, no enticement to repurchase, no branding". The most uninspiring experience of all 3 brands.',
+impact:'med',area:'brand',
+imgs:[{src:'page-18.jpg',cap:'Trybe — boring, unbranded unboxing'}],
+actions:[
+  'Add branded tissue/stickers at minimum — low cost, high impact',
+  'Include QR code insert → loyalty signup or "rate your gear" landing page',
+  'Add a fun element for kids (sticker sheet, activity card) — creates brand love',
+  'Design packaging that kids want to keep or share on social'
+]},
+
+{id:22,phase:'Post-Purchase',brand:'trybe',title:'Add delivery confirmation email',
+desc:'No confirmation of delivery email sent. Basic customer expectation.',
+impact:'med',area:'cx',
+imgs:[{src:'page-18.jpg',cap:'Trybe — no delivery confirmation sent'}],
+actions:[
+  'Enable carrier delivery confirmation webhook → trigger email',
+  'Include "How did we do?" CTA in delivery confirmation email',
+  'Use as trigger point for review request flow'
+]},
+
+{id:23,phase:'Post-Purchase',brand:'trybe',title:'Replace generic EDMs with personalised remarketing',
+desc:'Only received a generic database EDM on day 3. No personalised content, no relevant recommendations.',
+impact:'med',area:'retention',
+imgs:[{src:'page-18.jpg',cap:'Trybe — generic EDM, no personalisation'},{src:'page-19.jpg',cap:'Trybe — checkout to post-purchase flow'}],
+actions:[
+  'Build personalised post-purchase flow based on product purchased',
+  'Recommend complementary products (same sport, same size)',
+  'Time the first remarketing email for 5-7 days post-delivery (after product use)',
+  'Include user-generated content from other customers in emails'
+]},
+
+// ═══ STRATEGIC (ALL BRANDS) ═══
+{id:24,phase:'Strategic',brand:'all-brands',title:'Communicate delivery speed at every touchpoint',
+desc:'Amazon reinforces FREE & FAST delivery at every stage — PDP, cart, checkout, confirmation, tracking. This is now the baseline expectation across all ecommerce.',
+impact:'high',area:'conversion',
+imgs:[{src:'page-08.jpg',cap:'Amazon — delivery date on product page'},{src:'page-09.jpg',cap:'Amazon — reinforced in cart'},{src:'page-20.jpg',cap:'Recommendations slide'}],
+actions:[
+  'Audit all 20 BC brand sites for delivery messaging gaps',
+  'Add delivery estimate widget to all PDPs (postcode-based where possible)',
+  'Show delivery date in cart, checkout, and confirmation for every brand',
+  'Create "delivery promise" banner for brands offering next-day or 2-day shipping',
+  'Track delivery promise accuracy — broken promises destroy trust faster than no promise'
+]},
+
+{id:25,phase:'Strategic',brand:'all-brands',title:'Implement QR-led landing pages in all packaging',
+desc:'Use QR codes in packaging to drive loyalty signup, repeat purchase offers, and cross-brand discovery. Amazon uses them for cross-sell.',
+impact:'high',area:'retention',
+imgs:[{src:'page-13.jpg',cap:'Amazon — QR code in packaging'},{src:'page-20.jpg',cap:'Recommendations — QR landing pages'}],
+actions:[
+  'Design a universal BC insert template adaptable per brand',
+  'QR → mobile-optimised landing page with: loyalty signup, next purchase offer, review request',
+  'Track QR scans per brand to measure in-box marketing ROI',
+  'A/B test different offers: % off vs free shipping vs loyalty points'
+]},
+
+{id:26,phase:'Strategic',brand:'all-brands',title:'Build cross-brand remarketing in fulfilment',
+desc:'Every BC package is a marketing opportunity for other BC brands. Insert cross-brand offers targeting the same customer profile.',
+impact:'med',area:'aov',
+imgs:[{src:'page-07.jpg',cap:'SNS — missed cross-brand opportunity'},{src:'page-20.jpg',cap:'Recommendations slide'}],
+actions:[
+  'Map brand affinity: which BC customers overlap? (SNS parents → Review/JM/BP)',
+  'Design rotating cross-brand insert cards per season',
+  'Track unique promo codes per insert to measure cross-brand conversion',
+  'Start with SNS → parent brands as pilot, then expand'
+]},
+
+{id:27,phase:'Strategic',brand:'all-brands',title:'Audit and improve sizing guides across all brands',
+desc:'Sizing was a major friction point for SNS and noted as clearer on Amazon/Trybe. Common issue across apparel and footwear ecommerce.',
+impact:'med',area:'conversion',
+imgs:[{src:'page-04.jpg',cap:'SNS — confusing sizing'},{src:'page-10.jpg',cap:'Amazon — better sizing UX'},{src:'page-17.jpg',cap:'Trybe — simpler sizing'}],
+actions:[
+  'Audit sizing UX across all 20 brand sites — identify worst offenders',
+  'Standardise sizing guide design language across BC brands',
+  'Add "true to size" indicators and fit recommendations from customer data',
+  'Consider virtual sizing tools (Fit Analytics, True Fit) for footwear brands'
+]},
+
+{id:28,phase:'Strategic',brand:'all-brands',title:'Customer confidence program — reviews at scale',
+desc:'Both SNS and Trybe lack reviews. Reviews are the #1 conversion driver on Amazon. Need automated collection across all brands.',
+impact:'high',area:'conversion',
+imgs:[{src:'page-09.jpg',cap:'Amazon — reviews everywhere'},{src:'page-15.jpg',cap:'Trybe — 1 lonely review'},{src:'page-20.jpg',cap:'Recommendations slide'}],
+actions:[
+  'Select and implement review platform across all Shopify stores (Okendo, Judge.me, or Yotpo)',
+  'Build automated post-purchase review request flow in Klaviyo',
+  'Incentivise reviews: loyalty points, monthly prize draw, or small discount',
+  'Display aggregate ratings on collection pages, Google Shopping, and ads',
+  'Target 50+ reviews per hero product within 6 months'
+]},
+];
+
+const PHASES=['Pre-Purchase','Checkout','Post-Purchase','Strategic'];
+const PHASE_ICONS={'Pre-Purchase':'🔍','Checkout':'💳','Post-Purchase':'📦','Strategic':'🎯'};
+const BRAND_LABELS={'sns':'Shoes & Sox','trybe':'Trybe','all-brands':'All Brands'};
+
+let completed=JSON.parse(localStorage.getItem('ux_audit_done')||'[]');
+let currentFilter='all';
+let allExpanded=false;
+
+function render(){
+  const container=document.getElementById('task-sections');
+  container.innerHTML='';
+  let totalShown=0,highShown=0,doneShown=0;
+
+  PHASES.forEach(phase=>{
+    let tasks=TASKS.filter(t=>t.phase===phase);
+    if(currentFilter==='high')tasks=tasks.filter(t=>t.impact==='high');
+    else if(currentFilter==='med')tasks=tasks.filter(t=>t.impact==='med');
+    else if(currentFilter==='low')tasks=tasks.filter(t=>t.impact==='low');
+    else if(currentFilter!=='all')tasks=tasks.filter(t=>t.brand===currentFilter);
+    if(!tasks.length)return;
+
+    const done=tasks.filter(t=>completed.includes(t.id)).length;
+    totalShown+=tasks.length;
+    highShown+=tasks.filter(t=>t.impact==='high').length;
+    doneShown+=done;
+
+    const sec=document.createElement('div');
+    sec.className='phase-section';
+    sec.innerHTML=`<div class="phase-header"><div><h2>${PHASE_ICONS[phase]} ${phase}</h2></div><div style="display:flex;align-items:center;gap:12px"><span class="count">${done}/${tasks.length} complete</span><div class="progress-bar"><div class="progress-fill" style="width:${tasks.length?done/tasks.length*100:0}%"></div></div></div></div>`;
+
+    tasks.forEach(t=>{
+      const isDone=completed.includes(t.id);
+      const impactClass=t.impact==='high'?'tag-high':t.impact==='med'?'tag-med':'tag-low';
+      const impactLabel=t.impact==='high'?'High':t.impact==='med'?'Medium':'Low';
+
+      const imgHtml=t.imgs&&t.imgs.length?`<div class="screenshots">${t.imgs.map(i=>`<figure><img src="ux-images/${i.src}" alt="${i.cap}" onclick="event.stopPropagation();openLb(this.src)" loading="lazy"><figcaption>${i.cap}</figcaption></figure>`).join('')}</div>`:'';
+
+      const actionHtml=t.actions?`<div class="action-box"><h4>✅ Recommended Actions</h4><ul>${t.actions.map(a=>`<li>${a}</li>`).join('')}</ul></div>`:'';
+
+      const card=document.createElement('div');
+      card.className=`task-card${isDone?' completed':''}${allExpanded?' open':''}`;
+      card.setAttribute('data-id',t.id);
+      card.innerHTML=`
+        <div class="task-head" onclick="this.parentElement.classList.toggle('open')">
+          <div class="task-check ${isDone?'done':''}" onclick="event.stopPropagation();toggleTask(${t.id})"></div>
+          <div class="task-info">
+            <strong>${t.title}</strong>
+            <div class="desc">${t.desc}</div>
+          </div>
+          <div class="task-tags">
+            <span class="tag ${impactClass}">${impactLabel}</span>
+            <span class="tag tag-brand">${BRAND_LABELS[t.brand]||t.brand}</span>
+            <span class="tag tag-area">${t.area}</span>
+          </div>
+          <span class="expand-arrow">▸</span>
+        </div>
+        <div class="task-body">
+          <div class="task-detail">${actionHtml}</div>
+          ${imgHtml}
+        </div>`;
+      sec.appendChild(card);
+    });
+
+    container.appendChild(sec);
+  });
+
+  document.getElementById('kpi-total').textContent=totalShown;
+  document.getElementById('kpi-high').textContent=highShown;
+  document.getElementById('kpi-done').textContent=doneShown;
+  document.getElementById('kpi-remaining').textContent=totalShown-doneShown;
+  document.getElementById('kpi-pct').textContent=totalShown?Math.round(doneShown/totalShown*100)+'%':'0%';
+}
+
+function toggleTask(id){
+  if(completed.includes(id))completed=completed.filter(x=>x!==id);
+  else completed.push(id);
+  localStorage.setItem('ux_audit_done',JSON.stringify(completed));
+  render();
+}
+
+function setFilter(f,btn){
+  currentFilter=f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function expandAll(){allExpanded=true;render()}
+function collapseAll(){allExpanded=false;render()}
+
+function resetAll(){
+  if(!confirm('Reset all tasks to incomplete?'))return;
+  completed=[];
+  localStorage.setItem('ux_audit_done','[]');
+  render();
+}
+
+function toggleTheme(){
+  const t=document.documentElement.dataset.theme;
+  document.documentElement.dataset.theme=t==='dark'?'light':'dark';
+}
+
+function openLb(src){document.getElementById('lb-img').src=src;document.getElementById('lightbox').classList.add('show')}
+
+render();
+</script>
+</body>
+</html>
