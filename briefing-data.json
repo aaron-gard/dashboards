@@ -237,30 +237,54 @@
       "low": 18,
       "condition": "Partly cloudy, showers later",
       "precip": 95,
-      "icon": "🌦"
+      "icon": "\ud83c\udf26"
     },
     "news": [
       {
-        "emoji": "🤖",
+        "emoji": "\ud83e\udd16",
         "topic": "AI",
         "text": "Microsoft hits $81.3B quarterly revenue, cementing AI-first infrastructure pivot"
       },
       {
-        "emoji": "🇦🇺",
+        "emoji": "\ud83c\udde6\ud83c\uddfa",
         "topic": "AU Politics",
-        "text": "RBA rate hike minutes due today; Taylor assembling shadow cabinet after Ley exit"
+        "text": "RBA rate hike minutes due today; Taylor assembling shadow cabinet after Ley exit",
+        "url": "https://www.rba.gov.au/monetary-policy/rba-board-minutes/"
       },
       {
-        "emoji": "🏈",
+        "emoji": "\ud83c\udfc8",
         "topic": "AFL",
-        "text": "2026 AAMI Community Series fixtures locked in — season starts March 5"
+        "text": "2026 AAMI Community Series fixtures locked in \u2014 season starts March 5"
       }
     ],
-    "comms_task": "When delegating a task today, include one sentence of context about WHY this task matters to the broader goal — not just what needs doing.",
+    "comms_task": "When delegating a task today, include one sentence of context about WHY this task matters to the broader goal \u2014 not just what needs doing.",
     "quote": {
       "text": "We are what we repeatedly do. Excellence, then, is not an act, but a habit.",
       "author": "Aristotle (via Will Durant)"
-    }
+    },
+    "reads": [
+      {
+        "type": "article",
+        "title": "How enterprises are building AI agents in 2026",
+        "url": "https://claude.com/blog/how-enterprises-are-building-ai-agents-in-2026",
+        "description": "New research from 500+ technical leaders. 80% report measurable ROI from AI agents already.",
+        "source": "Anthropic"
+      },
+      {
+        "type": "article",
+        "title": "AI-driven search reshaping online retail as Shopify targets AU growth",
+        "url": "https://www.channelnews.com.au/ai-driven-search-reshaping-online-retail-as-shopify-targets-growth-in-australia/",
+        "description": "AI search orders up 15x YoY on Shopify. Finkelstein: 2026 is the scale year.",
+        "source": "ChannelNews"
+      },
+      {
+        "type": "article",
+        "title": "Global ecommerce giants squeeze Australia's marketplaces",
+        "url": "https://ecommercenews.com.au/story/global-ecommerce-giants-squeeze-australia-s-marketplaces",
+        "description": "Marketplace concentration intensifying. Amazon, Temu, social-led discovery reshaping AU landscape.",
+        "source": "eCommerce News AU"
+      }
+    ]
   },
   "evening": {
     "generated": "2026-02-17T19:50:00+11:00",
@@ -482,24 +506,54 @@
       "tomorrow_low": 15,
       "tomorrow_condition": "Overcast, no rain",
       "precip": 0,
-      "icon": "🌦"
+      "icon": "\ud83c\udf26"
     },
-    "closing_thought": "Eight meetings done. Tomorrow starts with AI Weekly and the Elka/Yarra Trail workshop — lighter afternoon with 1:1s. The loyalty dashboard corrections were a big win today. Rest up.",
+    "closing_thought": "Eight meetings done. Tomorrow starts with AI Weekly and the Elka/Yarra Trail workshop \u2014 lighter afternoon with 1:1s. The loyalty dashboard corrections were a big win today. Rest up.",
     "news": [
       {
-        "emoji": "🏏",
+        "emoji": "\ud83c\udfcf",
         "topic": "Cricket",
-        "text": "Australia thumped by Sri Lanka in T20 World Cup — facing group stage exit"
+        "text": "Australia thumped by Sri Lanka in T20 World Cup \u2014 facing group stage exit"
       },
       {
-        "emoji": "🇦🇺",
+        "emoji": "\ud83c\udde6\ud83c\uddfa",
         "topic": "Politics",
         "text": "Angus Taylor unveils new Liberal shadow cabinet; govt blocks IS family repatriation"
       },
       {
-        "emoji": "📊",
+        "emoji": "\ud83d\udcca",
         "topic": "Markets",
         "text": "AUD/USD steady at 0.708; BTC $68.4K"
+      }
+    ],
+    "reads": [
+      {
+        "type": "article",
+        "title": "How enterprises are building AI agents in 2026",
+        "url": "https://claude.com/blog/how-enterprises-are-building-ai-agents-in-2026",
+        "description": "Research from 500+ technical leaders reveals how enterprises are deploying AI agents \u2014 80% already report measurable ROI.",
+        "source": "Anthropic"
+      },
+      {
+        "type": "article",
+        "title": "AI-driven search reshaping online retail as Shopify targets growth in Australia",
+        "url": "https://www.channelnews.com.au/ai-driven-search-reshaping-online-retail-as-shopify-targets-growth-in-australia/",
+        "description": "Shopify says AI-driven search orders up 15x YoY. 2026 is the year they scale it broadly across 1,500+ AU retailers including JB Hi-Fi.",
+        "source": "ChannelNews"
+      },
+      {
+        "type": "article",
+        "title": "Global ecommerce giants squeeze Australia's marketplaces",
+        "url": "https://ecommercenews.com.au/story/global-ecommerce-giants-squeeze-australia-s-marketplaces",
+        "description": "Pattern's 2026 Marketplace Consumer Report shows the landscape is becoming more concentrated. Amazon, Temu, and social-led discovery reshaping the game.",
+        "source": "eCommerce News AU"
+      },
+      {
+        "type": "article",
+        "title": "Safe harbour and the high street",
+        "url": "https://insideretail.com.au/business/safe-harbour-and-the-high-street-202602",
+        "description": "Mosaic Brands, Jeanswest, Ally Fashion \u2014 the wave of AU retail collapses under store leases, supplier debt, and shifting consumer behaviour.",
+        "source": "Inside Retail"
       }
     ]
   }
