@@ -6,7 +6,7 @@
 /* Header */
 .hdr{height:76px;background:var(--bk);display:flex;align-items:center;padding:0 28px;position:sticky;top:0;z-index:1000;border-bottom:1px solid rgba(255,255,255,.08);gap:24px}
 .logo{display:flex;align-items:center;flex:0 0 220px}.logo img{height:64px;width:auto}
-.srch{flex:0 1 400px;margin:0 auto;display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.45);font-size:14px;font-weight:500;padding:10px 20px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:6px;transition:all .2s}.srch:hover{border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)}.srch svg{width:18px;height:18px;flex-shrink:0}
+.srch{flex:0 1 640px;margin:0 auto;display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.45);font-size:14px;font-weight:500;padding:10px 20px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:6px;transition:all .2s}.srch:hover{border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)}.srch svg{width:18px;height:18px;flex-shrink:0}
 .hr{display:flex;align-items:center;gap:20px;flex:0 0 220px;justify-content:flex-end}
 .ic{color:rgba(255,255,255,.85);transition:color .2s;position:relative}.ic:hover{color:var(--wh)}.ic svg{width:22px;height:22px}
 .dot{position:absolute;top:-4px;right:-6px;background:var(--wh);color:var(--bk);font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center}
@@ -249,7 +249,7 @@ a{transition:color .15s,opacity .15s}
 @media(max-width:768px){.pdp-sticky.visible{display:flex}}
 
 /* Search overlay */
-.srch-overlay{position:fixed;top:76px;left:50%;transform:translateX(-50%);width:480px;background:var(--wh);z-index:1001;box-shadow:0 12px 40px rgba(0,0,0,.15);border-radius:0 0 8px 8px;padding:24px 32px;display:none;max-height:70vh;overflow-y:auto}
+.srch-overlay{position:fixed;top:76px;left:50%;transform:translateX(-50%);width:640px;background:var(--wh);z-index:1001;box-shadow:0 12px 40px rgba(0,0,0,.15);border-radius:0 0 8px 8px;padding:24px 32px;display:none;max-height:70vh;overflow-y:auto}
 .srch-overlay.open{display:block}
 .srch-input{width:100%;padding:14px 20px;font-size:16px;border:2px solid var(--bk);border-radius:6px;font-family:var(--sn);outline:none}
 .srch-section{margin-top:20px}
