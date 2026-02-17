@@ -245,7 +245,7 @@
     ]
   },
   "evening": {
-    "generated": "2026-02-17T19:50:00+11:00",
+    "generated": "2026-02-17T20:14:47+11:00",
     "calendar": {
       "date": "Tuesday, 17 February 2026",
       "meetings": [
@@ -357,131 +357,156 @@
     },
     "sales": {
       "date": "Tuesday, 17 February 2026",
+      "ly_date": "Tuesday, 18 February 2025",
       "partial": true,
       "brands": [
         {
-          "name": "Reebok",
-          "demand": 15595
+          "name": "Shoes & Sox",
+          "demand": 15743,
+          "ly_demand": 15960
         },
         {
-          "name": "Shoes & Sox",
-          "demand": 14885
+          "name": "Reebok",
+          "demand": 15595,
+          "ly_demand": 26699
         },
         {
           "name": "Black Pepper",
-          "demand": 14647
+          "demand": 14845,
+          "ly_demand": 11209
         },
         {
           "name": "Hush Puppies",
-          "demand": 13266
+          "demand": 13725,
+          "ly_demand": 15250
         },
         {
           "name": "Shoe Warehouse",
-          "demand": 11645
+          "demand": 11961,
+          "ly_demand": 8874
         },
         {
           "name": "Review",
-          "demand": 9545
+          "demand": 10063,
+          "ly_demand": 18419
         },
         {
           "name": "Elka Collective",
-          "demand": 7557
+          "demand": 7557,
+          "ly_demand": 4270
         },
         {
           "name": "Superdry",
-          "demand": 6774
+          "demand": 6774,
+          "ly_demand": 19751
         },
         {
           "name": "Clarks",
-          "demand": 6518
+          "demand": 6617,
+          "ly_demand": 8844
         },
         {
           "name": "Volley",
-          "demand": 3509
+          "demand": 3609,
+          "ly_demand": 5558
         },
         {
           "name": "Everlast",
-          "demand": 3204
+          "demand": 3454,
+          "ly_demand": 3201
         },
         {
           "name": "Canada Goose",
-          "demand": 2700
+          "demand": 2700,
+          "ly_demand": 1700
         },
         {
           "name": "Yarra Trail",
-          "demand": 2244
+          "demand": 2244,
+          "ly_demand": 2628
         },
         {
           "name": "Julius Marlow",
-          "demand": 2097
+          "demand": 2097,
+          "ly_demand": 1897
         },
         {
           "name": "Champion",
-          "demand": 2039
+          "demand": 2039,
+          "ly_demand": 1241
         },
         {
           "name": "Marco Polo",
-          "demand": 1055
+          "demand": 1055,
+          "ly_demand": 511
         },
         {
           "name": "Happy Socks",
-          "demand": 772
+          "demand": 772,
+          "ly_demand": 0
         },
         {
           "name": "Umbro",
-          "demand": 560
+          "demand": 560,
+          "ly_demand": 915
         },
         {
           "name": "Replay",
-          "demand": -38
+          "demand": -38,
+          "ly_demand": 891
         }
       ],
       "total": {
-        "demand": 118574
-      },
-      "ly_date": "Tuesday, 18 February 2025"
+        "demand": 121372,
+        "ly_demand": 147818,
+        "yoy_pct": -17.9
+      }
     },
     "markets": {
       "audusd": {
-        "value": 0.708
+        "value": 0.7075
       },
       "btc": {
-        "value": 68361
+        "value": 68071
       },
       "eth": {
-        "value": 1985
+        "value": 1971
       },
       "xrp": {
-        "value": 1.47
+        "value": 1.46
       }
     },
     "weather": {
-      "current_temp": 24,
+      "current_temp": 23,
       "high": 36,
       "low": 18,
-      "condition": "Light rain showers, clearing tonight",
-      "tomorrow_high": 26,
-      "tomorrow_low": 15,
-      "tomorrow_condition": "Overcast, no rain",
-      "precip": 0,
+      "condition": "Rain showers clearing tonight",
+      "precip": 95,
       "icon": "\ud83c\udf26"
     },
-    "closing_thought": "Eight meetings done. Tomorrow starts with AI Weekly and the Elka/Yarra Trail workshop \u2014 lighter afternoon with 1:1s. The loyalty dashboard corrections were a big win today. Rest up.",
     "news": [
       {
-        "emoji": "\ud83c\udfcf",
-        "topic": "Cricket",
-        "text": "Australia thumped by Sri Lanka in T20 World Cup \u2014 facing group stage exit"
+        "emoji": "\ud83d\uded2",
+        "topic": "ACCC vs Coles",
+        "text": "ACCC labels Coles \"Down Down\" discounts \"utterly misleading\" as landmark trial opens",
+        "url": "https://www.abc.net.au/news/2026-02-16/asx-markets-business-news-live-updates-february-16/106345462"
+      },
+      {
+        "emoji": "\ud83c\udfec",
+        "topic": "AU Retail",
+        "text": "Montblanc opens Sydney flagship on George St \u2014 luxury brands still expanding in AU despite retail headwinds",
+        "url": "https://insideretail.com.au/stores/montblanc-opens-sydney-flagship-on-prime-george-st-corner-site-202602"
+      },
+      {
+        "emoji": "\ud83d\udcbb",
+        "topic": "Tech",
+        "text": "JB Hi-Fi flagging higher PC and mobile prices from global chip shortage"
       },
       {
         "emoji": "\ud83c\udde6\ud83c\uddfa",
         "topic": "Politics",
-        "text": "Angus Taylor unveils new Liberal shadow cabinet; govt blocks IS family repatriation"
-      },
-      {
-        "emoji": "\ud83d\udcca",
-        "topic": "Markets",
-        "text": "AUD/USD steady at 0.708; BTC $68.4K"
+        "text": "Angus Taylor unveils shadow cabinet; govt blocks IS family repatriation",
+        "url": "https://www.smh.com.au/national/australia-news-live-australian-is-brides-turned-back-after-leaving-syrian-camp-government-should-consider-changes-to-tobacco-excise-experts-say-20260217-p5o2un.html"
       }
     ],
     "reads": [
@@ -489,37 +514,38 @@
         "type": "article",
         "title": "OpenClaw creator Peter Steinberger joins OpenAI",
         "url": "https://techcrunch.com/2026/02/15/openclaw-creator-peter-steinberger-joins-openai/",
-        "description": "Altman: \"OpenClaw will live in a foundation as an open source project that OpenAI will continue to support.\" Your stack just got a lot more interesting.",
+        "description": "The person who built the system running your daily brief just joined OpenAI. OpenClaw becomes a foundation project.",
         "source": "TechCrunch"
       },
       {
         "type": "article",
         "title": "OpenClaw & the acqui-hire that explains where AI is going",
         "url": "https://mondaymorning.substack.com/p/openclaw-and-the-acqui-hire-that",
-        "description": "Deep analysis of what Steinberger's move means for the open-source AI agent ecosystem and why OpenAI wanted him.",
+        "description": "Deep analysis: why OpenAI wanted Steinberger and what it means for open-source AI agents.",
         "source": "Monday Morning"
+      },
+      {
+        "type": "article",
+        "title": "ACCC vs Coles: the illusory discounts trial",
+        "url": "https://www.abc.net.au/news/2026-02-16/asx-markets-business-news-live-updates-february-16/106345462",
+        "description": "Day 2 of the landmark case. If ACCC wins, pricing transparency rules change for every AU retailer \u2014 including BC brands.",
+        "source": "ABC News"
       },
       {
         "type": "article",
         "title": "AI-driven search reshaping online retail as Shopify targets AU growth",
         "url": "https://www.channelnews.com.au/ai-driven-search-reshaping-online-retail-as-shopify-targets-growth-in-australia/",
-        "description": "AI search orders up 15x YoY on Shopify. Finkelstein calls 2026 the \"scale year.\" Directly relevant to your 19 stores.",
+        "description": "Shopify AI search orders up 15x YoY. Finkelstein calls 2026 the scale year. Directly relevant to your 19 stores.",
         "source": "ChannelNews"
       },
       {
         "type": "article",
         "title": "Global ecommerce giants squeeze Australia's marketplaces",
         "url": "https://ecommercenews.com.au/story/global-ecommerce-giants-squeeze-australia-s-marketplaces",
-        "description": "Pattern's 2026 report: marketplace landscape concentrating fast. Amazon, Temu, social discovery reshaping AU.",
+        "description": "Pattern's 2026 report: Amazon, Temu, social discovery concentrating the AU marketplace landscape.",
         "source": "eCommerce News AU"
-      },
-      {
-        "type": "article",
-        "title": "OpenClaw 2026.2.12 patches 40+ vulnerabilities",
-        "url": "https://vpncentral.com/openclaw-2026-2-12-release-patches-40-vulnerabilities-in-ai-agents/",
-        "description": "Major security release. 40 patches from external researchers. You're on 2026.2.15 (latest).",
-        "source": "VPNCentral"
       }
-    ]
+    ],
+    "closing_thought": "Eight meetings survived. ACCC vs Coles is worth watching \u2014 if they win on illusory discounts, the compliance ripple hits every AU retailer running promos. Sales tracking +-17.9% vs LY on a partial Tuesday. Tomorrow: AI Weekly, Elka/YT workshop, then 1:1s all afternoon."
   }
 }
