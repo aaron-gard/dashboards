@@ -39,216 +39,101 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.5;
-  padding: 24px;
-  max-width: 1400px;
-  margin: 0 auto;
+  background: var(--bg); color: var(--text); line-height: 1.5;
+  padding: 24px; max-width: 1400px; margin: 0 auto;
 }
 header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 32px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid var(--border);
 }
 header h1 { font-size: 28px; font-weight: 700; }
 header h1 span { color: var(--accent); }
 .subtitle { color: var(--text-muted); font-size: 14px; margin-top: 4px; }
 .theme-toggle {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  color: var(--text);
-  padding: 8px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-}
-.month-selector {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 28px;
-}
-.month-btn {
-  padding: 8px 20px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--text-muted);
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 500;
-  transition: all .2s;
-}
-.month-btn.active {
-  background: var(--accent);
-  color: #fff;
-  border-color: var(--accent);
+  background: var(--surface2); border: 1px solid var(--border); color: var(--text);
+  padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 14px;
 }
 .section-title {
-  font-size: 18px;
-  font-weight: 700;
-  margin: 32px 0 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  font-size: 18px; font-weight: 700; margin: 36px 0 16px;
+  display: flex; align-items: center; gap: 10px;
+  padding-bottom: 8px; border-bottom: 1px solid var(--border);
 }
 .section-title .icon { font-size: 22px; }
 .kpi-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-  margin-bottom: 24px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px; margin-bottom: 24px;
 }
 .kpi-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 20px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px;
 }
 .kpi-label {
-  font-size: 12px;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 8px;
+  font-size: 11px; color: var(--text-muted); text-transform: uppercase;
+  letter-spacing: 0.5px; margin-bottom: 6px;
 }
-.kpi-value {
-  font-size: 28px;
-  font-weight: 700;
-}
-.kpi-change {
-  font-size: 13px;
-  margin-top: 6px;
-  font-weight: 500;
-}
+.kpi-value { font-size: 26px; font-weight: 700; }
+.kpi-change { font-size: 12px; margin-top: 4px; font-weight: 500; }
 .kpi-change.up { color: var(--green); }
 .kpi-change.down { color: var(--red); }
 .kpi-change.neutral { color: var(--text-muted); }
-.kpi-context {
-  font-size: 11px;
-  color: var(--text-muted);
-  margin-top: 2px;
-}
+.kpi-context { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
 .table-wrap {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-  margin-bottom: 24px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; overflow-x: auto; margin-bottom: 24px;
 }
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
+table { width: 100%; border-collapse: collapse; }
 th {
-  text-align: left;
-  padding: 14px 16px;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--text-muted);
-  background: var(--surface2);
-  border-bottom: 1px solid var(--border);
-  font-weight: 600;
+  text-align: left; padding: 12px 14px; font-size: 11px; text-transform: uppercase;
+  letter-spacing: 0.5px; color: var(--text-muted); background: var(--surface2);
+  border-bottom: 1px solid var(--border); font-weight: 600; white-space: nowrap;
 }
-td {
-  padding: 14px 16px;
-  font-size: 14px;
-  border-bottom: 1px solid var(--border);
-}
+td { padding: 12px 14px; font-size: 13px; border-bottom: 1px solid var(--border); white-space: nowrap; }
 tr:last-child td { border-bottom: none; }
-.badge {
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 600;
-}
-.badge.green { background: rgba(52,211,153,.15); color: var(--green); }
-.badge.red { background: rgba(248,113,113,.15); color: var(--red); }
 .charts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 16px;
-  margin-bottom: 24px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 16px; margin-bottom: 24px;
 }
 .chart-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 20px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px;
 }
-.chart-card h3 {
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 16px;
-  color: var(--text-muted);
-}
-canvas { max-height: 280px; }
+.chart-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 16px; color: var(--text-muted); }
+canvas { max-height: 260px; }
 .top-campaigns {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 16px;
-  margin-bottom: 24px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 14px; margin-bottom: 24px;
 }
 .campaign-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 20px;
-  position: relative;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 18px; position: relative;
 }
 .campaign-rank {
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  font-size: 32px;
-  font-weight: 800;
-  color: var(--border);
+  position: absolute; top: 10px; right: 14px;
+  font-size: 30px; font-weight: 800; color: var(--border);
 }
-.campaign-date { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
-.campaign-subject { font-size: 15px; font-weight: 600; margin-bottom: 4px; line-height: 1.4; }
-.campaign-pre { font-size: 13px; color: var(--text-muted); margin-bottom: 14px; font-style: italic; }
-.campaign-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-.campaign-stat-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; }
-.campaign-stat-value { font-size: 18px; font-weight: 700; margin-top: 2px; }
+.campaign-date { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+.campaign-subject { font-size: 14px; font-weight: 600; margin-bottom: 3px; line-height: 1.4; }
+.campaign-pre { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; font-style: italic; }
+.campaign-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.campaign-stat-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; }
+.campaign-stat-value { font-size: 17px; font-weight: 700; margin-top: 2px; }
 .insight-box {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-left: 4px solid var(--accent);
-  border-radius: 0 12px 12px 0;
-  padding: 20px;
-  margin-bottom: 24px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-left: 4px solid var(--accent); border-radius: 0 12px 12px 0;
+  padding: 18px; margin-bottom: 24px;
 }
-.insight-box h4 { font-size: 13px; color: var(--accent); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
-.insight-box ul { padding-left: 18px; }
-.insight-box li { font-size: 14px; color: var(--text-muted); margin-bottom: 6px; }
-.social-metrics {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 16px;
-  margin-bottom: 24px;
-}
+.insight-box h4 { font-size: 12px; color: var(--accent); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.insight-box ul { padding-left: 16px; }
+.insight-box li { font-size: 13px; color: var(--text-muted); margin-bottom: 5px; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
 footer {
-  text-align: center;
-  padding: 32px 0 16px;
-  color: var(--text-muted);
-  font-size: 12px;
-  border-top: 1px solid var(--border);
-  margin-top: 40px;
+  text-align: center; padding: 28px 0 12px; color: var(--text-muted);
+  font-size: 11px; border-top: 1px solid var(--border); margin-top: 40px;
 }
 @media (max-width: 768px) {
-  body { padding: 16px; }
+  body { padding: 14px; }
   .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-  .charts-grid, .top-campaigns { grid-template-columns: 1fr; }
-  header h1 { font-size: 22px; }
+  .charts-grid, .top-campaigns, .two-col { grid-template-columns: 1fr; }
+  header h1 { font-size: 20px; }
 }
 </style>
 </head>
@@ -256,17 +141,163 @@ footer {
 <header>
   <div>
     <h1><span>Review</span> — Monthly Marketing Report</h1>
-    <div class="subtitle">Brand performance across Email, Social & Digital</div>
+    <div class="subtitle">July 2024 · Data sourced from Polar Analytics (Shopify, GA4, Meta Ads, Google Ads, Klaviyo)</div>
   </div>
   <button class="theme-toggle" onclick="toggleTheme()">🌙 / ☀️</button>
 </header>
 
-<div class="month-selector">
-  <button class="month-btn active" data-month="jul24">Jul 2024</button>
-  <button class="month-btn" data-month="jun24" disabled style="opacity:.4;cursor:default">Jun 2024</button>
+<!-- ===== SALES PERFORMANCE ===== -->
+<div class="section-title"><span class="icon">💰</span> Sales Performance (Shopify)</div>
+
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <div class="kpi-label">Gross Sales</div>
+    <div class="kpi-value">$1.12M</div>
+    <div class="kpi-change down">-0.5% vs Jun ($1.13M)</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Net Sales</div>
+    <div class="kpi-value">$816K</div>
+    <div class="kpi-change up">+3.8% vs Jun ($786K)</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Total Sales</div>
+    <div class="kpi-value" style="color:var(--green)">$919K</div>
+    <div class="kpi-change up">+3.9% vs Jun ($885K)</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Orders</div>
+    <div class="kpi-value">6,750</div>
+    <div class="kpi-change down">-5.7% vs Jun (7,159)</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">AOV</div>
+    <div class="kpi-value">$164</div>
+    <div class="kpi-change up">+0.6% vs Jun ($163)</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Discounts</div>
+    <div class="kpi-value">-$223K</div>
+    <div class="kpi-change up">-21.5% vs Jun (-$284K)</div>
+    <div class="kpi-context">Less discounting = healthier margin</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Returns</div>
+    <div class="kpi-value">-$84K</div>
+    <div class="kpi-change down">+44% vs Jun (-$58K)</div>
+  </div>
 </div>
 
-<!-- EMAIL / EDM SECTION -->
+<div class="charts-grid">
+  <div class="chart-card">
+    <h3>Daily Gross Sales — July 2024</h3>
+    <canvas id="dailySalesChart"></canvas>
+  </div>
+  <div class="chart-card">
+    <h3>Daily Orders — July 2024</h3>
+    <canvas id="dailyOrdersChart"></canvas>
+  </div>
+</div>
+
+<!-- ===== WEBSITE TRAFFIC ===== -->
+<div class="section-title"><span class="icon">🌐</span> Website Traffic (GA4)</div>
+
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <div class="kpi-label">Sessions</div>
+    <div class="kpi-value">440K</div>
+    <div class="kpi-change up">+15.4% vs Jun (381K)</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Bounce Rate</div>
+    <div class="kpi-value">24.5%</div>
+    <div class="kpi-change up">Improved from 25.3%</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Conversion Rate</div>
+    <div class="kpi-value">1.24%</div>
+    <div class="kpi-change down">-8.2% vs Jun (1.36%)</div>
+    <div class="kpi-context">More traffic, lower conversion</div>
+  </div>
+</div>
+
+<!-- ===== DIGITAL MARKETING ===== -->
+<div class="section-title"><span class="icon">📈</span> Digital Marketing — Paid Media</div>
+
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <div class="kpi-label">Total Ad Spend</div>
+    <div class="kpi-value">$46.6K</div>
+    <div class="kpi-change down">+4.9% vs Jun ($44.4K)</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Blended ROAS</div>
+    <div class="kpi-value" style="color:var(--green)">19.7x</div>
+    <div class="kpi-change down">-1.0% vs Jun (19.9x)</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Blended CAC</div>
+    <div class="kpi-value">$14.72</div>
+    <div class="kpi-change down">+6.1% vs Jun ($13.87)</div>
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th colspan="3" style="font-size:13px;text-transform:none;font-weight:700;color:var(--text)">Meta Ads</th></tr>
+      <tr><th>Metric</th><th>Jul '24</th><th>Jun '24</th></tr></thead>
+      <tbody>
+        <tr><td>Spend</td><td><strong>$16,350</strong></td><td>$18,894</td></tr>
+        <tr><td>Impressions</td><td>1.63M</td><td>1.98M</td></tr>
+        <tr><td>Clicks</td><td>33,619</td><td>28,191</td></tr>
+        <tr><td>Purchases</td><td>1,167</td><td>1,090</td></tr>
+        <tr><td>Purchase Value</td><td style="color:var(--green)">$217K</td><td>$200K</td></tr>
+        <tr><td>ROAS</td><td style="color:var(--green)"><strong>13.3x</strong></td><td>10.6x</td></tr>
+        <tr><td>CPC (Link)</td><td style="color:var(--green)">$0.66</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th colspan="3" style="font-size:13px;text-transform:none;font-weight:700;color:var(--text)">Google Ads</th></tr>
+      <tr><th>Metric</th><th>Jul '24</th><th>Jun '24</th></tr></thead>
+      <tbody>
+        <tr><td>Spend</td><td><strong>$28,028</strong></td><td>$22,102</td></tr>
+        <tr><td>Impressions</td><td>3.58M</td><td>2.76M</td></tr>
+        <tr><td>Clicks</td><td>96,030</td><td>86,743</td></tr>
+        <tr><td>Conversions</td><td>2,479</td><td>2,304</td></tr>
+        <tr><td>CPC</td><td>$0.29</td><td>$0.25</td></tr>
+        <tr><td>Conv. Rate</td><td>2.58%</td><td>2.66%</td></tr>
+        <tr><td>Spend Share</td><td>60%</td><td>50%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="charts-grid">
+  <div class="chart-card">
+    <h3>Ad Spend Split — Jul vs Jun</h3>
+    <canvas id="spendChart"></canvas>
+  </div>
+  <div class="chart-card">
+    <h3>Platform ROAS Comparison</h3>
+    <canvas id="roasChart"></canvas>
+  </div>
+</div>
+
+<div class="insight-box">
+  <h4>📝 Key Insights — Paid Media</h4>
+  <ul>
+    <li>Meta spend <strong>down 13%</strong> while ROAS jumped from 10.6x to 13.3x — efficiency gains</li>
+    <li>Google spend <strong>up 27%</strong> ($22K → $28K), driving more volume but at slightly higher CPC</li>
+    <li>Blended ROAS held steady at ~19.7x despite higher total spend — healthy efficiency</li>
+    <li>CAC increased $0.85 (6%) — worth monitoring but still excellent at $14.72</li>
+    <li><strong>Action:</strong> Meta efficiency is excellent — investigate reallocating some Google budget to Meta for better returns</li>
+  </ul>
+</div>
+
+<!-- ===== EMAIL / KLAVIYO ===== -->
 <div class="section-title"><span class="icon">📧</span> Email Performance (Klaviyo)</div>
 
 <div class="kpi-grid">
@@ -286,112 +317,85 @@ footer {
     <div class="kpi-label">Campaign Attributed Rev</div>
     <div class="kpi-value">$370K</div>
     <div class="kpi-change up">+11.8% MoM</div>
-    <div class="kpi-context">vs $331K Jun '24</div>
   </div>
   <div class="kpi-card">
     <div class="kpi-label">Flow Revenue</div>
     <div class="kpi-value">$99K</div>
     <div class="kpi-change up">+35% MoM</div>
-    <div class="kpi-context">vs $73K Jun '24</div>
   </div>
   <div class="kpi-card">
-    <div class="kpi-label">Total Attributed Revenue</div>
+    <div class="kpi-label">Total Email Revenue</div>
     <div class="kpi-value" style="color:var(--green)">$469K</div>
     <div class="kpi-change up">+16% MoM</div>
-    <div class="kpi-context">vs $404K Jun '24</div>
   </div>
   <div class="kpi-card">
     <div class="kpi-label">Open Rate</div>
     <div class="kpi-value">38.2%</div>
     <div class="kpi-change down">-8% MoM</div>
-    <div class="kpi-context">41.4% Jun '24 · 37.3% Jul '23</div>
+    <div class="kpi-context">41.4% Jun · 37.3% Jul '23</div>
   </div>
   <div class="kpi-card">
     <div class="kpi-label">Click-Through Rate</div>
     <div class="kpi-value">2.03%</div>
     <div class="kpi-change down">-0.98% MoM</div>
-    <div class="kpi-context">2.05% Jun '24 · 1.67% Jul '23</div>
-  </div>
-</div>
-
-<!-- MoM & YoY Tables -->
-<div class="charts-grid">
-  <div class="chart-card">
-    <h3>Month-on-Month Comparison</h3>
-    <canvas id="momChart"></canvas>
-  </div>
-  <div class="chart-card">
-    <h3>Year-on-Year Comparison</h3>
-    <canvas id="yoyChart"></canvas>
+    <div class="kpi-context">2.05% Jun · 1.67% Jul '23</div>
   </div>
 </div>
 
 <div class="table-wrap">
   <table>
     <thead>
-      <tr>
-        <th>Period</th>
-        <th>Campaigns</th>
-        <th>Emails Sent</th>
-        <th>Campaign Rev</th>
-        <th>Flow Rev</th>
-        <th>Total Rev</th>
-        <th>Open Rate</th>
-        <th>CTR</th>
-      </tr>
+      <tr><th>Period</th><th>Campaigns</th><th>Emails Sent</th><th>Campaign Rev</th><th>Flow Rev</th><th>Total Rev</th><th>Open Rate</th><th>CTR</th></tr>
     </thead>
     <tbody>
       <tr>
-        <td><strong>Jul 2024</strong></td>
-        <td>32</td>
-        <td>3,786,022</td>
-        <td>$370,258</td>
-        <td>$98,987</td>
+        <td><strong>Jul 2024</strong></td><td>32</td><td>3,786,022</td>
+        <td>$370,258</td><td>$98,987</td>
         <td style="color:var(--green);font-weight:700">$469,245</td>
-        <td>38.21%</td>
-        <td>2.03%</td>
+        <td>38.21%</td><td>2.03%</td>
       </tr>
       <tr>
-        <td>Jun 2024</td>
-        <td>28</td>
-        <td>2,988,760</td>
-        <td>$331,194</td>
-        <td>$73,047</td>
-        <td>$404,241</td>
-        <td>41.37%</td>
-        <td>2.05%</td>
+        <td>Jun 2024</td><td>28</td><td>2,988,760</td>
+        <td>$331,194</td><td>$73,047</td><td>$404,241</td>
+        <td>41.37%</td><td>2.05%</td>
       </tr>
       <tr>
-        <td>Jul 2023</td>
-        <td>30</td>
-        <td>4,210,824</td>
+        <td>Jul 2023</td><td>30</td><td>4,210,824</td>
         <td>$135,160<sup style="color:var(--text-muted)"> Insider</sup></td>
-        <td>—</td>
-        <td>—</td>
-        <td>37.34%</td>
-        <td>1.67%</td>
+        <td>—</td><td>—</td><td>37.34%</td><td>1.67%</td>
       </tr>
     </tbody>
   </table>
 </div>
 
+<div class="charts-grid">
+  <div class="chart-card">
+    <h3>Email Revenue — MoM</h3>
+    <canvas id="emailRevChart"></canvas>
+  </div>
+  <div class="chart-card">
+    <h3>Email Engagement — YoY</h3>
+    <canvas id="emailEngagementChart"></canvas>
+  </div>
+</div>
+
 <div class="insight-box">
   <h4>📝 Key Insights — Email</h4>
   <ul>
-    <li>Higher send volume drove +16% total revenue MoM, but diluted open rates (-8%) and CTR</li>
-    <li>YoY: tighter segmentation despite more campaigns. OR +2.3%, CTR +21.6% — content improvements landing</li>
+    <li>Higher send volume drove +16% total email revenue MoM, but diluted open rates (-8%) and CTR</li>
+    <li>YoY: tighter segmentation despite more campaigns — OR +2.3%, CTR +21.6%</li>
     <li>GA email channel revenue down 40% YoY — attribution differences (GA vs GA4) + comping Barbie sales LY</li>
-    <li><strong>Action:</strong> Relook at subject/preheader CTAs and segmentation moving into September</li>
+    <li><strong>Action:</strong> Relook at subject/preheader CTAs and segmentation for September</li>
   </ul>
 </div>
 
-<!-- TOP CAMPAIGNS -->
-<div class="section-title"><span class="icon">🏆</span> Top Performing Campaigns</div>
+<!-- ===== TOP CAMPAIGNS ===== -->
+<div class="section-title"><span class="icon">🏆</span> Top Performing Email Campaigns</div>
 
 <div class="top-campaigns">
   <div class="campaign-card">
     <div class="campaign-rank">#1</div>
-    <div class="campaign-date">Jul 24, 2024 · 6:30 PM</div>
+    <div class="campaign-date">Jul 24 · 6:30 PM</div>
     <div class="campaign-subject">Online Flash Offer: 50% Off* Selected Styles</div>
     <div class="campaign-pre">Hurry, ends midnight Thursday</div>
     <div class="campaign-stats">
@@ -399,11 +403,11 @@ footer {
       <div><div class="campaign-stat-label">Open Rate</div><div class="campaign-stat-value">44%</div></div>
       <div><div class="campaign-stat-label">CTR</div><div class="campaign-stat-value">3.4%</div></div>
     </div>
-    <div style="margin-top:10px;font-size:12px;color:var(--text-muted)">Audience: Engaged 90D</div>
+    <div style="margin-top:8px;font-size:11px;color:var(--text-muted)">Audience: Engaged 90D</div>
   </div>
   <div class="campaign-card">
     <div class="campaign-rank">#2</div>
-    <div class="campaign-date">Jul 8, 2024 · 6:30 PM</div>
+    <div class="campaign-date">Jul 8 · 6:30 PM</div>
     <div class="campaign-subject">PSA: 50% Off* Coats & Jackets!</div>
     <div class="campaign-pre">Upgrade your winter.</div>
     <div class="campaign-stats">
@@ -411,11 +415,11 @@ footer {
       <div><div class="campaign-stat-label">Open Rate</div><div class="campaign-stat-value">43.4%</div></div>
       <div><div class="campaign-stat-label">CTR</div><div class="campaign-stat-value">3.9%</div></div>
     </div>
-    <div style="margin-top:10px;font-size:12px;color:var(--text-muted)">Audience: Engaged 180D (183,810)</div>
+    <div style="margin-top:8px;font-size:11px;color:var(--text-muted)">Audience: Engaged 180D (183,810)</div>
   </div>
   <div class="campaign-card">
     <div class="campaign-rank">#3</div>
-    <div class="campaign-date">Jul 28, 2024 · 6:00 PM</div>
+    <div class="campaign-date">Jul 28 · 6:00 PM</div>
     <div class="campaign-subject">24 hours only! 50 styles, 50% off*</div>
     <div class="campaign-pre">Including styles on your wishlist.</div>
     <div class="campaign-stats">
@@ -423,11 +427,11 @@ footer {
       <div><div class="campaign-stat-label">Open Rate</div><div class="campaign-stat-value">28%</div></div>
       <div><div class="campaign-stat-label">CTR</div><div class="campaign-stat-value">3.4%</div></div>
     </div>
-    <div style="margin-top:10px;font-size:12px;color:var(--text-muted)">Audience: Non-openers + Sale Shoppers (64,784)</div>
+    <div style="margin-top:8px;font-size:11px;color:var(--text-muted)">Audience: Non-openers + Sale Shoppers (64,784)</div>
   </div>
   <div class="campaign-card">
     <div class="campaign-rank">#4</div>
-    <div class="campaign-date">Jul 16, 2024 · 7:00 AM</div>
+    <div class="campaign-date">Jul 16 · 7:00 AM</div>
     <div class="campaign-subject">FINAL HOURS! Take a further 30% off ends tonight.</div>
     <div class="campaign-pre">Your last call to shop the sale.</div>
     <div class="campaign-stats">
@@ -435,11 +439,11 @@ footer {
       <div><div class="campaign-stat-label">Open Rate</div><div class="campaign-stat-value">40.4%</div></div>
       <div><div class="campaign-stat-label">CTR</div><div class="campaign-stat-value">1.8%</div></div>
     </div>
-    <div style="margin-top:10px;font-size:12px;color:var(--text-muted)">Audience: Engaged 90D (164,683)</div>
+    <div style="margin-top:8px;font-size:11px;color:var(--text-muted)">Audience: Engaged 90D (164,683)</div>
   </div>
 </div>
 
-<!-- ORGANIC SOCIAL -->
+<!-- ===== ORGANIC SOCIAL ===== -->
 <div class="section-title"><span class="icon">📱</span> Organic Social</div>
 
 <div class="kpi-grid">
@@ -480,108 +484,157 @@ footer {
   </ul>
 </div>
 
+<!-- ===== SUMMARY ===== -->
+<div class="section-title"><span class="icon">📊</span> Month-on-Month Summary</div>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th>Metric</th><th>Jul 2024</th><th>Jun 2024</th><th>Change</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Gross Sales</td><td>$1,122,768</td><td>$1,128,702</td><td style="color:var(--red)">-0.5%</td></tr>
+      <tr><td>Net Sales</td><td>$815,867</td><td>$786,107</td><td style="color:var(--green)">+3.8%</td></tr>
+      <tr><td>Total Sales</td><td><strong>$919,231</strong></td><td>$884,968</td><td style="color:var(--green)"><strong>+3.9%</strong></td></tr>
+      <tr><td>Orders</td><td>6,750</td><td>7,159</td><td style="color:var(--red)">-5.7%</td></tr>
+      <tr><td>AOV</td><td>$164.26</td><td>$163.30</td><td style="color:var(--green)">+0.6%</td></tr>
+      <tr><td>Discounts</td><td>-$223,130</td><td>-$284,440</td><td style="color:var(--green)">-21.5%</td></tr>
+      <tr><td>Returns</td><td>-$83,771</td><td>-$58,155</td><td style="color:var(--red)">+44.0%</td></tr>
+      <tr><td>GA4 Sessions</td><td>440,138</td><td>381,271</td><td style="color:var(--green)">+15.4%</td></tr>
+      <tr><td>Bounce Rate</td><td>24.5%</td><td>25.3%</td><td style="color:var(--green)">Improved</td></tr>
+      <tr><td>Conversion Rate</td><td>1.24%</td><td>1.36%</td><td style="color:var(--red)">-8.2%</td></tr>
+      <tr><td>Total Ad Spend</td><td>$46,583</td><td>$44,397</td><td style="color:var(--red)">+4.9%</td></tr>
+      <tr><td>Blended ROAS</td><td>19.7x</td><td>19.9x</td><td style="color:var(--text-muted)">-1.0%</td></tr>
+      <tr><td>Blended CAC</td><td>$14.72</td><td>$13.87</td><td style="color:var(--red)">+6.1%</td></tr>
+      <tr><td>Meta Spend</td><td>$16,350</td><td>$18,894</td><td style="color:var(--green)">-13.5%</td></tr>
+      <tr><td>Meta ROAS</td><td>13.3x</td><td>10.6x</td><td style="color:var(--green)">+25.2%</td></tr>
+      <tr><td>Google Spend</td><td>$28,028</td><td>$22,102</td><td style="color:var(--red)">+26.8%</td></tr>
+      <tr><td>Email Total Rev</td><td>$469,245</td><td>$404,241</td><td style="color:var(--green)">+16.1%</td></tr>
+      <tr><td>Email Open Rate</td><td>38.2%</td><td>41.4%</td><td style="color:var(--red)">-7.7%</td></tr>
+    </tbody>
+  </table>
+</div>
+
 <footer>
-  Review Monthly Marketing Dashboard · Data: July 2024 · Built by The Claw 🦀
+  Review Monthly Marketing Dashboard · July 2024 · Data: Polar Analytics (Shopify, GA4, Meta Ads, Google Ads, Klaviyo) · Built by The Claw 🦀
 </footer>
 
 <script>
-// Theme
 function toggleTheme() {
   const t = document.body.getAttribute('data-theme') === 'light' ? '' : 'light';
   document.body.setAttribute('data-theme', t);
   localStorage.setItem('viv-theme', t);
-  renderCharts();
+  initCharts();
 }
-(function() {
-  const saved = localStorage.getItem('viv-theme');
-  if (saved) document.body.setAttribute('data-theme', saved);
-})();
+(function() { const s = localStorage.getItem('viv-theme'); if (s) document.body.setAttribute('data-theme', s); })();
 
-// Charts
-let momChart, yoyChart;
-function renderCharts() {
-  const isDark = document.body.getAttribute('data-theme') !== 'light';
-  const gridColor = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
-  const textColor = isDark ? '#9ca3af' : '#6b7280';
+const dailyData = [
+  {d:"1",s:42268,o:266},{d:"2",s:27386,o:201},{d:"3",s:23374,o:141},{d:"4",s:35546,o:266},
+  {d:"5",s:27879,o:203},{d:"6",s:38365,o:274},{d:"7",s:36364,o:233},{d:"8",s:45050,o:235},
+  {d:"9",s:55661,o:224},{d:"10",s:42232,o:172},{d:"11",s:40571,o:206},{d:"12",s:35966,o:225},
+  {d:"13",s:33196,o:163},{d:"14",s:34507,o:239},{d:"15",s:46415,o:256},{d:"16",s:53858,o:314},
+  {d:"17",s:29943,o:160},{d:"18",s:30335,o:181},{d:"19",s:28605,o:179},{d:"20",s:23822,o:156},
+  {d:"21",s:25460,o:180},{d:"22",s:14278,o:117},{d:"23",s:19105,o:142},{d:"24",s:49666,o:279},
+  {d:"25",s:66647,o:383},{d:"26",s:20982,o:123},{d:"27",s:24477,o:139},{d:"28",s:46228,o:331},
+  {d:"29",s:57797,o:399},{d:"30",s:35120,o:163},{d:"31",s:31666,o:200}
+];
 
-  if (momChart) momChart.destroy();
-  if (yoyChart) yoyChart.destroy();
+let charts = {};
+function destroyAll() { Object.values(charts).forEach(c => c.destroy()); charts = {}; }
 
-  const momCtx = document.getElementById('momChart').getContext('2d');
-  momChart = new Chart(momCtx, {
-    type: 'bar',
-    data: {
+function initCharts() {
+  destroyAll();
+  const dark = document.body.getAttribute('data-theme') !== 'light';
+  const grid = dark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
+  const txt = dark ? '#9ca3af' : '#6b7280';
+  const purple = dark ? '#a78bfa' : '#7c3aed';
+  const green = dark ? '#34d399' : '#059669';
+  const blue = dark ? '#60a5fa' : '#2563eb';
+  const orange = dark ? '#fbbf24' : '#d97706';
+
+  // Daily Sales
+  charts.daily = new Chart(document.getElementById('dailySalesChart'), {
+    type: 'bar', data: {
+      labels: dailyData.map(d => d.d),
+      datasets: [{
+        data: dailyData.map(d => d.s),
+        backgroundColor: dailyData.map(d => d.s > 50000 ? (dark?'rgba(52,211,153,.5)':'rgba(5,150,105,.3)') : (dark?'rgba(167,139,250,.3)':'rgba(124,58,237,.15)')),
+        borderRadius: 3
+      }]
+    }, options: {
+      responsive: true, plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => '$' + (c.raw/1000).toFixed(1) + 'K' } } },
+      scales: { x: { ticks: { color: txt, font: { size: 10 } }, grid: { display: false } }, y: { ticks: { color: txt, callback: v => '$'+(v/1000)+'K' }, grid: { color: grid } } }
+    }
+  });
+
+  // Daily Orders
+  charts.orders = new Chart(document.getElementById('dailyOrdersChart'), {
+    type: 'line', data: {
+      labels: dailyData.map(d => d.d),
+      datasets: [{ data: dailyData.map(d => d.o), borderColor: blue, backgroundColor: dark?'rgba(96,165,250,.1)':'rgba(37,99,235,.05)', fill: true, tension: 0.3, pointRadius: 2 }]
+    }, options: {
+      responsive: true, plugins: { legend: { display: false } },
+      scales: { x: { ticks: { color: txt, font: { size: 10 } }, grid: { display: false } }, y: { ticks: { color: txt }, grid: { color: grid } } }
+    }
+  });
+
+  // Spend split
+  charts.spend = new Chart(document.getElementById('spendChart'), {
+    type: 'bar', data: {
+      labels: ['Meta', 'Google', 'Total'],
+      datasets: [
+        { label: 'Jun 2024', data: [18894, 22102, 44397], backgroundColor: dark?'rgba(167,139,250,.3)':'rgba(124,58,237,.15)', borderColor: purple, borderWidth: 1, borderRadius: 6 },
+        { label: 'Jul 2024', data: [16350, 28028, 46583], backgroundColor: dark?'rgba(52,211,153,.3)':'rgba(5,150,105,.15)', borderColor: green, borderWidth: 1, borderRadius: 6 }
+      ]
+    }, options: {
+      responsive: true, plugins: { legend: { labels: { color: txt } }, tooltip: { callbacks: { label: c => c.dataset.label+': $'+(c.raw/1000).toFixed(1)+'K' } } },
+      scales: { x: { ticks: { color: txt }, grid: { display: false } }, y: { ticks: { color: txt, callback: v => '$'+(v/1000)+'K' }, grid: { color: grid } } }
+    }
+  });
+
+  // ROAS
+  charts.roas = new Chart(document.getElementById('roasChart'), {
+    type: 'bar', data: {
+      labels: ['Meta ROAS', 'Blended ROAS'],
+      datasets: [
+        { label: 'Jun 2024', data: [10.6, 19.93], backgroundColor: dark?'rgba(251,191,36,.3)':'rgba(217,119,6,.15)', borderColor: orange, borderWidth: 1, borderRadius: 6 },
+        { label: 'Jul 2024', data: [13.27, 19.73], backgroundColor: dark?'rgba(96,165,250,.3)':'rgba(37,99,235,.15)', borderColor: blue, borderWidth: 1, borderRadius: 6 }
+      ]
+    }, options: {
+      responsive: true, plugins: { legend: { labels: { color: txt } }, tooltip: { callbacks: { label: c => c.dataset.label+': '+c.raw+'x' } } },
+      scales: { x: { ticks: { color: txt }, grid: { display: false } }, y: { ticks: { color: txt, callback: v => v+'x' }, grid: { color: grid } } }
+    }
+  });
+
+  // Email Revenue MoM
+  charts.emailRev = new Chart(document.getElementById('emailRevChart'), {
+    type: 'bar', data: {
       labels: ['Campaign Rev', 'Flow Rev', 'Total Rev'],
       datasets: [
-        {
-          label: 'Jun 2024',
-          data: [331194, 73047, 404241],
-          backgroundColor: isDark ? 'rgba(167,139,250,0.3)' : 'rgba(124,58,237,0.2)',
-          borderColor: isDark ? '#a78bfa' : '#7c3aed',
-          borderWidth: 1,
-          borderRadius: 6
-        },
-        {
-          label: 'Jul 2024',
-          data: [370258, 98987, 469245],
-          backgroundColor: isDark ? 'rgba(52,211,153,0.3)' : 'rgba(5,150,105,0.2)',
-          borderColor: isDark ? '#34d399' : '#059669',
-          borderWidth: 1,
-          borderRadius: 6
-        }
+        { label: 'Jun 2024', data: [331194, 73047, 404241], backgroundColor: dark?'rgba(167,139,250,.3)':'rgba(124,58,237,.15)', borderColor: purple, borderWidth: 1, borderRadius: 6 },
+        { label: 'Jul 2024', data: [370258, 98987, 469245], backgroundColor: dark?'rgba(52,211,153,.3)':'rgba(5,150,105,.15)', borderColor: green, borderWidth: 1, borderRadius: 6 }
       ]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { labels: { color: textColor } },
-        tooltip: { callbacks: { label: (c) => c.dataset.label + ': $' + c.raw.toLocaleString() } }
-      },
-      scales: {
-        x: { ticks: { color: textColor }, grid: { display: false } },
-        y: { ticks: { color: textColor, callback: v => '$' + (v/1000) + 'K' }, grid: { color: gridColor } }
-      }
+    }, options: {
+      responsive: true, plugins: { legend: { labels: { color: txt } }, tooltip: { callbacks: { label: c => c.dataset.label+': $'+(c.raw/1000).toFixed(0)+'K' } } },
+      scales: { x: { ticks: { color: txt }, grid: { display: false } }, y: { ticks: { color: txt, callback: v => '$'+(v/1000)+'K' }, grid: { color: grid } } }
     }
   });
 
-  const yoyCtx = document.getElementById('yoyChart').getContext('2d');
-  yoyChart = new Chart(yoyCtx, {
-    type: 'bar',
-    data: {
+  // Email Engagement YoY
+  charts.emailEng = new Chart(document.getElementById('emailEngagementChart'), {
+    type: 'bar', data: {
       labels: ['Open Rate', 'CTR'],
       datasets: [
-        {
-          label: 'Jul 2023',
-          data: [37.34, 1.67],
-          backgroundColor: isDark ? 'rgba(251,191,36,0.3)' : 'rgba(217,119,6,0.2)',
-          borderColor: isDark ? '#fbbf24' : '#d97706',
-          borderWidth: 1,
-          borderRadius: 6
-        },
-        {
-          label: 'Jul 2024',
-          data: [38.21, 2.03],
-          backgroundColor: isDark ? 'rgba(96,165,250,0.3)' : 'rgba(37,99,235,0.2)',
-          borderColor: isDark ? '#60a5fa' : '#2563eb',
-          borderWidth: 1,
-          borderRadius: 6
-        }
+        { label: 'Jul 2023', data: [37.34, 1.67], backgroundColor: dark?'rgba(251,191,36,.3)':'rgba(217,119,6,.15)', borderColor: orange, borderWidth: 1, borderRadius: 6 },
+        { label: 'Jul 2024', data: [38.21, 2.03], backgroundColor: dark?'rgba(96,165,250,.3)':'rgba(37,99,235,.15)', borderColor: blue, borderWidth: 1, borderRadius: 6 }
       ]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { labels: { color: textColor } },
-        tooltip: { callbacks: { label: (c) => c.dataset.label + ': ' + c.raw + '%' } }
-      },
-      scales: {
-        x: { ticks: { color: textColor }, grid: { display: false } },
-        y: { ticks: { color: textColor, callback: v => v + '%' }, grid: { color: gridColor } }
-      }
+    }, options: {
+      responsive: true, plugins: { legend: { labels: { color: txt } }, tooltip: { callbacks: { label: c => c.dataset.label+': '+c.raw+'%' } } },
+      scales: { x: { ticks: { color: txt }, grid: { display: false } }, y: { ticks: { color: txt, callback: v => v+'%' }, grid: { color: grid } } }
     }
   });
 }
-renderCharts();
+initCharts();
 </script>
 </body>
 </html>
