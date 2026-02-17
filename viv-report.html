@@ -3,322 +3,346 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Review — Monthly Marketing Report</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<title>VIV Report — Review Australia</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
-:root{--bg:#0f1117;--sf:#1a1d27;--sf2:#242835;--bd:#2e3345;--tx:#e8eaed;--tm:#9ca3af;--ac:#a78bfa;--gn:#34d399;--rd:#f87171;--or:#fbbf24;--bl:#60a5fa;--pk:#f472b6}
-[data-theme=light]{--bg:#f3f4f6;--sf:#fff;--sf2:#f9fafb;--bd:#e5e7eb;--tx:#111827;--tm:#6b7280;--ac:#7c3aed;--gn:#059669;--rd:#dc2626;--or:#d97706;--bl:#2563eb;--pk:#db2777}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--tx);line-height:1.5;padding:24px;max-width:1400px;margin:0 auto}
-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--bd)}
-header h1{font-size:28px;font-weight:700}header h1 span{color:var(--ac)}
-.subtitle{color:var(--tm);font-size:14px;margin-top:4px}
-.theme-toggle{background:var(--sf2);border:1px solid var(--bd);color:var(--tx);padding:8px 16px;border-radius:8px;cursor:pointer;font-size:14px}
-.st{font-size:18px;font-weight:700;margin:36px 0 16px;display:flex;align-items:center;gap:10px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
-.st .icon{font-size:22px}
-.kg{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:24px}
-.kc{background:var(--sf);border:1px solid var(--bd);border-radius:12px;padding:18px}
-.kl{font-size:11px;color:var(--tm);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
-.kv{font-size:26px;font-weight:700}
-.kd{font-size:12px;margin-top:4px;font-weight:500}
-.kd.up{color:var(--gn)}.kd.dn{color:var(--rd)}.kd.nu{color:var(--tm)}
-.kx{font-size:11px;color:var(--tm);margin-top:2px}
-.tw{background:var(--sf);border:1px solid var(--bd);border-radius:12px;overflow-x:auto;margin-bottom:24px}
-table{width:100%;border-collapse:collapse}
-th{text-align:left;padding:12px 14px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--tm);background:var(--sf2);border-bottom:1px solid var(--bd);font-weight:600;white-space:nowrap}
-td{padding:12px 14px;font-size:13px;border-bottom:1px solid var(--bd);white-space:nowrap}
-tr:last-child td{border-bottom:none}
-.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:16px;margin-bottom:24px}
-.cc{background:var(--sf);border:1px solid var(--bd);border-radius:12px;padding:20px}
-.cc h3{font-size:14px;font-weight:600;margin-bottom:16px;color:var(--tm)}
-canvas{max-height:260px}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
-.ib{background:var(--sf);border:1px solid var(--bd);border-left:4px solid var(--ac);border-radius:0 12px 12px 0;padding:18px;margin-bottom:24px}
-.ib h4{font-size:12px;color:var(--ac);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
-.ib ul{padding-left:16px}.ib li{font-size:13px;color:var(--tm);margin-bottom:5px}
-.unavail{background:var(--sf);border:1px dashed var(--bd);border-radius:12px;padding:24px;text-align:center;margin-bottom:24px;color:var(--tm)}
-.unavail .icon{font-size:28px;margin-bottom:8px}
-.unavail .reason{font-size:12px;opacity:.7;margin-top:4px}
-.creative-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;margin-bottom:24px}
-.creative-card{background:var(--sf);border:1px solid var(--bd);border-radius:12px;overflow:hidden;display:flex}
-.creative-thumb{width:100px;min-height:100px;background:var(--sf2);flex-shrink:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.creative-thumb img{width:100%;height:100%;object-fit:cover}
-.creative-thumb .no-img{font-size:32px;opacity:.3}
-.creative-info{padding:14px;flex:1;min-width:0}
-.creative-name{font-size:13px;font-weight:600;margin-bottom:6px;line-height:1.3;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-.creative-type{font-size:10px;text-transform:uppercase;color:var(--tm);margin-bottom:8px;letter-spacing:.5px}
-.creative-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.creative-metric .label{font-size:9px;color:var(--tm);text-transform:uppercase}
-.creative-metric .val{font-size:15px;font-weight:700}
-.creative-rank{font-size:11px;font-weight:700;color:var(--ac);margin-bottom:4px}
-footer{text-align:center;padding:28px 0 12px;color:var(--tm);font-size:11px;border-top:1px solid var(--bd);margin-top:40px}
-.src{display:inline-block;background:var(--sf2);border:1px solid var(--bd);border-radius:4px;padding:1px 6px;font-size:10px;color:var(--tm);margin-left:6px;vertical-align:middle}
-@media(max-width:768px){body{padding:14px}.kg{grid-template-columns:repeat(2,1fr)}.cg,.two{grid-template-columns:1fr}header h1{font-size:20px}}
+:root {
+    --bg: #0f172a; --surface: #1e293b; --surface2: #334155;
+    --text: #f1f5f9; --text2: #94a3b8; --accent: #818cf8;
+    --green: #22c55e; --red: #ef4444; --yellow: #f59e0b;
+    --border: #334155;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; background:var(--bg); color:var(--text); line-height:1.5; }
+.container { max-width:1200px; margin:0 auto; padding:20px; }
+.header { text-align:center; padding:30px 0 20px; border-bottom:1px solid var(--border); margin-bottom:24px; }
+.header h1 { font-size:28px; font-weight:700; letter-spacing:-0.5px; }
+.header .subtitle { color:var(--text2); font-size:14px; margin-top:4px; }
+.period { display:inline-block; background:var(--surface); padding:6px 16px; border-radius:20px; font-size:13px; color:var(--accent); margin-top:10px; }
+.section-title { font-size:18px; font-weight:600; margin:28px 0 14px; padding-bottom:8px; border-bottom:1px solid var(--border); }
+.kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+.kpi-card { background:var(--surface); border-radius:10px; padding:16px; }
+.kpi-label { font-size:12px; color:var(--text2); text-transform:uppercase; letter-spacing:0.5px; }
+.kpi-source { background:var(--surface2); padding:1px 6px; border-radius:4px; font-size:10px; text-transform:none; letter-spacing:0; }
+.kpi-value { font-size:24px; font-weight:700; margin:4px 0; }
+.kpi-change { font-size:13px; font-weight:500; }
+.chart-container { background:var(--surface); border-radius:10px; padding:20px; margin-top:16px; }
+.chart-wrap { position:relative; height:250px; }
+table { width:100%; border-collapse:collapse; background:var(--surface); border-radius:10px; overflow:hidden; margin-top:12px; }
+th { background:var(--surface2); text-align:left; padding:10px 14px; font-size:12px; text-transform:uppercase; color:var(--text2); letter-spacing:0.5px; }
+td { padding:10px 14px; border-top:1px solid var(--border); font-size:14px; }
+.ch-delta { font-size:11px; margin-left:4px; }
+.creative-card { display:flex; align-items:center; gap:14px; background:var(--surface); border-radius:10px; padding:12px 16px; margin-bottom:8px; }
+.creative-rank { font-size:18px; font-weight:700; color:var(--accent); min-width:30px; text-align:center; }
+.creative-thumb { width:64px; height:64px; border-radius:8px; overflow:hidden; flex-shrink:0; background:var(--surface2); }
+.creative-thumb img { width:100%; height:100%; object-fit:cover; }
+.creative-info { flex:1; min-width:0; }
+.creative-name { font-size:14px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.creative-metrics { display:flex; gap:16px; margin-top:4px; flex-wrap:wrap; }
+.cm { font-size:12px; color:var(--text2); }
+.footer { text-align:center; padding:30px 0; color:var(--text2); font-size:12px; }
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+@media(max-width:768px) {
+    .kpi-grid { grid-template-columns:repeat(2,1fr); }
+    .two-col { grid-template-columns:1fr; }
+    .creative-metrics { gap:8px; }
+}
 </style>
 </head>
 <body>
-<header>
-  <div>
-    <h1><span>Review</span> — Monthly Marketing Report</h1>
-    <div class="subtitle">July 2024 vs June 2024 · All data sourced from Polar Analytics API</div>
-  </div>
-  <button class="theme-toggle" onclick="toggleTheme()">🌙 / ☀️</button>
-</header>
+<div class="container">
+    <div class="header">
+        <h1>📊 Review Australia</h1>
+        <div class="subtitle">Weekly Marketing Performance Report</div>
+        <div class="period">Week of Feb 10 – 16, 2026 vs Feb 3 – 9, 2026</div>
+    </div>
 
-<!-- ===== SALES ===== -->
-<div class="st"><span class="icon">💰</span> Sales Performance <span class="src">Shopify</span></div>
+    <div class="section-title">Key Performance Indicators</div>
+    <div class="kpi-grid">
+        
+        <div class="kpi-card">
+            <div class="kpi-label">Gross Sales <span class="kpi-source">Shopify</span></div>
+            <div class="kpi-value">$121,108</div>
+            <div class="kpi-change" style="color:#ef4444">▼ -2.9%</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Net Sales <span class="kpi-source">Shopify</span></div>
+            <div class="kpi-value">$86,410</div>
+            <div class="kpi-change" style="color:#ef4444">▼ -12.5%</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Orders <span class="kpi-source">Shopify</span></div>
+            <div class="kpi-value">222</div>
+            <div class="kpi-change" style="color:#ef4444">▼ -17.5%</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">AOV <span class="kpi-source">Blended</span></div>
+            <div class="kpi-value">$201.40</div>
+            <div class="kpi-change" style="color:#22c55e">▲ +8.4%</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Sessions <span class="kpi-source">GA4</span></div>
+            <div class="kpi-value">62,754</div>
+            <div class="kpi-change" style="color:#ef4444">▼ -6.9%</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Blended ROAS <span class="kpi-source">Blended</span></div>
+            <div class="kpi-value">16.1x</div>
+            <div class="kpi-change" style="color:#22c55e">▲ +5.9%</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Total Ad Spend <span class="kpi-source">Blended</span></div>
+            <div class="kpi-value">$6,044</div>
+            <div class="kpi-change" style="color:#ef4444">▼ -17.5%</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">CAC <span class="kpi-source">Blended</span></div>
+            <div class="kpi-value">$27.85</div>
+            <div class="kpi-change" style="color:#22c55e">▼ -2.7%</div>
+        </div>
+    </div>
 
-<div class="kg">
-  <div class="kc"><div class="kl">Gross Sales</div><div class="kv">$1.12M</div><div class="kd dn">-0.5% vs Jun ($1.13M)</div></div>
-  <div class="kc"><div class="kl">Discounts</div><div class="kv">-$223K</div><div class="kd up">-21.5% vs Jun (-$284K)</div><div class="kx">Less discounting = healthier margin</div></div>
-  <div class="kc"><div class="kl">Returns</div><div class="kv">-$84K</div><div class="kd dn">+44% vs Jun (-$58K)</div></div>
-  <div class="kc"><div class="kl">Net Sales</div><div class="kv">$816K</div><div class="kd up">+3.8% vs Jun ($786K)</div></div>
-  <div class="kc"><div class="kl">Total Sales (incl. tax + shipping)</div><div class="kv" style="color:var(--gn)">$919K</div><div class="kd up">+3.9% vs Jun ($885K)</div></div>
-  <div class="kc"><div class="kl">Orders</div><div class="kv">6,750</div><div class="kd dn">-5.7% vs Jun (7,159)</div></div>
-  <div class="kc"><div class="kl">AOV</div><div class="kv">$164</div><div class="kd up">+0.6% vs Jun ($163)</div></div>
-  <div class="kc"><div class="kl">Shipping</div><div class="kv">$21.6K</div><div class="kd nu">+2.0% vs Jun ($21.2K)</div></div>
-</div>
+    <div class="section-title">Daily Sales Trend</div>
+    <div class="two-col">
+        <div class="chart-container">
+            <div class="chart-wrap"><canvas id="grossChart"></canvas></div>
+        </div>
+        <div class="chart-container">
+            <div class="chart-wrap"><canvas id="ordersChart"></canvas></div>
+        </div>
+    </div>
 
-<div class="cg">
-  <div class="cc"><h3>Daily Gross Sales — July 2024</h3><canvas id="dailySalesChart"></canvas></div>
-  <div class="cc"><h3>Daily Orders — July 2024</h3><canvas id="dailyOrdersChart"></canvas></div>
-</div>
-
-<div class="ib">
-  <h4>📝 Sales Insights</h4>
-  <ul>
-    <li>Net sales up 3.8% despite gross being flat — driven by <strong>21% less discounting</strong></li>
-    <li>Fewer orders (-5.7%) but higher AOV (+0.6%) — quality over quantity shift</li>
-    <li>Returns spiked 44% ($58K → $84K) — worth investigating by category</li>
-    <li>Total sales +3.9% MoM with healthier margin mix</li>
-  </ul>
-</div>
-
-<!-- ===== TRAFFIC ===== -->
-<div class="st"><span class="icon">🌐</span> Website Traffic <span class="src">GA4</span></div>
-
-<div class="kg">
-  <div class="kc"><div class="kl">Sessions</div><div class="kv">440K</div><div class="kd up">+15.4% vs Jun (381K)</div></div>
-  <div class="kc"><div class="kl">Bounce Rate</div><div class="kv">24.5%</div><div class="kd up">Improved from 25.3%</div></div>
-  <div class="kc"><div class="kl">Conversion Rate</div><div class="kv">1.24%</div><div class="kd dn">-8.2% vs Jun (1.36%)</div><div class="kx">More traffic, lower conversion</div></div>
-</div>
-
-<div class="ib">
-  <h4>📝 Traffic Insights</h4>
-  <ul>
-    <li>Sessions up 15.4% — strong traffic growth with improved bounce rate</li>
-    <li>Conversion rate dropped 8.2% — likely diluted by upper-funnel traffic from increased Google Ads spend</li>
-    <li>Net effect positive: more sessions × lower CVR still = more orders than if traffic stayed flat</li>
-  </ul>
-</div>
-
-<!-- ===== PAID MEDIA ===== -->
-<div class="st"><span class="icon">📈</span> Paid Media <span class="src">Meta Ads</span> <span class="src">Google Ads</span></div>
-
-<div class="kg">
-  <div class="kc"><div class="kl">Total Ad Spend</div><div class="kv">$46.6K</div><div class="kd dn">+4.9% vs Jun ($44.4K)</div></div>
-  <div class="kc"><div class="kl">Blended ROAS</div><div class="kv" style="color:var(--gn)">19.7x</div><div class="kd dn">-1.0% vs Jun (19.9x)</div></div>
-  <div class="kc"><div class="kl">Blended CAC</div><div class="kv">$14.72</div><div class="kd dn">+6.1% vs Jun ($13.87)</div></div>
-  <div class="kc"><div class="kl">Blended CVR (GA sessions)</div><div class="kv">1.24%</div><div class="kd dn">vs 1.36% Jun</div></div>
-</div>
-
-<div class="two">
-  <div class="tw">
+    <div class="section-title">Channel Performance</div>
     <table>
-      <thead><tr><th colspan="4" style="font-size:13px;text-transform:none;font-weight:700;color:var(--tx)">Meta Ads</th></tr>
-      <tr><th>Metric</th><th>Jul '24</th><th>Jun '24</th><th>Δ</th></tr></thead>
-      <tbody>
-        <tr><td>Spend</td><td><strong>$16,350</strong></td><td>$18,894</td><td style="color:var(--gn)">-13.5%</td></tr>
-        <tr><td>Impressions</td><td>1.63M</td><td>1.98M</td><td style="color:var(--rd)">-17.4%</td></tr>
-        <tr><td>Clicks</td><td>33,619</td><td>28,191</td><td style="color:var(--gn)">+19.3%</td></tr>
-        <tr><td>Purchases</td><td>1,167</td><td>1,090</td><td style="color:var(--gn)">+7.1%</td></tr>
-        <tr><td>Purchase Value</td><td style="color:var(--gn)"><strong>$217K</strong></td><td>$200K</td><td style="color:var(--gn)">+8.4%</td></tr>
-        <tr><td>ROAS</td><td style="color:var(--gn)"><strong>13.3x</strong></td><td>10.6x</td><td style="color:var(--gn)">+25.2%</td></tr>
-        <tr><td>CPC (Link)</td><td>$0.66</td><td>—</td><td>—</td></tr>
-      </tbody>
+        <thead><tr><th>Channel</th><th>Spend</th><th>Impressions</th><th>Clicks</th><th>Conversions</th><th>ROAS</th></tr></thead>
+        <tbody>
+        <tr>
+            <td>Meta Ads</td>
+            <td>$2,300 <span class="ch-delta" style="color:#ef4444">+9.3%</span></td>
+            <td>642,915</td>
+            <td>8,948 <span class="ch-delta" style="color:#ef4444">-11.4%</span></td>
+            <td>149 <span class="ch-delta" style="color:#ef4444">-24.7%</span></td>
+            <td>14.5x</td>
+        </tr>
+        <tr>
+            <td>Google Ads</td>
+            <td>$1,464 <span class="ch-delta" style="color:#22c55e">-39.6%</span></td>
+            <td>112,999</td>
+            <td>8,497 <span class="ch-delta" style="color:#ef4444">-28.9%</span></td>
+            <td>176 <span class="ch-delta" style="color:#ef4444">-34.3%</span></td>
+            <td>–</td>
+        </tr></tbody>
+        <tfoot>
+            <tr style="font-weight:600;border-top:2px solid var(--border)">
+                <td>Total</td>
+                <td>$3,765</td>
+                <td>755,914</td>
+                <td>17,445</td>
+                <td>325</td>
+                <td>–</td>
+            </tr>
+        </tfoot>
     </table>
-  </div>
-  <div class="tw">
+
+    <div class="section-title">Shopify Breakdown</div>
     <table>
-      <thead><tr><th colspan="4" style="font-size:13px;text-transform:none;font-weight:700;color:var(--tx)">Google Ads</th></tr>
-      <tr><th>Metric</th><th>Jul '24</th><th>Jun '24</th><th>Δ</th></tr></thead>
-      <tbody>
-        <tr><td>Spend</td><td><strong>$28,028</strong></td><td>$22,102</td><td style="color:var(--rd)">+26.8%</td></tr>
-        <tr><td>Impressions</td><td>3.58M</td><td>2.76M</td><td style="color:var(--gn)">+29.5%</td></tr>
-        <tr><td>Clicks</td><td>96,030</td><td>86,743</td><td style="color:var(--gn)">+10.7%</td></tr>
-        <tr><td>Conversions</td><td>2,479</td><td>2,304</td><td style="color:var(--gn)">+7.6%</td></tr>
-        <tr><td>CPC</td><td>$0.29</td><td>$0.25</td><td style="color:var(--rd)">+14.5%</td></tr>
-        <tr><td>Conv. Rate</td><td>2.58%</td><td>2.66%</td><td style="color:var(--rd)">-2.8%</td></tr>
-        <tr><td>Spend Share</td><td>60%</td><td>50%</td><td>—</td></tr>
-      </tbody>
+        <thead><tr><th>Metric</th><th>This Week</th><th>Prev Week</th><th>Change</th></tr></thead>
+        <tbody>
+            <tr><td>Gross Sales</td><td>$121,108</td><td>$124,688</td><td style="color:#ef4444">-2.9%</td></tr>
+            <tr><td>Discounts</td><td>$15,775</td><td>$4,874</td><td style="color:#ef4444">+223.6%</td></tr>
+            <tr><td>Returns</td><td>$18,924</td><td>$21,086</td><td style="color:#22c55e">-10.3%</td></tr>
+            <tr><td>Net Sales</td><td>$86,410</td><td>$98,728</td><td style="color:#ef4444">-12.5%</td></tr>
+            <tr><td>Orders</td><td>222</td><td>269</td><td style="color:#ef4444">-17.5%</td></tr>
+        </tbody>
     </table>
-  </div>
+
+    <div class="section-title">Site Traffic</div>
+    <table>
+        <thead><tr><th>Metric</th><th>This Week</th><th>Prev Week</th><th>Change</th></tr></thead>
+        <tbody>
+            <tr><td>Sessions</td><td>62,754</td><td>67,433</td><td style="color:#ef4444">-6.9%</td></tr>
+            <tr><td>Bounce Rate</td><td>13.9%</td><td>11.9%</td><td style="color:#ef4444">+17.1%</td></tr>
+            <tr><td>CVR (Blended)</td><td>0.83%</td><td>0.96%</td><td style="color:#ef4444">-12.9%</td></tr>
+        </tbody>
+    </table>
+
+    <div class="section-title">Top Meta Creatives <span style="font-size:13px;color:var(--text2);font-weight:400">(last 14 days via Motion)</span></div>
+    
+        <div class="creative-card">
+            <div class="creative-rank">#1</div>
+            <div class="creative-thumb">
+                <img src="https://motionaccountassets.blob.core.windows.net/6903e1cc559f25800bf0c788/creativeassetfacebook/697a97e109c0e6d8af8f586/image.jpeg" alt="Trans Seasonal V2 | Static" onerror="this.style.display='none'">
+            </div>
+            <div class="creative-info">
+                <div class="creative-name">📸 Trans Seasonal V2 | Static</div>
+                <div class="creative-metrics">
+                    <span class="cm" style="color:#ef4444">0.6x ROAS</span>
+                    <span class="cm">$765.78 spend</span>
+                    <span class="cm">$469.83 revenue</span>
+                    <span class="cm">3 purchases</span>
+                </div>
+            </div>
+        </div>
+        <div class="creative-card">
+            <div class="creative-rank">#2</div>
+            <div class="creative-thumb">
+                <img src="https://motionaccountassets.blob.core.windows.net/6903e1cc559f25800bf0c788/creativeassetfacebook/697a97e109c0e6d8af8f586/cover.jpeg" alt="Trans Seasonal V2 | Video" onerror="this.style.display='none'">
+            </div>
+            <div class="creative-info">
+                <div class="creative-name">🎬 Trans Seasonal V2 | Video</div>
+                <div class="creative-metrics">
+                    <span class="cm" style="color:#f59e0b">1.2x ROAS</span>
+                    <span class="cm">$618.53 spend</span>
+                    <span class="cm">$758.88 revenue</span>
+                    <span class="cm">3 purchases</span>
+                </div>
+            </div>
+        </div>
+        <div class="creative-card">
+            <div class="creative-rank">#3</div>
+            <div class="creative-thumb">
+                <img src="https://motionaccountassets.blob.core.windows.net/6903e1cc559f25800bf0c788/creativeassetfacebook/698ab6bd1bee0fbf20389c4/image.jpeg" alt="Spend & Save | Static" onerror="this.style.display='none'">
+            </div>
+            <div class="creative-info">
+                <div class="creative-name">📸 Spend & Save | Static</div>
+                <div class="creative-metrics">
+                    <span class="cm" style="color:#22c55e">21.6x ROAS</span>
+                    <span class="cm">$454.77 spend</span>
+                    <span class="cm">$9,810 revenue</span>
+                    <span class="cm">47 purchases</span>
+                </div>
+            </div>
+        </div>
+        <div class="creative-card">
+            <div class="creative-rank">#4</div>
+            <div class="creative-thumb">
+                <img src="https://motionaccountassets.blob.core.windows.net/6903e1cc559f25800bf0c788/creativeassetfacebook/697a97e109c0e6d8af8f586/image.jpeg" alt="Trans Seasonal V1 | Static" onerror="this.style.display='none'">
+            </div>
+            <div class="creative-info">
+                <div class="creative-name">📸 Trans Seasonal V1 | Static</div>
+                <div class="creative-metrics">
+                    <span class="cm" style="color:#f59e0b">1.3x ROAS</span>
+                    <span class="cm">$386.16 spend</span>
+                    <span class="cm">$517.87 revenue</span>
+                    <span class="cm">2 purchases</span>
+                </div>
+            </div>
+        </div>
+        <div class="creative-card">
+            <div class="creative-rank">#5</div>
+            <div class="creative-thumb">
+                <img src="https://motionaccountassets.blob.core.windows.net/6903e1cc559f25800bf0c788/creativeassetfacebook/6983e95f09c0e6d8af6a3e9/cover.jpeg" alt="20% Evening Dresses | Boosted" onerror="this.style.display='none'">
+            </div>
+            <div class="creative-info">
+                <div class="creative-name">🎬 20% Evening Dresses | Boosted</div>
+                <div class="creative-metrics">
+                    <span class="cm" style="color:#ef4444">0.0x ROAS</span>
+                    <span class="cm">$381.08 spend</span>
+                    <span class="cm">$0.00 revenue</span>
+                    <span class="cm">0 purchases</span>
+                </div>
+            </div>
+        </div>
+        <div class="creative-card">
+            <div class="creative-rank">#6</div>
+            <div class="creative-thumb">
+                <img src="https://motionaccountassets.blob.core.windows.net/6903e1cc559f25800bf0c788/creativeassetfacebook/697953d23bac25b1db43440/image.jpeg" alt="20 Off FP V2 | Static" onerror="this.style.display='none'">
+            </div>
+            <div class="creative-info">
+                <div class="creative-name">📸 20 Off FP V2 | Static</div>
+                <div class="creative-metrics">
+                    <span class="cm" style="color:#22c55e">47.5x ROAS</span>
+                    <span class="cm">$274.85 spend</span>
+                    <span class="cm">$13,051 revenue</span>
+                    <span class="cm">60 purchases</span>
+                </div>
+            </div>
+        </div>
+        <div class="creative-card">
+            <div class="creative-rank">#7</div>
+            <div class="creative-thumb">
+                <img src="https://motionaccountassets.blob.core.windows.net/6903e1cc559f25800bf0c788/creativeassetfacebook/6982bd2209c0e6d8af33a66/image.jpeg" alt="Bentleigh Outlet | Static" onerror="this.style.display='none'">
+            </div>
+            <div class="creative-info">
+                <div class="creative-name">📸 Bentleigh Outlet | Static</div>
+                <div class="creative-metrics">
+                    <span class="cm" style="color:#22c55e">31.0x ROAS</span>
+                    <span class="cm">$214.44 spend</span>
+                    <span class="cm">$6,654 revenue</span>
+                    <span class="cm">34 purchases</span>
+                </div>
+            </div>
+        </div>
+        <div class="creative-card">
+            <div class="creative-rank">#8</div>
+            <div class="creative-thumb">
+                <img src="https://motionaccountassets.blob.core.windows.net/6903e1cc559f25800bf0c788/creativeassetfacebook/6903e1d352ed4a2ffceb28e/image.jpeg" alt="Coast Nostalgia Campaign | Image" onerror="this.style.display='none'">
+            </div>
+            <div class="creative-info">
+                <div class="creative-name">📸 Coast Nostalgia Campaign | Image</div>
+                <div class="creative-metrics">
+                    <span class="cm" style="color:#22c55e">26.5x ROAS</span>
+                    <span class="cm">$155.59 spend</span>
+                    <span class="cm">$4,117 revenue</span>
+                    <span class="cm">19 purchases</span>
+                </div>
+            </div>
+        </div>
+        <div class="creative-card">
+            <div class="creative-rank">#9</div>
+            <div class="creative-thumb">
+                <img src="https://motionaccountassets.blob.core.windows.net/6903e1cc559f25800bf0c788/creativeassetfacebook/697953d23bac25b1db43440/cover.jpeg" alt="20 Off FP | Video" onerror="this.style.display='none'">
+            </div>
+            <div class="creative-info">
+                <div class="creative-name">🎬 20 Off FP | Video</div>
+                <div class="creative-metrics">
+                    <span class="cm" style="color:#22c55e">52.2x ROAS</span>
+                    <span class="cm">$146.33 spend</span>
+                    <span class="cm">$7,644 revenue</span>
+                    <span class="cm">37 purchases</span>
+                </div>
+            </div>
+        </div>
+        <div class="creative-card">
+            <div class="creative-rank">#10</div>
+            <div class="creative-thumb">
+                <img src="https://motionaccountassets.blob.core.windows.net/6903e1cc559f25800bf0c788/creativeassetfacebook/697953d23bac25b1db43440/image.jpeg" alt="20 Off FP V1 | Static" onerror="this.style.display='none'">
+            </div>
+            <div class="creative-info">
+                <div class="creative-name">📸 20 Off FP V1 | Static</div>
+                <div class="creative-metrics">
+                    <span class="cm" style="color:#22c55e">53.2x ROAS</span>
+                    <span class="cm">$97.29 spend</span>
+                    <span class="cm">$5,177 revenue</span>
+                    <span class="cm">27 purchases</span>
+                </div>
+            </div>
+        </div>
+
+    <div class="footer">
+        Data sources: Shopify · GA4 · Meta Ads · Google Ads · Motion Creative Analytics<br>
+        Generated by The Claw 🦀 · Last updated Feb 18, 2026 10:51 AEST
+    </div>
 </div>
-
-<div class="cg">
-  <div class="cc"><h3>Ad Spend Split — Jul vs Jun</h3><canvas id="spendChart"></canvas></div>
-  <div class="cc"><h3>Platform Performance</h3><canvas id="roasChart"></canvas></div>
-</div>
-
-<div class="ib">
-  <h4>📝 Paid Media Insights</h4>
-  <ul>
-    <li><strong>Meta is the efficiency winner:</strong> spend down 13% while ROAS jumped 10.6x → 13.3x. More purchases, less cost.</li>
-    <li><strong>Google took more budget:</strong> spend up 27% ($22K → $28K), shifted from 50% to 60% of total. Driving volume but at higher CPC (+14.5%).</li>
-    <li>Blended ROAS held at ~19.7x despite higher total spend — healthy efficiency overall</li>
-    <li>CAC up 6% ($13.87 → $14.72) — still excellent but trend worth monitoring</li>
-    <li><strong>Opportunity:</strong> Meta's 13.3x ROAS at only 35% of spend suggests room to reallocate from Google for better returns</li>
-  </ul>
-</div>
-
-<!-- ===== META AD CREATIVES ===== -->
-<div class="st"><span class="icon">🎨</span> Top Meta Ad Creatives <span class="src">Meta Ads</span></div>
-
-<div class="creative-grid" id="creativeGrid"></div>
-
-<div class="ib">
-  <h4>📝 Creative Insights</h4>
-  <ul>
-    <li><strong>TAF30 (Take a Further 30%)</strong> dominated — $103K purchase value, 567 purchases at 12.0x ROAS on $5.7K spend. Clear winner.</li>
-    <li><strong>Retargeting crushes prospecting:</strong> "20% Off Full Price" lower-funnel hit 27.1x ROAS vs 8.3x upper-funnel — same creative, 3x the efficiency</li>
-    <li><strong>TAF30 retargeting</strong> (#8): 25.6x ROAS on lower-funnel vs 12.0x upper — retargeting consistently 2x+ more efficient</li>
-    <li><strong>Ballet Part 2</strong> retargeting: 25.9x ROAS, $37K value — high efficiency at decent scale</li>
-    <li><strong>Occasion Launch</strong> running both image (#5, 20.1x) and video (#6, 18.7x) — image slightly outperforming video</li>
-  </ul>
-</div>
-
-<!-- ===== EMAIL (KLAVIYO) ===== -->
-<div class="st"><span class="icon">📧</span> Email Performance <span class="src">Klaviyo</span></div>
-
-<div class="unavail">
-  <div class="icon">⏳</div>
-  <div><strong>Klaviyo data unavailable</strong> — Polar Analytics API timing out on Klaviyo queries for this date range.</div>
-  <div class="reason">Blended email metrics (revenue_from_klaviyo, sends, open_rate, unique_click_rate) all return timeout. This is a Polar API issue, not a data gap.</div>
-</div>
-
-<!-- ===== ORGANIC SOCIAL ===== -->
-<div class="st"><span class="icon">📱</span> Organic Social <span class="src">Instagram Business</span></div>
-
-<div class="unavail">
-  <div class="icon">⚠️</div>
-  <div><strong>Instagram Business data unavailable</strong> — Polar Analytics API returning 500 errors on all Instagram queries.</div>
-  <div class="reason">Tested with and without brand filter, with reduced metrics. All return Internal Server Error. Likely a connector issue on Polar's side.</div>
-</div>
-
-<!-- ===== SUMMARY TABLE ===== -->
-<div class="st"><span class="icon">📊</span> Month-on-Month Summary</div>
-
-<div class="tw">
-  <table>
-    <thead><tr><th>Metric</th><th>Source</th><th>Jul 2024</th><th>Jun 2024</th><th>Change</th></tr></thead>
-    <tbody>
-      <tr><td>Gross Sales</td><td><span class="src">Shopify</span></td><td>$1,122,768</td><td>$1,128,702</td><td style="color:var(--rd)">-0.5%</td></tr>
-      <tr><td>Discounts</td><td><span class="src">Shopify</span></td><td>-$223,130</td><td>-$284,440</td><td style="color:var(--gn)">-21.5%</td></tr>
-      <tr><td>Returns</td><td><span class="src">Shopify</span></td><td>-$83,771</td><td>-$58,155</td><td style="color:var(--rd)">+44.0%</td></tr>
-      <tr><td>Net Sales</td><td><span class="src">Shopify</span></td><td>$815,867</td><td>$786,107</td><td style="color:var(--gn)">+3.8%</td></tr>
-      <tr><td><strong>Total Sales</strong></td><td><span class="src">Shopify</span></td><td><strong>$919,231</strong></td><td><strong>$884,968</strong></td><td style="color:var(--gn)"><strong>+3.9%</strong></td></tr>
-      <tr><td>Orders</td><td><span class="src">Shopify</span></td><td>6,750</td><td>7,159</td><td style="color:var(--rd)">-5.7%</td></tr>
-      <tr><td>AOV</td><td><span class="src">Shopify</span></td><td>$164.26</td><td>$163.30</td><td style="color:var(--gn)">+0.6%</td></tr>
-      <tr style="border-top:2px solid var(--bd)"><td>Sessions</td><td><span class="src">GA4</span></td><td>440,138</td><td>381,271</td><td style="color:var(--gn)">+15.4%</td></tr>
-      <tr><td>Bounce Rate</td><td><span class="src">GA4</span></td><td>24.5%</td><td>25.3%</td><td style="color:var(--gn)">Improved</td></tr>
-      <tr><td>Conversion Rate</td><td><span class="src">Blended</span></td><td>1.24%</td><td>1.36%</td><td style="color:var(--rd)">-8.2%</td></tr>
-      <tr style="border-top:2px solid var(--bd)"><td>Total Ad Spend</td><td><span class="src">Blended</span></td><td>$46,583</td><td>$44,397</td><td style="color:var(--rd)">+4.9%</td></tr>
-      <tr><td>Blended ROAS</td><td><span class="src">Blended</span></td><td>19.7x</td><td>19.9x</td><td style="color:var(--tm)">-1.0%</td></tr>
-      <tr><td>Blended CAC</td><td><span class="src">Blended</span></td><td>$14.72</td><td>$13.87</td><td style="color:var(--rd)">+6.1%</td></tr>
-      <tr style="border-top:2px solid var(--bd)"><td>Meta Spend</td><td><span class="src">Meta</span></td><td>$16,350</td><td>$18,894</td><td style="color:var(--gn)">-13.5%</td></tr>
-      <tr><td>Meta ROAS</td><td><span class="src">Meta</span></td><td>13.3x</td><td>10.6x</td><td style="color:var(--gn)">+25.2%</td></tr>
-      <tr><td>Meta Purchases</td><td><span class="src">Meta</span></td><td>1,167</td><td>1,090</td><td style="color:var(--gn)">+7.1%</td></tr>
-      <tr><td>Google Spend</td><td><span class="src">Google</span></td><td>$28,028</td><td>$22,102</td><td style="color:var(--rd)">+26.8%</td></tr>
-      <tr><td>Google Conversions</td><td><span class="src">Google</span></td><td>2,479</td><td>2,304</td><td style="color:var(--gn)">+7.6%</td></tr>
-    </tbody>
-  </table>
-</div>
-
-<footer>
-  Review Monthly Marketing Dashboard · July 2024 · All data from Polar Analytics API (Shopify, GA4, Meta Ads, Google Ads) · Klaviyo &amp; Instagram unavailable (API errors) · Built by The Claw 🦀
-</footer>
 
 <script>
-function toggleTheme(){const t=document.body.getAttribute('data-theme')==='light'?'':'light';document.body.setAttribute('data-theme',t);localStorage.setItem('viv-theme',t);initCharts()}
-(function(){const s=localStorage.getItem('viv-theme');if(s)document.body.setAttribute('data-theme',s)})();
-
-const D=[
-{d:"1",s:42268,o:266},{d:"2",s:27386,o:201},{d:"3",s:23374,o:141},{d:"4",s:35546,o:266},
-{d:"5",s:27879,o:203},{d:"6",s:38365,o:274},{d:"7",s:36364,o:233},{d:"8",s:45050,o:235},
-{d:"9",s:55661,o:224},{d:"10",s:42232,o:172},{d:"11",s:40571,o:206},{d:"12",s:35966,o:225},
-{d:"13",s:33196,o:163},{d:"14",s:34507,o:239},{d:"15",s:46415,o:256},{d:"16",s:53858,o:314},
-{d:"17",s:29943,o:160},{d:"18",s:30335,o:181},{d:"19",s:28605,o:179},{d:"20",s:23822,o:156},
-{d:"21",s:25460,o:180},{d:"22",s:14278,o:117},{d:"23",s:19105,o:142},{d:"24",s:49666,o:279},
-{d:"25",s:66647,o:383},{d:"26",s:20982,o:123},{d:"27",s:24477,o:139},{d:"28",s:46228,o:331},
-{d:"29",s:57797,o:399},{d:"30",s:35120,o:163},{d:"31",s:31666,o:200}
-];
-
-let C={};
-function destroyAll(){Object.values(C).forEach(c=>c.destroy());C={}}
-
-function initCharts(){
-  destroyAll();
-  const dk=document.body.getAttribute('data-theme')!=='light';
-  const g=dk?'rgba(255,255,255,.06)':'rgba(0,0,0,.06)';
-  const t=dk?'#9ca3af':'#6b7280';
-  const pu=dk?'#a78bfa':'#7c3aed';
-  const gn=dk?'#34d399':'#059669';
-  const bl=dk?'#60a5fa':'#2563eb';
-  const or=dk?'#fbbf24':'#d97706';
-
-  C.ds=new Chart(document.getElementById('dailySalesChart'),{
-    type:'bar',data:{labels:D.map(d=>d.d),datasets:[{data:D.map(d=>d.s),backgroundColor:D.map(d=>d.s>50000?(dk?'rgba(52,211,153,.5)':'rgba(5,150,105,.3)'):(dk?'rgba(167,139,250,.3)':'rgba(124,58,237,.15)')),borderRadius:3}]},
-    options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+(c.raw/1000).toFixed(1)+'K'}}},scales:{x:{ticks:{color:t,font:{size:10}},grid:{display:false}},y:{ticks:{color:t,callback:v=>'$'+(v/1000)+'K'},grid:{color:g}}}}
-  });
-
-  C.do=new Chart(document.getElementById('dailyOrdersChart'),{
-    type:'line',data:{labels:D.map(d=>d.d),datasets:[{data:D.map(d=>d.o),borderColor:bl,backgroundColor:dk?'rgba(96,165,250,.1)':'rgba(37,99,235,.05)',fill:true,tension:.3,pointRadius:2}]},
-    options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{color:t,font:{size:10}},grid:{display:false}},y:{ticks:{color:t},grid:{color:g}}}}
-  });
-
-  C.sp=new Chart(document.getElementById('spendChart'),{
-    type:'bar',data:{labels:['Meta','Google','Total'],datasets:[
-      {label:'Jun 2024',data:[18894,22102,44397],backgroundColor:dk?'rgba(167,139,250,.3)':'rgba(124,58,237,.15)',borderColor:pu,borderWidth:1,borderRadius:6},
-      {label:'Jul 2024',data:[16350,28028,46583],backgroundColor:dk?'rgba(52,211,153,.3)':'rgba(5,150,105,.15)',borderColor:gn,borderWidth:1,borderRadius:6}
-    ]},options:{responsive:true,plugins:{legend:{labels:{color:t}},tooltip:{callbacks:{label:c=>c.dataset.label+': $'+(c.raw/1000).toFixed(1)+'K'}}},scales:{x:{ticks:{color:t},grid:{display:false}},y:{ticks:{color:t,callback:v=>'$'+(v/1000)+'K'},grid:{color:g}}}}
-  });
-
-  C.ro=new Chart(document.getElementById('roasChart'),{
-    type:'bar',data:{labels:['Meta ROAS','Blended ROAS','Meta CPA','Google CPC'],datasets:[
-      {label:'Jun 2024',data:[10.6,19.93,17.34,0.25],backgroundColor:dk?'rgba(251,191,36,.3)':'rgba(217,119,6,.15)',borderColor:or,borderWidth:1,borderRadius:6},
-      {label:'Jul 2024',data:[13.27,19.73,14.01,0.29],backgroundColor:dk?'rgba(96,165,250,.3)':'rgba(37,99,235,.15)',borderColor:bl,borderWidth:1,borderRadius:6}
-    ]},options:{responsive:true,plugins:{legend:{labels:{color:t}}},scales:{x:{ticks:{color:t},grid:{display:false}},y:{ticks:{color:t},grid:{color:g}}}}
-  });
-}
-initCharts();
-
-// Meta Ad Creatives
-const creatives = [
-  {rank:1,name:"TAF30 - Vid - Upper - Competitors",spend:5741,purchases:567,value:102680,roas:12.0,imps:879384,clicks:17673,img:"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjNzU3MWM0Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iODUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSI0OCIgZm9udC13ZWlnaHQ9ImJvbGQiPiMxPC90ZXh0Pgo8dGV4dCB4PSIxMDAiIHk9IjEzMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBvcGFjaXR5PSIwLjgiPlRBRjMwPC90ZXh0Pgo8L3N2Zz4="},
-  {rank:2,name:"Final Winter Markdown - Upper - Broad excl. Customers",spend:3095,purchases:249,value:49046,roas:10.5,imps:517207,clicks:10098,img:"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjNzRiY2M3Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iODUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSI0OCIgZm9udC13ZWlnaHQ9ImJvbGQiPiMyPC90ZXh0Pgo8dGV4dCB4PSIxMDAiIHk9IjEzMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBvcGFjaXR5PSIwLjgiPkZpbmFsIFdpbnRlcjwvdGV4dD4KPC9zdmc+"},
-  {rank:3,name:"20% Off Full Price - Vid - Upper - Competitors",spend:3593,purchases:246,value:45031,roas:8.3,imps:552981,clicks:3636,img:"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjNmE3MzVjIi8+Cjx0ZXh0IHg9IjEwMCIgeT0iODUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSI0OCIgZm9udC13ZWlnaHQ9ImJvbGQiPiMzPC90ZXh0Pgo8dGV4dCB4PSIxMDAiIHk9IjEzMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBvcGFjaXR5PSIwLjgiPjIwJSBPZmY8L3RleHQ+Cjwvc3ZnPg=="},
-  {rank:4,name:"20% Off Full Price - Vid - Lower - Customers/Visitors",spend:1052,purchases:216,value:43510,roas:27.1,imps:134064,clicks:927,img:"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjNjk5Zjk0Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iODUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSI0OCIgZm9udC13ZWlnaHQ9ImJvbGQiPiM0PC90ZXh0Pgo8dGV4dCB4PSIxMDAiIHk9IjEzMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBvcGFjaXR5PSIwLjgiPjIwJSBPZmYgKExvd2VyKTwvdGV4dD4KPC9zdmc+"},
-  {rank:5,name:"Occasion Launch - Feb'24 Image - Upper - Broad",spend:1418,purchases:234,value:42444,roas:20.1,imps:201141,clicks:2517,img:"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjYzU5YmJhIi8+Cjx0ZXh0IHg9IjEwMCIgeT0iODUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSI0OCIgZm9udC13ZWlnaHQ9ImJvbGQiPiM1PC90ZXh0Pgo8dGV4dCB4PSIxMDAiIHk9IjEzMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBvcGFjaXR5PSIwLjgiPk9jY2FzaW9uIExhdW5jaDwvdGV4dD4KPC9zdmc+"},
-  {rank:6,name:"Occasion Launch - Feb'24 Vid - Upper - Broad",spend:1350,purchases:186,value:37626,roas:18.7,imps:155790,clicks:1989,img:"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjNzU3MTU3Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iODUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSI0OCIgZm9udC13ZWlnaHQ9ImJvbGQiPiM2PC90ZXh0Pgo8dGV4dCB4PSIxMDAiIHk9IjEzMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBvcGFjaXR5PSIwLjgiPk9jY2FzaW9uIFZpZDwvdGV4dD4KPC9zdmc+"},
-  {rank:7,name:"Ballet Part 2 - Lower - Visitors/Customers",spend:968,purchases:183,value:37221,roas:25.9,imps:146229,clicks:4140,img:"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjYjY2Mzk2Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iODUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSI0OCIgZm9udC13ZWlnaHQ9ImJvbGQiPiM3PC90ZXh0Pgo8dGV4dCB4PSIxMDAiIHk9IjEzMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBvcGFjaXR5PSIwLjgiPkJhbGxldCBQYXJ0IDI8L3RleHQ+Cjwvc3ZnPg=="},
-  {rank:8,name:"TAF30 - Vid - Lower - Customers/Visitors",spend:966,purchases:219,value:36736,roas:25.6,imps:116364,clicks:2961,img:"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjYzNjMzVhIi8+Cjx0ZXh0IHg9IjEwMCIgeT0iODUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSI0OCIgZm9udC13ZWlnaHQ9ImJvbGQiPiM4PC90ZXh0Pgo8dGV4dCB4PSIxMDAiIHk9IjEzMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBvcGFjaXR5PSIwLjgiPlRBRjMwIChMb3dlcik8L3RleHQ+Cjwvc3ZnPg=="}
-];
-
-const grid=document.getElementById('creativeGrid');
-creatives.forEach(c=>{
-  grid.innerHTML+=`<div class="creative-card">
-    <div class="creative-thumb"><img src="${c.img}" loading="lazy"></div>
-    <div class="creative-info">
-      <div class="creative-rank">#${c.rank} · ${c.type}</div>
-      <div class="creative-name">${c.name}</div>
-      <div class="creative-metrics">
-        <div class="creative-metric"><div class="label">Revenue</div><div class="val" style="color:var(--gn)">$${(c.value/1000).toFixed(1)}K</div></div>
-        <div class="creative-metric"><div class="label">ROAS</div><div class="val">${c.roas}x</div></div>
-        <div class="creative-metric"><div class="label">Purchases</div><div class="val">${c.purchases}</div></div>
-      </div>
-      <div style="margin-top:6px;font-size:11px;color:var(--tm)">Spend: $${c.spend.toLocaleString()} · ${(c.imps/1000).toFixed(0)}K imps · ${c.clicks.toLocaleString()} clicks</div>
-    </div>
-  </div>`;
+const chartOpts = (label, color) => ({
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, title: { display: true, text: label, color: '#f1f5f9', font: { size: 14 } } },
+    scales: {
+        x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
+        y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8', callback: v => color === '#818cf8' ? '$'+v.toLocaleString() : v } }
+    }
+});
+new Chart(document.getElementById('grossChart'), {
+    type: 'bar',
+    data: { labels: ["02/10", "02/11", "02/12", "02/13", "02/14", "02/15", "02/16"], datasets: [{ data: [24209.0, 21404.0, 15859.0, 9910.0, 16032.0, 20253.0, 13441.0], backgroundColor: '#818cf8', borderRadius: 4 }] },
+    options: chartOpts('Gross Sales by Day', '#818cf8')
+});
+new Chart(document.getElementById('ordersChart'), {
+    type: 'bar',
+    data: { labels: ["02/10", "02/11", "02/12", "02/13", "02/14", "02/15", "02/16"], datasets: [{ data: [51, 24, 29, 24, 24, 41, 29], backgroundColor: '#22c55e', borderRadius: 4 }] },
+    options: chartOpts('Orders by Day', '#22c55e')
 });
 </script>
 </body>
