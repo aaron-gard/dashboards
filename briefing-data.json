@@ -1,248 +1,300 @@
 {
   "morning": {
-    "generated": "2026-02-17T06:05:00+11:00",
+    "generated": "2026-02-18T05:45:00+11:00",
     "calendar": {
-      "date": "Tuesday, 17 February 2026",
+      "date": "Wednesday, 18 February 2026",
       "meetings": [
         {
           "time": "09:00",
-          "duration": 60,
-          "title": "Executive Leadership Team weekly WIP catch up",
+          "duration": 30,
+          "title": "AI Weekly",
           "color": "#2563eb"
         },
         {
-          "time": "11:00",
-          "duration": 60,
-          "title": "BC Outlet | Key Pages Concept Design Brief",
+          "time": "09:30",
+          "duration": 30,
+          "title": "Reporting - AI - Aaron Demo",
           "color": "#f59e0b"
+        },
+        {
+          "time": "10:00",
+          "duration": 120,
+          "title": "Fashion Apparel ELKA & YARRA TRAIL Blue Sky Workshop",
+          "color": "#22c55e"
         },
         {
           "time": "12:00",
           "duration": 120,
           "title": "Focus Time",
-          "color": "#22c55e"
-        },
-        {
-          "time": "12:30",
-          "duration": 30,
-          "title": "SNS APP - NEXT STEPS",
           "color": "#8b5cf6"
         },
         {
-          "time": "13:00",
-          "duration": 60,
-          "title": "BC Corporate Site - Design Review",
+          "time": "14:00",
+          "duration": 45,
+          "title": "Hannah / Aaron - Catchup",
           "color": "#ef4444"
         },
         {
-          "time": "14:30",
-          "duration": 30,
-          "title": "7+5 Online Review",
+          "time": "15:00",
+          "duration": 45,
+          "title": "Erika / Aaron - Catchup",
           "color": "#06b6d4"
         },
         {
           "time": "15:00",
-          "duration": 90,
-          "title": "BC Group Trade Meeting (weekly)",
+          "duration": 30,
+          "title": "COE Digital corporate cost review",
           "color": "#ec4899"
         },
         {
-          "time": "16:30",
+          "time": "16:00",
           "duration": 45,
-          "title": "AI + BC catch up",
+          "title": "International expansion options discussion",
           "color": "#2563eb"
+        },
+        {
+          "time": "16:00",
+          "duration": 45,
+          "title": "Tyler / Aaron - Catchup",
+          "color": "#f59e0b"
         }
       ],
       "freeBlocks": [
         {
-          "start": "06:00",
+          "start": "05:00",
           "end": "09:00"
         },
         {
-          "start": "10:00",
-          "end": "11:00"
+          "start": "16:45",
+          "end": "18:00"
         }
       ]
     },
     "sales": {
-      "date": "Monday, 16 February 2026",
-      "ly_date": "Monday, 17 February 2025",
+      "date": "Tuesday, 17 February 2026",
+      "ly_date": "Tuesday, 18 February 2025",
       "brands": [
         {
           "name": "Shoes & Sox",
-          "demand": 29845,
-          "ly_demand": 20917
+          "demand": 28989,
+          "orders": 327,
+          "ly_demand": 15960,
+          "ly_orders": 177
         },
         {
           "name": "Reebok",
-          "demand": 24126,
-          "ly_demand": 25372
-        },
-        {
-          "name": "Black Pepper",
-          "demand": 22382,
-          "ly_demand": 19698
+          "demand": 23010,
+          "orders": 162,
+          "ly_demand": 26699,
+          "ly_orders": 208
         },
         {
           "name": "Hush Puppies",
-          "demand": 19027,
-          "ly_demand": 16008
+          "demand": 17283,
+          "orders": 122,
+          "ly_demand": 15250,
+          "ly_orders": 101
         },
         {
           "name": "Shoe Warehouse",
-          "demand": 17082,
-          "ly_demand": 7034
+          "demand": 16916,
+          "orders": 167,
+          "ly_demand": 8874,
+          "ly_orders": 94
         },
         {
-          "name": "Superdry",
-          "demand": 15685,
-          "ly_demand": 15213
+          "name": "Black Pepper",
+          "demand": 16110,
+          "orders": 124,
+          "ly_demand": 11209,
+          "ly_orders": 105
         },
         {
           "name": "Review",
-          "demand": 12299,
-          "ly_demand": 13709
+          "demand": 11366,
+          "orders": 50,
+          "ly_demand": 18419,
+          "ly_orders": 101
         },
         {
           "name": "Elka Collective",
-          "demand": 9593,
-          "ly_demand": 5631
+          "demand": 9050,
+          "orders": 32,
+          "ly_demand": 4270,
+          "ly_orders": 26
+        },
+        {
+          "name": "Superdry",
+          "demand": 8907,
+          "orders": 74,
+          "ly_demand": 19751,
+          "ly_orders": 141
         },
         {
           "name": "Clarks",
-          "demand": 9423,
-          "ly_demand": 9246
-        },
-        {
-          "name": "Canada Goose",
-          "demand": 5600,
-          "ly_demand": 0
-        },
-        {
-          "name": "Yarra Trail",
-          "demand": 4685,
-          "ly_demand": 2909
+          "demand": 7696,
+          "orders": 68,
+          "ly_demand": 8844,
+          "ly_orders": 62
         },
         {
           "name": "Volley",
-          "demand": 3983,
-          "ly_demand": 4605
-        },
-        {
-          "name": "Champion",
-          "demand": 3013,
-          "ly_demand": 2541
+          "demand": 4716,
+          "orders": 35,
+          "ly_demand": 5558,
+          "ly_orders": 77
         },
         {
           "name": "Everlast",
-          "demand": 2478,
-          "ly_demand": 2911
+          "demand": 4031,
+          "orders": 26,
+          "ly_demand": 3201,
+          "ly_orders": 23
         },
         {
           "name": "Julius Marlow",
-          "demand": 1611,
-          "ly_demand": 3909
+          "demand": 3761,
+          "orders": 23,
+          "ly_demand": 1897,
+          "ly_orders": 11
+        },
+        {
+          "name": "Yarra Trail",
+          "demand": 3458,
+          "orders": 26,
+          "ly_demand": 2628,
+          "ly_orders": 19
+        },
+        {
+          "name": "Canada Goose",
+          "demand": 2700,
+          "orders": 2,
+          "ly_demand": 1700,
+          "ly_orders": 2
+        },
+        {
+          "name": "Champion",
+          "demand": 2459,
+          "orders": 19,
+          "ly_demand": 1241,
+          "ly_orders": 12
         },
         {
           "name": "Marco Polo",
-          "demand": 1059,
-          "ly_demand": 1116
-        },
-        {
-          "name": "Replay",
-          "demand": 688,
-          "ly_demand": 1059
+          "demand": 1124,
+          "orders": 9,
+          "ly_demand": 511,
+          "ly_orders": 5
         },
         {
           "name": "Happy Socks",
-          "demand": 641,
-          "ly_demand": 0
-        },
-        {
-          "name": "Harrison",
-          "demand": 498,
-          "ly_demand": 0
+          "demand": 952,
+          "orders": 13,
+          "ly_demand": 0,
+          "ly_orders": 0
         },
         {
           "name": "Umbro",
-          "demand": 37,
-          "ly_demand": 788
+          "demand": 695,
+          "orders": 7,
+          "ly_demand": 915,
+          "ly_orders": 8
+        },
+        {
+          "name": "Replay",
+          "demand": 73,
+          "orders": 1,
+          "ly_demand": 891,
+          "ly_orders": 4
         }
       ],
       "total": {
-        "demand": 183755,
-        "ly_demand": 152666,
-        "yoy_pct": 20.4
+        "demand": 163296,
+        "orders": 1287,
+        "ly_demand": 147818,
+        "ly_orders": 1176,
+        "yoy_pct": 10.5
       }
     },
     "markets": {
       "audusd": {
-        "value": 0.706
+        "value": 0.708
       },
       "btc": {
-        "value": 67870
+        "value": 67935
       },
       "eth": {
-        "value": 1968
+        "value": 2002
       },
       "xrp": {
-        "value": 1.47
+        "value": 1.48
       }
     },
     "weather": {
-      "current_temp": 23,
-      "high": 35,
-      "low": 18,
-      "condition": "Partly cloudy, showers later",
-      "precip": 95,
-      "icon": "\ud83c\udf26"
+      "current_temp": 16,
+      "high": 25,
+      "low": 15,
+      "condition": "Partly cloudy, clearing to fine",
+      "precip": 3,
+      "icon": "⛅"
     },
     "news": [
       {
-        "emoji": "\ud83e\udd16",
-        "topic": "AI",
-        "text": "Microsoft hits $81.3B quarterly revenue, cementing AI-first infrastructure pivot"
+        "emoji": "🤖",
+        "topic": "AI/Tech",
+        "text": "Altman, Pichai head to India AI Impact Summit — Modi calls AI a 'civilisational inflection point'"
       },
       {
-        "emoji": "\ud83c\udde6\ud83c\uddfa",
+        "emoji": "🏎️",
+        "topic": "F1",
+        "text": "Verstappen slams 2026 rule changes as 'anti-racing' during Bahrain pre-season testing — new energy management system divides drivers"
+      },
+      {
+        "emoji": "🏀",
+        "topic": "Bulls",
+        "text": "Buzelis wins Rising Stars at All-Star weekend; Chicago Tribune calls him 'the new face of the Bulls'"
+      },
+      {
+        "emoji": "🇦🇺",
         "topic": "AU Politics",
-        "text": "RBA rate hike minutes due today; Taylor assembling shadow cabinet after Ley exit",
-        "url": "https://www.rba.gov.au/monetary-policy/rba-board-minutes/"
-      },
-      {
-        "emoji": "\ud83c\udfc8",
-        "topic": "AFL",
-        "text": "2026 AAMI Community Series fixtures locked in \u2014 season starts March 5"
+        "text": "Farrer by-election set after Sussan Ley resignation; Liberal leadership spill held Feb 13"
       }
     ],
-    "comms_task": "When delegating a task today, include one sentence of context about WHY this task matters to the broader goal \u2014 not just what needs doing.",
-    "quote": {
-      "text": "We are what we repeatedly do. Excellence, then, is not an act, but a habit.",
-      "author": "Aristotle (via Will Durant)"
-    },
-    "reads": [
+    "content_picks": [
       {
-        "type": "article",
-        "title": "OpenClaw creator Peter Steinberger joins OpenAI",
-        "url": "https://www.cnbc.com/2026/02/15/openclaw-creator-peter-steinberger-joining-openai-altman-says.html",
-        "description": "The person who built the system you're reading this on just joined OpenAI. OpenClaw becomes a foundation project.",
-        "source": "CNBC"
+        "title": "Moltbook was peak AI theater",
+        "source": "MIT Technology Review",
+        "url": "https://www.technologyreview.com/2026/02/06/1132448/moltbook-was-peak-ai-theater/",
+        "why": "Sharp analysis of AI agent hype vs reality — the 'Potemkin village' problem you've seen with agencies",
+        "type": "article"
       },
       {
-        "type": "article",
-        "title": "AI-driven search reshaping online retail as Shopify targets AU growth",
-        "url": "https://www.channelnews.com.au/ai-driven-search-reshaping-online-retail-as-shopify-targets-growth-in-australia/",
-        "description": "Shopify AI search orders up 15x YoY. 1,500+ AU retailers including JB, Bing Lee.",
-        "source": "ChannelNews"
+        "title": "What's next for Chinese open-source AI",
+        "source": "MIT Technology Review",
+        "url": "https://www.technologyreview.com/2026/02/12/1132811/whats-next-for-chinese-open-source-ai/",
+        "why": "DeepSeek, Qwen, and why China's open-source AI strategy matters for model pricing and competition",
+        "type": "article"
       },
       {
-        "type": "article",
-        "title": "Safe harbour and the high street",
-        "url": "https://insideretail.com.au/business/safe-harbour-and-the-high-street-202602",
-        "description": "Mosaic, Jeanswest, Ally Fashion \u2014 the AU retail collapse wave and what it means for survivors.",
-        "source": "Inside Retail"
+        "title": "Who's really fastest in 2026? F1's new rules are confusing everyone",
+        "source": "ESPN",
+        "url": "https://www.espn.com/f1/story/_/id/47920349/f1-testing-really-fastest-2026-bahrain-mercedes-red-bull-new-rules-pecking-order-drivers-max-verstappen-lewis-hamilton",
+        "why": "Detailed breakdown of the biggest F1 regulation change ever — active aero, energy management, new pecking order",
+        "type": "article"
+      },
+      {
+        "title": "Neuromorphic computers now solve physics simulations",
+        "source": "ScienceDaily",
+        "url": "https://www.sciencedaily.com/news/computers_math/artificial_intelligence/",
+        "why": "Brain-modelled chips replacing supercomputers for physics — real infrastructure shift, not hype",
+        "type": "article"
       }
-    ]
+    ],
+    "comms_task": "In your first 1:1 today (Hannah), before sharing your view on any topic, ask one open question and wait for her full answer before responding. Practice the pause.",
+    "quote": {
+      "text": "The best time to plant a tree was twenty years ago. The second best time is now.",
+      "author": "Chinese Proverb"
+    }
   },
   "evening": {
     "generated": "2026-02-17T20:14:47+11:00",
@@ -482,28 +534,28 @@
       "low": 18,
       "condition": "Rain showers clearing tonight",
       "precip": 95,
-      "icon": "\ud83c\udf26"
+      "icon": "🌦"
     },
     "news": [
       {
-        "emoji": "\ud83d\uded2",
+        "emoji": "🛒",
         "topic": "ACCC vs Coles",
         "text": "ACCC labels Coles \"Down Down\" discounts \"utterly misleading\" as landmark trial opens",
         "url": "https://www.abc.net.au/news/2026-02-16/asx-markets-business-news-live-updates-february-16/106345462"
       },
       {
-        "emoji": "\ud83c\udfec",
+        "emoji": "🏬",
         "topic": "AU Retail",
-        "text": "Montblanc opens Sydney flagship on George St \u2014 luxury brands still expanding in AU despite retail headwinds",
+        "text": "Montblanc opens Sydney flagship on George St — luxury brands still expanding in AU despite retail headwinds",
         "url": "https://insideretail.com.au/stores/montblanc-opens-sydney-flagship-on-prime-george-st-corner-site-202602"
       },
       {
-        "emoji": "\ud83d\udcbb",
+        "emoji": "💻",
         "topic": "Tech",
         "text": "JB Hi-Fi flagging higher PC and mobile prices from global chip shortage"
       },
       {
-        "emoji": "\ud83c\udde6\ud83c\uddfa",
+        "emoji": "🇦🇺",
         "topic": "Politics",
         "text": "Angus Taylor unveils shadow cabinet; govt blocks IS family repatriation",
         "url": "https://www.smh.com.au/national/australia-news-live-australian-is-brides-turned-back-after-leaving-syrian-camp-government-should-consider-changes-to-tobacco-excise-experts-say-20260217-p5o2un.html"
@@ -528,7 +580,7 @@
         "type": "article",
         "title": "ACCC vs Coles: the illusory discounts trial",
         "url": "https://www.abc.net.au/news/2026-02-16/asx-markets-business-news-live-updates-february-16/106345462",
-        "description": "Day 2 of the landmark case. If ACCC wins, pricing transparency rules change for every AU retailer \u2014 including BC brands.",
+        "description": "Day 2 of the landmark case. If ACCC wins, pricing transparency rules change for every AU retailer — including BC brands.",
         "source": "ABC News"
       },
       {
@@ -554,9 +606,9 @@
       },
       {
         "type": "article",
-        "title": "\"Something Big Is Happening\" \u2014 the viral essay with 80M views",
+        "title": "\"Something Big Is Happening\" — the viral essay with 80M views",
         "url": "https://www.businessinsider.com/matt-shumer-something-big-is-happening-essay-ai-disruption-2026-2",
-        "description": "HyperWrite CEO compares AI disruption to early COVID. 80M views. NYT picked it up. You said the same thing months ago \u2014 \"virologist in Wuhan, December 2019.\"",
+        "description": "HyperWrite CEO compares AI disruption to early COVID. 80M views. NYT picked it up. You said the same thing months ago — \"virologist in Wuhan, December 2019.\"",
         "source": "Business Insider"
       },
       {
@@ -588,6 +640,6 @@
         "source": "Reuters"
       }
     ],
-    "closing_thought": "Eight meetings survived. ACCC vs Coles is worth watching \u2014 if they win on illusory discounts, the compliance ripple hits every AU retailer running promos. Sales tracking +-17.9% vs LY on a partial Tuesday. Tomorrow: AI Weekly, Elka/YT workshop, then 1:1s all afternoon."
+    "closing_thought": "Eight meetings survived. ACCC vs Coles is worth watching — if they win on illusory discounts, the compliance ripple hits every AU retailer running promos. Sales tracking +-17.9% vs LY on a partial Tuesday. Tomorrow: AI Weekly, Elka/YT workshop, then 1:1s all afternoon."
   }
 }
