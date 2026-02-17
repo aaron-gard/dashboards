@@ -245,29 +245,54 @@ tr:hover td{background:var(--card)}
 
 <div class="section">
   <div class="section-title">Top 15 Postcodes by Demand</div>
-  <div class="findings" id="top15Postcodes"></div>
+  <div class="table-wrap"><div class="table-scroll">
+    <table>
+      <thead><tr>
+        <th>#</th><th>Postcode</th><th>Suburb</th><th>Demand</th><th>Orders</th><th>AOV</th><th>Nearest Store</th><th>Dist (km)</th>
+      </tr></thead>
+      <tbody id="top15Body"></tbody>
+    </table>
+  </div></div>
 </div>
 
 <div class="section">
   <div class="section-title">Stockist Performance Ranking</div>
-  <div class="finding-card" style="margin-bottom:12px"><strong>Methodology:</strong> Each stockist's catchment demand = sum of online demand from all postcodes within <span class="hl">10km radius</span> (haversine). Postcodes served by a single stockist in their 10km zone are flagged as <span class="hl">concentration risk</span>.</div>
-  <div class="findings" id="stockistRankTop" style="margin-bottom:16px"></div>
-  <div class="section-title" style="font-size:12px;margin-top:16px">Bottom 10 — Lowest Catchment Demand</div>
-  <div class="findings" id="stockistRankBottom"></div>
+  <div class="findings" style="margin-bottom:16px">
+    <div class="finding-card">
+      <strong>Methodology:</strong> Each stockist&rsquo;s catchment demand = sum of online demand from all postcodes within <span class="hl">10km radius</span> (haversine). Concentration risk = single stockist serving a catchment with &gt;$10K demand.
+    </div>
+  </div>
+  <div class="table-wrap"><div class="table-scroll" style="max-height:500px">
+    <table>
+      <thead><tr>
+        <th>#</th><th>Stockist</th><th>Catchment Demand</th><th>Postcodes</th><th>Risk</th>
+      </tr></thead>
+      <tbody id="stockistBody"></tbody>
+    </table>
+  </div></div>
 </div>
 
 <div class="section">
-  <div class="section-title">Competitor Store Overlay</div>
-  <div class="finding-card"><strong>Competitor locations</strong> from Country Road (<span class="hl" id="crCount">0</span> AU stores) and Witchery (<span class="hl" id="witchCount">0</span> AU stores) are plotted as grey markers on the map. Seed Heritage scraping failed (data loaded dynamically). Toggle visibility with the button below.</div>
-  <div class="map-filters" style="margin-top:12px">
-    <button class="map-filter-btn" id="competitorToggle">Show Competitors</button>
+  <div class="section-title">Distance Decay Curve</div>
+  <div class="findings" style="margin-bottom:16px">
+    <div class="finding-card">
+      <strong>Average demand per postcode</strong> at each 5km distance band from the nearest physical location. Shows where the <span class="hl">halo effect drops off</span> — the steeper the initial decline, the more physical presence matters.
+    </div>
+  </div>
+  <div class="chart-container">
+    <div class="chart-wrap"><canvas id="decayChart"></canvas></div>
   </div>
 </div>
 
 <div class="section">
-  <div class="section-title">Distance Decay Curve — Average Demand per Postcode by Distance Band</div>
-  <div class="chart-container">
-    <div class="chart-wrap"><canvas id="decayChart"></canvas></div>
+  <div class="section-title">Competitor Store Overlay</div>
+  <div class="findings">
+    <div class="finding-card">
+      <strong>Country Road</strong> (<span class="hl" id="crCount">0</span> AU stores) and <strong>Witchery</strong> (<span class="hl" id="witchCount">0</span> AU stores) plotted as grey markers on the map above. Seed Heritage data loaded dynamically (could not be scraped). Use the toggle to show/hide.
+    </div>
+  </div>
+  <div class="map-filters" style="margin-top:12px">
+    <button class="map-filter-btn" id="competitorToggle">Show Competitors</button>
   </div>
 </div>
 
@@ -555,14 +580,11 @@ function initApp(){
   // === TOP 15 POSTCODES ===
   (function(){
     const sorted=[...YT_HM].sort((a,b)=>b[4]-a[4]).slice(0,15);
-    const container=document.getElementById('top15Postcodes');
+    const tbody=document.getElementById('top15Body');
     sorted.forEach((r,i)=>{
-      const card=document.createElement('div');
-      card.className='finding-card';
-      card.innerHTML=`<strong>#${i+1} ${r[3]} ${r[8]}</strong><br>
-        Demand: <span class="hl">$${r[4].toLocaleString()}</span> · ${r[5]} orders · AOV $${r[6]}<br>
-        Nearest: ${r[10]} (${r[11]}) · <span class="hl">${r[7]}km</span>`;
-      container.appendChild(card);
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td>${i+1}</td><td>${r[3]}</td><td>${r[8]}</td><td style="font-weight:600;color:var(--hi)">$${r[4].toLocaleString()}</td><td>${r[5]}</td><td>$${r[6]}</td><td>${r[10]} <span style="color:var(--tx3);font-size:11px">(${r[11]})</span></td><td>${r[7]}</td>`;
+      tbody.appendChild(tr);
     });
   })();
 
@@ -599,23 +621,13 @@ function initApp(){
 
     rankings.sort((a,b)=>b.demand-a.demand);
 
-    const topContainer=document.getElementById('stockistRankTop');
-    rankings.slice(0,20).forEach((r,i)=>{
-      const card=document.createElement('div');
-      card.className='finding-card';
-      card.innerHTML=`<strong>#${i+1} ${r.name}</strong><br>
-        Catchment demand: <span class="hl">$${r.demand.toLocaleString()}</span> · ${r.postcodes} postcodes within 10km${r.concentrationRisk?' · <span class="hl">⚠ Concentration risk</span>':''}`;
-      topContainer.appendChild(card);
-    });
-
-    const bottomContainer=document.getElementById('stockistRankBottom');
-    rankings.slice(-10).reverse().forEach((r,i)=>{
-      const rank=rankings.length-i;
-      const card=document.createElement('div');
-      card.className='finding-card';
-      card.innerHTML=`<strong>#${rank} ${r.name}</strong><br>
-        Catchment demand: <span class="hl">$${r.demand.toLocaleString()}</span> · ${r.postcodes} postcodes within 10km`;
-      bottomContainer.appendChild(card);
+    const tbody=document.getElementById('stockistBody');
+    rankings.forEach((r,i)=>{
+      const tr=document.createElement('tr');
+      const isBottom10=i>=rankings.length-10;
+      const demandColor=r.demand>10000?'var(--hi)':r.demand<1000?'var(--tx3)':'var(--tx)';
+      tr.innerHTML=`<td>${i+1}</td><td>${r.name}</td><td style="font-weight:600;color:${demandColor}">$${r.demand.toLocaleString()}</td><td>${r.postcodes}</td><td>${r.concentrationRisk?'<span style="color:#e74c3c">⚠</span>':''}</td>`;
+      tbody.appendChild(tr);
     });
   })();
 
