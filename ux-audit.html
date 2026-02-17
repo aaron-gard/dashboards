@@ -35,9 +35,11 @@ header .meta{color:var(--text2);font-size:.85rem}
 .task-card.completed{opacity:.6}
 .task-card.completed .task-head strong{text-decoration:line-through}
 .task-head{display:flex;align-items:center;gap:12px;padding:16px 20px;cursor:pointer}
-.task-check{width:22px;height:22px;border-radius:5px;border:2px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
-.task-check.done{background:var(--green);border-color:var(--green)}
-.task-check.done::after{content:'✓';color:#fff;font-size:13px;font-weight:700}
+.task-status-dot{width:22px;height:22px;border-radius:5px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.task-status-dot.done{background:var(--green);border-color:var(--green)}
+.task-status-dot.done::after{content:'✓';color:#fff;font-size:13px;font-weight:700}
+.task-status-dot.in-progress{background:rgba(76,154,255,.25);border-color:#6cb4ff}
+.task-status-dot.in-progress::after{content:'▸';color:#6cb4ff;font-size:14px;font-weight:700}
 .task-info{flex:1;min-width:0}
 .task-info strong{font-size:.95rem;display:block;margin-bottom:2px}
 .task-info .desc{color:var(--text2);font-size:.82rem;display:none}
@@ -90,7 +92,7 @@ header .meta{color:var(--text2);font-size:.85rem}
 <button onclick="expandAll()">⊞ Expand All</button>
 <button onclick="collapseAll()">⊟ Collapse</button>
 <button onclick="window.print()">📄 PDF</button>
-<button onclick="resetAll()">↺ Reset</button>
+<!-- reset removed -->
 </div>
 </header>
 
@@ -436,7 +438,6 @@ const PHASES=['Pre-Purchase','Checkout','Post-Purchase','Strategic'];
 const PHASE_ICONS={'Pre-Purchase':'🔍','Checkout':'💳','Post-Purchase':'📦','Strategic':'🎯'};
 const BRAND_LABELS={'sns':'Shoes & Sox','trybe':'Trybe','all-brands':'All Brands'};
 
-let completed=JSON.parse(localStorage.getItem('ux_audit_done')||'[]');
 let currentFilter='all';
 let allExpanded=false;
 let jiraStatuses={};
@@ -447,6 +448,8 @@ function statusClass(s){
   if(s==='In Progress')return'in-progress';
   return'todo';
 }
+function isDone(t){return jiraStatuses[t.jira]==='Done'}
+function isInProgress(t){return jiraStatuses[t.jira]==='In Progress'}
 
 // Fetch Jira statuses from JSON
 fetch('ux-audit-status.json?t='+Date.now())
@@ -472,7 +475,7 @@ function render(){
     tasks.sort((a,b)=>(impOrd[a.impact]||1)-(impOrd[b.impact]||1));
     if(!tasks.length)return;
 
-    const done=tasks.filter(t=>completed.includes(t.id)).length;
+    const done=tasks.filter(t=>isDone(t)).length;
     totalShown+=tasks.length;
     highShown+=tasks.filter(t=>t.impact==='high').length;
     doneShown+=done;
@@ -482,7 +485,8 @@ function render(){
     sec.innerHTML=`<div class="phase-header"><div><h2>${PHASE_ICONS[phase]} ${phase}</h2></div><div style="display:flex;align-items:center;gap:12px"><span class="count">${done}/${tasks.length} complete</span><div class="progress-bar"><div class="progress-fill" style="width:${tasks.length?done/tasks.length*100:0}%"></div></div></div></div>`;
 
     tasks.forEach(t=>{
-      const isDone=completed.includes(t.id);
+      const taskDone=isDone(t);
+      const taskIP=isInProgress(t);
       const impactClass=t.impact==='high'?'tag-high':t.impact==='med'?'tag-med':'tag-low';
       const impactLabel=t.impact==='high'?'High':t.impact==='med'?'Medium':'Low';
 
@@ -491,11 +495,11 @@ function render(){
       const actionHtml=t.actions?`<div class="action-box"><h4>✅ Recommended Actions</h4><ul>${t.actions.map(a=>`<li>${a}</li>`).join('')}</ul></div>`:'';
 
       const card=document.createElement('div');
-      card.className=`task-card${isDone?' completed':''}${allExpanded?' open':''}`;
+      card.className=`task-card${taskDone?' completed':''}${allExpanded?' open':''}`;
       card.setAttribute('data-id',t.id);
       card.innerHTML=`
         <div class="task-head" onclick="this.parentElement.classList.toggle('open')">
-          <div class="task-check ${isDone?'done':''}" onclick="event.stopPropagation();toggleTask(${t.id})"></div>
+          <div class="task-status-dot ${taskDone?'done':taskIP?'in-progress':''}"></div>
           <div class="task-info">
             <strong>${t.jira?`<a href="https://brandcollective.atlassian.net/browse/${t.jira}" target="_blank" class="jira-link" onclick="event.stopPropagation()">${t.jira}</a>${jiraStatuses[t.jira]?`<span class="jira-status ${statusClass(jiraStatuses[t.jira])}">${jiraStatuses[t.jira]}</span>`:''} `:''}${t.title}</strong>
             <div class="desc">${t.desc}</div>
@@ -524,12 +528,7 @@ function render(){
   document.getElementById('kpi-pct').textContent=totalShown?Math.round(doneShown/totalShown*100)+'%':'0%';
 }
 
-function toggleTask(id){
-  if(completed.includes(id))completed=completed.filter(x=>x!==id);
-  else completed.push(id);
-  localStorage.setItem('ux_audit_done',JSON.stringify(completed));
-  render();
-}
+// Task completion now driven by Jira status
 
 function setFilter(f,btn){
   currentFilter=f;
@@ -541,12 +540,7 @@ function setFilter(f,btn){
 function expandAll(){allExpanded=true;render()}
 function collapseAll(){allExpanded=false;render()}
 
-function resetAll(){
-  if(!confirm('Reset all tasks to incomplete?'))return;
-  completed=[];
-  localStorage.setItem('ux_audit_done','[]');
-  render();
-}
+// resetAll removed — Jira is source of truth
 
 function toggleTheme(){
   const t=document.documentElement.dataset.theme;
