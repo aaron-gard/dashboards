@@ -263,129 +263,237 @@
     }
   },
   "evening": {
-    "generated": "2026-02-16T19:00:00+11:00",
+    "generated": "2026-02-17T19:00:00+11:00",
     "calendar": {
-      "date": "Monday, 16 February 2026",
-      "meetings": [],
-      "tomorrow": [],
-      "note": "Calendar unavailable - browser service offline"
+      "date": "Tuesday, 17 February 2026",
+      "meetings": [
+        {
+          "time": "09:00",
+          "duration": 60,
+          "title": "Executive Leadership Team weekly WIP catch up",
+          "status": "completed"
+        },
+        {
+          "time": "11:00",
+          "duration": 30,
+          "title": "BC Outlet | Key Pages Concept Design Brief",
+          "status": "completed"
+        },
+        {
+          "time": "12:00",
+          "duration": 120,
+          "title": "Focus Time",
+          "status": "completed"
+        },
+        {
+          "time": "12:30",
+          "duration": 30,
+          "title": "SNS APP - NEXT STEPS",
+          "status": "completed"
+        },
+        {
+          "time": "13:00",
+          "duration": 60,
+          "title": "BC Corporate Site - Design Review",
+          "status": "completed"
+        },
+        {
+          "time": "14:30",
+          "duration": 30,
+          "title": "7+5 Online Review",
+          "status": "completed"
+        },
+        {
+          "time": "15:00",
+          "duration": 90,
+          "title": "BC Group Trade Meeting (weekly)",
+          "status": "completed"
+        },
+        {
+          "time": "16:30",
+          "duration": 45,
+          "title": "AI + BC catch up",
+          "status": "completed"
+        }
+      ],
+      "tomorrow": [
+        {
+          "time": "09:00",
+          "duration": 30,
+          "title": "AI Weekly",
+          "color": "#2563eb"
+        },
+        {
+          "time": "09:30",
+          "duration": 30,
+          "title": "Reporting - AI - Aaron Demo",
+          "color": "#f59e0b"
+        },
+        {
+          "time": "10:00",
+          "duration": 120,
+          "title": "Fashion Apparel ELKA & YARRA TRAIL Blue Sky Workshop",
+          "color": "#22c55e"
+        },
+        {
+          "time": "12:00",
+          "duration": 120,
+          "title": "Focus Time",
+          "color": "#8b5cf6"
+        },
+        {
+          "time": "14:00",
+          "duration": 45,
+          "title": "Hannah / Aaron - Catchup",
+          "color": "#ef4444"
+        },
+        {
+          "time": "15:00",
+          "duration": 45,
+          "title": "Erika / Aaron - Catchup",
+          "color": "#06b6d4"
+        },
+        {
+          "time": "15:00",
+          "duration": 30,
+          "title": "COE Digital corporate cost review",
+          "color": "#ec4899"
+        },
+        {
+          "time": "16:00",
+          "duration": 45,
+          "title": "International expansion options discussion",
+          "color": "#2563eb"
+        },
+        {
+          "time": "16:00",
+          "duration": 45,
+          "title": "Tyler / Aaron - Catchup",
+          "color": "#f59e0b"
+        }
+      ]
     },
     "sales": {
-      "date": "Monday, 16 February 2026",
+      "date": "Tuesday, 17 February 2026",
       "partial": true,
       "brands": [
         {
-          "name": "Shoes & Sox",
-          "demand": 9991,
-          "orders": 97
+          "name": "Reebok",
+          "demand": 14303,
+          "orders": 100
         },
         {
           "name": "Black Pepper",
-          "demand": 5855,
-          "orders": 41
+          "demand": 13684,
+          "orders": 104
         },
         {
-          "name": "Canada Goose",
-          "demand": 5600,
-          "orders": 3
-        },
-        {
-          "name": "Shoe Warehouse",
-          "demand": 5174,
-          "orders": 47
-        },
-        {
-          "name": "Superdry",
-          "demand": 4514,
-          "orders": 43
+          "name": "Shoes & Sox",
+          "demand": 13607,
+          "orders": 162
         },
         {
           "name": "Hush Puppies",
-          "demand": 4433,
-          "orders": 36
+          "demand": 11433,
+          "orders": 82
         },
         {
-          "name": "Reebok",
-          "demand": 3739,
-          "orders": 32
+          "name": "Shoe Warehouse",
+          "demand": 10942,
+          "orders": 115
         },
         {
           "name": "Review",
-          "demand": 2825,
-          "orders": 12
+          "demand": 9345,
+          "orders": 41
         },
         {
           "name": "Elka Collective",
-          "demand": 1949,
-          "orders": 12
+          "demand": 7413,
+          "orders": 28
         },
         {
           "name": "Clarks",
-          "demand": 1366,
-          "orders": 14
+          "demand": 6369,
+          "orders": 58
         },
         {
-          "name": "Champion",
-          "demand": 1314,
-          "orders": 10
-        },
-        {
-          "name": "Yarra Trail",
-          "demand": 1038,
-          "orders": 8
+          "name": "Superdry",
+          "demand": 6165,
+          "orders": 54
         },
         {
           "name": "Volley",
-          "demand": 917,
-          "orders": 8
+          "demand": 3440,
+          "orders": 23
         },
         {
           "name": "Everlast",
-          "demand": 527,
-          "orders": 3
+          "demand": 2783,
+          "orders": 16
         },
         {
-          "name": "Replay",
-          "demand": 308,
+          "name": "Canada Goose",
+          "demand": 2700,
           "orders": 2
         },
         {
-          "name": "Marco Polo",
-          "demand": 256,
-          "orders": 3
+          "name": "Yarra Trail",
+          "demand": 2244,
+          "orders": 18
         },
         {
           "name": "Julius Marlow",
-          "demand": 204,
-          "orders": 2
+          "demand": 1986,
+          "orders": 13
+        },
+        {
+          "name": "Champion",
+          "demand": 1764,
+          "orders": 14
+        },
+        {
+          "name": "Marco Polo",
+          "demand": 1055,
+          "orders": 8
+        },
+        {
+          "name": "Happy Socks",
+          "demand": 772,
+          "orders": 10
+        },
+        {
+          "name": "Umbro",
+          "demand": 560,
+          "orders": 6
         }
       ],
       "total": {
-        "demand": 50010,
-        "orders": 373
+        "demand": 110565,
+        "orders": 854
       }
     },
     "markets": {
       "audusd": {
-        "value": 0.706
+        "value": 0.708
       },
       "btc": {
-        "value": 68518
+        "value": 68361
       },
       "eth": {
-        "value": 1970
+        "value": 1985
       },
       "xrp": {
-        "value": 1.46
+        "value": 1.47
       }
     },
     "weather": {
-      "high": 34,
-      "low": 19,
-      "condition": "Showers likely, hot",
-      "precip": 80,
-      "icon": "\ud83c\udf26"
+      "high": 26,
+      "low": 15,
+      "condition": "Partly cloudy",
+      "precip": 0,
+      "icon": "\u26c5"
     },
-    "closing_thought": "Monday's done. The weeks that feel longest often hold the most progress \u2014 and this one's just getting started. Rest well tonight; tomorrow you'll see it more clearly."
+    "closing_thought": "Tuesday's nearly done. Eight meetings, all behind you now. Tomorrow the sun comes out and the rain stays away. Sometimes the best evenings are the ones where you just stop, look around, and realise the hard part's already handled."
   }
 }
