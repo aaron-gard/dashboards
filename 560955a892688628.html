@@ -74,12 +74,6 @@ a{color:var(--info);text-decoration:none}
 .kpi-value{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--tx)}
 .kpi-sub{font-size:11px;color:var(--tx2);margin-top:4px}
 .findings{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.insight-card{background:var(--card);border:1px solid var(--card-bd);border-radius:8px;padding:14px 16px;font-size:13px;line-height:1.6;color:var(--tx2);margin-bottom:12px}
-.insight-card strong{color:var(--tx)}
-.insight-card p{margin:0}
-.metric-row{display:flex;justify-content:space-between;padding:3px 0;font-size:13px}
-.metric-label{color:var(--tx2)}
-.metric-val{font-weight:600;color:var(--tx)}
 .finding-card{background:var(--card);border:1px solid var(--card-bd);border-radius:8px;padding:14px 16px;font-size:13px;line-height:1.6;color:var(--tx2)}
 .finding-card strong{color:var(--tx)}
 .finding-card .hl{color:var(--hi);font-weight:600}
@@ -251,61 +245,71 @@ tr:hover td{background:var(--card)}
 
 <div class="section">
   <div class="section-title">Strategic Insights</div>
-  <div class="insight-card"><div style="font-weight:600;margin-bottom:6px">NSW/VIC parity is exceptionally rare</div><p style="font-size:13px">NSW ($575K, 31.6%) and VIC ($573K, 31.5%) are virtually identical &mdash; within $2K of each other. Most BC brands skew heavily toward one state. This perfect balance suggests the <strong>boutique network equally serves both markets</strong> and marketing spend is well-distributed.</p></div>
-  <div class="insight-card"><div style="font-weight:600;margin-bottom:6px">Regional strength is a competitive moat</div><p style="font-size:13px">Top postcodes include Tamworth (2340, $7.2K), Ballarat (3350, $6.4K), Katoomba (2780, $5.7K), and Bundaberg (4670, $5.2K). These are <strong>regional towns where national chains rarely reach</strong>. The indie boutique network gives YT presence in markets that competitors like Country Road and Witchery simply don&rsquo;t serve.</p></div>
-  <div class="insight-card"><div style="font-weight:600;margin-bottom:6px">WA under-represented: 8 stores vs 7.3% demand</div><p style="font-size:13px">WA generates $133K (7.3% of demand) but has only <strong>8 stockists (7.3% of network)</strong> &mdash; seemingly proportional, but WA&rsquo;s vast geography means those 8 stores cover far less catchment per location. Perth alone has 2M+ people. There&rsquo;s room for 3&ndash;5 additional stockists in WA suburban corridors.</p></div>
-  <div class="insight-card"><div style="font-weight:600;margin-bottom:6px">No NT stockists despite $7.5K demand</div><p style="font-size:13px">The Northern Territory generates $7,518 in online demand with <strong>zero physical presence</strong>. While NT&rsquo;s small population (250K) limits ROI for own stores, a single stockist in Darwin or Alice Springs would test whether physical presence lifts the existing $7.5K online baseline. The $193 AOV suggests a <strong>high-value customer base</strong>.</p></div>
+  <div class="findings">
+    <div class="finding-card">
+      <strong>NSW/VIC parity is exceptionally rare.</strong> NSW ($575K, 31.6%) and VIC ($573K, 31.5%) are virtually identical &mdash; within $2K. Most BC brands skew heavily toward one state. This balance suggests the <span class="hl">boutique network equally serves both markets</span>.
+    </div>
+    <div class="finding-card">
+      <strong>Regional strength is a competitive moat.</strong> Top postcodes include Tamworth ($7.2K), Ballarat ($6.4K), Katoomba ($5.7K), Bundaberg ($5.2K) &mdash; <span class="hl">regional towns where national chains don&rsquo;t reach</span>. The indie boutique network gives YT presence competitors like Country Road and Witchery simply don&rsquo;t have.
+    </div>
+    <div class="finding-card">
+      <strong>WA under-represented.</strong> 8 stockists serve 7.3% of demand &mdash; seemingly proportional, but WA&rsquo;s vast geography means <span class="hl">far less catchment coverage per location</span>. Perth alone has 2M+ people. Room for 3&ndash;5 additional stockists in suburban corridors.
+    </div>
+    <div class="finding-card">
+      <strong>No NT stockists despite $7.5K demand.</strong> Zero physical presence, yet <span class="hl">$193 AOV</span> signals a high-value customer base. A single stockist in Darwin or Alice Springs would test whether physical presence lifts the existing online baseline.
+    </div>
+  </div>
 </div>
 
 <div class="section">
   <div class="section-title">Store Expansion Recommendations</div>
-  <p style="margin-bottom:16px;font-size:13px;color:var(--t2)">Top 5 opportunities for new stockists, based on online demand density, geographic gaps, demographic alignment (women 45+), and absence of existing coverage.</p>
-  <div class="insight-card" style="border-left:3px solid var(--accent);margin-bottom:12px"><div style="font-size:14px;font-weight:700;margin-bottom:6px;color:var(--accent)">1. Toowoomba &mdash; QLD</div><div class="metric-row"><span class="metric-label">Online demand</span><span class="metric-val">$13.9K</span></div><div class="metric-row"><span class="metric-label">Nearest stockist</span><span class="metric-val">~78km</span></div><div class="metric-row"><span class="metric-label">Population</span><span class="metric-val">261,000+</span></div><div class="metric-row"><span class="metric-label">Median age / HH income</span><span class="metric-val">38 / $84K</span></div><p style="margin-top:8px;font-size:12px">Largest gap in the QLD network. Grand Central Shopping Centre catchment. $170+ AOV suggests consolidated buyers. <strong>Ideal for independent boutique partner.</strong></p></div>
-  <div class="insight-card" style="border-left:3px solid var(--accent);margin-bottom:12px"><div style="font-size:14px;font-weight:700;margin-bottom:6px;color:var(--accent)">2. Blue Mountains &mdash; NSW</div><div class="metric-row"><span class="metric-label">Online demand</span><span class="metric-val">$20.9K</span></div><div class="metric-row"><span class="metric-label">Nearest stockist</span><span class="metric-val">~43km</span></div><div class="metric-row"><span class="metric-label">Population</span><span class="metric-val">119,000+</span></div><div class="metric-row"><span class="metric-label">Median age / HH income</span><span class="metric-val">47 / $84K</span></div><p style="margin-top:8px;font-size:12px">Highest demand cluster with <strong>$188 AOV</strong>. Median age 47 is squarely in YT&rsquo;s core demo. 3M+ tourists annually. Katoomba Street or Leura Mall. <strong>Strong brand alignment with mountain lifestyle.</strong></p></div>
-  <div class="insight-card" style="border-left:3px solid var(--accent);margin-bottom:12px"><div style="font-size:14px;font-weight:700;margin-bottom:6px;color:var(--accent)">3. Western Melbourne / Keilor &mdash; VIC</div><div class="metric-row"><span class="metric-label">Online demand</span><span class="metric-val">$17.9K</span></div><div class="metric-row"><span class="metric-label">Nearest stockist</span><span class="metric-val">~20km</span></div><div class="metric-row"><span class="metric-label">Population</span><span class="metric-val">393,000+</span></div><div class="metric-row"><span class="metric-label">HH income</span><span class="metric-val">$103K</span></div><p style="margin-top:8px;font-size:12px">Largest population base with strong household income. Growth corridors adding thousands annually. Watergardens Shopping Centre catchment. <strong>Higher income area supports premium positioning.</strong></p></div>
-  <div class="insight-card" style="border-left:3px solid var(--accent);margin-bottom:12px"><div style="font-size:14px;font-weight:700;margin-bottom:6px;color:var(--accent)">4. Gosford / Central Coast &mdash; NSW</div><div class="metric-row"><span class="metric-label">Online demand</span><span class="metric-val">$11.9K</span></div><div class="metric-row"><span class="metric-label">Nearest stockist</span><span class="metric-val">~46km</span></div><div class="metric-row"><span class="metric-label">Population</span><span class="metric-val">289,000+</span></div><div class="metric-row"><span class="metric-label">Median age</span><span class="metric-val">44</span></div><p style="margin-top:8px;font-size:12px">289K people across Gosford&ndash;Wyong corridor. Erina Fair suits the boutique model. Median age 44 in the demo sweet spot. <strong>Single stockist could serve entire region.</strong></p></div>
-  <div class="insight-card" style="border-left:3px solid var(--accent);margin-bottom:12px"><div style="font-size:14px;font-weight:700;margin-bottom:6px;color:var(--accent)">5. SE Melbourne / Casey&ndash;Cardinia &mdash; VIC</div><div class="metric-row"><span class="metric-label">Online demand</span><span class="metric-val">$14.6K</span></div><div class="metric-row"><span class="metric-label">Nearest stockist</span><span class="metric-val">~25km</span></div><div class="metric-row"><span class="metric-label">Population</span><span class="metric-val">372,000+</span></div><div class="metric-row"><span class="metric-label">HH income</span><span class="metric-val">$98K</span></div><p style="margin-top:8px;font-size:12px">Melbourne&rsquo;s fastest-growing SE corridor. Berwick&ndash;Pakenham&ndash;Cranbourne. Fountain Gate or Casey Central. <strong>Growth area with affluent family demographic transitioning into YT&rsquo;s age bracket.</strong></p></div>
+  <div class="findings" style="grid-template-columns:1fr">
+    <div class="finding-card">
+      <strong>1. Toowoomba &mdash; QLD</strong> &middot; <span class="hl">$13.9K</span> demand &middot; Nearest stockist ~78km &middot; Pop. 261K+ &middot; Median age 38 / HH $84K<br>Largest gap in the QLD network. Grand Central Shopping Centre catchment. $170+ AOV suggests consolidated buyers. <strong>Ideal for independent boutique partner.</strong>
+    </div>
+    <div class="finding-card">
+      <strong>2. Blue Mountains &mdash; NSW</strong> &middot; <span class="hl">$20.9K</span> demand &middot; Nearest stockist ~43km &middot; Pop. 119K+ &middot; Median age 47 / HH $84K<br>Highest demand cluster with <span class="hl">$188 AOV</span>. Median age 47 is squarely in YT&rsquo;s core demo. 3M+ tourists annually. Katoomba Street or Leura Mall. <strong>Strong brand alignment with mountain lifestyle.</strong>
+    </div>
+    <div class="finding-card">
+      <strong>3. Western Melbourne / Keilor &mdash; VIC</strong> &middot; <span class="hl">$17.9K</span> demand &middot; Nearest stockist ~20km &middot; Pop. 393K+ &middot; HH $103K<br>Largest population base with strong household income. Growth corridors adding thousands annually. Watergardens Shopping Centre catchment. <strong>Higher income area supports premium positioning.</strong>
+    </div>
+    <div class="finding-card">
+      <strong>4. Gosford / Central Coast &mdash; NSW</strong> &middot; <span class="hl">$11.9K</span> demand &middot; Nearest stockist ~46km &middot; Pop. 289K+ &middot; Median age 44<br>Gosford&ndash;Wyong corridor. Erina Fair suits the boutique model. Median age 44 in the demo sweet spot. <strong>Single stockist could serve entire region.</strong>
+    </div>
+    <div class="finding-card">
+      <strong>5. SE Melbourne / Casey&ndash;Cardinia &mdash; VIC</strong> &middot; <span class="hl">$14.6K</span> demand &middot; Nearest stockist ~25km &middot; Pop. 372K+ &middot; HH $98K<br>Melbourne&rsquo;s fastest-growing SE corridor. Berwick&ndash;Pakenham&ndash;Cranbourne. Fountain Gate or Casey Central. <strong>Growth area with affluent family demo transitioning into YT&rsquo;s age bracket.</strong>
+    </div>
+  </div>
 </div>
 
 <div class="section">
   <div class="section-title">&#x2728; Case Study: Mornington Peninsula</div>
-  <div class="insight-card" style="border-left:3px solid var(--accent)">
-    <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:var(--accent)">What good stockist coverage looks like</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px">
-      <div class="kpi-card"><div class="kpi-label">Combined Demand</div><div class="kpi-value">$35,112</div></div>
-      <div class="kpi-card"><div class="kpi-label">Total Orders</div><div class="kpi-value">199</div></div>
-      <div class="kpi-card"><div class="kpi-label">Blended AOV</div><div class="kpi-value">$176</div></div>
+  <div class="exec-grid" style="margin-bottom:16px">
+    <div class="kpi-card"><div class="kpi-label">Combined Demand</div><div class="kpi-value">$35,112</div><div class="kpi-sub">13 active postcodes</div></div>
+    <div class="kpi-card"><div class="kpi-label">Total Orders</div><div class="kpi-value">199</div><div class="kpi-sub">Blended AOV $176</div></div>
+    <div class="kpi-card"><div class="kpi-label">Stockist Coverage</div><div class="kpi-value">4</div><div class="kpi-sub">Frankston to Portsea</div></div>
+    <div class="kpi-card"><div class="kpi-label">Peak AOV (Mt Eliza)</div><div class="kpi-value" style="color:var(--accent)">$395</div><div class="kpi-sub">Highest in entire YT dataset</div></div>
+  </div>
+  <div class="findings">
+    <div class="finding-card">
+      <strong>Postcode Breakdown</strong><br>
+      Mt Eliza 3930 &mdash; <span class="hl">$7,908</span> &middot; Frankston 3199 &mdash; <span class="hl">$5,587</span> &middot; Mornington 3931 &mdash; <span class="hl">$3,185</span> &middot; Dromana 3936 &mdash; <span class="hl">$3,017</span> &middot; Mt Martha 3934 &mdash; <span class="hl">$2,958</span> &middot; Rosebud 3939 &mdash; <span class="hl">$2,406</span> &middot; McCrae 3938 &mdash; <span class="hl">$2,230</span> &middot; + 6 more &mdash; $7,821
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px">
-      <div class="kpi-card"><div class="kpi-label">Stockist Coverage</div><div class="kpi-value">4</div></div>
-      <div class="kpi-card"><div class="kpi-label">Active Postcodes</div><div class="kpi-value">13</div></div>
-      <div class="kpi-card"><div class="kpi-label">Peak AOV (Mt Eliza)</div><div class="kpi-value" style="color:var(--accent)">$395</div></div>
+    <div class="finding-card">
+      <strong>Stockist Network</strong><br>
+      Sonsie Boutique (Mt Eliza) &middot; Beach &amp; Bay (Mornington) &middot; Main Exposure (Mt Martha) &middot; YT Sorrento Boutique (Sorrento)
     </div>
-    <div style="font-size:13px;font-weight:600;margin-bottom:8px">Postcode Breakdown</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;margin-bottom:12px">
-      <div class="metric-row"><span class="metric-label">Mt Eliza (3930)</span><span class="metric-val">$7,908</span></div>
-      <div class="metric-row"><span class="metric-label">Frankston (3199)</span><span class="metric-val">$5,587</span></div>
-      <div class="metric-row"><span class="metric-label">Mornington (3931)</span><span class="metric-val">$3,185</span></div>
-      <div class="metric-row"><span class="metric-label">Dromana (3936)</span><span class="metric-val">$3,017</span></div>
-      <div class="metric-row"><span class="metric-label">Mt Martha (3934)</span><span class="metric-val">$2,958</span></div>
-      <div class="metric-row"><span class="metric-label">Rosebud (3939)</span><span class="metric-val">$2,406</span></div>
-      <div class="metric-row"><span class="metric-label">McCrae (3938)</span><span class="metric-val">$2,230</span></div>
-      <div class="metric-row"><span class="metric-label">+ 6 more postcodes</span><span class="metric-val">$7,821</span></div>
-    </div>
-    <div style="font-size:13px;font-weight:600;margin-bottom:8px">Stockist Network</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;margin-bottom:12px">
-      <div class="metric-row"><span class="metric-label">Sonsie Boutique</span><span class="metric-val">Mt Eliza</span></div>
-      <div class="metric-row"><span class="metric-label">Beach &amp; Bay</span><span class="metric-val">Mornington</span></div>
-      <div class="metric-row"><span class="metric-label">Main Exposure</span><span class="metric-val">Mt Martha</span></div>
-      <div class="metric-row"><span class="metric-label">YT Sorrento Boutique</span><span class="metric-val">Sorrento</span></div>
-    </div>
-    <p style="font-size:13px;line-height:1.5">The Mornington Peninsula is <strong>YT&rsquo;s best-served micro-region</strong>. Four stockists blanket the corridor from Frankston to Portsea. Combined demand of $35K exceeds any single expansion opportunity above. Mt Eliza&rsquo;s $395 AOV is the <strong>highest in the entire YT dataset</strong>, signalling an affluent, loyal customer base. This region demonstrates the compounding effect of dense stockist networks: individually small postcodes aggregate into a powerhouse when well-covered. <strong>A model to replicate in other coastal/lifestyle corridors.</strong></p>
+  </div>
+  <div class="finding-card" style="margin-top:12px">
+    The Mornington Peninsula is <strong>YT&rsquo;s best-served micro-region</strong>. Four stockists blanket the corridor from Frankston to Portsea. Combined demand of <span class="hl">$35K exceeds any single expansion opportunity</span> above. Mt Eliza&rsquo;s $395 AOV is the <strong>highest in the entire YT dataset</strong>, signalling an affluent, loyal customer base. This region demonstrates the compounding effect of dense stockist networks: individually small postcodes aggregate into a powerhouse when well-covered. <strong>A model to replicate in other coastal/lifestyle corridors.</strong>
   </div>
 </div>
 
 <div class="section">
   <div class="section-title">Methodology</div>
-  <p style="font-size:12px;color:var(--t2);line-height:1.6">CY2025 (Jan&ndash;Dec 2025) demand data sourced from Polar Analytics, filtered to AU-only orders. Total demand = $1,817,737 across 11,541 orders. State breakdown by shipping address. AOV = demand / orders per state. Store network: 109 AU stockists (92 independent boutiques + 17 David Jones) + 48 Myer concessions + 27 Black Pepper stores as per Brand Collective retail records. Top postcodes by gross demand. YoY growth excluded for stockist-only comparison &mdash; brand was replatformed during the comparison period. Expansion recommendations use ABS 2021 Census data for population, median age, household income, and catchment demographics. All currency in AUD.</p>
+  <div class="finding-card" style="color:var(--tx3)">
+    CY2025 (Jan&ndash;Dec 2025) demand data sourced from Polar Analytics, filtered to AU-only orders. Total demand = $1,817,737 across 11,541 orders. State breakdown by shipping address. AOV = demand / orders per state. Store network: 109 AU stockists (92 independent boutiques + 17 David Jones) + 48 Myer concessions + 27 Black Pepper stores as per Brand Collective retail records. Top postcodes by gross demand. YoY growth excluded for stockist-only comparison &mdash; brand was replatformed during the comparison period. Expansion recommendations use ABS 2021 Census data for population, median age, household income, and catchment demographics. All currency in AUD.
+  </div>
 </div>
 
 <div class="section">
