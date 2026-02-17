@@ -75,8 +75,8 @@ header .meta{color:var(--text2);font-size:.85rem}
 
 <div id="gate" class="gate" style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px">
 <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px;max-width:380px;width:100%;text-align:center">
-<h1 style="font-size:1.3rem;margin-bottom:8px">🔒 UX Audit</h1>
-<p style="color:var(--text2);font-size:.9rem;margin-bottom:24px">BC Path-to-Purchase Audit — Internal Only</p>
+<h1 style="font-size:1.3rem;margin-bottom:8px">🔒 Shoes & Sox UX</h1>
+<p style="color:var(--text2);font-size:.9rem;margin-bottom:24px">UX Improvement Tracker — Internal Only</p>
 <input type="password" id="pw" placeholder="Password" autofocus style="width:100%;padding:12px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:1rem;margin-bottom:12px">
 <button onclick="unlock()" style="width:100%;padding:12px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-size:1rem;font-weight:600;cursor:pointer">Access</button>
 </div>
@@ -85,8 +85,8 @@ header .meta{color:var(--text2);font-size:.85rem}
 <div id="app" style="display:none">
 <header>
 <div>
-<h1>🛒 BC UX Audit — Task Tracker</h1>
-<div class="meta">Sourced from LK Group path-to-purchase audit • February 2026</div>
+<h1>🛒 Shoes & Sox — UX Improvement Tracker</h1>
+<div class="meta">Tasks sourced from LK Group path-to-purchase audit • Benchmarked against Amazon & Trybe • February 2026</div>
 </div>
 <div class="controls">
 <button onclick="toggleTheme()">☀️ / 🌙</button>
@@ -107,12 +107,8 @@ header .meta{color:var(--text2);font-size:.85rem}
 </div>
 
 <div class="filters">
-<button class="filter-btn active" data-filter="all" onclick="setFilter('all',this)">All</button>
-<button class="filter-btn" data-filter="sns" onclick="setFilter('sns',this)">Shoes & Sox</button>
-<button class="filter-btn" data-filter="trybe" onclick="setFilter('trybe',this)">Trybe</button>
-<button class="filter-btn" data-filter="all-brands" onclick="setFilter('all-brands',this)">All Brands</button>
-<span style="border-left:1px solid var(--border);margin:0 4px"></span>
-<button class="filter-btn" data-filter="high" onclick="setFilter('high',this)">🔴 High</button>
+<button class="filter-btn active" data-filter="all" onclick="setFilter('all',this)">All Tasks</button>
+<button class="filter-btn" data-filter="high" onclick="setFilter('high',this)">🔴 High Impact</button>
 <button class="filter-btn" data-filter="med" onclick="setFilter('med',this)">🟠 Medium</button>
 <button class="filter-btn" data-filter="low" onclick="setFilter('low',this)">🔵 Low</button>
 </div>
@@ -123,7 +119,7 @@ header .meta{color:var(--text2);font-size:.85rem}
 
 <div class="lightbox" id="lightbox" onclick="this.classList.remove('show')"><img id="lb-img"></div>
 
-<div class="footer">BC UX Audit Task Tracker • LK Group Audit, February 2026 • Internal Use Only — Brand Collective</div>
+<div class="footer">Shoes & Sox UX Improvement Tracker • Benchmarked against Amazon & Trybe (LK Group Audit, Feb 2026) • Internal Use Only — Brand Collective</div>
 </div>
 
 <script>
@@ -199,58 +195,60 @@ actions:[
   'Position as "Not sure of size? Give a gift card" — solves the sizing friction'
 ]},
 
-{id:7,phase:'Pre-Purchase',brand:'trybe',title:'Overhaul site look & feel',
-desc:'Auditor described the experience as "not pleasant or encouraging, felt lacklustre" due to pastel branding. Needs energy and excitement for a kids/sports brand.',
-impact:'high',area:'conversion',
-imgs:[{src:'page-14.jpg',cap:'Trybe — lacklustre site experience'}],
-actions:[
-  'Review brand guidelines — pastel palette doesn\'t match kids/sport energy',
-  'Add dynamic hero imagery, video content, athlete/ambassador endorsements',
-  'Benchmark against Nike Kids, Rebel Sport, The Athlete\'s Foot for tone',
-  'Prioritise mobile experience — this is where parents browse'
-]},
-
-{id:8,phase:'Pre-Purchase',brand:'trybe',title:'Improve product findability & navigation',
-desc:'Auditor couldn\'t easily find "black boys runners". Core search paths need to work intuitively.',
-impact:'high',area:'conversion',
-imgs:[{src:'page-15.jpg',cap:'Trybe — hard to find specific products'},{src:'page-16.jpg',cap:'Trybe — sport category navigation'}],
-actions:[
-  'Add quick filters: gender, colour, sport, size on collection pages',
-  'Improve search with autocomplete and synonym handling',
-  'Create curated collections for peak demand ("Back to School Boys", "Black School Shoes")',
-  'Test navigation with real parents — validate the paths they expect'
-]},
-
-{id:9,phase:'Pre-Purchase',brand:'trybe',title:'Add urgency & scarcity messaging',
-desc:'No urgency signals on Trybe. No stock indicators, no "selling fast", no limited-time offers.',
+{id:7,phase:'Pre-Purchase',brand:'sns',title:'Ensure site energy matches kids/sport brand positioning',
+desc:'Trybe audit showed how a flat, pastel-toned site kills conversion for kids/sport. SNS should ensure its visual energy stays high — dynamic, fun, confidence-building.',
 impact:'med',area:'conversion',
-imgs:[{src:'page-15.jpg',cap:'Trybe — no urgency messaging'}],
+imgs:[{src:'page-14.jpg',cap:'Trybe — lacklustre site (cautionary example)'},{src:'page-03.jpg',cap:'SNS — current mobile experience'}],
+actions:[
+  'Audit SNS homepage and collection pages for energy and visual engagement',
+  'Ensure hero banners rotate with seasonal campaigns (back-to-school, winter sport)',
+  'Add lifestyle/action imagery alongside product shots',
+  'Benchmark against Nike Kids, Rebel Sport for visual tone'
+]},
+
+{id:8,phase:'Pre-Purchase',brand:'sns',title:'Improve product findability & search',
+desc:'Trybe audit showed how hard it was to find "black boys runners". SNS should ensure common parent search paths work intuitively — gender, colour, occasion.',
+impact:'high',area:'conversion',
+imgs:[{src:'page-15.jpg',cap:'Trybe — hard to find products (cautionary)'},{src:'page-16.jpg',cap:'Trybe — sport category nav'},{src:'page-03.jpg',cap:'SNS — current navigation'}],
+actions:[
+  'Test top 10 parent search queries on SNS and measure clicks-to-product',
+  'Add quick filters: gender, colour, size, occasion on collection pages',
+  'Improve site search with autocomplete and synonym handling ("runners" = "sneakers")',
+  'Create curated collections for peak demand ("Back to School Boys", "Black School Shoes")'
+]},
+
+{id:9,phase:'Pre-Purchase',brand:'sns',title:'Add urgency & scarcity messaging',
+desc:'Neither SNS nor Trybe showed stock levels or urgency signals. Amazon excels at this. Back-to-school is inherently time-sensitive — leverage it.',
+impact:'med',area:'conversion',
+imgs:[{src:'page-15.jpg',cap:'Trybe — no urgency (cautionary)'},{src:'page-08.jpg',cap:'Amazon — stock and delivery urgency'}],
 actions:[
   'Show low stock warnings on PDP ("Only 3 left in this size")',
-  'Add countdown timers for sale events',
+  'Add countdown timers during sale events and back-to-school peaks',
   'Display "X people viewing this" or recent purchase notifications',
-  'Test "back in stock" alerts for out-of-stock sizes'
+  'Test "back in stock" alerts for out-of-stock sizes — capture demand'
 ]},
 
-{id:10,phase:'Pre-Purchase',brand:'trybe',title:'Build customer reviews program',
-desc:'Only 1 review of 5 stars across products — insufficient for consumer confidence.',
-impact:'med',area:'conversion',
-imgs:[{src:'page-15.jpg',cap:'Trybe — only 1 review visible'}],
+{id:10,phase:'Pre-Purchase',brand:'sns',title:'Build customer reviews at scale',
+desc:'SNS has no product reviews. Trybe had only 1. Amazon\'s reviews are the #1 confidence driver. This is the biggest gap to close.',
+impact:'high',area:'conversion',
+imgs:[{src:'page-06.jpg',cap:'SNS — no reviews on products'},{src:'page-15.jpg',cap:'Trybe — 1 review (cautionary)'},{src:'page-09.jpg',cap:'Amazon — reviews drive confidence'}],
 actions:[
   'Implement automated review request emails (7 days post-delivery)',
   'Offer entry into monthly draw for reviewers (lower friction than discount)',
-  'Prioritise review collection on top 20 products first',
-  'Add photo review capability — parent photos build more trust than text'
+  'Add photo review capability — parent photos build more trust than text',
+  'Prioritise review collection on top 20 hero products first',
+  'Display star ratings on collection pages, not just PDP'
 ]},
 
-{id:11,phase:'Pre-Purchase',brand:'trybe',title:'Add first-time customer incentive',
-desc:'No reward for being a first-time customer. No welcome offer or signup discount.',
+{id:11,phase:'Pre-Purchase',brand:'sns',title:'Add first-time customer incentive',
+desc:'Neither SNS nor Trybe offered a first-purchase reward. A welcome offer reduces the barrier for new parents trialling the brand.',
 impact:'med',area:'acquisition',
-imgs:[{src:'page-17.jpg',cap:'Trybe — no first-time reward'}],
+imgs:[{src:'page-17.jpg',cap:'Trybe — no first-time reward (cautionary)'}],
 actions:[
   'Add email popup with 10-15% first purchase discount',
   'Welcome email series with brand story + offer',
-  'Consider free shipping on first order as alternative to discount'
+  'Consider free shipping on first order as alternative to discount',
+  'Track new-vs-returning customer rate to measure impact'
 ]},
 
 // ═══ CHECKOUT ═══
@@ -265,24 +263,26 @@ actions:[
   'Send shipping confirmation with live tracking when dispatched'
 ]},
 
-{id:13,phase:'Checkout',brand:'trybe',title:'Remove or reduce $12 delivery charge',
-desc:'$12 delivery charge is a conversion killer. Auditor stated they "would not have purchased at this price".',
+{id:13,phase:'Checkout',brand:'sns',title:'Review shipping pricing and free shipping threshold',
+desc:'Trybe audit showed $12 delivery charge was a deal-breaker. SNS should ensure shipping cost doesn\'t create abandonment — especially when Amazon offers free next-day.',
 impact:'high',area:'conversion',
-imgs:[{src:'page-18.jpg',cap:'Trybe — $12 delivery charge deters purchase'}],
+imgs:[{src:'page-18.jpg',cap:'Trybe — $12 shipping killed conversion (cautionary)'},{src:'page-08.jpg',cap:'Amazon — FREE delivery prominently shown'}],
 actions:[
+  'Audit current SNS cart abandonment rate at shipping step',
   'Offer free shipping over a threshold (e.g. $80) — most school shoe purchases would qualify',
-  'If free shipping not viable, reduce to $5.95 and clearly communicate it',
-  'Show "Free shipping in X more" progress bar in cart',
-  'Test free shipping vs 10% discount — shipping is usually higher converting'
+  'Show "Free shipping in $X more" progress bar in cart to drive AOV',
+  'Test free shipping vs 10% discount — free shipping typically converts better',
+  'Prominently display shipping offer on PDP and cart (not just at checkout)'
 ]},
 
-{id:14,phase:'Checkout',brand:'trybe',title:'Add specific delivery timeframe to confirmation',
-desc:'No specific delivery times — just "an email will follow to advise". Took 3 days (longest of all 3 brands).',
+{id:14,phase:'Checkout',brand:'sns',title:'Ensure delivery timeframes in all post-purchase comms',
+desc:'Trybe only said "an email will follow" with no ETA. SNS should have specific delivery dates in every touchpoint — Amazon sets the standard.',
 impact:'med',area:'cx',
-imgs:[{src:'page-18.jpg',cap:'Trybe — vague delivery comms'},{src:'page-19.jpg',cap:'Trybe — full checkout flow'}],
+imgs:[{src:'page-18.jpg',cap:'Trybe — vague delivery comms (cautionary)'},{src:'page-11.jpg',cap:'Amazon — specific delivery date everywhere'}],
 actions:[
-  'Add estimated delivery window to confirmation email (e.g. "Expected: Wed 19 - Fri 21 Feb")',
-  'Send proactive daily shipping updates (Trybe did this — keep it)',
+  'Audit SNS confirmation email for delivery date specificity',
+  'Add estimated delivery window to confirmation email and order status page',
+  'Send proactive shipping updates at each carrier milestone',
   'Add real-time tracking integration to order status page'
 ]},
 
@@ -352,52 +352,53 @@ actions:[
   'Communicate returns policy clearly pre-purchase to reduce anxiety'
 ]},
 
-{id:21,phase:'Post-Purchase',brand:'trybe',title:'Redesign unboxing experience',
-desc:'Described as "boring unboxing, no enticement to repurchase, no branding". The most uninspiring experience of all 3 brands.',
+{id:21,phase:'Post-Purchase',brand:'sns',title:'Make unboxing memorable for kids',
+desc:'Trybe\'s unboxing was "boring, no branding, no enticement". SNS has an advantage — kids open the box. Make it an experience that builds brand love.',
 impact:'med',area:'brand',
-imgs:[{src:'page-18.jpg',cap:'Trybe — boring, unbranded unboxing'}],
+imgs:[{src:'page-18.jpg',cap:'Trybe — boring unboxing (cautionary)'},{src:'page-13.jpg',cap:'Amazon — branded box experience'}],
 actions:[
-  'Add branded tissue/stickers at minimum — low cost, high impact',
-  'Include QR code insert → loyalty signup or "rate your gear" landing page',
-  'Add a fun element for kids (sticker sheet, activity card) — creates brand love',
-  'Design packaging that kids want to keep or share on social'
+  'Add a fun element for kids: sticker sheet, colour-in card, or shoe tag',
+  'Include QR code → "show us your new shoes" social campaign or loyalty signup',
+  'Design packaging that kids want to keep or share — Instagram-worthy moments',
+  'Combine with cross-brand insert (task #19) and loyalty CTA (task #17) in one cohesive unbox'
 ]},
 
-{id:22,phase:'Post-Purchase',brand:'trybe',title:'Add delivery confirmation email',
-desc:'No confirmation of delivery email sent. Basic customer expectation.',
+{id:22,phase:'Post-Purchase',brand:'sns',title:'Ensure delivery confirmation is sent',
+desc:'Trybe didn\'t send one. Amazon did. Verify SNS has automated delivery confirmation email — it\'s a baseline expectation and a trigger for review collection.',
 impact:'med',area:'cx',
-imgs:[{src:'page-18.jpg',cap:'Trybe — no delivery confirmation sent'}],
+imgs:[{src:'page-18.jpg',cap:'Trybe — no delivery confirmation (cautionary)'},{src:'page-13.jpg',cap:'Amazon — delivery confirmed'}],
 actions:[
-  'Enable carrier delivery confirmation webhook → trigger email',
+  'Verify SNS carrier integration sends delivery confirmation email',
   'Include "How did we do?" CTA in delivery confirmation email',
-  'Use as trigger point for review request flow'
+  'Use delivery confirmation as trigger for review request flow (Day +2)',
+  'Add SMS delivery notification for mobile-first parents'
 ]},
 
-{id:23,phase:'Post-Purchase',brand:'trybe',title:'Replace generic EDMs with personalised remarketing',
-desc:'Only received a generic database EDM on day 3. No personalised content, no relevant recommendations.',
+{id:23,phase:'Post-Purchase',brand:'sns',title:'Build personalised post-purchase email sequence',
+desc:'Trybe sent a generic EDM on day 3. SNS should have a personalised post-purchase flow — product-specific recommendations, care tips, and timely repurchase prompts.',
 impact:'med',area:'retention',
-imgs:[{src:'page-18.jpg',cap:'Trybe — generic EDM, no personalisation'},{src:'page-19.jpg',cap:'Trybe — checkout to post-purchase flow'}],
+imgs:[{src:'page-18.jpg',cap:'Trybe — generic EDM (cautionary)'},{src:'page-06.jpg',cap:'SNS — current post-purchase gap'}],
 actions:[
-  'Build personalised post-purchase flow based on product purchased',
-  'Recommend complementary products (same sport, same size)',
-  'Time the first remarketing email for 5-7 days post-delivery (after product use)',
-  'Include user-generated content from other customers in emails'
+  'Build Klaviyo post-purchase flow: Day 1 (thank you + care tips), Day 5 (related products), Day 7 (review request)',
+  'Recommend products based on what was purchased — same size, same sport, complementary',
+  'Include user-generated content (parent photos) in recommendation emails',
+  'Add seasonal triggers: "Term 2 starting — time for new sneakers?"'
 ]},
 
 // ═══ STRATEGIC (ALL BRANDS) ═══
-{id:24,phase:'Strategic',brand:'all-brands',title:'Communicate delivery speed at every touchpoint',
-desc:'Amazon reinforces FREE & FAST delivery at every stage — PDP, cart, checkout, confirmation, tracking. This is now the baseline expectation across all ecommerce.',
+{id:24,phase:'Strategic',brand:'sns',title:'Communicate delivery speed at every touchpoint',
+desc:'Amazon reinforces FREE & FAST delivery at every stage — PDP, cart, checkout, confirmation, tracking. SNS should match this standard, then extend the playbook to other BC brands.',
 impact:'high',area:'conversion',
 imgs:[{src:'page-08.jpg',cap:'Amazon — delivery date on product page'},{src:'page-09.jpg',cap:'Amazon — reinforced in cart'},{src:'page-20.jpg',cap:'Recommendations slide'}],
 actions:[
-  'Audit all 20 BC brand sites for delivery messaging gaps',
-  'Add delivery estimate widget to all PDPs (postcode-based where possible)',
-  'Show delivery date in cart, checkout, and confirmation for every brand',
-  'Create "delivery promise" banner for brands offering next-day or 2-day shipping',
-  'Track delivery promise accuracy — broken promises destroy trust faster than no promise'
+  'Audit SNS site for delivery messaging gaps across the full funnel',
+  'Add delivery estimate widget to SNS PDPs (postcode-based where possible)',
+  'Show delivery date in cart, checkout, and confirmation',
+  'Create "delivery promise" banner highlighting SNS 2-day delivery',
+  'Extend playbook to other BC brand sites once proven on SNS'
 ]},
 
-{id:25,phase:'Strategic',brand:'all-brands',title:'Implement QR-led landing pages in all packaging',
+{id:25,phase:'Strategic',brand:'sns',title:'Implement QR-led landing pages in all packaging',
 desc:'Use QR codes in packaging to drive loyalty signup, repeat purchase offers, and cross-brand discovery. Amazon uses them for cross-sell.',
 impact:'high',area:'retention',
 imgs:[{src:'page-13.jpg',cap:'Amazon — QR code in packaging'},{src:'page-20.jpg',cap:'Recommendations — QR landing pages'}],
@@ -408,7 +409,7 @@ actions:[
   'A/B test different offers: % off vs free shipping vs loyalty points'
 ]},
 
-{id:26,phase:'Strategic',brand:'all-brands',title:'Build cross-brand remarketing in fulfilment',
+{id:26,phase:'Strategic',brand:'sns',title:'Build cross-brand remarketing in fulfilment',
 desc:'Every BC package is a marketing opportunity for other BC brands. Insert cross-brand offers targeting the same customer profile.',
 impact:'med',area:'aov',
 imgs:[{src:'page-07.jpg',cap:'SNS — missed cross-brand opportunity'},{src:'page-20.jpg',cap:'Recommendations slide'}],
@@ -419,33 +420,33 @@ actions:[
   'Start with SNS → parent brands as pilot, then expand'
 ]},
 
-{id:27,phase:'Strategic',brand:'all-brands',title:'Audit and improve sizing guides across all brands',
-desc:'Sizing was a major friction point for SNS and noted as clearer on Amazon/Trybe. Common issue across apparel and footwear ecommerce.',
+{id:27,phase:'Strategic',brand:'sns',title:'Redesign sizing guide as competitive advantage',
+desc:'Sizing was SNS\'s biggest friction point. Amazon and Trybe both had simpler guides. For a kids shoe specialist, sizing should be best-in-class — not a conversion barrier.',
 impact:'med',area:'conversion',
 imgs:[{src:'page-04.jpg',cap:'SNS — confusing sizing'},{src:'page-10.jpg',cap:'Amazon — better sizing UX'},{src:'page-17.jpg',cap:'Trybe — simpler sizing'}],
 actions:[
-  'Audit sizing UX across all 20 brand sites — identify worst offenders',
-  'Standardise sizing guide design language across BC brands',
-  'Add "true to size" indicators and fit recommendations from customer data',
-  'Consider virtual sizing tools (Fit Analytics, True Fit) for footwear brands'
+  'Redesign SNS sizing guide: age/length first, width as optional advanced detail',
+  'Add visual "how to measure at home" guide with printable foot ruler',
+  'Add "true to size" indicators from customer feedback data',
+  'Consider virtual sizing tool (True Fit) — SNS should own kids sizing UX'
 ]},
 
-{id:28,phase:'Strategic',brand:'all-brands',title:'Customer confidence program — reviews at scale',
-desc:'Both SNS and Trybe lack reviews. Reviews are the #1 conversion driver on Amazon. Need automated collection across all brands.',
+{id:28,phase:'Strategic',brand:'sns',title:'Launch customer reviews program',
+desc:'SNS has zero product reviews. Reviews are the #1 confidence driver on Amazon. For a specialist retailer, parent reviews ("fit my 7yr old perfectly") are incredibly valuable.',
 impact:'high',area:'conversion',
 imgs:[{src:'page-09.jpg',cap:'Amazon — reviews everywhere'},{src:'page-15.jpg',cap:'Trybe — 1 lonely review'},{src:'page-20.jpg',cap:'Recommendations slide'}],
 actions:[
-  'Select and implement review platform across all Shopify stores (Okendo, Judge.me, or Yotpo)',
-  'Build automated post-purchase review request flow in Klaviyo',
-  'Incentivise reviews: loyalty points, monthly prize draw, or small discount',
-  'Display aggregate ratings on collection pages, Google Shopping, and ads',
-  'Target 50+ reviews per hero product within 6 months'
+  'Select and implement review platform on SNS Shopify (Okendo, Judge.me, or Yotpo)',
+  'Build automated post-purchase review request in Klaviyo (Day 7 post-delivery)',
+  'Incentivise reviews: entry into monthly draw or small loyalty points',
+  'Prioritise reviews on top 20 hero products — target 50+ reviews within 6 months',
+  'Display star ratings on collection pages and Google Shopping feed'
 ]},
 ];
 
 const PHASES=['Pre-Purchase','Checkout','Post-Purchase','Strategic'];
 const PHASE_ICONS={'Pre-Purchase':'🔍','Checkout':'💳','Post-Purchase':'📦','Strategic':'🎯'};
-const BRAND_LABELS={'sns':'Shoes & Sox','trybe':'Trybe','all-brands':'All Brands'};
+const BRAND_LABELS={'sns':'Shoes & Sox'};
 
 let completed=JSON.parse(localStorage.getItem('ux_audit_done')||'[]');
 let currentFilter='all';
