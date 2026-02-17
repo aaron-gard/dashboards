@@ -436,7 +436,7 @@ new Chart(document.getElementById('fyChart'), {
 new Chart(document.getElementById('channelChart'), {
   type: 'doughnut',
   data: {
-    labels: ["Paid Search", "Direct", "Afterpay", "Email/SMS", "Organic Search", "Undefined", "Paid Social", "Other", "Organic Social"],
+    labels: ["Paid Search (33%)", "Direct (23%)", "Afterpay (13%)", "Email/SMS (10%)", "Organic Search (8%)", "Undefined (5%)", "Paid Social (4%)", "Other (3%)", "Organic Social (1%)"],
     datasets: [{ data:[118047, 84329, 46960, 35586, 30163, 17773, 13586, 11384, 3651], backgroundColor:['#818cf8','#6366f1','#a78bfa','#c084fc','#e879f9','#f472b6','#fb7185','#f97316','#fbbf24'], borderWidth:0 }]
   },
   options: {
@@ -444,7 +444,7 @@ new Chart(document.getElementById('channelChart'), {
     cutout:'60%',
     plugins: {
       legend: { position:'right', labels:{ boxWidth:10, padding:6, font:{ size:11 } } },
-      tooltip: { callbacks: { label: ctx => ctx.label + ': $' + ctx.raw.toLocaleString() } }
+      tooltip: { callbacks: { label: ctx => { const total = ctx.dataset.data.reduce((a,b)=>a+b,0); const pct = (ctx.raw/total*100).toFixed(1); return '$' + ctx.raw.toLocaleString() + ' (' + pct + '%)'; } } }
     }
   }
 });
@@ -453,7 +453,7 @@ new Chart(document.getElementById('channelChart'), {
 new Chart(document.getElementById('paymentChart'), {
   type: 'doughnut',
   data: {
-    labels: ["Shopify Payments", "Afterpay", "PayPal", "Gift Card", "Zip Pay"],
+    labels: ["Shopify Payments (72%)", "Afterpay (15%)", "PayPal (11%)", "Gift Card (2%)", "Zip Pay (1%)"],
     datasets: [{ data:[225681, 46960, 33639, 5554, 2684], backgroundColor:['#818cf8','#a78bfa','#c084fc','#e879f9','#f472b6'], borderWidth:0 }]
   },
   options: {
@@ -461,7 +461,7 @@ new Chart(document.getElementById('paymentChart'), {
     cutout:'60%',
     plugins: {
       legend: { position:'right', labels:{ boxWidth:10, padding:6, font:{ size:11 } } },
-      tooltip: { callbacks: { label: ctx => ctx.label + ': $' + ctx.raw.toLocaleString() } }
+      tooltip: { callbacks: { label: ctx => { const total = ctx.dataset.data.reduce((a,b)=>a+b,0); const pct = (ctx.raw/total*100).toFixed(1); return '$' + ctx.raw.toLocaleString() + ' (' + pct + '%)'; } } }
     }
   }
 });
