@@ -51,6 +51,10 @@ header .meta{color:var(--text2);font-size:.85rem}
 .tag-area{background:var(--surface2);color:var(--text2);font-size:.7rem}
 .jira-link{color:#4c9aff;text-decoration:none;font-size:.75rem;font-weight:600;background:rgba(76,154,255,.12);padding:1px 6px;border-radius:4px;margin-right:4px;vertical-align:middle}
 .jira-link:hover{background:rgba(76,154,255,.25);text-decoration:underline}
+.jira-status{font-size:.65rem;font-weight:600;padding:2px 7px;border-radius:3px;margin-left:6px;vertical-align:middle;text-transform:uppercase;letter-spacing:.3px}
+.jira-status.todo{background:rgba(156,163,184,.15);color:var(--text2)}
+.jira-status.in-progress{background:rgba(76,154,255,.18);color:#6cb4ff}
+.jira-status.done{background:rgba(92,219,127,.15);color:#5cdb7f}
 .expand-arrow{color:var(--text2);font-size:.8rem;flex-shrink:0;transition:transform .2s}
 .task-card.open .expand-arrow{transform:rotate(90deg)}
 .task-body{display:none;border-top:1px solid var(--border)}
@@ -78,6 +82,7 @@ header .meta{color:var(--text2);font-size:.85rem}
 <header>
 <div>
 <h1>🛒 Shoes & Sox UX Audit — Task Tracker</h1>
+<div id="jira-updated" style="font-size:.75rem;color:var(--text2);margin-top:4px"></div>
 <div class="meta">Sourced from LK Group path-to-purchase audit • February 2026</div>
 </div>
 <div class="controls">
@@ -434,6 +439,23 @@ const BRAND_LABELS={'sns':'Shoes & Sox','trybe':'Trybe','all-brands':'All Brands
 let completed=JSON.parse(localStorage.getItem('ux_audit_done')||'[]');
 let currentFilter='all';
 let allExpanded=false;
+let jiraStatuses={};
+
+function statusClass(s){
+  if(!s)return'';
+  if(s==='Done')return'done';
+  if(s==='In Progress')return'in-progress';
+  return'todo';
+}
+
+// Fetch Jira statuses from JSON
+fetch('ux-audit-status.json?t='+Date.now())
+  .then(r=>r.json())
+  .then(d=>{jiraStatuses=d.statuses||{};render();
+    const u=d.updated?new Date(d.updated):null;
+    if(u){const el=document.getElementById('jira-updated');if(el)el.textContent='Jira synced: '+u.toLocaleString('en-AU',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}
+  })
+  .catch(()=>{});
 
 function render(){
   const container=document.getElementById('task-sections');
@@ -475,7 +497,7 @@ function render(){
         <div class="task-head" onclick="this.parentElement.classList.toggle('open')">
           <div class="task-check ${isDone?'done':''}" onclick="event.stopPropagation();toggleTask(${t.id})"></div>
           <div class="task-info">
-            <strong>${t.jira?`<a href="https://brandcollective.atlassian.net/browse/${t.jira}" target="_blank" class="jira-link" onclick="event.stopPropagation()">${t.jira}</a> `:''}${t.title}</strong>
+            <strong>${t.jira?`<a href="https://brandcollective.atlassian.net/browse/${t.jira}" target="_blank" class="jira-link" onclick="event.stopPropagation()">${t.jira}</a>${jiraStatuses[t.jira]?`<span class="jira-status ${statusClass(jiraStatuses[t.jira])}">${jiraStatuses[t.jira]}</span>`:''} `:''}${t.title}</strong>
             <div class="desc">${t.desc}</div>
           </div>
           <div class="task-tags">
