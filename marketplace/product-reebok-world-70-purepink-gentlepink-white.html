@@ -256,6 +256,27 @@ a{transition:color .15s,opacity .15s}
 .pdp-sticky .pdp-atb{margin:0;flex:0 0 auto;width:auto;padding:0 32px}
 @media(max-width:768px){.pdp-sticky.visible{display:flex}}
 
+/* Search overlay */
+.srch-overlay{position:fixed;top:76px;left:0;right:0;background:var(--wh);z-index:1001;box-shadow:0 12px 40px rgba(0,0,0,.15);padding:24px 32px;display:none;max-height:70vh;overflow-y:auto}
+.srch-overlay.open{display:block}
+.srch-input{width:100%;padding:14px 20px;font-size:16px;border:2px solid var(--bk);border-radius:6px;font-family:var(--sn);outline:none}
+.srch-section{margin-top:20px}
+.srch-section h4{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--gy);margin-bottom:12px;font-weight:600}
+.srch-tags{display:flex;flex-wrap:wrap;gap:8px}
+.srch-tag{font-size:13px;padding:8px 16px;border:1px solid var(--bd);border-radius:20px;cursor:pointer;transition:all .2s;color:var(--bk);text-decoration:none}
+.srch-tag:hover{background:var(--bk);color:var(--wh);border-color:var(--bk)}
+.srch-result{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--bd);cursor:pointer;transition:background .15s;text-decoration:none;color:var(--bk)}
+.srch-result:hover{background:rgba(0,0,0,.02)}
+.srch-result img{width:50px;height:66px;object-fit:cover;border-radius:4px}
+.srch-result-info{flex:1}
+.srch-result-brand{font-size:10px;text-transform:uppercase;letter-spacing:.3px;color:var(--gy);font-weight:600}
+.srch-result-name{font-size:13px;font-weight:500}
+.srch-result-price{font-size:13px;font-weight:700}
+.srch-viewall{display:block;text-align:center;padding:14px;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.3px;color:var(--bk);border-top:1px solid var(--bd);margin-top:12px;text-decoration:none}
+.srch-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:1000;display:none}
+.srch-backdrop.open{display:block}
+@media(max-width:768px){.srch-overlay{top:auto;padding:16px}}
+
 
 /* PDP Styles */
 .pdp-wrap{display:grid;grid-template-columns:55% 45%;gap:0;max-width:1400px;margin:0 auto}
@@ -331,28 +352,40 @@ a{transition:color .15s,opacity .15s}
 }
 </style></head><body>
 <div class="ann"><span>FREE EXPRESS SHIPPING ON ORDERS OVER $150 | 30-DAY FREE RETURNS</span></div>
+<div class="srch-backdrop" onclick="closeSearch()"></div>
+<div class="srch-overlay">
+<input class="srch-input" id="srchInput" type="text" placeholder="Search brands, products..." oninput="liveSearch(this.value)" onkeydown="if(event.key==='Enter'){window.location='search.html?q='+encodeURIComponent(this.value)}">
+<div class="srch-section"><h4>Popular Searches</h4><div class="srch-tags">
+<a class="srch-tag" href="search.html?q=Dresses">Dresses</a><a class="srch-tag" href="search.html?q=Sneakers">Sneakers</a><a class="srch-tag" href="search.html?q=Knitwear">Knitwear</a><a class="srch-tag" href="search.html?q=Boots">Boots</a><a class="srch-tag" href="search.html?q=Champion">Champion</a><a class="srch-tag" href="search.html?q=Review">Review</a>
+</div></div>
+<div class="srch-section"><h4>Trending Brands</h4><div class="srch-tags">
+<a class="srch-tag" href="brands.html">Review</a><a class="srch-tag" href="brands.html">Champion</a><a class="srch-tag" href="brands.html">Reebok</a><a class="srch-tag" href="brands.html">Clarks</a><a class="srch-tag" href="brands.html">Superdry</a>
+</div></div>
+<div id="srchResults"></div>
+</div>
 <header class="hdr">
 <div class="burger" onclick="document.querySelector('.mob-nav').classList.add('open')"><span></span><span></span><span></span></div>
 <a href="index.html" class="logo"><img src="logo-white.png" alt="Brand Collective"></a>
-<div class="srch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Search brands, products, categories...</div>
+<div class="srch" onclick="openSearch()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Search brands, products, categories...</div>
 <div class="hr">
 <a class="ic" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
 <a class="ic" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></a>
 <a class="ic" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="dot">2</span></a>
 </div></header>
 <nav class="nav">
+<div class="ni"><a href="new-in.html" class="nl">New In</a></div>
 <div class="ni"><a href="women.html" class="nl">Women</a></div>
 <div class="ni"><a href="men.html" class="nl">Men</a></div>
 <div class="ni"><a href="kids.html" class="nl">Kids</a></div>
 <div class="ni"><a href="shoes.html" class="nl">Shoes</a></div>
-<div class="ni"><a href="new-in.html" class="nl">New In</a></div>
+<div class="ni"><a href="shoes.html" class="nl">Sports</a></div>
 <div class="ni"><a href="brands.html" class="nl">Brands</a></div>
 <div class="ni"><a href="sale.html" class="nl" style="color:var(--gd)">Sale</a></div>
 </nav>
 <div class="mob-nav"><div class="mob-close" onclick="this.parentElement.classList.remove('open')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
 <div class="mob-nav-list">
-<a href="women.html">Women</a><a href="men.html">Men</a><a href="kids.html">Kids</a>
-<a href="shoes.html">Shoes</a><a href="new-in.html">New In</a><a href="brands.html">Brands</a><a href="sale.html">Sale</a>
+<a href="new-in.html">New In</a><a href="women.html">Women</a><a href="men.html">Men</a><a href="kids.html">Kids</a>
+<a href="shoes.html">Shoes</a><a href="brands.html">Brands</a><a href="sale.html">Sale</a>
 </div></div>
 <nav class="plp-bc" aria-label="Breadcrumb" style="padding:12px 32px;font-size:13px;color:#666;border-bottom:1px solid var(--bd)">
 <a href="index.html">Home</a><span style="margin:0 8px;opacity:.4">›</span>
@@ -413,19 +446,19 @@ a{transition:color .15s,opacity .15s}
 
 <div class="pdp-related">
 <div class="sh"><h2 class="stt">You May Also Like</h2><a href="shoes.html" class="sli">View All <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></div>
-<div class="pg"><a href="#" class="pc"><div class="pim"><img src="img/products/reebok_0.jpg" alt="Engine A 26 + Se Black/White/Gold" loading="lazy" style="width:100%;height:100%;object-fit:cover"><div class="pho"></div></div>
-<div class="pbr">Reebok</div><div class="pna">Engine A 26 + Se Black/White/Gold</div><div class="ppr">$180.00</div></a><a href="#" class="pc"><div class="pim"><img src="img/products/reebok_1.jpg" alt="Reebok Clean Slide Black" loading="lazy" style="width:100%;height:100%;object-fit:cover"><div class="pho"></div></div>
-<div class="pbr">Reebok</div><div class="pna">Reebok Clean Slide Black</div><div class="ppr">$35.00</div></a><a href="#" class="pc"><div class="pim"><img src="img/products/reebok_2.jpg" alt="Nano Golf Pearl Grey/ Black" loading="lazy" style="width:100%;height:100%;object-fit:cover"><div class="pho"></div></div>
-<div class="pbr">Reebok</div><div class="pna">Nano Golf Pearl Grey/ Black</div><div class="ppr">$220.00</div></a><a href="#" class="pc"><div class="pim"><img src="img/products/reebok_3.jpg" alt="Nano Golf Ftwr White/Peri Blue" loading="lazy" style="width:100%;height:100%;object-fit:cover"><div class="pho"></div></div>
+<div class="pg"><a href="shoes.html" class="pc"><div class="pim"><img src="img/products/reebok_0.jpg" alt="Engine A 26 + Se Black/White/Gold" loading="lazy" style="width:100%;height:100%;object-fit:cover"><div class="pho"></div></div>
+<div class="pbr">Reebok</div><div class="pna">Engine A 26 + Se Black/White/Gold</div><div class="ppr">$180.00</div></a><a href="shoes.html" class="pc"><div class="pim"><img src="img/products/reebok_1.jpg" alt="Reebok Clean Slide Black" loading="lazy" style="width:100%;height:100%;object-fit:cover"><div class="pho"></div></div>
+<div class="pbr">Reebok</div><div class="pna">Reebok Clean Slide Black</div><div class="ppr">$35.00</div></a><a href="shoes.html" class="pc"><div class="pim"><img src="img/products/reebok_2.jpg" alt="Nano Golf Pearl Grey/ Black" loading="lazy" style="width:100%;height:100%;object-fit:cover"><div class="pho"></div></div>
+<div class="pbr">Reebok</div><div class="pna">Nano Golf Pearl Grey/ Black</div><div class="ppr">$220.00</div></a><a href="shoes.html" class="pc"><div class="pim"><img src="img/products/reebok_3.jpg" alt="Nano Golf Ftwr White/Peri Blue" loading="lazy" style="width:100%;height:100%;object-fit:cover"><div class="pho"></div></div>
 <div class="pbr">Reebok</div><div class="pna">Nano Golf Ftwr White/Peri Blue</div><div class="ppr">$220.00</div></a></div>
 </div>
 
 <div class="pdp-related">
 <div class="sh"><h2 class="stt">Recently Viewed</h2></div>
-<div class="pg"><a href="#" class="pc"><div class="pim"><img src="img/products/review-australia_0.jpg" alt="Lacie Dress" loading="lazy" style="width:100%;height:100%;object-fit:cover"><div class="pho"></div></div>
-<div class="pbr">Review</div><div class="pna">Lacie Dress</div><div class="ppr">$199.95</div></a><a href="#" class="pc"><div class="pim"><img src="img/products/review-australia_1.jpg" alt="Yorkville Ponte Dress" loading="lazy" style="width:100%;height:100%;object-fit:cover"><div class="pho"></div></div>
-<div class="pbr">Review</div><div class="pna">Yorkville Ponte Dress</div><div class="ppr">$79.00</div></a><a href="#" class="pc"><div class="pim"><img src="img/products/review-australia_2.jpg" alt="Florentine Mini Dress" loading="lazy" style="width:100%;height:100%;object-fit:cover"><div class="pho"></div></div>
-<div class="pbr">Review</div><div class="pna">Florentine Mini Dress</div><div class="ppr">$149.00</div></a><a href="#" class="pc"><div class="pim"><img src="img/products/review-australia_3.jpg" alt="Soho Dress" loading="lazy" style="width:100%;height:100%;object-fit:cover"><div class="pho"></div></div>
+<div class="pg"><a href="product-lacie-dress-white.html" class="pc"><div class="pim"><img src="img/products/review-australia_0.jpg" alt="Lacie Dress" loading="lazy" style="width:100%;height:100%;object-fit:cover"><div class="pho"></div></div>
+<div class="pbr">Review</div><div class="pna">Lacie Dress</div><div class="ppr">$199.95</div></a><a href="women.html" class="pc"><div class="pim"><img src="img/products/review-australia_1.jpg" alt="Yorkville Ponte Dress" loading="lazy" style="width:100%;height:100%;object-fit:cover"><div class="pho"></div></div>
+<div class="pbr">Review</div><div class="pna">Yorkville Ponte Dress</div><div class="ppr">$79.00</div></a><a href="women.html" class="pc"><div class="pim"><img src="img/products/review-australia_2.jpg" alt="Florentine Mini Dress" loading="lazy" style="width:100%;height:100%;object-fit:cover"><div class="pho"></div></div>
+<div class="pbr">Review</div><div class="pna">Florentine Mini Dress</div><div class="ppr">$149.00</div></a><a href="women.html" class="pc"><div class="pim"><img src="img/products/review-australia_3.jpg" alt="Soho Dress" loading="lazy" style="width:100%;height:100%;object-fit:cover"><div class="pho"></div></div>
 <div class="pbr">Review</div><div class="pna">Soho Dress</div><div class="ppr">$159.00</div></a></div>
 </div>
 
@@ -440,10 +473,10 @@ a{transition:color .15s,opacity .15s}
 <footer class="ftr">
 <div class="fgr">
 <div class="fba"><a href="index.html" class="logo"><img src="logo-white.png" alt="Brand Collective"></a><p>Australia's premier multi-brand fashion destination. 20 brands, one checkout.</p></div>
-<div class="fcl"><h5>Shop</h5><a href="women.html">Women</a><a href="men.html">Men</a><a href="kids.html">Kids</a><a href="shoes.html">Shoes</a><a href="sale.html">Sale</a></div>
-<div class="fcl"><h5>Brands</h5><a href="brands.html">All Brands</a><a href="#">Review</a><a href="#">Champion</a><a href="#">Clarks</a><a href="#">Superdry</a></div>
+<div class="fcl"><h5>Shop</h5><a href="women.html">Women</a><a href="men.html">Men</a><a href="kids.html">Kids</a><a href="shoes.html">Shoes</a><a href="shoes.html">Sports</a><a href="sale.html">Sale</a></div>
+<div class="fcl"><h5>Brands</h5><a href="brands.html">All Brands</a><a href="new-in.html">New Arrivals</a><a href="new-in.html">Best Sellers</a><a href="new-in.html">Trending</a></div>
 <div class="fcl"><h5>Help</h5><a href="#">Contact Us</a><a href="#">Shipping</a><a href="#">Returns</a><a href="#">Size Guide</a><a href="#">FAQs</a></div>
-<div class="fcl"><h5>Company</h5><a href="#">About Us</a><a href="#">Careers</a><a href="#">Sustainability</a><a href="#">Privacy</a><a href="#">Terms</a></div>
+<div class="fcl"><h5>Company</h5><a href="#">About Us</a><a href="#">Careers</a><a href="#">Sustainability</a><a href="#">Press</a></div>
 </div>
 <div class="fpy"><span class="fpy-badge">VISA</span><span class="fpy-badge">MASTERCARD</span><span class="fpy-badge">AMEX</span><span class="fpy-badge">AFTERPAY</span><span class="fpy-badge">ZIP</span><span class="fpy-badge">PAYPAL</span></div>
 <div class="fbt"><div class="fle"><span>&copy; 2026 Brand Collective</span><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Accessibility</a></div>
@@ -452,6 +485,21 @@ a{transition:color .15s,opacity .15s}
 </div></div>
 <div class="aoc">Brand Collective acknowledges Aboriginal and Torres Strait Islander peoples as the Traditional Custodians of the land.</div>
 </footer>
+<script>
+var SP=[{"n": "Lacie Dress", "b": "Review", "t": "Lace Dresses, Mini Dresses", "p": "199.95", "i": "img/products/review-australia_0.jpg", "u": "product-lacie-dress-white.html"}, {"n": "Yorkville Ponte Dress", "b": "Review", "t": "Midi Dresses", "p": "79.00", "i": "img/products/review-australia_1.jpg", "u": "women.html"}, {"n": "Florentine Mini Dress", "b": "Review", "t": "Mini Dresses, Long Sleeve Dresses", "p": "149.00", "i": "img/products/review-australia_2.jpg", "u": "women.html"}, {"n": "Soho Dress", "b": "Review", "t": "Midi Dresses", "p": "159.00", "i": "img/products/review-australia_3.jpg", "u": "women.html"}, {"n": "Bastille Spot Skirt", "b": "Review", "t": "Midi Skirts", "p": "79.00", "i": "img/products/review-australia_4.jpg", "u": "women.html"}, {"n": "Le Fleur Dress", "b": "Review", "t": "Floral Dresses, Shirt Dresses, Midi Dresses", "p": "169.00", "i": "img/products/review-australia_5.jpg", "u": "women.html"}, {"n": "Yorkville Ponte Dress", "b": "Review", "t": "Midi Dresses", "p": "89.00", "i": "img/products/review-australia_6.jpg", "u": "women.html"}, {"n": "Giulia Blouse", "b": "Review", "t": "Blouses", "p": "69.00", "i": "img/products/review-australia_7.jpg", "u": "women.html"}, {"n": "VINTAGE WASH TRACKPANTS", "b": "Champion", "t": "", "p": "99.99", "i": "img/products/champion_0.jpg", "u": "men.html"}, {"n": "Champion Tonal Scrpit Tee", "b": "Champion", "t": "Tops", "p": "34.99", "i": "img/products/champion_1.jpg", "u": "men.html"}, {"n": "GRAPHIC SHOP HOODIE", "b": "Champion", "t": "", "p": "79.99", "i": "img/products/champion_2.jpg", "u": "men.html"}, {"n": "RAIN JACKET", "b": "Champion", "t": "", "p": "149.99", "i": "img/products/champion_3.jpg", "u": "men.html"}, {"n": "BASE CREW", "b": "Champion", "t": "", "p": "89.99", "i": "img/products/champion_4.jpg", "u": "men.html"}, {"n": "VINTAGE WASH POLO SWEATSHIRT", "b": "Champion", "t": "", "p": "119.99", "i": "img/products/champion_5.jpg", "u": "men.html"}, {"n": "RAIN JACKET", "b": "Champion", "t": "", "p": "159.99", "i": "img/products/champion_6.jpg", "u": "men.html"}, {"n": "RAIN JACKET", "b": "Champion", "t": "", "p": "159.99", "i": "img/products/champion_7.jpg", "u": "men.html"}, {"n": "Engine A 26 + Se Black/White/Gold", "b": "Reebok", "t": "Sport", "p": "180.00", "i": "img/products/reebok_0.jpg", "u": "shoes.html"}, {"n": "Reebok Clean Slide Black", "b": "Reebok", "t": "Sneakers", "p": "35.00", "i": "img/products/reebok_1.jpg", "u": "shoes.html"}, {"n": "Nano Golf Pearl Grey/ Black", "b": "Reebok", "t": "Sport", "p": "220.00", "i": "img/products/reebok_2.jpg", "u": "shoes.html"}, {"n": "Nano Golf Ftwr White/Peri Blue", "b": "Reebok", "t": "Sport", "p": "220.00", "i": "img/products/reebok_3.jpg", "u": "shoes.html"}, {"n": "Reebok World 70 Purepink/Gentlepink/White", "b": "Reebok", "t": "Sneakers", "p": "100.00", "i": "img/products/reebok_4.jpg", "u": "product-reebok-world-70-purepink-gentlepink-white.html"}, {"n": "Lux High Rise Bike Short Black", "b": "Reebok", "t": "Gymwear", "p": "50.00", "i": "img/products/reebok_5.jpg", "u": "shoes.html"}, {"n": "Nano Gym Ftwr White/Black", "b": "Reebok", "t": "Sport", "p": "180.00", "i": "img/products/reebok_6.jpg", "u": "shoes.html"}, {"n": "Nano Gym Black/Sport Red", "b": "Reebok", "t": "Sport", "p": "180.00", "i": "img/products/reebok_7.jpg", "u": "shoes.html"}, {"n": "Sabilla Knit", "b": "Black Pepper", "t": "Knit Jumpers", "p": "119.00", "i": "img/products/blackpepper_0.jpg", "u": "women.html"}, {"n": "Romey Top", "b": "Black Pepper", "t": "Long Sleeve Tops", "p": "79.99", "i": "img/products/blackpepper_1.jpg", "u": "women.html"}, {"n": "Ria Zip Thru Cardigan", "b": "Black Pepper", "t": "Knit Tops", "p": "139.00", "i": "img/products/blackpepper_2.jpg", "u": "women.html"}, {"n": "Rhemmy 3/4 Sleeve Shirt", "b": "Black Pepper", "t": "3/4 Sleeve Shirts, Button Up Shirts, Striped Shirts", "p": "99.99", "i": "img/products/blackpepper_3.jpg", "u": "women.html"}, {"n": "Orella 3/4 Sleeve Top", "b": "Black Pepper", "t": "3/4 Sleeve Tops", "p": "79.99", "i": "img/products/blackpepper_4.jpg", "u": "women.html"}, {"n": "Orella 3/4 Sleeve Dress", "b": "Black Pepper", "t": "Knee Length Dresses", "p": "139.00", "i": "img/products/blackpepper_5.jpg", "u": "women.html"}, {"n": "Orella 3/4 Shirt", "b": "Black Pepper", "t": "3/4 Sleeve Shirts, Printed Shirts", "p": "119.00", "i": "img/products/blackpepper_6.jpg", "u": "women.html"}, {"n": "Nerina Top", "b": "Black Pepper", "t": "Long Sleeve Tops", "p": "89.99", "i": "img/products/blackpepper_7.jpg", "u": "women.html"}, {"n": "Aster Midnight Patent", "b": "Hush Puppies", "t": "Mary-Jane", "p": "189.95", "i": "img/products/hushpuppies_0.jpg", "u": "shoes.html"}, {"n": "Aster Black", "b": "Hush Puppies", "t": "Mary-Jane", "p": "189.95", "i": "img/products/hushpuppies_1.jpg", "u": "shoes.html"}, {"n": "Jojo Black", "b": "Hush Puppies", "t": "Ankle Boot", "p": "269.95", "i": "img/products/hushpuppies_2.jpg", "u": "shoes.html"}, {"n": "Piccolo Navy Wild", "b": "Hush Puppies", "t": "Loafer", "p": "179.95", "i": "img/products/hushpuppies_3.jpg", "u": "shoes.html"}, {"n": "Piccolo Brown Wild", "b": "Hush Puppies", "t": "Loafer", "p": "179.95", "i": "img/products/hushpuppies_4.jpg", "u": "shoes.html"}, {"n": "Pandero Navy Wild", "b": "Hush Puppies", "t": "Boat", "p": "179.95", "i": "img/products/hushpuppies_5.jpg", "u": "shoes.html"}, {"n": "Pandero Burgundy Wild", "b": "Hush Puppies", "t": "Boat", "p": "179.95", "i": "img/products/hushpuppies_6.jpg", "u": "shoes.html"}, {"n": "Ursa Black Patent", "b": "Hush Puppies", "t": "Mary-Jane", "p": "189.95", "i": "img/products/hushpuppies_7.jpg", "u": "shoes.html"}, {"n": "Back To School Kit Non Defined", "b": "Clarks", "t": "Accessories", "p": "19.00", "i": "img/products/clarks_0.jpg", "u": "shoes.html"}, {"n": "Linoso Monk Grey Snake Lea", "b": "Clarks", "t": "Buckle", "p": "99.00", "i": "img/products/clarks_1.jpg", "u": "shoes.html"}, {"n": "Cassiano Top Mid Tan Suede", "b": "Clarks", "t": "Boots", "p": "99.00", "i": "img/products/clarks_2.jpg", "u": "shoes.html"}, {"n": "Shoe Brush Natural", "b": "Clarks", "t": "Accessories", "p": "10.00", "i": "img/products/clarks_3.jpg", "u": "shoes.html"}, {"n": "Water & Stain Protector Non Defined", "b": "Clarks", "t": "Accessories", "p": "19.95", "i": "img/products/clarks_4.jpg", "u": "shoes.html"}, {"n": "Cur Oxford 1 W Orange Int Lea", "b": "Clarks", "t": "Lace-up", "p": "249.00", "i": "img/products/clarks_5.jpg", "u": "shoes.html"}, {"n": "Torhill Mocc Beige Patent", "b": "Clarks", "t": "Loafer", "p": "79.00", "i": "img/products/clarks_6.jpg", "u": "shoes.html"}, {"n": "Wallabee Boot (M) Cloud Grey", "b": "Clarks", "t": "Boots", "p": "99.00", "i": "img/products/clarks_7.jpg", "u": "shoes.html"}, {"n": "$349 Essentials Kit", "b": "Julius Marlow", "t": "Bundle", "p": "349.00", "i": "img/products/juliusmarlow_0.jpg", "u": "men.html"}, {"n": "$199 Essentials Kit", "b": "Julius Marlow", "t": "Bundle", "p": "199.00", "i": "img/products/juliusmarlow_1.jpg", "u": "men.html"}];
+function fmt(p){try{return'$'+parseFloat(p).toFixed(2)}catch(e){return'$'+p}}
+function openSearch(){document.querySelector('.srch-overlay').classList.add('open');document.querySelector('.srch-backdrop').classList.add('open');var inp=document.getElementById('srchInput');if(inp){inp.focus();inp.value='';}document.getElementById('srchResults').innerHTML='';}
+function closeSearch(){document.querySelector('.srch-overlay').classList.remove('open');document.querySelector('.srch-backdrop').classList.remove('open');}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+function liveSearch(q){
+q=q.trim().toLowerCase();var box=document.getElementById('srchResults');
+if(!q){box.innerHTML='';return;}
+var results=SP.filter(function(p){return(p.n+' '+p.b+' '+p.t).toLowerCase().indexOf(q)!==-1;}).slice(0,5);
+var html=results.map(function(p){return'<a class="srch-result" href="'+p.u+'"><img src="'+p.i+'" alt="'+p.n+'"><div class="srch-result-info"><div class="srch-result-brand">'+p.b+'</div><div class="srch-result-name">'+p.n+'</div></div><div class="srch-result-price">'+fmt(p.p)+'</div></a>';}).join('');
+if(results.length||q)html+='<a class="srch-viewall" href="search.html?q='+encodeURIComponent(q)+'">View all results &rarr;</a>';
+box.innerHTML=html;
+}
+</script>
 <script>
 function swapImg(thumb, url){
   document.getElementById('mainImg').src=url;
