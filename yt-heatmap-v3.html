@@ -244,6 +244,34 @@ tr:hover td{background:var(--card)}
 </div>
 
 <div class="section">
+  <div class="section-title">Top 15 Postcodes by Demand</div>
+  <div class="findings" id="top15Postcodes"></div>
+</div>
+
+<div class="section">
+  <div class="section-title">Stockist Performance Ranking</div>
+  <div class="finding-card" style="margin-bottom:12px"><strong>Methodology:</strong> Each stockist's catchment demand = sum of online demand from all postcodes within <span class="hl">10km radius</span> (haversine). Postcodes served by a single stockist in their 10km zone are flagged as <span class="hl">concentration risk</span>.</div>
+  <div class="findings" id="stockistRankTop" style="margin-bottom:16px"></div>
+  <div class="section-title" style="font-size:12px;margin-top:16px">Bottom 10 — Lowest Catchment Demand</div>
+  <div class="findings" id="stockistRankBottom"></div>
+</div>
+
+<div class="section">
+  <div class="section-title">Competitor Store Overlay</div>
+  <div class="finding-card"><strong>Competitor locations</strong> from Country Road (<span class="hl" id="crCount">0</span> AU stores) and Witchery (<span class="hl" id="witchCount">0</span> AU stores) are plotted as grey markers on the map. Seed Heritage scraping failed (data loaded dynamically). Toggle visibility with the button below.</div>
+  <div class="map-filters" style="margin-top:12px">
+    <button class="map-filter-btn" id="competitorToggle">Show Competitors</button>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Distance Decay Curve — Average Demand per Postcode by Distance Band</div>
+  <div class="chart-container">
+    <div class="chart-wrap"><canvas id="decayChart"></canvas></div>
+  </div>
+</div>
+
+<div class="section">
   <div class="section-title">Strategic Insights</div>
   <div class="findings">
     <div class="finding-card">
@@ -523,6 +551,142 @@ function initApp(){
   document.getElementById('pcSearch').addEventListener('input',e=>{
     renderTable(e.target.value);
   });
+
+  // === TOP 15 POSTCODES ===
+  (function(){
+    const sorted=[...YT_HM].sort((a,b)=>b[4]-a[4]).slice(0,15);
+    const container=document.getElementById('top15Postcodes');
+    sorted.forEach((r,i)=>{
+      const card=document.createElement('div');
+      card.className='finding-card';
+      card.innerHTML=`<strong>#${i+1} ${r[3]} ${r[8]}</strong><br>
+        Demand: <span class="hl">$${r[4].toLocaleString()}</span> · ${r[5]} orders · AOV $${r[6]}<br>
+        Nearest: ${r[10]} (${r[11]}) · <span class="hl">${r[7]}km</span>`;
+      container.appendChild(card);
+    });
+  })();
+
+  // === STOCKIST PERFORMANCE RANKING ===
+  (function(){
+    function haversine(lat1,lng1,lat2,lng2){
+      const R=6371,toR=Math.PI/180;
+      const dLat=(lat2-lat1)*toR,dLng=(lng2-lng1)*toR;
+      const a=Math.sin(dLat/2)**2+Math.cos(lat1*toR)*Math.cos(lat2*toR)*Math.sin(dLng/2)**2;
+      return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+    }
+    // Build all stores (stockists only for ranking)
+    const allStores=[...YT_STORES.map(s=>({n:s.n,lat:s.lat,lng:s.lng,t:s.t||'STOCKIST'}))];
+    const stockists=allStores.filter(s=>{const t=(s.t||'').toUpperCase();return t==='STOCKIST'||t==='BOUTIQUE'||t==='CONCESSION'||t==='';});
+
+    // For each stockist, find postcodes within 10km and sum demand
+    const rankings=stockists.map(store=>{
+      let totalDemand=0,pcCount=0,postcodes=[];
+      YT_HM.forEach(r=>{
+        const d=haversine(store.lat,store.lng,r[0],r[1]);
+        if(d<=10){totalDemand+=r[4];pcCount++;postcodes.push(r[3]);}
+      });
+      return {name:store.n,demand:totalDemand,postcodes:pcCount,pcs:postcodes};
+    });
+
+    // Count how many stockists serve each postcode within 10km
+    const pcStockistCount={};
+    rankings.forEach(r=>{r.pcs.forEach(pc=>{pcStockistCount[pc]=(pcStockistCount[pc]||0)+1;});});
+
+    // Flag concentration risk: store has high demand postcodes served by only 1 stockist
+    rankings.forEach(r=>{
+      r.concentrationRisk=r.pcs.some(pc=>pcStockistCount[pc]===1)&&r.demand>10000;
+    });
+
+    rankings.sort((a,b)=>b.demand-a.demand);
+
+    const topContainer=document.getElementById('stockistRankTop');
+    rankings.slice(0,20).forEach((r,i)=>{
+      const card=document.createElement('div');
+      card.className='finding-card';
+      card.innerHTML=`<strong>#${i+1} ${r.name}</strong><br>
+        Catchment demand: <span class="hl">$${r.demand.toLocaleString()}</span> · ${r.postcodes} postcodes within 10km${r.concentrationRisk?' · <span class="hl">⚠ Concentration risk</span>':''}`;
+      topContainer.appendChild(card);
+    });
+
+    const bottomContainer=document.getElementById('stockistRankBottom');
+    rankings.slice(-10).reverse().forEach((r,i)=>{
+      const rank=rankings.length-i;
+      const card=document.createElement('div');
+      card.className='finding-card';
+      card.innerHTML=`<strong>#${rank} ${r.name}</strong><br>
+        Catchment demand: <span class="hl">$${r.demand.toLocaleString()}</span> · ${r.postcodes} postcodes within 10km`;
+      bottomContainer.appendChild(card);
+    });
+  })();
+
+  // === COMPETITOR STORE OVERLAY ===
+  (function(){
+    const CR_STORES=[["Westfield Chatswood",-33.7969,151.1842],["Brighton",-37.9131,144.9938],["Camberwell",-37.8309,145.0571],["Chadstone",-37.8865,145.0828],["Southland",-37.9584,145.0521],["Doncaster",-37.7862,145.1257],["Geelong",-38.1468,144.3634],["Robina",-28.0775,153.3862],["Maroochydore",-26.655,153.0899],["Oxford St",-33.8856,151.2284],["Mosman",-33.8269,151.2435],["Sydney City",-33.8702,151.2088],["South Yarra",-37.8399,144.9954],["Lygon Court",-37.7981,144.9661],["Unley",-34.9495,138.6071],["Indooroopilly",-27.4998,152.9731],["Highpoint",-37.7737,144.8886],["Pacific Fair",-28.0352,153.4271],["Erina",-33.4382,151.3937],["Whitford City",-31.7963,115.7503],["Miranda",-34.0348,151.1003],["Carindale",-27.503,153.1027],["Warringah Mall",-33.7675,151.266],["Karrinyup",-31.8765,115.7787],["Chermside",-27.3859,153.031],["Woden",-35.3462,149.0854],["Macquarie Centre",-33.7765,151.1221],["Frankston",-38.1418,145.1241],["Kotara",-32.9411,151.7112],["Castle Hill",-33.7308,151.0065],["Penrith",-33.7514,150.6922],["Norwood",-34.921,138.6356],["Canberra City",-35.2806,149.1332],["Claremont Qtr",-31.9822,115.7796],["Darwin",-12.3756,130.8814],["Charlestown",-32.9636,151.6939],["Eastland",-37.8138,145.2287],["Booragoon",-32.0341,115.836],["Shell Harbour",-34.5641,150.8387],["Townsville",-19.2986,146.7626],["Eastgardens",-33.9448,151.2254],["Macarthur",-34.0748,150.8002],["Rundle Place",-34.9236,138.6024],["Rouse Hill",-33.691,150.9244],["Wollongong",-34.4254,150.8934],["Launceston",-41.438,147.1376],["Balgowlah",-33.7929,151.2637],["Mt Gravatt",-27.5628,153.0825],["Sorrento",-38.3386,144.7411],["Toowoomba",-27.5612,151.9487],["Albert Park",-37.8423,144.9531],["Hobart Icon",-42.8824,147.3266],["Birkenhead Outlet",-33.856,151.1612],["Noosa",-26.3861,153.0859],["Brisbane Airport",-27.3931,153.1129],["St Ives",-33.7298,151.1585],["Torquay",-38.3325,144.3234],["Williamstown",-37.8592,144.901],["Burnside",-34.9411,138.6414],["Melbourne Central",-37.8106,144.9626],["Byron Bay",-28.6436,153.612],["Cairns",-16.9245,145.7724],["Warrnambool",-38.3823,142.4829],["Bowral",-34.4789,150.417],["Ballarat",-37.5618,143.859],["Lorne",-38.5421,143.9762],["Brisbane City",-27.471,153.0212],["Forest Hill",-37.8355,145.1619],["Marion",-35.0163,138.5419],["Chatswood Chase",-33.7946,151.1831],["Pakington St",-38.1562,144.343],["Mornington PopUp",-38.2201,145.0368]];
+    const WITCH_STORES=[["David Jones Canberra",-35.3076,149.1099],["Canberra Centre",-35.2791,149.1309],["Albury",-36.0552,146.9098],["Balgowlah",-33.7935,151.2649],["Balmain",-33.8566,151.1788],["Bondi Junction",-33.8917,151.2503],["Bowral",-34.4787,150.4168],["Warringah",-33.7702,151.2659],["Burwood",-33.8745,151.1043],["Castle Towers",-33.7302,151.0065],["Salt Village",-28.2771,153.5773],["Leura",-33.7134,150.3316],["Mosman",-33.827,151.2443],["Macquarie",-33.7766,151.1203],["Rouse Hill",-33.6821,150.9156],["St Ives",-33.7311,151.1569],["Brighton",-37.9141,144.9952],["Camberwell",-37.8307,145.0572],["Chadstone",-37.8884,145.0818],["Southland",-37.9588,145.0532],["Doncaster",-37.7846,145.1262],["Frankston",-38.1413,145.1235],["Geelong Malop St",-38.1483,144.3611],["Highpoint",-37.7734,144.8887],["Moonee Ponds",-37.7647,144.9219],["Port Melbourne",-37.8397,144.9419],["Eastland",-37.8148,145.2302],["Sorrento",-38.34,144.7376],["Southwharf DFO",-37.8246,144.9501],["Torquay",-38.3314,144.321],["Williamstown",-37.8597,144.9014],["Booragoon",-32.0345,115.8376],["Karrinyup",-31.8764,115.7789],["Indooroopilly",-27.4991,152.9728],["Emporium",-37.812,144.9637],["Hurstville",-33.965,151.1058],["Launceston",-41.438,147.1375],["Miranda",-34.0345,151.1002],["Brisbane DFO",-27.4147,153.0795],["ToowoombaGrdCntrl",-27.5606,151.9505],["Pacific Fair",-28.0363,153.428],["Ballarat",-37.5608,143.8568],["Tamworth",-31.0904,150.9305],["Eastgardens",-33.9448,151.2254],["Noosa",-26.3864,153.0884],["Townsville",-19.2714,146.7908],["Burnside",-34.9402,138.6439],["Norwood",-34.9209,138.636],["Marion",-35.0143,138.541],["Rundle Place",-34.923,138.6027],["Carindale",-27.503,153.1016],["Chermside",-27.3858,153.031],["Forest Hill",-37.8355,145.1619],["Chatswood Chase",-33.7951,151.183]];
+
+    document.getElementById('crCount').textContent=CR_STORES.length;
+    document.getElementById('witchCount').textContent=WITCH_STORES.length;
+
+    let competitorMarkers=[];
+    let competitorsVisible=false;
+    const toggleBtn=document.getElementById('competitorToggle');
+
+    function showCompetitors(){
+      const all=[...CR_STORES.map(s=>({n:'CR: '+s[0],lat:s[1],lng:s[2]})),...WITCH_STORES.map(s=>({n:'W: '+s[0],lat:s[1],lng:s[2]}))];
+      all.forEach(s=>{
+        const m=L.circleMarker([s.lat,s.lng],{radius:3,fillColor:'#999',color:'rgba(153,153,153,.6)',weight:1,fillOpacity:.6}).addTo(map);
+        m.bindTooltip('<div class="pc-tooltip"><div class="pc-code">'+s.n+'</div><div class="pc-meta">Competitor</div></div>',{direction:'top',offset:[0,-6]});
+        competitorMarkers.push(m);
+      });
+    }
+    function hideCompetitors(){competitorMarkers.forEach(m=>map.removeLayer(m));competitorMarkers=[];}
+
+    toggleBtn.addEventListener('click',()=>{
+      competitorsVisible=!competitorsVisible;
+      if(competitorsVisible){showCompetitors();toggleBtn.classList.add('active');toggleBtn.textContent='Hide Competitors';}
+      else{hideCompetitors();toggleBtn.classList.remove('active');toggleBtn.textContent='Show Competitors';}
+    });
+  })();
+
+  // === DISTANCE DECAY CURVE ===
+  (function(){
+    const bands=[];
+    for(let i=0;i<100;i+=5) bands.push([i,i+5]);
+    bands.push([100,99999]);
+    const bandData=bands.map(([lo,hi])=>{
+      const pcs=YT_HM.filter(r=>r[7]>=lo&&r[7]<hi);
+      return {label:hi===99999?'100+':lo+'-'+hi,count:pcs.length,totalDemand:pcs.reduce((s,r)=>s+r[4],0),avg:pcs.length?pcs.reduce((s,r)=>s+r[4],0)/pcs.length:0};
+    }).filter(b=>b.count>0);
+
+    const ctx2=document.getElementById('decayChart').getContext('2d');
+    new Chart(ctx2,{
+      type:'line',
+      data:{
+        labels:bandData.map(b=>b.label+' km'),
+        datasets:[{
+          label:'Avg Demand per Postcode ($)',
+          data:bandData.map(b=>Math.round(b.avg)),
+          borderColor:getComputedStyle(document.documentElement).getPropertyValue('--accent').trim()||'#8B6914',
+          backgroundColor:'rgba(139,105,20,.15)',
+          fill:true,
+          tension:.3,
+          pointRadius:4,
+          pointBackgroundColor:getComputedStyle(document.documentElement).getPropertyValue('--accent').trim()||'#8B6914'
+        }]
+      },
+      options:{
+        responsive:true,maintainAspectRatio:false,
+        plugins:{
+          legend:{labels:{font:{size:12},usePointStyle:true,padding:20}},
+          tooltip:{callbacks:{label:i=>'$'+i.raw.toLocaleString()+' avg per postcode ('+bandData[i.dataIndex].count+' postcodes)'}}
+        },
+        scales:{
+          x:{ticks:{font:{size:10},maxRotation:45},grid:{display:false},title:{display:true,text:'Distance from Nearest Store (km)',font:{size:11}}},
+          y:{ticks:{font:{size:11},callback:v=>'$'+v.toLocaleString()},grid:{color:'rgba(128,128,128,.1)'},title:{display:true,text:'Avg Demand per Postcode ($)',font:{size:11}}}
+        }
+      }
+    });
+  })();
 
   // Invalidate map size after render
   setTimeout(()=>map.invalidateSize(),100);
