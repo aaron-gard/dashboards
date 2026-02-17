@@ -249,7 +249,7 @@ a{transition:color .15s,opacity .15s}
 @media(max-width:768px){.pdp-sticky.visible{display:flex}}
 
 /* Search overlay */
-.srch-overlay{position:fixed;top:76px;left:0;right:0;background:var(--wh);z-index:1001;box-shadow:0 12px 40px rgba(0,0,0,.15);padding:24px 32px;display:none;max-height:70vh;overflow-y:auto}
+.srch-overlay{position:fixed;top:76px;left:50%;transform:translateX(-50%);width:480px;background:var(--wh);z-index:1001;box-shadow:0 12px 40px rgba(0,0,0,.15);border-radius:0 0 8px 8px;padding:24px 32px;display:none;max-height:70vh;overflow-y:auto}
 .srch-overlay.open{display:block}
 .srch-input{width:100%;padding:14px 20px;font-size:16px;border:2px solid var(--bk);border-radius:6px;font-family:var(--sn);outline:none}
 .srch-section{margin-top:20px}
@@ -267,7 +267,7 @@ a{transition:color .15s,opacity .15s}
 .srch-viewall{display:block;text-align:center;padding:14px;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.3px;color:var(--bk);border-top:1px solid var(--bd);margin-top:12px;text-decoration:none}
 .srch-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:1000;display:none}
 .srch-backdrop.open{display:block}
-@media(max-width:768px){.srch-overlay{top:auto;padding:16px}}
+@media(max-width:768px){.srch-overlay{width:100%;border-radius:0;top:auto;padding:16px}}
 </style></head><body><div class="ann"><span>Complimentary express shipping on orders over $150 &nbsp;&bull;&nbsp; New season now live</span></div><div id="mobnav" class="mob-nav"><div class="mob-close" onclick="this.parentElement.classList.remove('open')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></div><div class="mob-nav-list"><a href="new-in.html" class="ac">New In</a><a href="women.html">Women</a><a href="men.html">Men</a><a href="kids.html">Kids</a><a href="shoes.html">Shoes</a><a href="shoes.html">Sports</a><a href="brands.html">Brands</a><a href="sale.html">Sale</a></div></div><div class="srch-backdrop" onclick="closeSearch()"></div>
 <div class="srch-overlay">
 <input class="srch-input" id="srchInput" type="text" placeholder="Search brands, products..." oninput="liveSearch(this.value)" onkeydown="if(event.key==='Enter'){window.location='search.html?q='+encodeURIComponent(this.value)}">
