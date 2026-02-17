@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Review — Monthly Marketing Report</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg: #0f1117;
+  --surface: #1a1d27;
+  --surface2: #242835;
+  --border: #2e3345;
+  --text: #e8eaed;
+  --text-muted: #9ca3af;
+  --accent: #a78bfa;
+  --accent2: #818cf8;
+  --green: #34d399;
+  --red: #f87171;
+  --orange: #fbbf24;
+  --blue: #60a5fa;
+  --pink: #f472b6;
+}
+[data-theme="light"] {
+  --bg: #f3f4f6;
+  --surface: #ffffff;
+  --surface2: #f9fafb;
+  --border: #e5e7eb;
+  --text: #111827;
+  --text-muted: #6b7280;
+  --accent: #7c3aed;
+  --accent2: #6366f1;
+  --green: #059669;
+  --red: #dc2626;
+  --orange: #d97706;
+  --blue: #2563eb;
+  --pink: #db2777;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+header h1 { font-size: 28px; font-weight: 700; }
+header h1 span { color: var(--accent); }
+.subtitle { color: var(--text-muted); font-size: 14px; margin-top: 4px; }
+.theme-toggle {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.month-selector {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+.month-btn {
+  padding: 8px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all .2s;
+}
+.month-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.section-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 32px 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-title .icon { font-size: 22px; }
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.kpi-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+.kpi-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+.kpi-value {
+  font-size: 28px;
+  font-weight: 700;
+}
+.kpi-change {
+  font-size: 13px;
+  margin-top: 6px;
+  font-weight: 500;
+}
+.kpi-change.up { color: var(--green); }
+.kpi-change.down { color: var(--red); }
+.kpi-change.neutral { color: var(--text-muted); }
+.kpi-context {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+.table-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th {
+  text-align: left;
+  padding: 14px 16px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  font-weight: 600;
+}
+td {
+  padding: 14px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border);
+}
+tr:last-child td { border-bottom: none; }
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.badge.green { background: rgba(52,211,153,.15); color: var(--green); }
+.badge.red { background: rgba(248,113,113,.15); color: var(--red); }
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.chart-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+.chart-card h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--text-muted);
+}
+canvas { max-height: 280px; }
+.top-campaigns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.campaign-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+}
+.campaign-rank {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--border);
+}
+.campaign-date { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+.campaign-subject { font-size: 15px; font-weight: 600; margin-bottom: 4px; line-height: 1.4; }
+.campaign-pre { font-size: 13px; color: var(--text-muted); margin-bottom: 14px; font-style: italic; }
+.campaign-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.campaign-stat-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; }
+.campaign-stat-value { font-size: 18px; font-weight: 700; margin-top: 2px; }
+.insight-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+.insight-box h4 { font-size: 13px; color: var(--accent); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+.insight-box ul { padding-left: 18px; }
+.insight-box li { font-size: 14px; color: var(--text-muted); margin-bottom: 6px; }
+.social-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+footer {
+  text-align: center;
+  padding: 32px 0 16px;
+  color: var(--text-muted);
+  font-size: 12px;
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+}
+@media (max-width: 768px) {
+  body { padding: 16px; }
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .charts-grid, .top-campaigns { grid-template-columns: 1fr; }
+  header h1 { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1><span>Review</span> — Monthly Marketing Report</h1>
+    <div class="subtitle">Brand performance across Email, Social & Digital</div>
+  </div>
+  <button class="theme-toggle" onclick="toggleTheme()">🌙 / ☀️</button>
+</header>
+
+<div class="month-selector">
+  <button class="month-btn active" data-month="jul24">Jul 2024</button>
+  <button class="month-btn" data-month="jun24" disabled style="opacity:.4;cursor:default">Jun 2024</button>
+</div>
+
+<!-- EMAIL / EDM SECTION -->
+<div class="section-title"><span class="icon">📧</span> Email Performance (Klaviyo)</div>
+
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <div class="kpi-label">Campaigns Sent</div>
+    <div class="kpi-value">32</div>
+    <div class="kpi-change up">+4 vs Jun (+14%)</div>
+    <div class="kpi-context">30 sent Jul '23 (YoY +6.7%)</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Total Emails Delivered</div>
+    <div class="kpi-value">3.79M</div>
+    <div class="kpi-change up">+26.7% MoM</div>
+    <div class="kpi-context">4.21M Jul '23 (YoY -10.1%)</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Campaign Attributed Rev</div>
+    <div class="kpi-value">$370K</div>
+    <div class="kpi-change up">+11.8% MoM</div>
+    <div class="kpi-context">vs $331K Jun '24</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Flow Revenue</div>
+    <div class="kpi-value">$99K</div>
+    <div class="kpi-change up">+35% MoM</div>
+    <div class="kpi-context">vs $73K Jun '24</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Total Attributed Revenue</div>
+    <div class="kpi-value" style="color:var(--green)">$469K</div>
+    <div class="kpi-change up">+16% MoM</div>
+    <div class="kpi-context">vs $404K Jun '24</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Open Rate</div>
+    <div class="kpi-value">38.2%</div>
+    <div class="kpi-change down">-8% MoM</div>
+    <div class="kpi-context">41.4% Jun '24 · 37.3% Jul '23</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Click-Through Rate</div>
+    <div class="kpi-value">2.03%</div>
+    <div class="kpi-change down">-0.98% MoM</div>
+    <div class="kpi-context">2.05% Jun '24 · 1.67% Jul '23</div>
+  </div>
+</div>
+
+<!-- MoM & YoY Tables -->
+<div class="charts-grid">
+  <div class="chart-card">
+    <h3>Month-on-Month Comparison</h3>
+    <canvas id="momChart"></canvas>
+  </div>
+  <div class="chart-card">
+    <h3>Year-on-Year Comparison</h3>
+    <canvas id="yoyChart"></canvas>
+  </div>
+</div>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Period</th>
+        <th>Campaigns</th>
+        <th>Emails Sent</th>
+        <th>Campaign Rev</th>
+        <th>Flow Rev</th>
+        <th>Total Rev</th>
+        <th>Open Rate</th>
+        <th>CTR</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Jul 2024</strong></td>
+        <td>32</td>
+        <td>3,786,022</td>
+        <td>$370,258</td>
+        <td>$98,987</td>
+        <td style="color:var(--green);font-weight:700">$469,245</td>
+        <td>38.21%</td>
+        <td>2.03%</td>
+      </tr>
+      <tr>
+        <td>Jun 2024</td>
+        <td>28</td>
+        <td>2,988,760</td>
+        <td>$331,194</td>
+        <td>$73,047</td>
+        <td>$404,241</td>
+        <td>41.37%</td>
+        <td>2.05%</td>
+      </tr>
+      <tr>
+        <td>Jul 2023</td>
+        <td>30</td>
+        <td>4,210,824</td>
+        <td>$135,160<sup style="color:var(--text-muted)"> Insider</sup></td>
+        <td>—</td>
+        <td>—</td>
+        <td>37.34%</td>
+        <td>1.67%</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="insight-box">
+  <h4>📝 Key Insights — Email</h4>
+  <ul>
+    <li>Higher send volume drove +16% total revenue MoM, but diluted open rates (-8%) and CTR</li>
+    <li>YoY: tighter segmentation despite more campaigns. OR +2.3%, CTR +21.6% — content improvements landing</li>
+    <li>GA email channel revenue down 40% YoY — attribution differences (GA vs GA4) + comping Barbie sales LY</li>
+    <li><strong>Action:</strong> Relook at subject/preheader CTAs and segmentation moving into September</li>
+  </ul>
+</div>
+
+<!-- TOP CAMPAIGNS -->
+<div class="section-title"><span class="icon">🏆</span> Top Performing Campaigns</div>
+
+<div class="top-campaigns">
+  <div class="campaign-card">
+    <div class="campaign-rank">#1</div>
+    <div class="campaign-date">Jul 24, 2024 · 6:30 PM</div>
+    <div class="campaign-subject">Online Flash Offer: 50% Off* Selected Styles</div>
+    <div class="campaign-pre">Hurry, ends midnight Thursday</div>
+    <div class="campaign-stats">
+      <div><div class="campaign-stat-label">Revenue</div><div class="campaign-stat-value" style="color:var(--green)">$46.8K</div></div>
+      <div><div class="campaign-stat-label">Open Rate</div><div class="campaign-stat-value">44%</div></div>
+      <div><div class="campaign-stat-label">CTR</div><div class="campaign-stat-value">3.4%</div></div>
+    </div>
+    <div style="margin-top:10px;font-size:12px;color:var(--text-muted)">Audience: Engaged 90D</div>
+  </div>
+  <div class="campaign-card">
+    <div class="campaign-rank">#2</div>
+    <div class="campaign-date">Jul 8, 2024 · 6:30 PM</div>
+    <div class="campaign-subject">PSA: 50% Off* Coats & Jackets!</div>
+    <div class="campaign-pre">Upgrade your winter.</div>
+    <div class="campaign-stats">
+      <div><div class="campaign-stat-label">Revenue</div><div class="campaign-stat-value" style="color:var(--green)">$23.8K</div></div>
+      <div><div class="campaign-stat-label">Open Rate</div><div class="campaign-stat-value">43.4%</div></div>
+      <div><div class="campaign-stat-label">CTR</div><div class="campaign-stat-value">3.9%</div></div>
+    </div>
+    <div style="margin-top:10px;font-size:12px;color:var(--text-muted)">Audience: Engaged 180D (183,810)</div>
+  </div>
+  <div class="campaign-card">
+    <div class="campaign-rank">#3</div>
+    <div class="campaign-date">Jul 28, 2024 · 6:00 PM</div>
+    <div class="campaign-subject">24 hours only! 50 styles, 50% off*</div>
+    <div class="campaign-pre">Including styles on your wishlist.</div>
+    <div class="campaign-stats">
+      <div><div class="campaign-stat-label">Revenue</div><div class="campaign-stat-value" style="color:var(--green)">$22.8K</div></div>
+      <div><div class="campaign-stat-label">Open Rate</div><div class="campaign-stat-value">28%</div></div>
+      <div><div class="campaign-stat-label">CTR</div><div class="campaign-stat-value">3.4%</div></div>
+    </div>
+    <div style="margin-top:10px;font-size:12px;color:var(--text-muted)">Audience: Non-openers + Sale Shoppers (64,784)</div>
+  </div>
+  <div class="campaign-card">
+    <div class="campaign-rank">#4</div>
+    <div class="campaign-date">Jul 16, 2024 · 7:00 AM</div>
+    <div class="campaign-subject">FINAL HOURS! Take a further 30% off ends tonight.</div>
+    <div class="campaign-pre">Your last call to shop the sale.</div>
+    <div class="campaign-stats">
+      <div><div class="campaign-stat-label">Revenue</div><div class="campaign-stat-value" style="color:var(--green)">$20.3K</div></div>
+      <div><div class="campaign-stat-label">Open Rate</div><div class="campaign-stat-value">40.4%</div></div>
+      <div><div class="campaign-stat-label">CTR</div><div class="campaign-stat-value">1.8%</div></div>
+    </div>
+    <div style="margin-top:10px;font-size:12px;color:var(--text-muted)">Audience: Engaged 90D (164,683)</div>
+  </div>
+</div>
+
+<!-- ORGANIC SOCIAL -->
+<div class="section-title"><span class="icon">📱</span> Organic Social</div>
+
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <div class="kpi-label">Impressions</div>
+    <div class="kpi-value">—</div>
+    <div class="kpi-change up">+9% MoM</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Reach</div>
+    <div class="kpi-value">—</div>
+    <div class="kpi-change up">+15% MoM</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Profile Visits</div>
+    <div class="kpi-value">—</div>
+    <div class="kpi-change up">Slight growth</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Website Clicks</div>
+    <div class="kpi-value">—</div>
+    <div class="kpi-change down">-23% MoM</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Avg Engagement / Reach</div>
+    <div class="kpi-value">—</div>
+    <div class="kpi-change down">Declined</div>
+  </div>
+</div>
+
+<div class="insight-box">
+  <h4>📝 Key Insights — Social</h4>
+  <ul>
+    <li>Impressions +9%, reach +15% — driven by influencer outreach (gifted + paid) and consistent boosting</li>
+    <li>Jasmin Howell's paid + organic content (Aurora Shirtdress) set the tone for July</li>
+    <li>Website clicks -23% and avg engagement/reach declining despite volume growth</li>
+    <li><strong>Action:</strong> Focus on explicit call-to-action copy and content to convert reach into clicks</li>
+  </ul>
+</div>
+
+<footer>
+  Review Monthly Marketing Dashboard · Data: July 2024 · Built by The Claw 🦀
+</footer>
+
+<script>
+// Theme
+function toggleTheme() {
+  const t = document.body.getAttribute('data-theme') === 'light' ? '' : 'light';
+  document.body.setAttribute('data-theme', t);
+  localStorage.setItem('viv-theme', t);
+  renderCharts();
+}
+(function() {
+  const saved = localStorage.getItem('viv-theme');
+  if (saved) document.body.setAttribute('data-theme', saved);
+})();
+
+// Charts
+let momChart, yoyChart;
+function renderCharts() {
+  const isDark = document.body.getAttribute('data-theme') !== 'light';
+  const gridColor = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
+  const textColor = isDark ? '#9ca3af' : '#6b7280';
+
+  if (momChart) momChart.destroy();
+  if (yoyChart) yoyChart.destroy();
+
+  const momCtx = document.getElementById('momChart').getContext('2d');
+  momChart = new Chart(momCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Campaign Rev', 'Flow Rev', 'Total Rev'],
+      datasets: [
+        {
+          label: 'Jun 2024',
+          data: [331194, 73047, 404241],
+          backgroundColor: isDark ? 'rgba(167,139,250,0.3)' : 'rgba(124,58,237,0.2)',
+          borderColor: isDark ? '#a78bfa' : '#7c3aed',
+          borderWidth: 1,
+          borderRadius: 6
+        },
+        {
+          label: 'Jul 2024',
+          data: [370258, 98987, 469245],
+          backgroundColor: isDark ? 'rgba(52,211,153,0.3)' : 'rgba(5,150,105,0.2)',
+          borderColor: isDark ? '#34d399' : '#059669',
+          borderWidth: 1,
+          borderRadius: 6
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { labels: { color: textColor } },
+        tooltip: { callbacks: { label: (c) => c.dataset.label + ': $' + c.raw.toLocaleString() } }
+      },
+      scales: {
+        x: { ticks: { color: textColor }, grid: { display: false } },
+        y: { ticks: { color: textColor, callback: v => '$' + (v/1000) + 'K' }, grid: { color: gridColor } }
+      }
+    }
+  });
+
+  const yoyCtx = document.getElementById('yoyChart').getContext('2d');
+  yoyChart = new Chart(yoyCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Open Rate', 'CTR'],
+      datasets: [
+        {
+          label: 'Jul 2023',
+          data: [37.34, 1.67],
+          backgroundColor: isDark ? 'rgba(251,191,36,0.3)' : 'rgba(217,119,6,0.2)',
+          borderColor: isDark ? '#fbbf24' : '#d97706',
+          borderWidth: 1,
+          borderRadius: 6
+        },
+        {
+          label: 'Jul 2024',
+          data: [38.21, 2.03],
+          backgroundColor: isDark ? 'rgba(96,165,250,0.3)' : 'rgba(37,99,235,0.2)',
+          borderColor: isDark ? '#60a5fa' : '#2563eb',
+          borderWidth: 1,
+          borderRadius: 6
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { labels: { color: textColor } },
+        tooltip: { callbacks: { label: (c) => c.dataset.label + ': ' + c.raw + '%' } }
+      },
+      scales: {
+        x: { ticks: { color: textColor }, grid: { display: false } },
+        y: { ticks: { color: textColor, callback: v => v + '%' }, grid: { color: gridColor } }
+      }
+    }
+  });
+}
+renderCharts();
+</script>
+</body>
+</html>
