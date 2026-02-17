@@ -3,7 +3,10 @@
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
       ]
     }
   ],
@@ -27,6 +30,10 @@
     {
       "source": "/ux-audit.html",
       "destination": "/bd4e624e669c56b7.html"
+    },
+    {
+      "source": "/yt-heatmap.html",
+      "destination": "/db65556d930e416c.html"
     }
   ]
 }
