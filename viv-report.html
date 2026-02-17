@@ -39,6 +39,18 @@ canvas{max-height:260px}
 .unavail{background:var(--sf);border:1px dashed var(--bd);border-radius:12px;padding:24px;text-align:center;margin-bottom:24px;color:var(--tm)}
 .unavail .icon{font-size:28px;margin-bottom:8px}
 .unavail .reason{font-size:12px;opacity:.7;margin-top:4px}
+.creative-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;margin-bottom:24px}
+.creative-card{background:var(--sf);border:1px solid var(--bd);border-radius:12px;overflow:hidden;display:flex}
+.creative-thumb{width:100px;min-height:100px;background:var(--sf2);flex-shrink:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.creative-thumb img{width:100%;height:100%;object-fit:cover}
+.creative-thumb .no-img{font-size:32px;opacity:.3}
+.creative-info{padding:14px;flex:1;min-width:0}
+.creative-name{font-size:13px;font-weight:600;margin-bottom:6px;line-height:1.3;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.creative-type{font-size:10px;text-transform:uppercase;color:var(--tm);margin-bottom:8px;letter-spacing:.5px}
+.creative-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.creative-metric .label{font-size:9px;color:var(--tm);text-transform:uppercase}
+.creative-metric .val{font-size:15px;font-weight:700}
+.creative-rank{font-size:11px;font-weight:700;color:var(--ac);margin-bottom:4px}
 footer{text-align:center;padding:28px 0 12px;color:var(--tm);font-size:11px;border-top:1px solid var(--bd);margin-top:40px}
 .src{display:inline-block;background:var(--sf2);border:1px solid var(--bd);border-radius:4px;padding:1px 6px;font-size:10px;color:var(--tm);margin-left:6px;vertical-align:middle}
 @media(max-width:768px){body{padding:14px}.kg{grid-template-columns:repeat(2,1fr)}.cg,.two{grid-template-columns:1fr}header h1{font-size:20px}}
@@ -159,6 +171,22 @@ footer{text-align:center;padding:28px 0 12px;color:var(--tm);font-size:11px;bord
   </ul>
 </div>
 
+<!-- ===== META AD CREATIVES ===== -->
+<div class="st"><span class="icon">🎨</span> Top Meta Ad Creatives <span class="src">Meta Ads</span></div>
+
+<div class="creative-grid" id="creativeGrid"></div>
+
+<div class="ib">
+  <h4>📝 Creative Insights</h4>
+  <ul>
+    <li><strong>TAF30 (Take a Further 30%)</strong> dominated — $34K purchase value, 189 purchases at 12.0x ROAS. Highest volume creative by far.</li>
+    <li><strong>Retargeting crushes prospecting on efficiency:</strong> "20% Off Full Price - Lower" hit 27.1x ROAS vs 8.3x on the upper-funnel version</li>
+    <li><strong>Ballet Part 2</strong> retargeting: 25.9x ROAS on $323 spend — high efficiency, low scale opportunity</li>
+    <li><strong>Jasmin H content</strong> performing at 13.7x ROAS — influencer-sourced creative driving real revenue</li>
+    <li><strong>50% Off Chessie & Haisley</strong> to database: 36.9x ROAS — member-only offers converting strongly</li>
+  </ul>
+</div>
+
 <!-- ===== EMAIL (KLAVIYO) ===== -->
 <div class="st"><span class="icon">📧</span> Email Performance <span class="src">Klaviyo</span></div>
 
@@ -263,6 +291,36 @@ function initCharts(){
   });
 }
 initCharts();
+
+// Meta Ad Creatives
+const creatives = [
+  {rank:1,name:"TAF30 - Vid - Upper - Competitors",type:"video",spend:1914,purchases:189,value:34227,roas:12.0,imps:293128,clicks:5891,thumb:"https://scontent-lhr6-1.xx.fbcdn.net/v/t15.13418-10/441974158_1528796968014107_111502004619521386_n.jpg?_nc_cat=102&ccb=1-7&_nc_ohc=tT3-PexC8oMQ7kNvwE2JGd8&_nc_oc=AdnO0FXhUgqP-iZvFarTtGngf4DD_8dX_U1omv6F168xeyAYF5ylypRuehwwvXGY0B8&_nc_zt=23&_nc_ht=scontent-lhr6-1.xx&edm=ALjApogEAAAA&_nc_gid=GFzB-GwHpRMxOBasxugIkw&stp=dst-emg0_q75&oh=00_Afqj4D-lMJ5vV0VVTywgZaEOiPlnZrnaFUIWNC6R6eTnkg&oe=697750B7"},
+  {rank:2,name:"Final Winter Markdown - Upper - Broad excl. Customers",type:"image",spend:1032,purchases:83,value:16349,roas:10.5,imps:172402,clicks:3366,thumb:"https://scontent-lhr6-2.xx.fbcdn.net/v/t45.1600-4/567740800_24769903616000138_3991724211268121208_n.jpg?_nc_cat=104&ccb=1-7&_nc_aid=0&_nc_ohc=elTknB5197gQ7kNvwHlbVxF&_nc_oc=AdludgrWlr4lj5IZ1I0H4oMqRDpe08gyNQGkKOQmKygEW6OxFzw41PQlGedAsYngA98&_nc_zt=1&_nc_ht=scontent-lhr6-2.xx&edm=ALjApogEAAAA&stp=dst-emg0_q75&oh=00_AfqAwDzuANj7S8rBfaVCmLXUCv8anM6gOzbxvIji_xAbMg&oe=69773810"},
+  {rank:3,name:"20% Off Full Price - Vid - Upper - Competitors",type:"video",spend:1198,purchases:82,value:15010,roas:8.3,imps:184327,clicks:1212,thumb:"https://scontent-lhr8-1.xx.fbcdn.net/v/t15.13418-10/451334322_1130046021423373_208456079080912767_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=bHjBcQE2NnAQ7kNvwGF7U8b&_nc_oc=AdnoBAa9DbLoWWBfyR9tzVC8PWyAUC5Dm3Ms4X7WhibmLMWdIk72hXJSFDSKb6ipj1w&_nc_zt=23&_nc_ht=scontent-lhr8-1.xx&edm=ALjApogEAAAA&stp=dst-emg0_q75&oh=00_AfrPdHzya45mIN9qun_vwm2CDoeadpjvF51keIRAiiSeng&oe=697750AB"},
+  {rank:4,name:"20% Off Full Price - Vid - Lower - Customers/Visitors",type:"video",spend:351,purchases:72,value:14503,roas:27.1,imps:44688,clicks:309,thumb:""},
+  {rank:5,name:"Occasion Launch Feb'24 - Vid - Upper - Broad Interests",type:"video",spend:450,purchases:62,value:12542,roas:18.7,imps:51930,clicks:663,thumb:""},
+  {rank:6,name:"Ballet Part 2 - Lower - Visitors/Customers",type:"video",spend:323,purchases:61,value:12407,roas:25.9,imps:48743,clicks:1380,thumb:""},
+  {rank:7,name:"Jasmin H New Arrivals - Slideshow - Lower",type:"video",spend:334,purchases:37,value:6969,roas:13.7,imps:43458,clicks:1242,thumb:"https://scontent-lhr8-2.xx.fbcdn.net/v/t15.13418-10/445999797_2239174366432245_7..."},
+  {rank:8,name:"50% Off Chessie & Haisley - Vid - Lower - Database",type:"video",spend:85,purchases:30,value:4659,roas:36.9,imps:9454,clicks:256,thumb:"https://scontent-lhr6-1.xx.fbcdn.net/v/t15.13418-10/450832363_1513824266208249_2..."}
+];
+
+const grid=document.getElementById('creativeGrid');
+creatives.forEach(c=>{
+  const hasThumb=c.thumb&&c.thumb.length>50&&!c.thumb.includes('...');
+  grid.innerHTML+=`<div class="creative-card">
+    <div class="creative-thumb">${hasThumb?`<img src="${c.thumb}" onerror="this.parentElement.innerHTML='<div class=no-img>📸</div>'" loading="lazy">`:'<div class="no-img">📸</div>'}</div>
+    <div class="creative-info">
+      <div class="creative-rank">#${c.rank} · ${c.type}</div>
+      <div class="creative-name">${c.name}</div>
+      <div class="creative-metrics">
+        <div class="creative-metric"><div class="label">Revenue</div><div class="val" style="color:var(--gn)">$${(c.value/1000).toFixed(1)}K</div></div>
+        <div class="creative-metric"><div class="label">ROAS</div><div class="val">${c.roas}x</div></div>
+        <div class="creative-metric"><div class="label">Purchases</div><div class="val">${c.purchases}</div></div>
+      </div>
+      <div style="margin-top:6px;font-size:11px;color:var(--tm)">Spend: $${c.spend.toLocaleString()} · ${(c.imps/1000).toFixed(0)}K imps · ${c.clicks.toLocaleString()} clicks</div>
+    </div>
+  </div>`;
+});
 </script>
 </body>
 </html>
