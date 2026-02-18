@@ -10,7 +10,7 @@
 <style>html{scroll-behavior:smooth}*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}:root{--bk:#0a0a0a;--wh:#fff;--wm:#f5f4f2;--gy:#666;--bd:#e8e6e3;--gd:#c9a96e;--sn:"DM Sans",-apple-system,sans-serif;--sf:"DM Sans",sans-serif;--ez:cubic-bezier(.25,.1,.25,1)}html{font-size:16px;-webkit-font-smoothing:antialiased}body{font-family:var(--sn);color:var(--bk);background:var(--wh);overflow-x:hidden}a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;border:none;background:none}
 
 /* Announce bar */
-.ann{height:38px;background:var(--bk);color:var(--wh);display:flex;align-items:center;justify-content:center;gap:0;font-size:11px;letter-spacing:.5px;font-weight:600;overflow:hidden}.ann a{color:rgba(255,255,255,.85);text-decoration:none;padding:0 16px;transition:color .15s;white-space:nowrap}.ann a:hover{color:var(--wh);text-decoration:underline;text-underline-offset:3px}.ann-sep{color:rgba(255,255,255,.25);font-weight:400;user-select:none}
+.ann{height:38px;display:flex;align-items:center;justify-content:center;gap:0;font-size:11px;letter-spacing:.5px;font-weight:600;overflow:hidden;cursor:pointer;transition:background .4s ease,color .4s ease}.ann a{color:inherit;opacity:.85;text-decoration:none;padding:0 16px;transition:opacity .15s;white-space:nowrap}.ann a:hover{opacity:1;text-decoration:underline;text-underline-offset:3px}.ann-sep{opacity:.3;font-weight:400;user-select:none}
 
 /* Header */
 .hdr{height:76px;background:var(--bk);display:flex;align-items:center;padding:0 28px;position:sticky;top:0;z-index:1000;border-bottom:1px solid rgba(255,255,255,.08);gap:24px}
@@ -342,7 +342,7 @@ a{transition:color .15s,opacity .15s}
 .plp-page{padding:20px 16px}
 }
 </style></head><body>
-<div class="ann"><a href="#">Free Express Shipping Over $150</a><span class="ann-sep">|</span><a href="#">30-Day Free Returns</a><span class="ann-sep">|</span><a href="#">Download the App</a><span class="ann-sep">|</span><a href="new-in.html">New Season Now Live</a></div>
+<div class="ann" onclick="cycleAnn()" id="annBar"><a href="#">Free Express Shipping Over $150</a><span class="ann-sep">|</span><a href="#">30-Day Free Returns</a><span class="ann-sep">|</span><a href="#">Download the App</a><span class="ann-sep">|</span><a href="new-in.html">New Season Now Live</a></div>
 <div class="srch-backdrop" onclick="closeSearch()"></div>
 <div class="srch-overlay">
 <input class="srch-input" id="srchInput" type="text" placeholder="Search brands, products..." oninput="liveSearch(this.value)" onkeydown="if(event.key==='Enter'){window.location='search.html?q='+encodeURIComponent(this.value)}">
@@ -863,4 +863,4 @@ if(results.length||q)html+='<a class="srch-viewall" href="search.html?q='+encode
 box.innerHTML=html;
 }
 </script>
-</body></html>
+<script>var annPalette=["#1a1a2e","#16213e","#2c3e50","#1b2a4a","#2d2d2d","#3c1518","#1e3a2f","#2b1b35","#1a3c5e","#3b2f2f"],annIdx=0;function cycleAnn(){annIdx=(annIdx+1)%annPalette.length;document.getElementById("annBar").style.background=annPalette[annIdx]}document.getElementById("annBar").style.background=annPalette[0];document.getElementById("annBar").style.color="#fff"</script></body></html>
