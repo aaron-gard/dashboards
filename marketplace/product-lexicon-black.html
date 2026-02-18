@@ -300,77 +300,98 @@ a{transition:color .15s,opacity .15s}
 .pc-swatch-more{font-size:10px;color:var(--gy);font-weight:600;margin-left:2px}
 
 
-/* PDP Styles */
-.pdp-wrap{display:grid;grid-template-columns:55% 45%;gap:0;max-width:1400px;margin:0 auto}
-.pdp-gallery{padding:32px;padding-right:16px}
-.pdp-main-img{aspect-ratio:3/4;background:var(--wm);border-radius:4px;overflow:hidden;cursor:zoom-in;position:relative}
-.pdp-main-img img{width:100%;height:100%;object-fit:cover;transition:transform .3s var(--ez)}
+/* PDP v2 */
+.pdp-wrap{display:grid;grid-template-columns:58% 42%;gap:0;max-width:1400px;margin:0 auto;min-height:80vh}
+.pdp-gallery{display:flex;gap:12px;padding:24px 24px 24px 32px;position:sticky;top:120px;align-self:start}
+.pdp-thumb-rail{display:flex;flex-direction:column;gap:8px;width:72px;flex-shrink:0}
+.pdp-thumb-rail img{width:72px;height:90px;object-fit:cover;border-radius:4px;cursor:pointer;border:2px solid transparent;transition:all .15s;opacity:.6}
+.pdp-thumb-rail img:hover{opacity:.9}
+.pdp-thumb-rail img.active{border-color:var(--bk);opacity:1}
+.pdp-main-img{flex:1;aspect-ratio:2/3;background:var(--wm);border-radius:6px;overflow:hidden;cursor:zoom-in;position:relative}
+.pdp-main-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s var(--ez)}
 .pdp-main-img:hover img{transform:scale(1.5)}
-.pdp-thumbs{display:flex;gap:8px;margin-top:12px}
-.pdp-thumbs img{width:80px;height:100px;object-fit:cover;border-radius:4px;cursor:pointer;border:2px solid transparent;transition:border-color .15s;opacity:.7}
-.pdp-thumbs img:hover,.pdp-thumbs img.active{border-color:var(--bk);opacity:1}
-.pdp-info{padding:32px;padding-left:24px;position:sticky;top:120px;align-self:start}
-.pdp-brand{font-size:12px;letter-spacing:.5px;text-transform:uppercase;color:var(--gy);font-weight:600;text-decoration:underline;text-underline-offset:3px;display:inline-block;margin-bottom:8px;transition:color .15s}
-.pdp-brand:hover{color:var(--bk)}
-.pdp-title{font-family:var(--sf);font-size:28px;font-weight:700;line-height:1.2;margin-bottom:10px}
-.pdp-price{font-size:24px;font-weight:700;margin-bottom:12px}
-.pdp-price .old{text-decoration:line-through;color:var(--gy);font-weight:400;font-size:18px;margin-right:8px}
+.pdp-img-counter{position:absolute;bottom:12px;right:12px;background:rgba(0,0,0,.6);color:#fff;font-size:11px;font-weight:600;padding:4px 10px;border-radius:12px}
+.pdp-model-info{font-size:11px;color:var(--gy);margin-top:10px;padding:8px 0 0 84px}
+.pdp-info{padding:24px 32px 24px 24px;overflow-y:auto;max-height:calc(100vh - 120px);position:sticky;top:120px;align-self:start}
+.pdp-brand{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--gy);font-weight:700;text-decoration:none;display:inline-block;margin-bottom:6px;border-bottom:1px solid var(--bd);padding-bottom:1px;transition:color .15s}
+.pdp-brand:hover{color:var(--bk);border-color:var(--bk)}
+.pdp-title{font-family:var(--sf);font-size:24px;font-weight:700;line-height:1.25;margin-bottom:10px}
+.pdp-price{font-size:22px;font-weight:700;margin-bottom:8px;display:flex;align-items:baseline;gap:8px}
+.pdp-price .old{text-decoration:line-through;color:var(--gy);font-weight:400;font-size:16px}
 .pdp-price .sale{color:#c0392b}
-.pdp-stars{display:flex;align-items:center;gap:6px;margin-bottom:16px}
-.pdp-stars svg{width:16px;height:16px}
-.pdp-stars span{font-size:13px;color:var(--gy)}
-/* Colour swatches */
+.pdp-price .save-tag{font-size:11px;font-weight:700;color:#fff;background:#c0392b;padding:2px 8px;border-radius:2px}
+.pdp-stars{display:flex;align-items:center;gap:4px;margin-bottom:12px}
+.pdp-stars svg{width:14px;height:14px}
+.pdp-stars span{font-size:12px;color:var(--gy);margin-left:2px}
+.pdp-divider{height:1px;background:var(--bd);margin:16px 0}
 .pdp-colours{margin-bottom:16px}
-.pdp-colours label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.3px;display:block;margin-bottom:8px}
+.pdp-colours label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:8px}
 .pdp-colours .colour-row{display:flex;gap:8px;align-items:center}
-.pdp-colours .csw{width:28px;height:28px;border-radius:50%;cursor:pointer;transition:box-shadow .15s;border:2px solid var(--bd);position:relative}
+.pdp-colours .csw{width:28px;height:28px;border-radius:50%;cursor:pointer;transition:box-shadow .15s;border:2px solid var(--bd)}
 .pdp-colours .csw:hover{box-shadow:0 0 0 2px var(--gy)}
 .pdp-colours .csw.active{border-color:var(--bk);box-shadow:0 0 0 2px var(--bk)}
 .pdp-colours .csw.multi{background:conic-gradient(#c0392b,#f39c12,#27ae60,#2980b9,#8e44ad,#c0392b)}
 .pdp-colours .colour-name{font-size:12px;color:var(--gy);margin-left:4px}
-/* Size selector */
 .pdp-sizes{margin-bottom:16px}
-.pdp-sizes label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.3px;display:flex;justify-content:space-between;margin-bottom:8px}
-.pdp-sizes label a{font-weight:500;text-decoration:underline;text-underline-offset:2px;color:var(--gy);font-size:11px}
+.pdp-sizes label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;display:flex;justify-content:space-between;margin-bottom:8px}
+.pdp-sizes label a{font-weight:500;text-decoration:underline;text-underline-offset:2px;color:var(--gy);font-size:11px;text-transform:none;letter-spacing:0}
 .pdp-sizes .size-grid{display:flex;flex-wrap:wrap;gap:6px}
-.pdp-sizes .sz{min-width:48px;padding:10px 14px;text-align:center;font-size:13px;font-weight:600;border:1px solid var(--bd);border-radius:4px;cursor:pointer;transition:all .15s}
+.pdp-sizes .sz{min-width:50px;padding:10px 14px;text-align:center;font-size:13px;font-weight:600;border:1.5px solid var(--bd);border-radius:4px;cursor:pointer;transition:all .12s}
 .pdp-sizes .sz:hover{border-color:var(--bk)}
 .pdp-sizes .sz.active{background:var(--bk);color:var(--wh);border-color:var(--bk)}
-.pdp-sizes .sz.oos{opacity:.3;cursor:not-allowed;text-decoration:line-through}
-.pdp-qty{display:flex;align-items:center;gap:0;margin-bottom:16px}
-.pdp-qty button{width:44px;height:44px;border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:500;transition:background .15s}
-.pdp-qty button:hover{background:var(--wm)}
-.pdp-qty span{width:52px;height:44px;display:flex;align-items:center;justify-content:center;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);font-size:14px;font-weight:600}
-.pdp-atb{width:100%;height:52px;background:var(--bk);color:var(--wh);font-size:14px;letter-spacing:1px;text-transform:uppercase;font-weight:700;border:none;cursor:pointer;transition:background .2s;border-radius:4px;margin-bottom:12px}
+.pdp-sizes .sz.oos{opacity:.25;cursor:not-allowed;text-decoration:line-through}
+.pdp-actions{display:flex;gap:8px;margin-bottom:12px}
+.pdp-atb{flex:1;height:52px;background:var(--bk);color:var(--wh);font-size:13px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;border:none;cursor:pointer;transition:all .2s;border-radius:4px;display:flex;align-items:center;justify-content:center;gap:8px}
 .pdp-atb:hover{background:#222}
-.pdp-wishlink{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--gy);cursor:pointer;transition:color .15s;margin-bottom:16px}
-.pdp-wishlink:hover{color:var(--bk)}
-.pdp-wishlink:hover svg{fill:var(--bk)}
-.pdp-wishlink svg{width:16px;height:16px;transition:fill .2s}
-.pdp-afterpay{font-size:12px;color:var(--gy);margin-bottom:24px;padding:12px;background:var(--wm);border-radius:4px;text-align:center}
+.pdp-atb svg{width:18px;height:18px}
+.pdp-wish-btn{width:52px;height:52px;border:1.5px solid var(--bd);border-radius:4px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;background:var(--wh);flex-shrink:0}
+.pdp-wish-btn:hover{border-color:var(--bk)}
+.pdp-wish-btn svg{width:20px;height:20px;transition:all .15s}
+.pdp-wish-btn:hover svg{fill:var(--bk);stroke:var(--bk)}
+.pdp-trust-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.pdp-trust-badge{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--wm);border-radius:4px;font-size:11px;font-weight:600;color:var(--bk);letter-spacing:.2px}
+.pdp-trust-badge svg{width:16px;height:16px;stroke:var(--bk);fill:none;flex-shrink:0}
+.pdp-delivery-est{padding:12px;border:1px solid var(--bd);border-radius:6px;margin-bottom:16px}
+.pdp-delivery-row{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--bk)}
+.pdp-delivery-row+.pdp-delivery-row{margin-top:8px;padding-top:8px;border-top:1px solid var(--bd)}
+.pdp-delivery-row svg{width:16px;height:16px;stroke:var(--bk);fill:none;flex-shrink:0}
+.pdp-delivery-row .del-label{flex:1;font-weight:500}
+.pdp-delivery-row .del-date{font-weight:700}
+.pdp-delivery-row .del-price{color:var(--gy);font-size:11px}
+.pdp-afterpay{font-size:12px;color:var(--gy);margin-bottom:16px;text-align:center}
 .pdp-afterpay strong{color:var(--bk)}
-.pdp-accord{border-top:1px solid var(--bd)}
+.pdp-accord{border-top:1px solid var(--bd);margin-top:8px}
 .pdp-accord-item{border-bottom:1px solid var(--bd)}
-.pdp-accord-head{width:100%;padding:16px 0;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.3px;cursor:pointer;background:none;border:none;font-family:var(--sn);color:var(--bk)}
-.pdp-accord-head svg{width:16px;height:16px;transition:transform .3s var(--ez);flex-shrink:0}
+.pdp-accord-head{width:100%;padding:14px 0;display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;background:none;border:none;font-family:var(--sn);color:var(--bk)}
+.pdp-accord-head svg{width:14px;height:14px;transition:transform .3s var(--ez);flex-shrink:0}
 .pdp-accord-head.open svg{transform:rotate(180deg)}
 .pdp-accord-body{max-height:0;overflow:hidden;transition:max-height .3s var(--ez)}
-.pdp-accord-body.open{max-height:400px}
-.pdp-accord-body p{padding:0 0 16px;font-size:14px;line-height:1.7;color:var(--gy)}
-.pdp-related{padding:40px 32px}
+.pdp-accord-body.open{max-height:500px}
+.pdp-accord-body p,.pdp-accord-body ul{padding:0 0 16px;font-size:13px;line-height:1.7;color:var(--gy)}
+.pdp-accord-body ul{padding-left:18px}.pdp-accord-body li{margin-bottom:4px}
+.pdp-related{padding:48px 32px}
 .pdp-related .sh{margin-bottom:24px}
-
+.pdp-urgency{font-size:12px;color:#c0392b;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.pdp-urgency::before{content:"";width:6px;height:6px;background:#c0392b;border-radius:50%;animation:pdp-pulse 1.5s infinite}
+@keyframes pdp-pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.pdp-share{display:flex;align-items:center;gap:12px;margin-top:12px}
+.pdp-share span{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--gy)}
+.pdp-share a{width:32px;height:32px;border:1px solid var(--bd);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gy);transition:all .15s}
+.pdp-share a:hover{border-color:var(--bk);color:var(--bk)}
+.pdp-share a svg{width:14px;height:14px}
 @media(max-width:768px){
 .pdp-wrap{grid-template-columns:1fr}
-.pdp-gallery{padding:0}
-.pdp-main-img{border-radius:0}
-.pdp-thumbs{padding:8px 16px;gap:6px;overflow-x:auto}
-.pdp-thumbs img{width:60px;height:75px;flex-shrink:0}
-.pdp-info{padding:20px 16px;position:static}
-.pdp-title{font-size:22px}
-.pdp-price{font-size:20px}
+.pdp-gallery{flex-direction:column;padding:0;position:static}
+.pdp-thumb-rail{flex-direction:row;width:100%;padding:8px 16px;gap:6px;overflow-x:auto;order:2}
+.pdp-thumb-rail img{width:56px;height:70px;flex-shrink:0}
+.pdp-main-img{border-radius:0;order:1;aspect-ratio:3/4}
+.pdp-model-info{padding:4px 16px 0}
+.pdp-info{padding:20px 16px;position:static;max-height:none;overflow:visible}
+.pdp-title{font-size:20px}.pdp-price{font-size:20px}
+.pdp-trust-row{grid-template-columns:1fr}
 .pdp-related{padding:28px 16px}
 .pdp-related .pg{grid-template-columns:repeat(2,1fr);gap:10px}
+.pdp-img-counter{bottom:8px;right:8px}
 }
 </style></head><body>
 <div class="ann"><span>FREE EXPRESS SHIPPING ON ORDERS OVER $150 | 30-DAY FREE RETURNS</span></div>
@@ -418,32 +439,38 @@ a{transition:color .15s,opacity .15s}
 <div class="pdp-wrap">
 <div class="pdp-gallery">
 <div class="pdp-main-img"><img id="mainImg" src="https://cdn.shopify.com/s/files/1/0831/8107/6783/files/4-568943.jpg?v=1770141691&amp;width=800" alt="Lexicon  Black"></div>
-<div class="pdp-thumbs"><img src="https://cdn.shopify.com/s/files/1/0831/8107/6783/files/4-568943.jpg?v=1770141691&amp;width=200" class="active" onclick="swapImg(this,'https://cdn.shopify.com/s/files/1/0831/8107/6783/files/4-568943.jpg?v=1770141691&amp;width=800')" alt="View 1"><img src="https://cdn.shopify.com/s/files/1/0831/8107/6783/files/5-568944.jpg?v=1770141691&amp;width=200" onclick="swapImg(this,'https://cdn.shopify.com/s/files/1/0831/8107/6783/files/5-568944.jpg?v=1770141691&amp;width=800')" alt="View 2"><img src="https://cdn.shopify.com/s/files/1/0831/8107/6783/files/6-568945.jpg?v=1770141691&amp;width=200" onclick="swapImg(this,'https://cdn.shopify.com/s/files/1/0831/8107/6783/files/6-568945.jpg?v=1770141691&amp;width=800')" alt="View 3"><img src="https://cdn.shopify.com/s/files/1/0831/8107/6783/files/7-568946.jpg?v=1770141691&amp;width=200" onclick="swapImg(this,'https://cdn.shopify.com/s/files/1/0831/8107/6783/files/7-568946.jpg?v=1770141691&amp;width=800')" alt="View 4"><img src="https://cdn.shopify.com/s/files/1/0831/8107/6783/files/8-568947.jpg?v=1770141691&amp;width=200" onclick="swapImg(this,'https://cdn.shopify.com/s/files/1/0831/8107/6783/files/8-568947.jpg?v=1770141691&amp;width=800')" alt="View 5"></div>
+<img src="https://cdn.shopify.com/s/files/1/0831/8107/6783/files/4-568943.jpg?v=1770141691&amp;width=200" class="active" onclick="swapImg(this,'https://cdn.shopify.com/s/files/1/0831/8107/6783/files/4-568943.jpg?v=1770141691&amp;width=800')" alt="View 1"><img src="https://cdn.shopify.com/s/files/1/0831/8107/6783/files/5-568944.jpg?v=1770141691&amp;width=200" onclick="swapImg(this,'https://cdn.shopify.com/s/files/1/0831/8107/6783/files/5-568944.jpg?v=1770141691&amp;width=800')" alt="View 2"><img src="https://cdn.shopify.com/s/files/1/0831/8107/6783/files/6-568945.jpg?v=1770141691&amp;width=200" onclick="swapImg(this,'https://cdn.shopify.com/s/files/1/0831/8107/6783/files/6-568945.jpg?v=1770141691&amp;width=800')" alt="View 3"><img src="https://cdn.shopify.com/s/files/1/0831/8107/6783/files/7-568946.jpg?v=1770141691&amp;width=200" onclick="swapImg(this,'https://cdn.shopify.com/s/files/1/0831/8107/6783/files/7-568946.jpg?v=1770141691&amp;width=800')" alt="View 4"><img src="https://cdn.shopify.com/s/files/1/0831/8107/6783/files/8-568947.jpg?v=1770141691&amp;width=200" onclick="swapImg(this,'https://cdn.shopify.com/s/files/1/0831/8107/6783/files/8-568947.jpg?v=1770141691&amp;width=800')" alt="View 5">
 </div>
 <div class="pdp-info">
 <a href="brands.html" class="pdp-brand">Julius Marlow</a>
 <h1 class="pdp-title">Lexicon  Black</h1>
 <div class="pdp-price"><span class="old">$189.95</span> <span class="sale">$139.95</span></div>
-<div class="pdp-stars"><svg viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span>(127 reviews)</span></div>
-
-<div class="pdp-urgency" style="font-size:12px;color:#c0392b;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;background:#c0392b;border-radius:50%;display:inline-block;animation:pulse 1.5s infinite"></span>Only 3 left in stock</div>
+<div class="pdp-stars"><svg viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span>4.2 (127)</span></div>
+<div class="pdp-urgency">Only 3 left in stock</div>
+<div class="pdp-divider"></div>
 
 <div class="pdp-colours"><label>Colour — <span class="colour-name">Black</span></label><div class="colour-row"><span class="csw active" style="background:#000000" title="Black" onclick="this.parentElement.querySelectorAll('.csw').forEach(s=>s.classList.remove('active'));this.classList.add('active');this.parentElement.querySelector('.colour-name').textContent=this.title"></span></div></div>
 <div class="pdp-sizes"><label>Size <a href="#">Size Guide</a></label><div class="size-grid"><button class="sz" onclick="this.parentElement.querySelectorAll('.sz').forEach(s=>s.classList.remove('active'));this.classList.add('active')">MENS UK 6/MENS US 7/EURO 40/CM 24.6</button><button class="sz" onclick="this.parentElement.querySelectorAll('.sz').forEach(s=>s.classList.remove('active'));this.classList.add('active')">MENS UK 7/MENS US 8/EURO 41/CM 25.4</button><button class="sz" onclick="this.parentElement.querySelectorAll('.sz').forEach(s=>s.classList.remove('active'));this.classList.add('active')">MENS UK 8/MENS US 9/EURO 42/CM 26.2</button><button class="sz" onclick="this.parentElement.querySelectorAll('.sz').forEach(s=>s.classList.remove('active'));this.classList.add('active')">MENS UK 9/MENS US 10/EURO 43/CM 27.1</button><button class="sz" onclick="this.parentElement.querySelectorAll('.sz').forEach(s=>s.classList.remove('active'));this.classList.add('active')">MENS UK 10/MENS US 11/EURO 44/CM 27.9</button><button class="sz" onclick="this.parentElement.querySelectorAll('.sz').forEach(s=>s.classList.remove('active'));this.classList.add('active')">MENS UK 11/MENS US 12/EURO 45/CM 28.8</button><button class="sz" onclick="this.parentElement.querySelectorAll('.sz').forEach(s=>s.classList.remove('active'));this.classList.add('active')">MENS UK 12/MENS US 13/EURO 46/CM 29.6</button><button class="sz" onclick="this.parentElement.querySelectorAll('.sz').forEach(s=>s.classList.remove('active'));this.classList.add('active')">MENS UK 13/MENS US 14/EURO 47/CM 30.5</button></div></div>
 
-<div class="pdp-qty">
-<button onclick="let s=this.nextElementSibling;let v=parseInt(s.textContent);if(v>1)s.textContent=v-1">−</button>
-<span>1</span>
-<button onclick="let s=this.previousElementSibling;let v=parseInt(s.textContent);s.textContent=v+1">+</button>
+<div class="pdp-actions">
+<button class="pdp-atb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg> Add to Bag</button>
+<button class="pdp-wish-btn" onclick="this.classList.toggle('active')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
 </div>
 
-<button class="pdp-atb">Add to Bag</button>
+<div class="pdp-afterpay">or 4 interest-free payments of <strong>$34.99</strong> with Afterpay &middot; or 4 with Zip</div>
 
-<div class="pdp-wishlink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Add to Wishlist</div>
+<div class="pdp-delivery-est">
+<div class="pdp-delivery-row"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg><span class="del-label">Express Delivery</span><span class="del-date">Wed 19 Feb</span><span class="del-price">FREE over $150</span></div>
+<div class="pdp-delivery-row"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span class="del-label">Standard Delivery</span><span class="del-date">Fri 21 Feb</span><span class="del-price">$9.95</span></div>
+<div class="pdp-delivery-row"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="del-label">Click &amp; Collect</span><span class="del-date">Tomorrow</span><span class="del-price">FREE</span></div>
+</div>
 
-<div class="pdp-afterpay">or 4 interest-free payments of <strong>$34.99</strong> with <strong>Afterpay</strong> · or 4 payments with <strong>Zip</strong></div>
-
-<div style="font-size:12px;color:var(--gd);font-weight:600;margin-bottom:16px">★ Earn 139 points with this purchase</div>
+<div class="pdp-trust-row">
+<div class="pdp-trust-badge"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>100% Authentic</div>
+<div class="pdp-trust-badge"><svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.5 9A9 9 0 0 0 5.6 5.6L1 10m22 4-4.6 4.4A9 9 0 0 1 3.5 15"/></svg>30-Day Returns</div>
+<div class="pdp-trust-badge"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Earn 139 Points</div>
+<div class="pdp-trust-badge"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Free Express $150+</div>
+</div>
 
 <div class="pdp-accord">
 <div class="pdp-accord-item">
@@ -452,16 +479,22 @@ a{transition:color .15s,opacity .15s}
 </div>
 <div class="pdp-accord-item">
 <button class="pdp-accord-head" onclick="toggleAccord(this)">Size &amp; Fit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
-<div class="pdp-accord-body"><p>Model is 175cm tall and wears size S/8. For the best fit, we recommend ordering your usual size. See our size guide for detailed measurements.</p></div>
+<div class="pdp-accord-body"><p>Model is 175cm / 5'9" tall and wears size S/8. True to size.</p><ul><li>Regular fit</li><li>Mid-weight fabric</li><li>Machine washable</li></ul></div>
 </div>
 <div class="pdp-accord-item">
 <button class="pdp-accord-head" onclick="toggleAccord(this)">Shipping &amp; Returns <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
-<div class="pdp-accord-body"><p>Free express shipping on orders over $150. Standard shipping from $9.95. 30-day free returns on all full-price items. Sale items can be returned within 14 days.</p></div>
+<div class="pdp-accord-body"><p>Free express on orders over $150. Standard from $9.95.</p><ul><li>30-day free returns on full-price items</li><li>14-day returns on sale items</li><li>Free Click &amp; Collect from selected stores</li></ul></div>
 </div>
 <div class="pdp-accord-item">
-<button class="pdp-accord-head" onclick="toggleAccord(this)">Brand <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+<button class="pdp-accord-head" onclick="toggleAccord(this)">About Julius Marlow <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
 <div class="pdp-accord-body"><p>Julius Marlow — Australia&#x27;s leading men&#x27;s footwear brand since 1946.</p></div>
 </div>
+</div>
+
+<div class="pdp-share"><span>Share</span>
+<a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+<a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4l11.7 16h4.3M4 20L20 4"/></svg></a>
+<a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>
 </div>
 </div>
 </div>
@@ -522,11 +555,22 @@ if(results.length||q)html+='<a class="srch-viewall" href="search.html?q='+encode
 box.innerHTML=html;
 }
 </script>
+<div class="mob-bottom"><div class="mob-bottom-inner">
+<a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Home</a>
+<a href="new-in.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>Search</a>
+<a href="brands.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Brands</a>
+<a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.3l7.8-7.8 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>Wishlist</a>
+<a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Bag</a>
+</div></div>
+<div class="btt" onclick="window.scrollTo({top:0})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg></div>
+<script>window.addEventListener("scroll",()=>{document.querySelector(".btt").classList.toggle("show",window.scrollY>600)})</script>
 <script>
 function swapImg(thumb, url){
   document.getElementById('mainImg').src=url;
-  document.querySelectorAll('.pdp-thumbs img').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.pdp-thumb-rail img').forEach(t=>t.classList.remove('active'));
   thumb.classList.add('active');
+  var idx=Array.from(document.querySelectorAll('.pdp-thumb-rail img')).indexOf(thumb);
+  var c=document.querySelector('.pdp-img-counter');if(c)c.textContent=(idx+1)+' / '+document.querySelectorAll('.pdp-thumb-rail img').length;
 }
 function toggleAccord(btn){
   btn.classList.toggle('open');
