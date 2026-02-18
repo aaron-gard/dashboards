@@ -328,6 +328,11 @@ a{transition:color .15s,opacity .15s}
 .plp-price-sale{color:#c0392b;font-weight:700}
 .plp-quick-text{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.3px;color:var(--bk);opacity:0;transform:translateY(4px);transition:all .2s;margin-top:4px;text-decoration:underline;text-underline-offset:2px}
 .pc:hover .plp-quick-text{opacity:1;transform:translateY(0)}
+.plp-grid-toggle{display:flex;gap:4px;align-items:center}
+.plp-gt{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--bd);border-radius:4px;cursor:pointer;color:var(--gy);background:var(--wh);transition:all .15s;padding:0}
+.plp-gt:hover{border-color:var(--bk);color:var(--bk)}
+.plp-gt.active{border-color:var(--bk);color:var(--bk);background:var(--wm)}
+.plp-gt svg{width:14px;height:14px}
 .plp-page{padding:32px;text-align:center;border-top:1px solid var(--bd)}
 .plp-page .plp-load{display:inline-flex;align-items:center;gap:8px;padding:14px 48px;background:var(--bk);color:var(--wh);font-size:13px;letter-spacing:.5px;text-transform:uppercase;font-weight:700;border-radius:4px;cursor:pointer;transition:background .2s}.plp-page .plp-load:hover{background:#333}
 .plp-page p{margin-top:12px;font-size:13px;color:var(--gy)}
@@ -338,7 +343,8 @@ a{transition:color .15s,opacity .15s}
 .plp-bc{padding:10px 16px;font-size:11px}
 .plp-fb{top:0;padding:10px 16px;flex-wrap:wrap}.plp-filters-left{gap:6px;overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch}
 .plp-fil{padding:6px 12px;font-size:10px;white-space:nowrap}
-.plp-grid{grid-template-columns:repeat(2,1fr);gap:10px;padding:16px}
+.plp-grid{grid-template-columns:repeat(2,1fr)!important;gap:10px;padding:16px}
+.plp-grid-toggle{display:none}
 .plp-page{padding:20px 16px}
 }
 </style></head><body>
@@ -392,6 +398,11 @@ a{transition:color .15s,opacity .15s}
 </div>
 <div class="plp-filters-right">
 <div class="plp-count">Showing 48 of 503 products</div>
+<div class="plp-grid-toggle">
+<button class="plp-gt" onclick="setGrid(2)" title="2 columns"><svg viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="7" height="7"/><rect x="9" y="0" width="7" height="7"/><rect x="0" y="9" width="7" height="7"/><rect x="9" y="9" width="7" height="7"/></svg></button>
+<button class="plp-gt" onclick="setGrid(3)" title="3 columns"><svg viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="4" height="7"/><rect x="6" y="0" width="4" height="7"/><rect x="12" y="0" width="4" height="7"/><rect x="0" y="9" width="4" height="7"/><rect x="6" y="9" width="4" height="7"/><rect x="12" y="9" width="4" height="7"/></svg></button>
+<button class="plp-gt active" onclick="setGrid(4)" title="4 columns"><svg viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="3" height="7"/><rect x="4.3" y="0" width="3" height="7"/><rect x="8.6" y="0" width="3" height="7"/><rect x="13" y="0" width="3" height="7"/><rect x="0" y="9" width="3" height="7"/><rect x="4.3" y="9" width="3" height="7"/><rect x="8.6" y="9" width="3" height="7"/><rect x="13" y="9" width="3" height="7"/></svg></button>
+</div>
 <button class="plp-fil">Sort By <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
 </div>
 </div>
@@ -876,6 +887,7 @@ a{transition:color .15s,opacity .15s}
 <div class="ppr"><span class="plp-price-old">$279.95</span> <span class="plp-price-sale">$99.00</span></div>
 </a></div>
 <div class="plp-page"><button class="plp-load">Load More</button><p>Showing 1-48 of 503 products</p></div>
+<script>function setGrid(n){document.querySelector('.plp-grid').style.gridTemplateColumns='repeat('+n+',1fr)';document.querySelectorAll('.plp-gt').forEach(function(b){b.classList.remove('active')});event.currentTarget.classList.add('active');try{localStorage.setItem('plp-cols',n)}catch(e){}};(function(){var c=localStorage.getItem('plp-cols');if(c&&window.innerWidth>768){document.querySelector('.plp-grid').style.gridTemplateColumns='repeat('+c+',1fr)';document.querySelectorAll('.plp-gt').forEach(function(b){if(b.title.indexOf(c)>-1)b.classList.add('active');else b.classList.remove('active')})}})()</script>
 <div class="vs">
 <div class="vi"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg><div class="vtt">Free Express Shipping</div><div class="vd">On orders over $150</div></div>
 <div class="vi"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><div class="vtt">Official Brand Store</div><div class="vd">Direct from the brands you know</div></div>
