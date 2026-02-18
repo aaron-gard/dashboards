@@ -236,26 +236,26 @@
       "low": 15,
       "condition": "Partly cloudy, clearing to fine",
       "precip": 3,
-      "icon": "⛅"
+      "icon": "\u26c5"
     },
     "news": [
       {
-        "emoji": "🤖",
+        "emoji": "\ud83e\udd16",
         "topic": "AI/Tech",
-        "text": "Altman, Pichai head to India AI Impact Summit — Modi calls AI a 'civilisational inflection point'"
+        "text": "Altman, Pichai head to India AI Impact Summit \u2014 Modi calls AI a 'civilisational inflection point'"
       },
       {
-        "emoji": "🏎️",
+        "emoji": "\ud83c\udfce\ufe0f",
         "topic": "F1",
-        "text": "Verstappen slams 2026 rule changes as 'anti-racing' during Bahrain pre-season testing — new energy management system divides drivers"
+        "text": "Verstappen slams 2026 rule changes as 'anti-racing' during Bahrain pre-season testing \u2014 new energy management system divides drivers"
       },
       {
-        "emoji": "🏀",
+        "emoji": "\ud83c\udfc0",
         "topic": "Bulls",
         "text": "Buzelis wins Rising Stars at All-Star weekend; Chicago Tribune calls him 'the new face of the Bulls'"
       },
       {
-        "emoji": "🇦🇺",
+        "emoji": "\ud83c\udde6\ud83c\uddfa",
         "topic": "AU Politics",
         "text": "Farrer by-election set after Sussan Ley resignation; Liberal leadership spill held Feb 13"
       }
@@ -265,7 +265,7 @@
         "title": "Moltbook was peak AI theater",
         "source": "MIT Technology Review",
         "url": "https://www.technologyreview.com/2026/02/06/1132448/moltbook-was-peak-ai-theater/",
-        "why": "Sharp analysis of AI agent hype vs reality — the 'Potemkin village' problem you've seen with agencies",
+        "why": "Sharp analysis of AI agent hype vs reality \u2014 the 'Potemkin village' problem you've seen with agencies",
         "type": "article"
       },
       {
@@ -279,14 +279,14 @@
         "title": "Who's really fastest in 2026? F1's new rules are confusing everyone",
         "source": "ESPN",
         "url": "https://www.espn.com/f1/story/_/id/47920349/f1-testing-really-fastest-2026-bahrain-mercedes-red-bull-new-rules-pecking-order-drivers-max-verstappen-lewis-hamilton",
-        "why": "Detailed breakdown of the biggest F1 regulation change ever — active aero, energy management, new pecking order",
+        "why": "Detailed breakdown of the biggest F1 regulation change ever \u2014 active aero, energy management, new pecking order",
         "type": "article"
       },
       {
         "title": "Neuromorphic computers now solve physics simulations",
         "source": "ScienceDaily",
         "url": "https://www.sciencedaily.com/news/computers_math/artificial_intelligence/",
-        "why": "Brain-modelled chips replacing supercomputers for physics — real infrastructure shift, not hype",
+        "why": "Brain-modelled chips replacing supercomputers for physics \u2014 real infrastructure shift, not hype",
         "type": "article"
       }
     ],
@@ -297,349 +297,242 @@
     }
   },
   "evening": {
-    "generated": "2026-02-17T20:14:47+11:00",
+    "generated": "2026-02-18T19:00:00+11:00",
     "calendar": {
-      "date": "Tuesday, 17 February 2026",
+      "date": "Wednesday, 18 February 2026",
       "meetings": [
-        {
-          "time": "09:00",
-          "duration": 60,
-          "title": "Executive Leadership Team weekly WIP catch up",
-          "status": "completed"
-        },
-        {
-          "time": "11:00",
-          "duration": 30,
-          "title": "BC Outlet | Key Pages Concept Design Brief",
-          "status": "completed"
-        },
-        {
-          "time": "12:00",
-          "duration": 120,
-          "title": "Focus Time",
-          "status": "completed"
-        },
-        {
-          "time": "12:30",
-          "duration": 30,
-          "title": "SNS APP - NEXT STEPS",
-          "status": "completed"
-        },
-        {
-          "time": "13:00",
-          "duration": 60,
-          "title": "BC Corporate Site - Design Review",
-          "status": "completed"
-        },
-        {
-          "time": "14:30",
-          "duration": 30,
-          "title": "7+5 Online Review",
-          "status": "completed"
-        },
-        {
-          "time": "15:00",
-          "duration": 90,
-          "title": "BC Group Trade Meeting (weekly)",
-          "status": "completed"
-        },
-        {
-          "time": "16:30",
-          "duration": 45,
-          "title": "AI + BC catch up",
-          "status": "completed"
-        }
-      ],
-      "tomorrow": [
         {
           "time": "09:00",
           "duration": 30,
           "title": "AI Weekly",
-          "color": "#2563eb"
+          "status": "completed"
         },
         {
           "time": "09:30",
           "duration": 30,
           "title": "Reporting - AI - Aaron Demo",
-          "color": "#f59e0b"
+          "status": "completed"
         },
         {
           "time": "10:00",
           "duration": 120,
           "title": "Fashion Apparel ELKA & YARRA TRAIL Blue Sky Workshop",
-          "color": "#22c55e"
+          "status": "completed"
         },
         {
           "time": "12:00",
           "duration": 120,
           "title": "Focus Time",
-          "color": "#8b5cf6"
+          "status": "completed"
         },
         {
           "time": "14:00",
           "duration": 45,
           "title": "Hannah / Aaron - Catchup",
-          "color": "#ef4444"
+          "status": "completed"
         },
         {
           "time": "15:00",
           "duration": 45,
           "title": "Erika / Aaron - Catchup",
-          "color": "#06b6d4"
+          "status": "completed"
         },
         {
           "time": "15:00",
           "duration": 30,
           "title": "COE Digital corporate cost review",
-          "color": "#ec4899"
+          "status": "completed"
         },
         {
           "time": "16:00",
           "duration": 45,
           "title": "International expansion options discussion",
-          "color": "#2563eb"
+          "status": "completed"
         },
         {
           "time": "16:00",
           "duration": 45,
           "title": "Tyler / Aaron - Catchup",
-          "color": "#f59e0b"
+          "status": "completed"
+        }
+      ],
+      "tomorrow": [
+        {
+          "time": "Note",
+          "duration": 0,
+          "title": "Calendar unavailable \u2014 Outlook session expired",
+          "color": "#8b5cf6"
         }
       ]
     },
     "sales": {
-      "date": "Tuesday, 17 February 2026",
-      "ly_date": "Tuesday, 18 February 2025",
+      "date": "Wednesday, 18 February 2026",
       "partial": true,
       "brands": [
         {
           "name": "Shoes & Sox",
-          "demand": 15743,
-          "ly_demand": 15960
-        },
-        {
-          "name": "Reebok",
-          "demand": 15595,
-          "ly_demand": 26699
+          "demand": 20381,
+          "orders": 218
         },
         {
           "name": "Black Pepper",
-          "demand": 14845,
-          "ly_demand": 11209
+          "demand": 19220,
+          "orders": 145
+        },
+        {
+          "name": "Reebok",
+          "demand": 12814,
+          "orders": 91
         },
         {
           "name": "Hush Puppies",
-          "demand": 13725,
-          "ly_demand": 15250
+          "demand": 9260,
+          "orders": 64
         },
         {
           "name": "Shoe Warehouse",
-          "demand": 11961,
-          "ly_demand": 8874
+          "demand": 8506,
+          "orders": 85
         },
         {
           "name": "Review",
-          "demand": 10063,
-          "ly_demand": 18419
-        },
-        {
-          "name": "Elka Collective",
-          "demand": 7557,
-          "ly_demand": 4270
+          "demand": 7806,
+          "orders": 36
         },
         {
           "name": "Superdry",
-          "demand": 6774,
-          "ly_demand": 19751
+          "demand": 5695,
+          "orders": 45
         },
         {
           "name": "Clarks",
-          "demand": 6617,
-          "ly_demand": 8844
+          "demand": 5519,
+          "orders": 39
         },
         {
-          "name": "Volley",
-          "demand": 3609,
-          "ly_demand": 5558
-        },
-        {
-          "name": "Everlast",
-          "demand": 3454,
-          "ly_demand": 3201
-        },
-        {
-          "name": "Canada Goose",
-          "demand": 2700,
-          "ly_demand": 1700
+          "name": "Elka Collective",
+          "demand": 5484,
+          "orders": 24
         },
         {
           "name": "Yarra Trail",
-          "demand": 2244,
-          "ly_demand": 2628
+          "demand": 2755,
+          "orders": 22
         },
         {
-          "name": "Julius Marlow",
-          "demand": 2097,
-          "ly_demand": 1897
+          "name": "Canada Goose",
+          "demand": 2500,
+          "orders": 1
         },
         {
           "name": "Champion",
-          "demand": 2039,
-          "ly_demand": 1241
+          "demand": 2319,
+          "orders": 24
         },
         {
-          "name": "Marco Polo",
-          "demand": 1055,
-          "ly_demand": 511
+          "name": "Julius Marlow",
+          "demand": 2277,
+          "orders": 19
         },
         {
-          "name": "Happy Socks",
-          "demand": 772,
-          "ly_demand": 0
+          "name": "Volley",
+          "demand": 2120,
+          "orders": 22
+        },
+        {
+          "name": "Everlast",
+          "demand": 1647,
+          "orders": 13
         },
         {
           "name": "Umbro",
-          "demand": 560,
-          "ly_demand": 915
+          "demand": 1020,
+          "orders": 4
+        },
+        {
+          "name": "Marco Polo",
+          "demand": 896,
+          "orders": 7
+        },
+        {
+          "name": "Happy Socks",
+          "demand": 318,
+          "orders": 5
+        },
+        {
+          "name": "Harrison",
+          "demand": 242,
+          "orders": 2
         },
         {
           "name": "Replay",
-          "demand": -38,
-          "ly_demand": 891
+          "demand": 157,
+          "orders": 1
         }
       ],
       "total": {
-        "demand": 121372,
-        "ly_demand": 147818,
-        "yoy_pct": -17.9
+        "demand": 110936,
+        "orders": 867
       }
     },
     "markets": {
       "audusd": {
-        "value": 0.7075
+        "value": 0.707
       },
       "btc": {
-        "value": 68071
+        "value": 68109
       },
       "eth": {
-        "value": 1971
+        "value": 2017
       },
       "xrp": {
-        "value": 1.46
+        "value": 1.49
       }
     },
     "weather": {
-      "current_temp": 23,
-      "high": 36,
-      "low": 18,
-      "condition": "Rain showers clearing tonight",
-      "precip": 95,
-      "icon": "🌦"
+      "high": 25,
+      "low": 17,
+      "condition": "Partly cloudy, fine",
+      "precip": 0,
+      "icon": "\u26c5"
     },
-    "news": [
+    "content_picks": [
       {
-        "emoji": "🛒",
-        "topic": "ACCC vs Coles",
-        "text": "ACCC labels Coles \"Down Down\" discounts \"utterly misleading\" as landmark trial opens",
-        "url": "https://www.abc.net.au/news/2026-02-16/asx-markets-business-news-live-updates-february-16/106345462"
+        "title": "JetBrains: Best AI Models for Coding in 2026",
+        "source": "JetBrains Blog",
+        "url": "https://blog.jetbrains.com/ai/2026/02/the-best-ai-models-for-coding-accuracy-integration-and-developer-fit/",
+        "why": "Data-driven comparison of coding LLMs from 2025 Developer Ecosystem Report \u2014 practical, not hype",
+        "type": "article"
       },
       {
-        "emoji": "🏬",
-        "topic": "AU Retail",
-        "text": "Montblanc opens Sydney flagship on George St — luxury brands still expanding in AU despite retail headwinds",
-        "url": "https://insideretail.com.au/stores/montblanc-opens-sydney-flagship-on-prime-george-st-corner-site-202602"
+        "title": "The End of Voice Actors? ElevenLabs Full Review (2026)",
+        "source": "YouTube",
+        "url": "https://www.youtube.com/watch?v=a0SwmNcbpUQ",
+        "why": "Deep dive into AI voice generation quality \u2014 relevant given your TTS and CX automation work",
+        "type": "video"
       },
       {
-        "emoji": "💻",
-        "topic": "Tech",
-        "text": "JB Hi-Fi flagging higher PC and mobile prices from global chip shortage"
+        "title": "India AI Impact Summit: Modi, Altman, Pichai shape global AI governance",
+        "source": "Reuters / Hindustan Times",
+        "url": "https://www.hindustantimes.com/india-news/ai-impact-summit-delhi-2026-live-updates-day-2-ai-impact-summit-bharat-narendra-modi-ai-expo-macron-visit-february-17-101771289866087.html",
+        "why": "Global South AI policy taking shape \u2014 India positioning as third AI pole alongside US and China",
+        "type": "article"
       },
       {
-        "emoji": "🇦🇺",
-        "topic": "Politics",
-        "text": "Angus Taylor unveils shadow cabinet; govt blocks IS family repatriation",
-        "url": "https://www.smh.com.au/national/australia-news-live-australian-is-brides-turned-back-after-leaving-syrian-camp-government-should-consider-changes-to-tobacco-excise-experts-say-20260217-p5o2un.html"
+        "title": "NASA's Perseverance now drives Mars routes planned by AI",
+        "source": "ScienceDaily",
+        "url": "https://www.sciencedaily.com/news/computers_math/artificial_intelligence/",
+        "why": "AI replacing human rover operators \u2014 autonomous systems in the most unforgiving environment possible",
+        "type": "article"
+      },
+      {
+        "title": "The Creation of 'Hyper-Intelligence' | Documentary Central",
+        "source": "YouTube",
+        "url": "https://www.youtube.com/watch?v=DoHZL-JLE9A",
+        "why": "Full documentary on cutting-edge AI robotics \u2014 good evening wind-down watch",
+        "type": "video"
       }
     ],
-    "reads": [
-      {
-        "type": "article",
-        "title": "OpenClaw creator Peter Steinberger joins OpenAI",
-        "url": "https://techcrunch.com/2026/02/15/openclaw-creator-peter-steinberger-joins-openai/",
-        "description": "The person who built the system running your daily brief just joined OpenAI. OpenClaw becomes a foundation project.",
-        "source": "TechCrunch"
-      },
-      {
-        "type": "article",
-        "title": "OpenClaw & the acqui-hire that explains where AI is going",
-        "url": "https://mondaymorning.substack.com/p/openclaw-and-the-acqui-hire-that",
-        "description": "Deep analysis: why OpenAI wanted Steinberger and what it means for open-source AI agents.",
-        "source": "Monday Morning"
-      },
-      {
-        "type": "article",
-        "title": "ACCC vs Coles: the illusory discounts trial",
-        "url": "https://www.abc.net.au/news/2026-02-16/asx-markets-business-news-live-updates-february-16/106345462",
-        "description": "Day 2 of the landmark case. If ACCC wins, pricing transparency rules change for every AU retailer — including BC brands.",
-        "source": "ABC News"
-      },
-      {
-        "type": "article",
-        "title": "AI-driven search reshaping online retail as Shopify targets AU growth",
-        "url": "https://www.channelnews.com.au/ai-driven-search-reshaping-online-retail-as-shopify-targets-growth-in-australia/",
-        "description": "Shopify AI search orders up 15x YoY. Finkelstein calls 2026 the scale year. Directly relevant to your 19 stores.",
-        "source": "ChannelNews"
-      },
-      {
-        "type": "article",
-        "title": "Global ecommerce giants squeeze Australia's marketplaces",
-        "url": "https://ecommercenews.com.au/story/global-ecommerce-giants-squeeze-australia-s-marketplaces",
-        "description": "Pattern's 2026 report: Amazon, Temu, social discovery concentrating the AU marketplace landscape.",
-        "source": "eCommerce News AU"
-      },
-      {
-        "type": "article",
-        "title": "America isn't ready for what AI will do to jobs",
-        "url": "https://www.theatlantic.com/magazine/2026/03/ai-economy-labor-market-transformation/685731/",
-        "description": "CEOs at Allen & Co. admitted they feel trapped: Wall Street expects them to replace humans with AI, or they'll be replaced themselves. The quiet part out loud.",
-        "source": "The Atlantic"
-      },
-      {
-        "type": "article",
-        "title": "\"Something Big Is Happening\" — the viral essay with 80M views",
-        "url": "https://www.businessinsider.com/matt-shumer-something-big-is-happening-essay-ai-disruption-2026-2",
-        "description": "HyperWrite CEO compares AI disruption to early COVID. 80M views. NYT picked it up. You said the same thing months ago — \"virologist in Wuhan, December 2019.\"",
-        "source": "Business Insider"
-      },
-      {
-        "type": "article",
-        "title": "Suleyman: AI will replace most white-collar jobs in 12 months",
-        "url": "https://www.indiatoday.in/technology/news/story/microsoft-ai-boss-mustafa-suleyman-says-ai-will-replace-most-white-collar-jobs-in-12-months-2867182-2026-02-12",
-        "description": "Microsoft's AI boss pushing \"professional-grade AGI\" for enterprise. Lawyers, accountants, knowledge workers. The timeline is compressing.",
-        "source": "India Today / FT"
-      },
-      {
-        "type": "article",
-        "title": "Trump pauses China tech bans ahead of Xi summit",
-        "url": "https://www.reuters.com/business/media-telecom/us-china-trade-detente-fuels-mothballing-key-china-tech-curbs-2026-02-12/",
-        "description": "China Telecom ban and data center restrictions shelved. Geopolitical chess with direct supply chain implications.",
-        "source": "Reuters"
-      },
-      {
-        "type": "article",
-        "title": "WHO reviews find GLP-1 drugs effective beyond weight loss",
-        "url": "https://www.sciencedaily.com/",
-        "description": "Three major WHO-commissioned reviews on tirzepatide, semaglutide, liraglutide. Moving from obesity drug to potential longevity intervention.",
-        "source": "ScienceDaily"
-      },
-      {
-        "type": "article",
-        "title": "US-Taiwan finalize trade deal: 15% tariffs, semiconductor commitments",
-        "url": "https://www.reuters.com/business/aerospace-defense/us-taiwan-finalize-deal-cut-tariffs-boost-purchases-us-goods-2026-02-12/",
-        "description": "Taiwan commits to AI, semiconductor, advanced electronics investments in the US. Chip supply chain reshuffling continues.",
-        "source": "Reuters"
-      }
-    ],
-    "closing_thought": "Eight meetings survived. ACCC vs Coles is worth watching — if they win on illusory discounts, the compliance ripple hits every AU retailer running promos. Sales tracking +-17.9% vs LY on a partial Tuesday. Tomorrow: AI Weekly, Elka/YT workshop, then 1:1s all afternoon."
+    "closing_thought": "Wednesday's done. Nine meetings survived, the numbers are tracking, and tomorrow's a little lighter. Sometimes the best measure of a good day is simply that you showed up fully for every conversation. The evening's yours now."
   }
 }
