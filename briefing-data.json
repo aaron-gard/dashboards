@@ -1,11 +1,60 @@
 {
   "morning": {
-    "generated": "2026-02-20T05:45:00+11:00",
+    "generated": "2026-02-20T07:45:00+11:00",
     "calendar": {
       "date": "Friday, 20 February 2026",
-      "meetings": [],
-      "freeBlocks": [],
-      "note": "Calendar unavailable - M365 session expired"
+      "meetings": [
+        {
+          "time": "09:00",
+          "duration": 45,
+          "title": "Sean / Aaron - Fortnightly Catchup",
+          "color": "#2563eb"
+        },
+        {
+          "time": "10:00",
+          "duration": 30,
+          "title": "DotCollective x Brand Collective",
+          "color": "#f59e0b"
+        },
+        {
+          "time": "10:30",
+          "duration": 30,
+          "title": "Aaron / Hannah",
+          "color": "#22c55e"
+        },
+        {
+          "time": "11:00",
+          "duration": 75,
+          "title": "Meeting with Polar",
+          "color": "#8b5cf6"
+        },
+        {
+          "time": "11:00",
+          "duration": 60,
+          "title": "Copilot 365 Training | Week 5",
+          "color": "#ef4444"
+        },
+        {
+          "time": "15:00",
+          "duration": 45,
+          "title": "Project Roadmap Review",
+          "color": "#06b6d4"
+        }
+      ],
+      "freeBlocks": [
+        {
+          "start": "08:00",
+          "end": "09:00"
+        },
+        {
+          "start": "12:15",
+          "end": "15:00"
+        },
+        {
+          "start": "15:45",
+          "end": "17:00"
+        }
+      ]
     },
     "sales": {
       "date": "Thursday, 19 February 2026",
@@ -158,17 +207,17 @@
         "value": 0.705
       },
       "btc": {
-        "value": 66928
+        "value": 66946
       },
       "eth": {
-        "value": 1938
+        "value": 1942
       },
       "xrp": {
         "value": 1.41
       }
     },
     "weather": {
-      "current_temp": 16,
+      "current_temp": 17,
       "high": 31,
       "low": 16,
       "condition": "Partly cloudy, warming to 31\u00b0C",
@@ -179,75 +228,63 @@
       {
         "emoji": "\ud83e\udd16",
         "topic": "AI",
-        "text": "NYT: 'The AI disruption has arrived' \u2014 argues we're entering a software development renaissance"
-      },
-      {
-        "emoji": "\ud83d\udd27",
-        "topic": "OpenClaw",
-        "text": "v2026.2.17 released \u2014 Anthropic model support updates and security fixes"
+        "text": "Zhipu AI's GLM-5 (744B MoE, MIT license) hits 77.8% SWE-bench \u2014 China's first genuinely GPT-5 competitive open-source model"
       },
       {
         "emoji": "\ud83c\udfce\ufe0f",
         "topic": "F1",
-        "text": "Bahrain pre-season test week 2 underway \u2014 all 11 teams running ahead of Melbourne opener March 6"
-      },
-      {
-        "emoji": "\ud83c\udfc8",
-        "topic": "AFL",
-        "text": "AAMI Community Series fixtures locked in: Feb 25\u2013Mar 1, season starts March 5"
-      },
-      {
-        "emoji": "\ud83c\udfc0",
-        "topic": "Bulls",
-        "text": "Buzelis won Rising Stars at All-Star weekend; Bulls resume post-break"
+        "text": "Bahrain test: Russell P1 (1:33.4), Hamilton hit by first Ferrari reliability issue \u2014 final test day today"
       },
       {
         "emoji": "\ud83c\udde6\ud83c\uddfa",
         "topic": "AU Politics",
-        "text": "Coles admits strong-arming suppliers amid 'Down Down' campaign in ACCC court case"
+        "text": "Coles admits strong-arming suppliers in ACCC court case; ISIS repatriation debate intensifies"
+      },
+      {
+        "emoji": "\ud83c\udfc8",
+        "topic": "AFL",
+        "text": "AAMI Community Series confirmed Feb 25\u2013Mar 1, season opener March 5"
+      },
+      {
+        "emoji": "\ud83c\udfc0",
+        "topic": "Bulls",
+        "text": "Buzelis won Rising Stars at All-Star weekend; second half resumes"
       }
     ],
     "content_picks": [
       {
+        "title": "GLM-5 Complete Guide: China's 744B Open-Source Model",
+        "source": "NxCode",
+        "url": "https://www.nxcode.io/resources/news/glm-5-open-source-744b-model-complete-guide-2026",
+        "why": "First open-source model genuinely rivalling GPT-5 \u2014 trained on Huawei chips, MIT licensed",
+        "type": "article"
+      },
+      {
+        "title": "Russell fastest, Hamilton's Ferrari hits trouble",
+        "source": "Sky Sports F1",
+        "url": "https://www.skysports.com/f1/news/12433/13508887/f1-bahrain-testing-george-russell-fastest-on-first-day-of-final-test-as-lewis-hamilton-suffers-first-ferrari-pre-season-issue",
+        "why": "Final pre-season test recap \u2014 Mercedes strong, Ferrari reliability concern before Melbourne",
+        "type": "article"
+      },
+      {
         "title": "The A.I. Disruption Has Arrived, and It Sure Is Fun",
         "source": "NYT Opinion",
         "url": "https://www.nytimes.com/2026/02/18/opinion/ai-software.html",
-        "why": "Argues we're in a software dev renaissance \u2014 directly relevant to your AI-first strategy",
+        "why": "Software dev renaissance argument \u2014 relevant to your AI-first strategy",
         "type": "article"
       },
       {
-        "title": "Neuromorphic Computers Now Solve Complex Physics Simulations",
+        "title": "Neuromorphic Computers Solve Complex Physics Simulations",
         "source": "ScienceDaily",
         "url": "https://www.sciencedaily.com/news/computers_math/artificial_intelligence/",
-        "why": "Brain-modelled chips replacing supercomputers for physics \u2014 signals hardware paradigm shift",
-        "type": "article"
-      },
-      {
-        "title": "Gemini Deep Think: Solving Professional Research Problems",
-        "source": "Radical Data Science",
-        "url": "https://radicaldatascience.wordpress.com/2026/02/10/ai-news-briefs-bulletin-board-for-february-2026/",
-        "why": "Google's reasoning model solving real maths/physics/CS research \u2014 the 'agentic eval' bottleneck",
-        "type": "article"
-      },
-      {
-        "title": "GPT-5.3 to Claude Opus 4.6: February AI Roundup",
-        "source": "VT Netzwelt",
-        "url": "https://www.vtnetzwelt.com/ai-development/latest-ai-technology-news-roundup-february-2026/",
-        "why": "Good overview of all major model releases this month in one place",
-        "type": "article"
-      },
-      {
-        "title": "F1 Bahrain Testing Day 2 Live",
-        "source": "The Athletic",
-        "url": "https://www.nytimes.com/athletic/live-blogs/f1-bahrain-testing-live-updates-2026/MKrfQrUxNx6C/",
-        "why": "Final pre-season test before Melbourne GP \u2014 live updates and lap times",
+        "why": "Brain-modelled chips replacing supercomputers for physics \u2014 hardware paradigm shift",
         "type": "article"
       }
     ],
-    "comms_task": "In your first meeting today, before giving your view on a decision, pause and ask one question first. Let someone else frame the problem before you solve it.",
+    "comms_task": "Next time you delegate a task today, add one sentence of context: why this matters or what good looks like. Not instructions \u2014 the 'so that' sentence.",
     "quote": {
-      "text": "The best way to predict the future is to invent it.",
-      "author": "Alan Kay"
+      "text": "We are what we repeatedly do. Excellence, then, is not an act, but a habit.",
+      "author": "Aristotle (via Will Durant)"
     }
   },
   "evening": {
