@@ -229,242 +229,176 @@
     }
   },
   "evening": {
-    "generated": "2026-02-18T19:00:00+11:00",
+    "generated": "2026-02-19T19:00:00+11:00",
     "calendar": {
-      "date": "Wednesday, 18 February 2026",
-      "meetings": [
-        {
-          "time": "09:00",
-          "duration": 30,
-          "title": "AI Weekly",
-          "status": "completed"
-        },
-        {
-          "time": "09:30",
-          "duration": 30,
-          "title": "Reporting - AI - Aaron Demo",
-          "status": "completed"
-        },
-        {
-          "time": "10:00",
-          "duration": 120,
-          "title": "Fashion Apparel ELKA & YARRA TRAIL Blue Sky Workshop",
-          "status": "completed"
-        },
-        {
-          "time": "12:00",
-          "duration": 120,
-          "title": "Focus Time",
-          "status": "completed"
-        },
-        {
-          "time": "14:00",
-          "duration": 45,
-          "title": "Hannah / Aaron - Catchup",
-          "status": "completed"
-        },
-        {
-          "time": "15:00",
-          "duration": 45,
-          "title": "Erika / Aaron - Catchup",
-          "status": "completed"
-        },
-        {
-          "time": "15:00",
-          "duration": 30,
-          "title": "COE Digital corporate cost review",
-          "status": "completed"
-        },
-        {
-          "time": "16:00",
-          "duration": 45,
-          "title": "International expansion options discussion",
-          "status": "completed"
-        },
-        {
-          "time": "16:00",
-          "duration": 45,
-          "title": "Tyler / Aaron - Catchup",
-          "status": "completed"
-        }
-      ],
+      "date": "Thursday, 19 February 2026",
+      "meetings": [],
       "tomorrow": [
         {
           "time": "Note",
           "duration": 0,
-          "title": "Calendar unavailable \u2014 Outlook session expired",
+          "title": "Calendar unavailable - Outlook session expired",
           "color": "#8b5cf6"
         }
-      ]
+      ],
+      "note": "Calendar unavailable (M365 session expired)"
     },
     "sales": {
-      "date": "Wednesday, 18 February 2026",
+      "date": "Thursday, 19 February 2026",
       "partial": true,
       "brands": [
         {
+          "name": "Reebok",
+          "demand": 15986,
+          "orders": 108
+        },
+        {
           "name": "Shoes & Sox",
-          "demand": 20381,
-          "orders": 218
+          "demand": 15326,
+          "orders": 168
         },
         {
           "name": "Black Pepper",
-          "demand": 19220,
-          "orders": 145
-        },
-        {
-          "name": "Reebok",
-          "demand": 12814,
-          "orders": 91
+          "demand": 12805,
+          "orders": 93
         },
         {
           "name": "Hush Puppies",
-          "demand": 9260,
-          "orders": 64
+          "demand": 11968,
+          "orders": 76
         },
         {
           "name": "Shoe Warehouse",
-          "demand": 8506,
-          "orders": 85
+          "demand": 9942,
+          "orders": 92
         },
         {
           "name": "Review",
-          "demand": 7806,
-          "orders": 36
+          "demand": 8336,
+          "orders": 41
         },
         {
           "name": "Superdry",
-          "demand": 5695,
-          "orders": 45
-        },
-        {
-          "name": "Clarks",
-          "demand": 5519,
-          "orders": 39
-        },
-        {
-          "name": "Elka Collective",
-          "demand": 5484,
-          "orders": 24
+          "demand": 6508,
+          "orders": 49
         },
         {
           "name": "Yarra Trail",
-          "demand": 2755,
-          "orders": 22
+          "demand": 5472,
+          "orders": 33
         },
         {
-          "name": "Canada Goose",
-          "demand": 2500,
-          "orders": 1
-        },
-        {
-          "name": "Champion",
-          "demand": 2319,
-          "orders": 24
-        },
-        {
-          "name": "Julius Marlow",
-          "demand": 2277,
-          "orders": 19
+          "name": "Elka Collective",
+          "demand": 4703,
+          "orders": 17
         },
         {
           "name": "Volley",
-          "demand": 2120,
-          "orders": 22
+          "demand": 3324,
+          "orders": 32
         },
         {
-          "name": "Everlast",
-          "demand": 1647,
-          "orders": 13
+          "name": "Clarks",
+          "demand": 3215,
+          "orders": 28
         },
         {
-          "name": "Umbro",
-          "demand": 1020,
-          "orders": 4
-        },
-        {
-          "name": "Marco Polo",
-          "demand": 896,
-          "orders": 7
-        },
-        {
-          "name": "Happy Socks",
-          "demand": 318,
-          "orders": 5
-        },
-        {
-          "name": "Harrison",
-          "demand": 242,
+          "name": "Canada Goose",
+          "demand": 2600,
           "orders": 2
         },
         {
+          "name": "Julius Marlow",
+          "demand": 1534,
+          "orders": 11
+        },
+        {
+          "name": "Everlast",
+          "demand": 1529,
+          "orders": 15
+        },
+        {
+          "name": "Champion",
+          "demand": 1153,
+          "orders": 11
+        },
+        {
+          "name": "Marco Polo",
+          "demand": 741,
+          "orders": 7
+        },
+        {
+          "name": "Umbro",
+          "demand": 385,
+          "orders": 3
+        },
+        {
+          "name": "Happy Socks",
+          "demand": 362,
+          "orders": 3
+        },
+        {
           "name": "Replay",
-          "demand": 157,
+          "demand": 182,
           "orders": 1
         }
       ],
       "total": {
-        "demand": 110936,
-        "orders": 867
+        "demand": 106071,
+        "orders": 790
       }
     },
     "markets": {
       "audusd": {
-        "value": 0.707
+        "value": 0.705
       },
       "btc": {
-        "value": 68109
+        "value": 67165
       },
       "eth": {
-        "value": 2017
+        "value": 1979
       },
       "xrp": {
-        "value": 1.49
+        "value": 1.43
       }
     },
     "weather": {
-      "high": 25,
-      "low": 17,
-      "condition": "Partly cloudy, fine",
+      "high": 30,
+      "low": 16,
+      "condition": "Foggy morning clearing to warm",
       "precip": 0,
-      "icon": "\u26c5"
+      "icon": "\ud83c\udf2b"
     },
     "content_picks": [
       {
-        "title": "JetBrains: Best AI Models for Coding in 2026",
-        "source": "JetBrains Blog",
-        "url": "https://blog.jetbrains.com/ai/2026/02/the-best-ai-models-for-coding-accuracy-integration-and-developer-fit/",
-        "why": "Data-driven comparison of coding LLMs from 2025 Developer Ecosystem Report \u2014 practical, not hype",
+        "title": "Best AI Models for Coding in 2026: Accuracy, Integration & Fit",
+        "source": "FelloAI",
+        "url": "https://felloai.com/best-ai-february-2026/",
+        "why": "Claude Sonnet 4.6 just dropped Feb 17 - Opus-level at Sonnet prices. Directly relevant.",
         "type": "article"
       },
       {
-        "title": "The End of Voice Actors? ElevenLabs Full Review (2026)",
-        "source": "YouTube",
-        "url": "https://www.youtube.com/watch?v=a0SwmNcbpUQ",
-        "why": "Deep dive into AI voice generation quality \u2014 relevant given your TTS and CX automation work",
-        "type": "video"
+        "title": "Google's 2026 Responsible AI Progress Report",
+        "source": "Google Blog",
+        "url": "https://blog.google/innovation-and-ai/products/responsible-ai-2026-report-ongoing-work/",
+        "why": "Google's latest on agentic systems and clinical AI milestones - good strategic context",
+        "type": "article"
       },
       {
         "title": "India AI Impact Summit: Modi, Altman, Pichai shape global AI governance",
-        "source": "Reuters / Hindustan Times",
-        "url": "https://www.hindustantimes.com/india-news/ai-impact-summit-delhi-2026-live-updates-day-2-ai-impact-summit-bharat-narendra-modi-ai-expo-macron-visit-february-17-101771289866087.html",
-        "why": "Global South AI policy taking shape \u2014 India positioning as third AI pole alongside US and China",
+        "source": "Google Blog",
+        "url": "https://blog.google/innovation-and-ai/technology/ai/ai-impact-summit-2026-india/",
+        "why": "India positioning as the third AI pole alongside US and China - geopolitical implications",
         "type": "article"
       },
       {
-        "title": "NASA's Perseverance now drives Mars routes planned by AI",
+        "title": "NASA's Perseverance rover now drives Mars routes planned entirely by AI",
         "source": "ScienceDaily",
         "url": "https://www.sciencedaily.com/news/computers_math/artificial_intelligence/",
-        "why": "AI replacing human rover operators \u2014 autonomous systems in the most unforgiving environment possible",
+        "why": "AI replacing human rover operators in the most unforgiving environment possible",
         "type": "article"
-      },
-      {
-        "title": "The Creation of 'Hyper-Intelligence' | Documentary Central",
-        "source": "YouTube",
-        "url": "https://www.youtube.com/watch?v=DoHZL-JLE9A",
-        "why": "Full documentary on cutting-edge AI robotics \u2014 good evening wind-down watch",
-        "type": "video"
       }
     ],
-    "closing_thought": "Wednesday's done. Nine meetings survived, the numbers are tracking, and tomorrow's a little lighter. Sometimes the best measure of a good day is simply that you showed up fully for every conversation. The evening's yours now."
+    "closing_thought": "Thursday's almost done. Fifteen thousand orders across your brands today, each one someone choosing something that makes them feel good. That's a lot of small moments of joy you helped create. Not a bad day's work."
   }
 }
