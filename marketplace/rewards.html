@@ -368,7 +368,9 @@ a{transition:color .15s,opacity .15s}
 /* Collective Rewards */
 .rewards-bal{display:none}
 @media(min-width:769px){.rewards-bal{display:inline;color:rgba(255,255,255,.7);font-size:11px;font-weight:600}}
-.cr-badge{display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;border:1.5px solid currentColor;font-size:9px;font-weight:700;letter-spacing:.5px;line-height:1}
+.cr-badge{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#D4A843,#F2D675,#D4A843);color:#000;font-size:9px;font-weight:700;letter-spacing:.5px;line-height:1;position:relative;box-shadow:0 0 6px rgba(212,168,67,.4)}
+.cr-badge::after{content:'✦';position:absolute;top:-4px;right:-3px;font-size:8px;color:#F2D675;text-shadow:0 0 4px rgba(242,214,117,.8);animation:sparkle 2s ease-in-out infinite}
+@keyframes sparkle{0%,100%{opacity:.4;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
 
 /* Theme toggle */
 .theme-toggle{display:flex;align-items:center;justify-content:center;width:22px;height:22px;padding:0}
