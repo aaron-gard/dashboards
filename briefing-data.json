@@ -1,184 +1,177 @@
 {
   "morning": {
-    "generated": "2026-02-19T05:45:00+11:00",
+    "generated": "2026-02-20T05:45:00+11:00",
     "calendar": {
-      "date": "Thursday, 19 February 2026",
+      "date": "Friday, 20 February 2026",
       "meetings": [],
       "freeBlocks": [],
-      "note": "Calendar unavailable (M365 session expired)"
+      "note": "Calendar unavailable - M365 session expired"
     },
     "sales": {
-      "date": "Wednesday, 18 February 2026",
-      "ly_date": "Wednesday, 19 February 2025",
+      "date": "Thursday, 19 February 2026",
+      "ly_date": "Thursday, 20 February 2025",
       "brands": [
         {
-          "name": "Shoes & Sox",
-          "demand": 28666,
-          "orders": 306,
-          "ly_demand": 17047,
-          "ly_orders": 180
-        },
-        {
-          "name": "Black Pepper",
-          "demand": 22471,
-          "orders": 171,
-          "ly_demand": 37893,
-          "ly_orders": 298
-        },
-        {
           "name": "Reebok",
-          "demand": 21260,
-          "orders": 151,
-          "ly_demand": 23348,
-          "ly_orders": 181
+          "demand": 24806,
+          "orders": 170,
+          "ly_demand": 27537,
+          "ly_orders": 199
+        },
+        {
+          "name": "Shoes & Sox",
+          "demand": 21650,
+          "orders": 238,
+          "ly_demand": 15791,
+          "ly_orders": 164
         },
         {
           "name": "Review",
-          "demand": 18480,
-          "orders": 74,
-          "ly_demand": 24042,
-          "ly_orders": 121
-        },
-        {
-          "name": "Hush Puppies",
-          "demand": 14014,
-          "orders": 102,
-          "ly_demand": 26179,
-          "ly_orders": 190
-        },
-        {
-          "name": "Shoe Warehouse",
-          "demand": 13688,
-          "orders": 127,
-          "ly_demand": 9312,
+          "demand": 17931,
+          "orders": 80,
+          "ly_demand": 18645,
           "ly_orders": 98
         },
         {
+          "name": "Hush Puppies",
+          "demand": 16371,
+          "orders": 105,
+          "ly_demand": 32732,
+          "ly_orders": 222
+        },
+        {
+          "name": "Black Pepper",
+          "demand": 15271,
+          "orders": 114,
+          "ly_demand": 18800,
+          "ly_orders": 157
+        },
+        {
+          "name": "Shoe Warehouse",
+          "demand": 15238,
+          "orders": 139,
+          "ly_demand": 8783,
+          "ly_orders": 95
+        },
+        {
           "name": "Superdry",
-          "demand": 9384,
-          "orders": 71,
-          "ly_demand": 21269,
-          "ly_orders": 140
+          "demand": 10346,
+          "orders": 76,
+          "ly_demand": 14802,
+          "ly_orders": 104
         },
         {
           "name": "Elka Collective",
-          "demand": 9095,
-          "orders": 35,
-          "ly_demand": 5161,
-          "ly_orders": 22
-        },
-        {
-          "name": "Clarks",
-          "demand": 7959,
-          "orders": 60,
-          "ly_demand": 11569,
-          "ly_orders": 76
-        },
-        {
-          "name": "Yarra Trail",
-          "demand": 4269,
-          "orders": 34,
-          "ly_demand": 2995,
-          "ly_orders": 19
-        },
-        {
-          "name": "Julius Marlow",
-          "demand": 4019,
-          "orders": 29,
-          "ly_demand": 2537,
-          "ly_orders": 17
-        },
-        {
-          "name": "Volley",
-          "demand": 3700,
-          "orders": 37,
-          "ly_demand": 5996,
-          "ly_orders": 72
-        },
-        {
-          "name": "Everlast",
-          "demand": 3258,
+          "demand": 6798,
           "orders": 26,
-          "ly_demand": 4078,
+          "ly_demand": 6229,
           "ly_orders": 27
         },
         {
-          "name": "Champion",
-          "demand": 2590,
-          "orders": 27,
-          "ly_demand": 2883,
-          "ly_orders": 21
+          "name": "Clarks",
+          "demand": 6533,
+          "orders": 55,
+          "ly_demand": 9136,
+          "ly_orders": 57
+        },
+        {
+          "name": "Yarra Trail",
+          "demand": 5978,
+          "orders": 38,
+          "ly_demand": 3210,
+          "ly_orders": 28
+        },
+        {
+          "name": "Volley",
+          "demand": 4533,
+          "orders": 43,
+          "ly_demand": 4252,
+          "ly_orders": 57
+        },
+        {
+          "name": "Julius Marlow",
+          "demand": 3276,
+          "orders": 22,
+          "ly_demand": 2268,
+          "ly_orders": 14
         },
         {
           "name": "Canada Goose",
-          "demand": 2500,
-          "orders": 1,
-          "ly_demand": 845,
+          "demand": 2600,
+          "orders": 2,
+          "ly_demand": 1500,
           "ly_orders": 1
         },
         {
-          "name": "Marco Polo",
-          "demand": 1500,
-          "orders": 12,
-          "ly_demand": 2079,
+          "name": "Everlast",
+          "demand": 2340,
+          "orders": 21,
+          "ly_demand": 3352,
+          "ly_orders": 22
+        },
+        {
+          "name": "Champion",
+          "demand": 1740,
+          "orders": 17,
+          "ly_demand": 923,
           "ly_orders": 16
         },
         {
+          "name": "Marco Polo",
+          "demand": 869,
+          "orders": 8,
+          "ly_demand": 2393,
+          "ly_orders": 10
+        },
+        {
           "name": "Umbro",
-          "demand": 1355,
-          "orders": 7,
-          "ly_demand": 1040,
-          "ly_orders": 9
+          "demand": 505,
+          "orders": 4,
+          "ly_demand": 960,
+          "ly_orders": 7
         },
         {
           "name": "Happy Socks",
-          "demand": 540,
-          "orders": 8,
+          "demand": 396,
+          "orders": 4,
           "ly_demand": 0,
           "ly_orders": 0
         },
         {
           "name": "Replay",
-          "demand": 287,
+          "demand": 312,
           "orders": 2,
-          "ly_demand": 774,
-          "ly_orders": 4
-        },
-        {
-          "name": "Harrison",
-          "demand": 242,
-          "orders": 2,
-          "ly_demand": 0,
-          "ly_orders": 0
+          "ly_demand": 696,
+          "ly_orders": 6
         }
       ],
       "total": {
-        "demand": 169277,
-        "orders": 1282,
-        "ly_demand": 199047,
-        "ly_orders": 1492,
-        "yoy_pct": -15.0
+        "demand": 157493,
+        "orders": 1164,
+        "ly_demand": 172009,
+        "ly_orders": 1284,
+        "yoy_pct": -8.4
       }
     },
     "markets": {
       "audusd": {
-        "value": 0.707
+        "value": 0.705
       },
       "btc": {
-        "value": 66498
+        "value": 66928
       },
       "eth": {
-        "value": 1955
+        "value": 1938
       },
       "xrp": {
-        "value": 1.45
+        "value": 1.41
       }
     },
     "weather": {
       "current_temp": 16,
-      "high": 25,
-      "low": 15,
-      "condition": "Partly cloudy",
+      "high": 31,
+      "low": 16,
+      "condition": "Partly cloudy, warming to 31\u00b0C",
       "precip": 0,
       "icon": "\u26c5"
     },
@@ -186,43 +179,72 @@
       {
         "emoji": "\ud83e\udd16",
         "topic": "AI",
-        "text": "Microsoft commits $50B to AI infrastructure in Global South markets"
+        "text": "NYT: 'The AI disruption has arrived' \u2014 argues we're entering a software development renaissance"
       },
       {
-        "emoji": "\ud83d\udcf1",
-        "topic": "Tech",
-        "text": "Zuckerberg testifying in US court today on Instagram's impact on youth mental health"
+        "emoji": "\ud83d\udd27",
+        "topic": "OpenClaw",
+        "text": "v2026.2.17 released \u2014 Anthropic model support updates and security fixes"
+      },
+      {
+        "emoji": "\ud83c\udfce\ufe0f",
+        "topic": "F1",
+        "text": "Bahrain pre-season test week 2 underway \u2014 all 11 teams running ahead of Melbourne opener March 6"
       },
       {
         "emoji": "\ud83c\udfc8",
         "topic": "AFL",
-        "text": "2026 AAMI Community Series schedule released; season starts March 5"
+        "text": "AAMI Community Series fixtures locked in: Feb 25\u2013Mar 1, season starts March 5"
+      },
+      {
+        "emoji": "\ud83c\udfc0",
+        "topic": "Bulls",
+        "text": "Buzelis won Rising Stars at All-Star weekend; Bulls resume post-break"
+      },
+      {
+        "emoji": "\ud83c\udde6\ud83c\uddfa",
+        "topic": "AU Politics",
+        "text": "Coles admits strong-arming suppliers amid 'Down Down' campaign in ACCC court case"
       }
     ],
     "content_picks": [
       {
-        "title": "NASA's Perseverance rover now drives Mars routes planned by AI",
+        "title": "The A.I. Disruption Has Arrived, and It Sure Is Fun",
+        "source": "NYT Opinion",
+        "url": "https://www.nytimes.com/2026/02/18/opinion/ai-software.html",
+        "why": "Argues we're in a software dev renaissance \u2014 directly relevant to your AI-first strategy",
+        "type": "article"
+      },
+      {
+        "title": "Neuromorphic Computers Now Solve Complex Physics Simulations",
         "source": "ScienceDaily",
         "url": "https://www.sciencedaily.com/news/computers_math/artificial_intelligence/",
-        "why": "AI autonomy milestone: rover navigation fully AI-planned, not human-operated",
+        "why": "Brain-modelled chips replacing supercomputers for physics \u2014 signals hardware paradigm shift",
         "type": "article"
       },
       {
-        "title": "India AI Impact Summit 2026",
-        "source": "LiveMint",
-        "url": "https://www.livemint.com/technology/ai-summit-delhi-2026-live-updates-ai-impact-summit-day-3-bharat-mandapam-india-narendra-modi-delhi-expo-18-february-2026-11771376974825.html",
-        "why": "India + France joint AI innovation year launch, signals accelerating global AI policy",
+        "title": "Gemini Deep Think: Solving Professional Research Problems",
+        "source": "Radical Data Science",
+        "url": "https://radicaldatascience.wordpress.com/2026/02/10/ai-news-briefs-bulletin-board-for-february-2026/",
+        "why": "Google's reasoning model solving real maths/physics/CS research \u2014 the 'agentic eval' bottleneck",
         "type": "article"
       },
       {
-        "title": "OpenClaw Complete Guide 2026: The Full Timeline",
-        "source": "NxCode",
-        "url": "https://www.nxcode.io/resources/news/openclaw-complete-guide-2026",
-        "why": "Comprehensive breakdown of OpenClaw's evolution - meta-relevant",
+        "title": "GPT-5.3 to Claude Opus 4.6: February AI Roundup",
+        "source": "VT Netzwelt",
+        "url": "https://www.vtnetzwelt.com/ai-development/latest-ai-technology-news-roundup-february-2026/",
+        "why": "Good overview of all major model releases this month in one place",
+        "type": "article"
+      },
+      {
+        "title": "F1 Bahrain Testing Day 2 Live",
+        "source": "The Athletic",
+        "url": "https://www.nytimes.com/athletic/live-blogs/f1-bahrain-testing-live-updates-2026/MKrfQrUxNx6C/",
+        "why": "Final pre-season test before Melbourne GP \u2014 live updates and lap times",
         "type": "article"
       }
     ],
-    "comms_task": "In your first meeting today, before sharing your decision or direction, pause and give the one reason that drove it. One sentence of 'why' before the 'what'.",
+    "comms_task": "In your first meeting today, before giving your view on a decision, pause and ask one question first. Let someone else frame the problem before you solve it.",
     "quote": {
       "text": "The best way to predict the future is to invent it.",
       "author": "Alan Kay"
