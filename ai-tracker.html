@@ -67,8 +67,23 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .modal-media{max-width:100%;border-radius:8px;margin-top:8px}
 
 @media(max-width:600px){
-  .summary-bar{grid-template-columns:repeat(2,1fr)}
-  .controls{gap:6px}
+  .summary-bar{grid-template-columns:repeat(3,1fr)}
+  .controls{gap:5px;overflow-x:auto;flex-wrap:nowrap;padding-bottom:8px;-webkit-overflow-scrolling:touch}
+  .filter-btn{font-size:0.7rem;padding:5px 10px;flex-shrink:0}
+  .filter-sep{display:none}
+  .theme-btn{flex-shrink:0}
+  .card{padding:12px}
+  .card-top{gap:6px}
+  .card-title{font-size:0.88rem}
+  .card-desc{font-size:0.75rem;-webkit-line-clamp:3}
+  .card-footer{font-size:0.68rem}
+  .task-no{font-size:0.65rem}
+  .cat-badge,.status-pill{font-size:0.62rem;padding:2px 6px}
+  .impact-tag{font-size:0.65rem}
+  .header h1{font-size:1.2rem}
+  .modal{padding:16px;max-height:90vh}
+  .modal-top h2{font-size:0.95rem}
+  .container{padding:16px 12px 60px}
 }
 </style>
 </head>
