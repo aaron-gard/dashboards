@@ -1,205 +1,161 @@
 {
   "morning": {
-    "generated": "2026-02-20T07:45:00+11:00",
+    "generated": "2026-02-21T05:47:00+11:00",
     "calendar": {
-      "date": "Friday, 20 February 2026",
-      "meetings": [
-        {
-          "time": "09:00",
-          "duration": 45,
-          "title": "Sean / Aaron - Fortnightly Catchup",
-          "color": "#2563eb"
-        },
-        {
-          "time": "10:00",
-          "duration": 30,
-          "title": "DotCollective x Brand Collective",
-          "color": "#f59e0b"
-        },
-        {
-          "time": "10:30",
-          "duration": 30,
-          "title": "Aaron / Hannah",
-          "color": "#22c55e"
-        },
-        {
-          "time": "11:00",
-          "duration": 75,
-          "title": "Meeting with Polar",
-          "color": "#8b5cf6"
-        },
-        {
-          "time": "11:00",
-          "duration": 60,
-          "title": "Copilot 365 Training | Week 5",
-          "color": "#ef4444"
-        },
-        {
-          "time": "15:00",
-          "duration": 45,
-          "title": "Project Roadmap Review",
-          "color": "#06b6d4"
-        }
-      ],
+      "date": "Saturday, 21 February 2026",
+      "meetings": [],
       "freeBlocks": [
         {
-          "start": "08:00",
-          "end": "09:00"
-        },
-        {
-          "start": "12:15",
-          "end": "15:00"
-        },
-        {
-          "start": "15:45",
+          "start": "09:00",
           "end": "17:00"
         }
-      ]
+      ],
+      "note": "Calendar unavailable - Outlook session expired"
     },
     "sales": {
-      "date": "Thursday, 19 February 2026",
-      "ly_date": "Thursday, 20 February 2025",
+      "date": "Friday, 20 February 2026",
+      "ly_date": "Friday, 21 February 2025",
       "brands": [
         {
-          "name": "Reebok",
-          "demand": 24806,
-          "orders": 170,
-          "ly_demand": 27537,
-          "ly_orders": 199
+          "name": "Shoes & Sox",
+          "demand": 25888,
+          "orders": 277,
+          "ly_demand": 13823,
+          "ly_orders": 146
         },
         {
-          "name": "Shoes & Sox",
-          "demand": 21650,
-          "orders": 238,
-          "ly_demand": 15791,
-          "ly_orders": 164
+          "name": "Reebok",
+          "demand": 21796,
+          "orders": 152,
+          "ly_demand": 28700,
+          "ly_orders": 198
         },
         {
           "name": "Review",
-          "demand": 17931,
-          "orders": 80,
-          "ly_demand": 18645,
-          "ly_orders": 98
-        },
-        {
-          "name": "Hush Puppies",
-          "demand": 16371,
-          "orders": 105,
-          "ly_demand": 32732,
-          "ly_orders": 222
+          "demand": 20701,
+          "orders": 94,
+          "ly_demand": 15047,
+          "ly_orders": 80
         },
         {
           "name": "Black Pepper",
-          "demand": 15271,
-          "orders": 114,
-          "ly_demand": 18800,
-          "ly_orders": 157
+          "demand": 17751,
+          "orders": 140,
+          "ly_demand": 26530,
+          "ly_orders": 209
         },
         {
           "name": "Shoe Warehouse",
-          "demand": 15238,
-          "orders": 139,
-          "ly_demand": 8783,
-          "ly_orders": 95
+          "demand": 14156,
+          "orders": 140,
+          "ly_demand": 6098,
+          "ly_orders": 72
         },
         {
           "name": "Superdry",
-          "demand": 10346,
-          "orders": 76,
-          "ly_demand": 14802,
-          "ly_orders": 104
+          "demand": 14098,
+          "orders": 108,
+          "ly_demand": 14625,
+          "ly_orders": 114
+        },
+        {
+          "name": "Hush Puppies",
+          "demand": 13625,
+          "orders": 91,
+          "ly_demand": 27373,
+          "ly_orders": 176
         },
         {
           "name": "Elka Collective",
-          "demand": 6798,
-          "orders": 26,
-          "ly_demand": 6229,
-          "ly_orders": 27
-        },
-        {
-          "name": "Clarks",
-          "demand": 6533,
-          "orders": 55,
-          "ly_demand": 9136,
-          "ly_orders": 57
-        },
-        {
-          "name": "Yarra Trail",
-          "demand": 5978,
+          "demand": 10692,
           "orders": 38,
-          "ly_demand": 3210,
-          "ly_orders": 28
-        },
-        {
-          "name": "Volley",
-          "demand": 4533,
-          "orders": 43,
-          "ly_demand": 4252,
-          "ly_orders": 57
-        },
-        {
-          "name": "Julius Marlow",
-          "demand": 3276,
-          "orders": 22,
-          "ly_demand": 2268,
-          "ly_orders": 14
+          "ly_demand": 4094,
+          "ly_orders": 19
         },
         {
           "name": "Canada Goose",
-          "demand": 2600,
-          "orders": 2,
-          "ly_demand": 1500,
-          "ly_orders": 1
+          "demand": 8636,
+          "orders": 4,
+          "ly_demand": 3400,
+          "ly_orders": 2
         },
         {
-          "name": "Everlast",
-          "demand": 2340,
-          "orders": 21,
-          "ly_demand": 3352,
-          "ly_orders": 22
+          "name": "Yarra Trail",
+          "demand": 6529,
+          "orders": 42,
+          "ly_demand": 3252,
+          "ly_orders": 21
+        },
+        {
+          "name": "Clarks",
+          "demand": 4094,
+          "orders": 38,
+          "ly_demand": 7857,
+          "ly_orders": 54
+        },
+        {
+          "name": "Volley",
+          "demand": 2925,
+          "orders": 27,
+          "ly_demand": 4307,
+          "ly_orders": 59
+        },
+        {
+          "name": "Julius Marlow",
+          "demand": 2418,
+          "orders": 12,
+          "ly_demand": 3259,
+          "ly_orders": 21
         },
         {
           "name": "Champion",
-          "demand": 1740,
-          "orders": 17,
-          "ly_demand": 923,
-          "ly_orders": 16
+          "demand": 2069,
+          "orders": 18,
+          "ly_demand": 994,
+          "ly_orders": 12
+        },
+        {
+          "name": "Everlast",
+          "demand": 1064,
+          "orders": 11,
+          "ly_demand": 3016,
+          "ly_orders": 15
         },
         {
           "name": "Marco Polo",
-          "demand": 869,
-          "orders": 8,
-          "ly_demand": 2393,
-          "ly_orders": 10
+          "demand": 1001,
+          "orders": 9,
+          "ly_demand": 416,
+          "ly_orders": 4
         },
         {
           "name": "Umbro",
-          "demand": 505,
-          "orders": 4,
-          "ly_demand": 960,
-          "ly_orders": 7
+          "demand": 627,
+          "orders": 5,
+          "ly_demand": 931,
+          "ly_orders": 8
         },
         {
           "name": "Happy Socks",
-          "demand": 396,
-          "orders": 4,
+          "demand": 483,
+          "orders": 7,
           "ly_demand": 0,
           "ly_orders": 0
         },
         {
-          "name": "Replay",
-          "demand": 312,
-          "orders": 2,
-          "ly_demand": 696,
-          "ly_orders": 6
+          "name": "Harrison",
+          "demand": 112,
+          "orders": 1,
+          "ly_demand": 0,
+          "ly_orders": 0
         }
       ],
       "total": {
-        "demand": 157493,
-        "orders": 1164,
-        "ly_demand": 172009,
-        "ly_orders": 1284,
-        "yoy_pct": -8.4
+        "demand": 168665,
+        "orders": 1214,
+        "ly_demand": 163722,
+        "ly_orders": 1210,
+        "yoy_pct": 3.0
       }
     },
     "markets": {
@@ -207,84 +163,84 @@
         "value": 0.705
       },
       "btc": {
-        "value": 66946
+        "value": 67789
       },
       "eth": {
-        "value": 1942
+        "value": 1972
       },
       "xrp": {
-        "value": 1.41
+        "value": 1.43
       }
     },
     "weather": {
-      "current_temp": 17,
-      "high": 31,
-      "low": 16,
-      "condition": "Partly cloudy, warming to 31°C",
+      "current_temp": 18,
+      "high": 27,
+      "low": 18,
+      "condition": "Partly cloudy",
       "precip": 0,
-      "icon": "⛅"
+      "icon": "\u26c5"
     },
     "news": [
       {
-        "emoji": "🤖",
+        "emoji": "\ud83e\udd16",
         "topic": "AI",
-        "text": "Zhipu AI's GLM-5 (744B MoE, MIT license) hits 77.8% SWE-bench — China's first genuinely GPT-5 competitive open-source model"
+        "text": "ByteDance's Seedance 2.0 goes viral \u2014 Hollywood spooked by cinematic AI video gen quality"
       },
       {
-        "emoji": "🏎️",
+        "emoji": "\ud83c\udfce\ufe0f",
         "topic": "F1",
-        "text": "Bahrain test: Russell P1 (1:33.4), Hamilton hit by first Ferrari reliability issue — final test day today"
+        "text": "F1 moves to close engine loophole Mercedes accused of exploiting ahead of final Bahrain pre-season test"
       },
       {
-        "emoji": "🇦🇺",
-        "topic": "AU Politics",
-        "text": "Coles admits strong-arming suppliers in ACCC court case; ISIS repatriation debate intensifies"
-      },
-      {
-        "emoji": "🏈",
-        "topic": "AFL",
-        "text": "AAMI Community Series confirmed Feb 25–Mar 1, season opener March 5"
-      },
-      {
-        "emoji": "🏀",
+        "emoji": "\ud83c\udfc0",
         "topic": "Bulls",
-        "text": "Buzelis won Rising Stars at All-Star weekend; second half resumes"
+        "text": "Post-deadline rebuild: Vu\u010devi\u0107, White, Dosunmu all traded \u2014 Buzelis era begins as Bulls drop 12+ straight"
+      },
+      {
+        "emoji": "\ud83c\udfc8",
+        "topic": "AFL",
+        "text": "2026 AFL season starts March 5; AAMI Community Series pre-season matches underway"
+      },
+      {
+        "emoji": "\ud83c\udde6\ud83c\uddfa",
+        "topic": "AU Politics",
+        "text": "Coalition backs strengthening passport refusal powers for IS-linked women; SA election March 21"
       }
     ],
     "content_picks": [
       {
-        "title": "GLM-5 Complete Guide: China's 744B Open-Source Model",
-        "source": "NxCode",
-        "url": "https://www.nxcode.io/resources/news/glm-5-open-source-744b-model-complete-guide-2026",
-        "why": "First open-source model genuinely rivalling GPT-5 — trained on Huawei chips, MIT licensed",
+        "title": "Seedance 2.0: China's latest AI is so good it's spooked Hollywood",
+        "source": "CNN",
+        "url": "https://www.cnn.com/2026/02/20/china/china-ai-seedance-intl-hnk-dst",
+        "why": "ByteDance's video gen model is producing cinematic-quality output \u2014 big implications for creative tools",
         "type": "article"
       },
       {
-        "title": "Russell fastest, Hamilton's Ferrari hits trouble",
-        "source": "Sky Sports F1",
-        "url": "https://www.skysports.com/f1/news/12433/13508887/f1-bahrain-testing-george-russell-fastest-on-first-day-of-final-test-as-lewis-hamilton-suffers-first-ferrari-pre-season-issue",
-        "why": "Final pre-season test recap — Mercedes strong, Ferrari reliability concern before Melbourne",
+        "title": "Best AI February 2026 Rankings: GPT-5.2, Claude Opus 4.6, and Gemini 3",
+        "source": "FelloAI",
+        "url": "https://felloai.com/best-ai-february-2026/",
+        "why": "Good overview of where all the frontier models stand right now, including Gemini 3 Deep Think",
         "type": "article"
       },
       {
-        "title": "The A.I. Disruption Has Arrived, and It Sure Is Fun",
-        "source": "NYT Opinion",
-        "url": "https://www.nytimes.com/2026/02/18/opinion/ai-software.html",
-        "why": "Software dev renaissance argument — relevant to your AI-first strategy",
+        "title": "How the anxiety over AI could fuel a new workers' movement",
+        "source": "The Guardian",
+        "url": "https://www.theguardian.com/technology/ng-interactive/2026/feb/19/ai-work-future",
+        "why": "Long-form piece on AI's real impact on labour \u2014 the human side of the disruption you're managing",
         "type": "article"
       },
       {
-        "title": "Neuromorphic Computers Solve Complex Physics Simulations",
-        "source": "ScienceDaily",
-        "url": "https://www.sciencedaily.com/news/computers_math/artificial_intelligence/",
-        "why": "Brain-modelled chips replacing supercomputers for physics — hardware paradigm shift",
+        "title": "The Bulls after franchise-altering trade-deadline moves: 3 burning questions",
+        "source": "The Athletic",
+        "url": "https://www.nytimes.com/athletic/7057331/2026/02/19/bulls-nba-trade-deadline-matas-guards/",
+        "why": "Deep dive into the Bulls rebuild \u2014 Buzelis' role and what the draft strategy looks like now",
         "type": "article"
       }
     ],
-    "comms_task": "Next time you delegate a task today, add one sentence of context: why this matters or what good looks like. Not instructions — the 'so that' sentence.",
+    "comms_task": "In your first Slack message or email today, before making your request, add one sentence of context explaining WHY it matters right now. Example: 'Because we launch next Friday, I need X by Tuesday.'",
     "quote": {
-      "text": "We are what we repeatedly do. Excellence, then, is not an act, but a habit.",
-      "author": "Aristotle (via Will Durant)"
+      "text": "The best way to predict the future is to create it.",
+      "author": "Alan Kay"
     }
   },
   "evening": {
@@ -330,7 +286,7 @@
         }
       ],
       "tomorrow": [],
-      "note": "Tomorrow is Saturday — no meetings scheduled"
+      "note": "Tomorrow is Saturday \u2014 no meetings scheduled"
     },
     "sales": {
       "date": "Friday, 20 February 2026",
@@ -451,35 +407,35 @@
       "low": 18,
       "condition": "Partly cloudy",
       "precip": 0,
-      "icon": "⛅"
+      "icon": "\u26c5"
     },
     "content_picks": [
       {
         "title": "The A.I. Disruption Has Arrived, and It Sure Is Fun",
         "source": "NYT Opinion",
         "url": "https://www.nytimes.com/2026/02/18/opinion/ai-software.html",
-        "why": "Sharp argument that AI is about to make software want to ship — challenges every process you manage",
+        "why": "Sharp argument that AI is about to make software want to ship \u2014 challenges every process you manage",
         "type": "article"
       },
       {
         "title": "Fei-Fei Li's World Labs Raises $1 Billion for Spatial Intelligence",
         "source": "Reuters",
         "url": "https://www.reuters.com/business/ai-pioneer-fei-fei-lis-world-labs-raises-1-billion-funding-2026-02-18/",
-        "why": "Stanford AI pioneer betting big on spatial AI — implications for ecommerce 3D/AR experiences",
+        "why": "Stanford AI pioneer betting big on spatial AI \u2014 implications for ecommerce 3D/AR experiences",
         "type": "article"
       },
       {
-        "title": "AI Is Running Out of Power — Space Won't Be an Escape Hatch",
+        "title": "AI Is Running Out of Power \u2014 Space Won't Be an Escape Hatch",
         "source": "Fortune",
         "url": "https://fortune.com/2026/02/19/ai-is-running-out-of-power-space-wont-be-an-escape-hatch-for-decades/",
-        "why": "Energy constraints as the real bottleneck for AI scaling — good weekend think piece",
+        "why": "Energy constraints as the real bottleneck for AI scaling \u2014 good weekend think piece",
         "type": "article"
       },
       {
         "title": "NASA's Perseverance Rover Now Drives Mars Routes Planned by AI",
         "source": "ScienceDaily",
         "url": "https://www.sciencedaily.com/releases/2026/02/260202143217.htm",
-        "why": "AI replacing human operators on Mars — if it works there, it works anywhere",
+        "why": "AI replacing human operators on Mars \u2014 if it works there, it works anywhere",
         "type": "article"
       }
     ],
