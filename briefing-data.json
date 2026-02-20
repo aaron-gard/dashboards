@@ -220,33 +220,33 @@
       "current_temp": 17,
       "high": 31,
       "low": 16,
-      "condition": "Partly cloudy, warming to 31\u00b0C",
+      "condition": "Partly cloudy, warming to 31°C",
       "precip": 0,
-      "icon": "\u26c5"
+      "icon": "⛅"
     },
     "news": [
       {
-        "emoji": "\ud83e\udd16",
+        "emoji": "🤖",
         "topic": "AI",
-        "text": "Zhipu AI's GLM-5 (744B MoE, MIT license) hits 77.8% SWE-bench \u2014 China's first genuinely GPT-5 competitive open-source model"
+        "text": "Zhipu AI's GLM-5 (744B MoE, MIT license) hits 77.8% SWE-bench — China's first genuinely GPT-5 competitive open-source model"
       },
       {
-        "emoji": "\ud83c\udfce\ufe0f",
+        "emoji": "🏎️",
         "topic": "F1",
-        "text": "Bahrain test: Russell P1 (1:33.4), Hamilton hit by first Ferrari reliability issue \u2014 final test day today"
+        "text": "Bahrain test: Russell P1 (1:33.4), Hamilton hit by first Ferrari reliability issue — final test day today"
       },
       {
-        "emoji": "\ud83c\udde6\ud83c\uddfa",
+        "emoji": "🇦🇺",
         "topic": "AU Politics",
         "text": "Coles admits strong-arming suppliers in ACCC court case; ISIS repatriation debate intensifies"
       },
       {
-        "emoji": "\ud83c\udfc8",
+        "emoji": "🏈",
         "topic": "AFL",
-        "text": "AAMI Community Series confirmed Feb 25\u2013Mar 1, season opener March 5"
+        "text": "AAMI Community Series confirmed Feb 25–Mar 1, season opener March 5"
       },
       {
-        "emoji": "\ud83c\udfc0",
+        "emoji": "🏀",
         "topic": "Bulls",
         "text": "Buzelis won Rising Stars at All-Star weekend; second half resumes"
       }
@@ -256,155 +256,180 @@
         "title": "GLM-5 Complete Guide: China's 744B Open-Source Model",
         "source": "NxCode",
         "url": "https://www.nxcode.io/resources/news/glm-5-open-source-744b-model-complete-guide-2026",
-        "why": "First open-source model genuinely rivalling GPT-5 \u2014 trained on Huawei chips, MIT licensed",
+        "why": "First open-source model genuinely rivalling GPT-5 — trained on Huawei chips, MIT licensed",
         "type": "article"
       },
       {
         "title": "Russell fastest, Hamilton's Ferrari hits trouble",
         "source": "Sky Sports F1",
         "url": "https://www.skysports.com/f1/news/12433/13508887/f1-bahrain-testing-george-russell-fastest-on-first-day-of-final-test-as-lewis-hamilton-suffers-first-ferrari-pre-season-issue",
-        "why": "Final pre-season test recap \u2014 Mercedes strong, Ferrari reliability concern before Melbourne",
+        "why": "Final pre-season test recap — Mercedes strong, Ferrari reliability concern before Melbourne",
         "type": "article"
       },
       {
         "title": "The A.I. Disruption Has Arrived, and It Sure Is Fun",
         "source": "NYT Opinion",
         "url": "https://www.nytimes.com/2026/02/18/opinion/ai-software.html",
-        "why": "Software dev renaissance argument \u2014 relevant to your AI-first strategy",
+        "why": "Software dev renaissance argument — relevant to your AI-first strategy",
         "type": "article"
       },
       {
         "title": "Neuromorphic Computers Solve Complex Physics Simulations",
         "source": "ScienceDaily",
         "url": "https://www.sciencedaily.com/news/computers_math/artificial_intelligence/",
-        "why": "Brain-modelled chips replacing supercomputers for physics \u2014 hardware paradigm shift",
+        "why": "Brain-modelled chips replacing supercomputers for physics — hardware paradigm shift",
         "type": "article"
       }
     ],
-    "comms_task": "Next time you delegate a task today, add one sentence of context: why this matters or what good looks like. Not instructions \u2014 the 'so that' sentence.",
+    "comms_task": "Next time you delegate a task today, add one sentence of context: why this matters or what good looks like. Not instructions — the 'so that' sentence.",
     "quote": {
       "text": "We are what we repeatedly do. Excellence, then, is not an act, but a habit.",
       "author": "Aristotle (via Will Durant)"
     }
   },
   "evening": {
-    "generated": "2026-02-19T19:00:00+11:00",
+    "generated": "2026-02-20T19:00:00+11:00",
     "calendar": {
-      "date": "Thursday, 19 February 2026",
-      "meetings": [],
-      "tomorrow": [
+      "date": "Friday, 20 February 2026",
+      "meetings": [
         {
-          "time": "Note",
-          "duration": 0,
-          "title": "Calendar unavailable - Outlook session expired",
-          "color": "#8b5cf6"
+          "time": "09:00",
+          "duration": 45,
+          "title": "Sean / Aaron - Fortnightly Catchup",
+          "status": "completed"
+        },
+        {
+          "time": "10:00",
+          "duration": 30,
+          "title": "DotCollective x Brand Collective",
+          "status": "completed"
+        },
+        {
+          "time": "10:30",
+          "duration": 30,
+          "title": "Aaron / Hannah",
+          "status": "completed"
+        },
+        {
+          "time": "11:00",
+          "duration": 75,
+          "title": "Meeting with Polar",
+          "status": "completed"
+        },
+        {
+          "time": "11:00",
+          "duration": 60,
+          "title": "Copilot 365 Training | Week 5",
+          "status": "completed"
+        },
+        {
+          "time": "15:00",
+          "duration": 45,
+          "title": "Project Roadmap Review",
+          "status": "completed"
         }
       ],
-      "note": "Calendar unavailable (M365 session expired)"
+      "tomorrow": [],
+      "note": "Tomorrow is Saturday — no meetings scheduled"
     },
     "sales": {
-      "date": "Thursday, 19 February 2026",
+      "date": "Friday, 20 February 2026",
       "partial": true,
       "brands": [
         {
-          "name": "Reebok",
-          "demand": 15986,
-          "orders": 108
+          "name": "Shoes & Sox",
+          "demand": 18203,
+          "orders": 194
         },
         {
-          "name": "Shoes & Sox",
-          "demand": 15326,
-          "orders": 168
+          "name": "Reebok",
+          "demand": 16352,
+          "orders": 113
         },
         {
           "name": "Black Pepper",
-          "demand": 12805,
-          "orders": 93
-        },
-        {
-          "name": "Hush Puppies",
-          "demand": 11968,
-          "orders": 76
-        },
-        {
-          "name": "Shoe Warehouse",
-          "demand": 9942,
-          "orders": 92
+          "demand": 14308,
+          "orders": 108
         },
         {
           "name": "Review",
-          "demand": 8336,
-          "orders": 41
+          "demand": 13968,
+          "orders": 64
         },
         {
           "name": "Superdry",
-          "demand": 6508,
-          "orders": 49
+          "demand": 10682,
+          "orders": 82
         },
         {
-          "name": "Yarra Trail",
-          "demand": 5472,
-          "orders": 33
+          "name": "Shoe Warehouse",
+          "demand": 10525,
+          "orders": 108
+        },
+        {
+          "name": "Hush Puppies",
+          "demand": 9725,
+          "orders": 66
         },
         {
           "name": "Elka Collective",
-          "demand": 4703,
-          "orders": 17
+          "demand": 8149,
+          "orders": 29
         },
         {
-          "name": "Volley",
-          "demand": 3324,
-          "orders": 32
+          "name": "Yarra Trail",
+          "demand": 4529,
+          "orders": 26
         },
         {
           "name": "Clarks",
-          "demand": 3215,
-          "orders": 28
+          "demand": 3222,
+          "orders": 30
         },
         {
           "name": "Canada Goose",
-          "demand": 2600,
-          "orders": 2
+          "demand": 2636,
+          "orders": 1
+        },
+        {
+          "name": "Volley",
+          "demand": 2450,
+          "orders": 22
         },
         {
           "name": "Julius Marlow",
-          "demand": 1534,
-          "orders": 11
-        },
-        {
-          "name": "Everlast",
-          "demand": 1529,
-          "orders": 15
+          "demand": 2109,
+          "orders": 10
         },
         {
           "name": "Champion",
-          "demand": 1153,
-          "orders": 11
+          "demand": 1195,
+          "orders": 10
         },
         {
           "name": "Marco Polo",
-          "demand": 741,
+          "demand": 755,
           "orders": 7
         },
         {
-          "name": "Umbro",
-          "demand": 385,
-          "orders": 3
+          "name": "Everlast",
+          "demand": 730,
+          "orders": 8
         },
         {
           "name": "Happy Socks",
-          "demand": 362,
-          "orders": 3
+          "demand": 364,
+          "orders": 5
         },
         {
-          "name": "Replay",
-          "demand": 182,
-          "orders": 1
+          "name": "Umbro",
+          "demand": 157,
+          "orders": 2
         }
       ],
       "total": {
-        "demand": 106071,
-        "orders": 790
+        "demand": 120059,
+        "orders": 885
       }
     },
     "markets": {
@@ -412,52 +437,52 @@
         "value": 0.705
       },
       "btc": {
-        "value": 67165
+        "value": 67787
       },
       "eth": {
-        "value": 1979
+        "value": 1960
       },
       "xrp": {
-        "value": 1.43
+        "value": 1.42
       }
     },
     "weather": {
-      "high": 30,
-      "low": 16,
-      "condition": "Foggy morning clearing to warm",
+      "high": 28,
+      "low": 18,
+      "condition": "Partly cloudy",
       "precip": 0,
-      "icon": "\ud83c\udf2b"
+      "icon": "⛅"
     },
     "content_picks": [
       {
-        "title": "Best AI Models for Coding in 2026: Accuracy, Integration & Fit",
-        "source": "FelloAI",
-        "url": "https://felloai.com/best-ai-february-2026/",
-        "why": "Claude Sonnet 4.6 just dropped Feb 17 - Opus-level at Sonnet prices. Directly relevant.",
+        "title": "The A.I. Disruption Has Arrived, and It Sure Is Fun",
+        "source": "NYT Opinion",
+        "url": "https://www.nytimes.com/2026/02/18/opinion/ai-software.html",
+        "why": "Sharp argument that AI is about to make software want to ship — challenges every process you manage",
         "type": "article"
       },
       {
-        "title": "Google's 2026 Responsible AI Progress Report",
-        "source": "Google Blog",
-        "url": "https://blog.google/innovation-and-ai/products/responsible-ai-2026-report-ongoing-work/",
-        "why": "Google's latest on agentic systems and clinical AI milestones - good strategic context",
+        "title": "Fei-Fei Li's World Labs Raises $1 Billion for Spatial Intelligence",
+        "source": "Reuters",
+        "url": "https://www.reuters.com/business/ai-pioneer-fei-fei-lis-world-labs-raises-1-billion-funding-2026-02-18/",
+        "why": "Stanford AI pioneer betting big on spatial AI — implications for ecommerce 3D/AR experiences",
         "type": "article"
       },
       {
-        "title": "India AI Impact Summit: Modi, Altman, Pichai shape global AI governance",
-        "source": "Google Blog",
-        "url": "https://blog.google/innovation-and-ai/technology/ai/ai-impact-summit-2026-india/",
-        "why": "India positioning as the third AI pole alongside US and China - geopolitical implications",
+        "title": "AI Is Running Out of Power — Space Won't Be an Escape Hatch",
+        "source": "Fortune",
+        "url": "https://fortune.com/2026/02/19/ai-is-running-out-of-power-space-wont-be-an-escape-hatch-for-decades/",
+        "why": "Energy constraints as the real bottleneck for AI scaling — good weekend think piece",
         "type": "article"
       },
       {
-        "title": "NASA's Perseverance rover now drives Mars routes planned entirely by AI",
+        "title": "NASA's Perseverance Rover Now Drives Mars Routes Planned by AI",
         "source": "ScienceDaily",
-        "url": "https://www.sciencedaily.com/news/computers_math/artificial_intelligence/",
-        "why": "AI replacing human rover operators in the most unforgiving environment possible",
+        "url": "https://www.sciencedaily.com/releases/2026/02/260202143217.htm",
+        "why": "AI replacing human operators on Mars — if it works there, it works anywhere",
         "type": "article"
       }
     ],
-    "closing_thought": "Thursday's almost done. Fifteen thousand orders across your brands today, each one someone choosing something that makes them feel good. That's a lot of small moments of joy you helped create. Not a bad day's work."
+    "closing_thought": "Friday evening. The week's behind you, the weekend's wide open. Sometimes the best thing you can do for Monday is to completely forget about it until then. You've earned the space."
   }
 }
