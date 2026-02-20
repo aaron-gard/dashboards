@@ -203,12 +203,13 @@ const DEFAULT_DEPTS = [
   {id:'digital',name:'Digital',color:'accent'},
   {id:'it',name:'IT',color:'green'},
   {id:'supply-chain',name:'Supply Chain',color:'amber'},
-  {id:'marketing',name:'Marketing',color:'pink'}
+  {id:'marketing',name:'Marketing',color:'pink'},
+  {id:'cx',name:'Customer Experience',color:'purple'}
 ];
 
 const SEED_DATA = [
   {
-    id:'sns-app',title:'SNS Mobile App',dept:'digital',status:'complete',
+    id:'sns-app',taskNo:'AI-001',title:'SNS Mobile App',dept:'digital',status:'complete',
     description:'Built a native iOS mobile shopping app for Shoes & Sox using OpenClaw + Claude Opus 4.6 in SwiftUI. Real product data, brand identity, full catalogue browsing with size/colour selection.',
     howAchieved:'Used OpenClaw (personal AI assistant) powered by Anthropic Claude Opus 4.6 to generate and iterate the full SwiftUI codebase. Iterated through v1 (rejected as too generic) to v2 with real Shopify product data, SVG logos, and brand colour palette (#FF4B0F, #FDC145, #3398FF). Complete build from concept to board demo in 4 days.',
     valueAdd:'Demonstrated that a project typically quoted at $200-300K over 6-12 months by agencies can be prototyped for near-zero cost in days. Board response was overwhelmingly positive. Opens pathway for all 20 brands to have native apps.',
@@ -219,7 +220,7 @@ const SEED_DATA = [
     audit:[{date:'2026-02-09',action:'Initiative created'},{date:'2026-02-09',action:'v1 prototype built — rejected (too generic)'},{date:'2026-02-10',action:'v2 rebuilt with real product data + brand identity'},{date:'2026-02-11',action:'Demonstrated to board — approved for development'},{date:'2026-02-11',action:'Status → Complete'}]
   },
   {
-    id:'omneo-security',title:'Omneo Security Vulnerability Detection',dept:'it',status:'in-progress',
+    id:'omneo-security',taskNo:'AI-002',title:'Omneo Security Vulnerability Detection',dept:'it',status:'in-progress',
     description:'AI-driven security audit of Omneo (customer identity platform) discovered 8 critical vulnerabilities exposing customer PII across 25+ major Australian retail brands — including children\'s parent data from Shoes & Sox.',
     howAchieved:'Automated penetration testing of Omneo portal APIs and authentication flows. Identified broken access controls, insecure direct object references, and unprotected API endpoints that expose customer names, emails, addresses, and order histories.',
     valueAdd:'Prevented potential large-scale data breach affecting customers of Brand Collective and ~25 other major AU retailers (Country Road Group, Mecca, Zimmermann, RM Williams, etc). Proactive detection vs reactive incident response.',
@@ -230,7 +231,7 @@ const SEED_DATA = [
     audit:[{date:'2026-02-06',action:'Initial security audit triggered'},{date:'2026-02-07',action:'8 vulnerabilities confirmed'},{date:'2026-02-10',action:'Disclosure email drafted'},{date:'2026-02-13',action:'Re-audit: all 8 vulns still open + 2 new findings'},{date:'2026-02-13',action:'Escalation pending with Omneo'}]
   },
   {
-    id:'scout-seo',title:'Scout — AI SEO Coworker',dept:'digital',status:'initiated',
+    id:'scout-seo',taskNo:'AI-003',title:'Scout — AI SEO Coworker',dept:'digital',status:'initiated',
     description:'Autonomous AI agent replacing StudioHawk SEO agency ($26,622+GST/month, ~$320K/year) across all 19 brand websites. Scout will handle technical SEO audits, content optimisation, keyword research, and performance monitoring.',
     howAchieved:'Designed instruction set (v0.1) for autonomous SEO agent. Architecture: Google Search Console + GA4 + Shopify + PageSpeed APIs feeding into agentic workflow. Per-brand URL mapping, automated audit scheduling, Slack reporting (#seo-bot channel).',
     valueAdd:'Direct cost elimination: $320K/year agency fees. Beyond cost, Scout operates 24/7 across all 19 brands simultaneously — something no agency can match. Continuous optimisation vs monthly reporting cycles.',
@@ -241,7 +242,7 @@ const SEED_DATA = [
     audit:[{date:'2026-02-06',action:'Initiative created — instruction set v0.1 drafted'},{date:'2026-02-07',action:'Brand URL mapping started (19 brands)'},{date:'2026-02-10',action:'Ahrefs Enterprise contract signed ($1,499 USD/mo)'},{date:'2026-02-13',action:'Pending: GSC service account access for 19 brands'}]
   },
   {
-    id:'picjam-poc',title:'PicJam — AI Content Production',dept:'marketing',status:'in-progress',
+    id:'picjam-poc',taskNo:'AI-004',title:'PicJam — AI Content Production',dept:'marketing',status:'in-progress',
     description:'Bulk AI content production trial for ecommerce — transforming static ecomm product shots onto different models (skin tone, body type) and converting to video. Circumvents model licensing issues by generating new imagery from existing product photography. Trial across Volley, Happy Socks, and Review.',
     howAchieved:'Partnered with PicJam for AI photo and video generation. Approach: take existing static ecomm shots, transform onto models with different skin tones/body types via AI, then generate video from stills. This method avoids model licensing constraints entirely since no original model likeness is used. Production-ready examples expected by end of Feb W35.',
     valueAdd:'Potential to reduce content production costs by 60-80% while increasing output volume 10x. A single campaign shoot currently costs $20-50K — AI generation could deliver equivalent assets in hours for near-zero marginal cost. Also enables representation/diversity in imagery without reshooting.',
@@ -252,7 +253,7 @@ const SEED_DATA = [
     audit:[{date:'2026-02-10',action:'POC initiated with Volley, Happy Socks, Review'},{date:'2026-02-11',action:'Initial model testing — image generation'},{date:'2026-02-12',action:'Video model licensing constraints identified (Boris R.)'},{date:'2026-02-13',action:'Evaluating alternative models with commercial licensing'},{date:'2026-02-16',action:'Bulk production trial kicked off — static-to-model transformation + video pipeline. Proposal shared with Boris. Production examples due W35.'}]
   },
   {
-    id:'review-loyalty',title:'Review Loyalty Intelligence Dashboard',dept:'digital',status:'complete',
+    id:'review-loyalty',taskNo:'AI-005',title:'Review Loyalty Intelligence Dashboard',dept:'digital',status:'complete',
     description:'Comprehensive loyalty program analytics dashboard for Review Australia, built by querying Omneo CRM and tRS (The Retail Solution) databases via Metabase API. Surfaces 1.07M member base, tier distribution, transaction trends (13 years of history), signup patterns, location performance, and redemption analytics.',
     howAchieved:'Connected to Brand Collective\'s Metabase instance (4 MySQL databases) via API key. Audited all tables across Review Omneo and Review tRS databases. Pulled and cross-referenced profile, tier, transaction, location, and redemption data. Built interactive dashboard with 6 tabs (Overview, Members, Tiers, Transactions, Locations, Loyalty) with Chart.js visualizations and embedded data. Deployed to password-protected brandcollective subdomain.',
     valueAdd:'Replaces manual Metabase queries with a single dashboard view. Surfaced critical insight: Dress Circle tier in net decline since 2021 (695→191 members). Identified revenue decline trend (CY23 $55.9M → CY25 $45.1M). Exposed data quality issues (1,871 profiles tagged DC status but only 191 in tier). 51% of locations now closed. Enables data-driven loyalty program optimization.',
@@ -262,7 +263,7 @@ const SEED_DATA = [
     createdBy:'The Claw',
     audit:[{date:'2026-02-16',action:'Connected to Metabase API — audited Review Omneo + tRS databases'},{date:'2026-02-16',action:'Pulled member, tier, transaction, location, redemption data'},{date:'2026-02-16',action:'Dashboard built and deployed to brandcollective.aarongard.com/loyalty.html'},{date:'2026-02-16',action:'Identified Dress Circle decline: 695→191 members since 2021'},{date:'2026-02-16',action:'Status → Complete'}]
   },{
-    id:'store-halo-heatmap',title:'Store Halo Analysis & Location Intelligence',dept:'digital',status:'complete',
+    id:'store-halo-heatmap',taskNo:'AI-006',title:'Store Halo Analysis & Location Intelligence',dept:'digital',status:'complete',
     description:'AI-driven analysis of the relationship between physical store locations and online demand across 13 brands. Maps $75.8M in AU online demand by postcode, quantifies the store halo effect (19–69% of DTC orders within 10km of a store), and identifies 50 expansion opportunities representing $3.3M+ in addressable catchment demand.',
     howAchieved:'Pulled CY2025 Shopify DTC order data for all brands via API, geocoded by postcode using ABS centroid data, and calculated distance to nearest store (Haversine). Store locations sourced and verified from brand websites and shopping centre directories. Layered ABS 2021 Census demographics (population, income, age) and competitor store counts (ScrapeHero + manual). Built composite scoring model (30% catchment demand, 20% distance gap, 20% demo density, 15% population, 15% income) to rank expansion targets. Delivered as interactive web dashboard with heatmaps, brand drill-downs, and executive summary.',
     valueAdd:'Provides data-backed evidence for every store opening, closure, or renewal decision. Replaces gut-feel site selection with quantified demand signals. The 50 identified targets represent net-new physical presence in areas with proven online demand but no current store. Directly supports lease negotiation, Myer concession discussions, and capital allocation.',
@@ -272,7 +273,7 @@ const SEED_DATA = [
     createdBy:'The Claw',
     audit:[{date:'2026-02-12',action:'Initiative created — Review brand pilot'},{date:'2026-02-13',action:'Review heatmap built with 64 stores, 5 expansion targets identified'},{date:'2026-02-14',action:'Extended to 13 brands — portfolio summary added'},{date:'2026-02-14',action:'Reebok, SNS, Black Pepper, Elka, Superdry, HP, Shoe Warehouse, Champion, Yarra Trail brand views added'},{date:'2026-02-15',action:'Methodology documentation and instructions added'},{date:'2026-02-16',action:'Status → Complete. Live at aarongard.com/heatmap.html'}]
   },{
-    id:'portfolio-dashboard',title:'Portfolio Performance Dashboard',dept:'digital',status:'complete',
+    id:'portfolio-dashboard',taskNo:'AI-007',title:'Portfolio Performance Dashboard',dept:'digital',status:'complete',
     description:'Real-time ecommerce portfolio dashboard covering all 20 brands. Hero KPIs, period toggle (daily/weekly/monthly), 30-day trend chart, portfolio donut breakdown, and brand leaderboard with dark/light mode.',
     howAchieved:'Built as self-contained HTML with embedded CSS/JS and Chart.js. Data pulled from Polar Analytics API (generate_report). Demand sales formula: gross_sales + discounts (negative) + tax + shipping. Auto-deployed via Vercel.',
     valueAdd:'Replaces manual spreadsheet pulls for daily trade checks. Instant visibility into portfolio performance without logging into Polar. Mobile-friendly for on-the-go checks.',
@@ -282,7 +283,7 @@ const SEED_DATA = [
     createdBy:'The Claw',
     audit:[{date:'2026-02-12',action:'Dashboard built with hero KPIs, trend chart, brand leaderboard'},{date:'2026-02-14',action:'Brand drill-down panel added'},{date:'2026-02-14',action:'Status → Complete. Live at aarongard.com/portfolio.html'}]
   },{
-    id:'security-audit',title:'Shopify Security Audit Dashboard',dept:'it',status:'complete',
+    id:'security-audit',taskNo:'AI-008',title:'Shopify Security Audit Dashboard',dept:'it',status:'complete',
     description:'External passive security assessment across all 20 Shopify stores. Scans SSL configuration, HTTP security headers, exposed endpoints, third-party scripts, DNS records, and cookie policies. Includes Omneo vulnerability retest.',
     howAchieved:'Automated external scanning of all 20 store domains — SSL Labs grading, header analysis (CSP, HSTS, X-Frame-Options), endpoint enumeration (/admin, APIs, .json), third-party script inventory, DNS record checks, and cookie security flags. Omneo loyalty portal retested for previously reported vulnerabilities.',
     valueAdd:'Provides board-ready security posture overview without requiring internal access. Identified missing security headers across all stores, exposed Shopify API endpoints, and confirmed Omneo vulnerabilities remain unpatched. Overall score: C+ (58/100).',
@@ -292,7 +293,7 @@ const SEED_DATA = [
     createdBy:'The Claw',
     audit:[{date:'2026-02-14',action:'Initial scan of all 20 Shopify stores'},{date:'2026-02-14',action:'Dashboard built and deployed to aarongard.com/security-audit.html'},{date:'2026-02-16',action:'Omneo retest — vulnerabilities still exploitable'},{date:'2026-02-16',action:'Score dropped B- (68) → C+ (58). PDF export added.'}]
   },{
-    id:'daily-briefing',title:'Automated Daily Briefing System',dept:'digital',status:'complete',
+    id:'daily-briefing',taskNo:'AI-009',title:'Automated Daily Briefing System',dept:'digital',status:'complete',
     description:'Autonomous morning (5:45am) and evening (7pm) briefing system. Pulls sales data, calendar, weather, market prices, and curated news. Delivers compact Telegram summary with link to rich interactive web dashboard.',
     howAchieved:'Two cron jobs run isolated sub-agent sessions that: query Polar Analytics for sales, check Outlook calendar via browser automation, pull weather from Open-Meteo, fetch market prices (AUD/USD, BTC, ETH, XRP), search for curated news, and generate quotes/closing thoughts. Data written as JSON, git pushed to Vercel for auto-deploy. Telegram summary sent via message tool.',
     valueAdd:'Zero-effort daily intelligence. Aaron wakes up to a complete briefing without opening any apps. Evening wrap provides tomorrow preview. Replaces manual dashboard checks across 5+ tools.',
@@ -302,7 +303,7 @@ const SEED_DATA = [
     createdBy:'The Claw',
     audit:[{date:'2026-02-15',action:'Morning briefing cron created'},{date:'2026-02-15',action:'Evening briefing cron created'},{date:'2026-02-15',action:'Rich web dashboard built at aarongard.com/briefing.html'},{date:'2026-02-16',action:'Added market prices, news, quotes'},{date:'2026-02-16',action:'Added daily communication task to morning brief'}]
   },{
-    id:'jm-amazon-audit',title:'JM Amazon Pricing Compliance Audit',dept:'digital',status:'complete',
+    id:'jm-amazon-audit',taskNo:'AI-010',title:'JM Amazon Pricing Compliance Audit',dept:'digital',status:'complete',
     description:'Automated cross-channel pricing audit comparing Julius Marlow DTC (Shopify) vs Amazon AU marketplace. Identified 29 overlapping products with 21 confirmed undercuts averaging −$58 per pair.',
     howAchieved:'Scraped JM Shopify product API (221 products) and Amazon AU search results. Cross-referenced by product name matching. Sub-agent spawned for browser-level price verification of all 29 overlap products on Amazon. Dashboard built with links to both JM and Amazon product pages for easy verification.',
     valueAdd:'Quantified the Amazon pricing gap that was previously anecdotal. Key findings: Scuttle (−$99), Kick (−$87), Expand (−$81). 17 discontinued Amazon-only products identified. Provides evidence base for marketplace pricing policy enforcement.',
@@ -312,7 +313,7 @@ const SEED_DATA = [
     createdBy:'The Claw',
     audit:[{date:'2026-02-16',action:'Initial audit: 7 overlaps found from API scrape'},{date:'2026-02-16',action:'Re-scrape with full Shopify API: 29 overlaps, 21 undercuts'},{date:'2026-02-16',action:'Dashboard built at brandcollective.aarongard.com/jm-audit.html'},{date:'2026-02-16',action:'Browser-level price verification completed — 28/29 confirmed'},{date:'2026-02-16',action:'Status → Complete'}]
   },{
-    id:'closure-impact',title:'Review Store Closure Impact Analysis',dept:'digital',status:'complete',
+    id:'closure-impact',taskNo:'AI-011',title:'Review Store Closure Impact Analysis',dept:'digital',status:'complete',
     description:'Analysis of 24 Review store closures (2021–2025) and their impact on online sales, signups, and customer engagement. Key finding: store closures do NOT drive online growth — demand evaporates. $31M annual revenue lost.',
     howAchieved:'Pulled closure dates from Omneo locations data (is_permanently_closed + updated_at as proxy). Cross-referenced with quarterly online sales, signup, and transaction data from Metabase (Review Omneo + tRS databases). Built interactive dashboard with individual store drill-down showing before/after closure trends with annotation lines.',
     valueAdd:'Disproves the common assumption that closing physical stores redirects demand online. Online revenue −52% (CY22→CY25). Physical signups −47%. Directly reinforces the halo analysis: stores generate demand, they don\'t just capture it. Critical evidence for lease renewal and store investment decisions.',
@@ -321,6 +322,61 @@ const SEED_DATA = [
     createdAt:'2026-02-16T14:00:00',updatedAt:'2026-02-16T18:00:00',
     createdBy:'The Claw',
     audit:[{date:'2026-02-16',action:'84 closed locations identified from Omneo data'},{date:'2026-02-16',action:'24 closures with reliable dates analysed (post-2021 migration)'},{date:'2026-02-16',action:'Dashboard built at brandcollective.aarongard.com/closure-impact.html'},{date:'2026-02-16',action:'Individual store drill-down with closure annotation lines added'},{date:'2026-02-16',action:'Status → Complete'}]
+  },
+  {
+    id:'outlet-marketplace',taskNo:'AI-012',title:'Outlet Marketplace',dept:'digital',status:'in-progress',
+    description:'Multi-brand outlet marketplace prototype enabling Brand Collective to sell clearance/outlet inventory across all brands through a unified storefront. Categories: women\'s, men\'s, kids, shoes. Rewards program integrated.',
+    howAchieved:'Built interactive prototype with full product browsing, category navigation, brand filtering, and rewards integration. Deployed as static web app at aarongard.com/marketplace/index.html.',
+    valueAdd:'Opens a new revenue channel for aged/clearance inventory without diluting individual brand DTC sites. Consolidates outlet demand into a single destination with lower customer acquisition cost. Reduces reliance on third-party marketplaces for clearance.',
+    impact:'high',impactLabel:'New revenue channel',
+    mediaUrl:'',mediaType:'',
+    createdAt:'2026-02-17T10:00:00',updatedAt:'2026-02-20T08:00:00',
+    createdBy:'Aaron Gard',
+    audit:[{date:'2026-02-17',action:'Initiative created — concept design started'},{date:'2026-02-18',action:'Working prototype built with product data'},{date:'2026-02-19',action:'Category navigation and brand filtering added'},{date:'2026-02-20',action:'Live at aarongard.com/marketplace/index.html'}]
+  },
+  {
+    id:'elka-dashboard',taskNo:'AI-013',title:'Elka Collective Live Dashboard',dept:'digital',status:'complete',
+    description:'Real-time brand performance dashboard for Elka Collective. MTD vs LY with daily breakdown, FY monthly trend, channel mix (with %), payment methods, top 15 products by demand with return rate flagging, and cumulative demand chart.',
+    howAchieved:'Queried Polar Analytics API for 7 concurrent data pulls (MTD daily, LY daily, channel mix, top products, FY monthly TY/LY, payment methods). Built with Python generator outputting self-contained HTML with Chart.js. Auto-deployed via Vercel.',
+    valueAdd:'Built in real-time during an Elka workshop. Gave the brand team immediate visibility into a 23.8% return rate (highest in portfolio) and 62% MTD growth vs LY. Identified Holland collection as both top seller and top returner.',
+    impact:'medium',impactLabel:'Workshop-ready brand intelligence',
+    mediaUrl:'',mediaType:'',
+    createdAt:'2026-02-18T10:00:00',updatedAt:'2026-02-18T11:00:00',
+    createdBy:'The Claw',
+    audit:[{date:'2026-02-18',action:'Built during Elka Collective workshop'},{date:'2026-02-18',action:'7 Polar API queries run in parallel'},{date:'2026-02-18',action:'Channel mix % and payment mix % added'},{date:'2026-02-18',action:'Deployed to aarongard.com/elka.html'},{date:'2026-02-18',action:'Status → Complete'}]
+  },
+  {
+    id:'ux-audit',taskNo:'AI-014',title:'UX Audit Task Tracker',dept:'digital',status:'complete',
+    description:'Path-to-purchase UX audit across Shoes & Sox, Amazon, and Trybe. 28 tasks across 4 phases covering discovery, product detail, cart, and checkout flows.',
+    howAchieved:'Structured audit framework built as interactive web tracker with phase grouping, task assignment, status tracking, and completion metrics. Self-contained HTML dashboard.',
+    valueAdd:'Provides systematic coverage of conversion-critical UX touchpoints across three platforms. Replaces ad-hoc UX feedback with structured audit methodology.',
+    impact:'medium',impactLabel:'Conversion optimisation framework',
+    mediaUrl:'',mediaType:'',
+    createdAt:'2026-02-15T10:00:00',updatedAt:'2026-02-16T12:00:00',
+    createdBy:'The Claw',
+    audit:[{date:'2026-02-15',action:'Audit framework designed — 28 tasks across 4 phases'},{date:'2026-02-16',action:'Interactive tracker built and deployed'},{date:'2026-02-16',action:'Status → Complete. Live at aarongard.com/ux-audit.html'}]
+  },
+  {
+    id:'the-claw',taskNo:'AI-015',title:'The Claw — Executive AI Assistant',dept:'digital',status:'in-progress',
+    description:'Autonomous AI executive assistant (OpenClaw + Claude Opus 4.6) managing daily briefings, sales analysis, email drafting/review, dashboard generation, calendar management, inbox monitoring, and ad-hoc data queries across 20 brands. Integrates with Polar Analytics, Outlook, Slack, Telegram, Shopify, and Figma.',
+    howAchieved:'Deployed OpenClaw on AWS WorkSpace (Ubuntu). Connected to Telegram (primary), Slack, headless Chrome for M365 access. Integrated Polar Analytics API for real-time sales data. Automated cron jobs for morning/evening briefings and inbox monitoring. Continuous memory system via markdown files for context persistence across sessions.',
+    valueAdd:'Replaces 2-3 hours of daily admin work: manual dashboard checks, email triage, calendar review, data pulls. Operates 18 hours/day (5:30am-11pm). Produces board-ready analysis on demand. Effectively a 24/7 chief of staff that costs tokens instead of salary.',
+    impact:'high',impactLabel:'2-3hrs daily admin eliminated',
+    mediaUrl:'',mediaType:'',
+    createdAt:'2026-02-05T00:00:00',updatedAt:'2026-02-20T08:00:00',
+    createdBy:'Aaron Gard',
+    audit:[{date:'2026-02-05',action:'The Claw born — initial OpenClaw deployment'},{date:'2026-02-06',action:'Telegram connected, personality established'},{date:'2026-02-10',action:'Polar Analytics API integrated'},{date:'2026-02-12',action:'Dashboard generation capability proven'},{date:'2026-02-14',action:'Slack connected, browser automation working'},{date:'2026-02-15',action:'Automated briefing system launched'},{date:'2026-02-18',action:'Outlook calendar access restored'},{date:'2026-02-20',action:'Sub-agent orchestration, cron management, OpenClaw self-update'}]
+  },
+  {
+    id:'ai-cx-agent',taskNo:'AI-016',title:'AI Customer Care Agent',dept:'cx',status:'initiated',
+    description:'AI-powered customer service agent for ecommerce brands. Handles order inquiries, returns/exchanges, product questions, and shipping status across all 20 brand websites. Aims to resolve 60-80% of tickets autonomously.',
+    howAchieved:'Architecture phase. Evaluating integration with Gorgias (current helpdesk) and Shopify order APIs. Training data from historical ticket corpus across brands.',
+    valueAdd:'Current CX team handles ~15,000 tickets/month. At 60% automation, that\'s 9,000 tickets resolved without human intervention — equivalent to 3-4 FTE. Response time drops from hours to seconds. 24/7 coverage without shift scheduling.',
+    impact:'high',impactLabel:'3-4 FTE equivalent, 24/7 coverage',
+    mediaUrl:'',mediaType:'',
+    createdAt:'2026-02-20T08:00:00',updatedAt:'2026-02-20T08:00:00',
+    createdBy:'Aaron Gard',
+    audit:[{date:'2026-02-20',action:'Initiative created — architecture planning phase'}]
   }
 ];
 
@@ -402,7 +458,7 @@ function renderFeed() {
         <span class="feed-dept ${deptClass(item.dept)}">${deptName(item.dept)}</span>
         <span class="feed-status status-${item.status}">${statusLabel(item.status)}</span>
       </div>
-      <div class="feed-title">${item.title}</div>
+      <div class="feed-title">${item.taskNo ? "<span style=\"color:var(--text3);font-size:12px;margin-right:6px\">"+item.taskNo+"</span>" : ""}${item.title}</div>
       <div class="feed-summary">${aiSummary(item)}</div>
       <div class="feed-meta">
         <span class="feed-meta-item">🕐 ${timeAgo(item.updatedAt)}</span>
@@ -429,7 +485,7 @@ function renderKanban() {
       </div>
       <div class="kanban-col-body" data-status="${col}">
         ${colItems.map(item => `<div class="kanban-card" data-id="${item.id}" draggable="true">
-          <div class="kanban-card-title">${item.title}</div>
+          <div class="kanban-card-title">${item.taskNo ? "<span style=\"color:var(--text3);font-size:11px;margin-right:4px\">"+item.taskNo+"</span>" : ""}${item.title}</div>
           <span class="kanban-card-dept ${deptClass(item.dept)}">${deptName(item.dept)}</span>
           ${item.impactLabel ? `<div style="margin-top:6px"><span class="feed-value ${item.impact==='high'?'value-high':'value-med'}" style="font-size:10px">💎 ${item.impactLabel}</span></div>` : ''}
           <div class="kanban-card-summary">${item.description.substring(0,100)}...</div>
@@ -496,7 +552,7 @@ function openDetail(id) {
   if (!item) return;
   document.getElementById('detailContent').innerHTML = `
     <div class="modal-header">
-      <div class="modal-title">${item.title}</div>
+      <div class="modal-title">${item.taskNo ? "<span style=\"color:var(--text3);font-size:13px;margin-right:6px\">"+item.taskNo+"</span>" : ""}${item.title}</div>
       <button class="modal-close" id="closeDetail">&times;</button>
     </div>
     <div class="modal-body">
