@@ -255,6 +255,17 @@ const SEED_DATA = [
     createdAt:'2026-02-05T00:00:00',updatedAt:'2026-02-20T08:00:00',
     createdBy:'Aaron Gard',
     audit:[{date:'2026-02-05',action:'The Claw born — initial OpenClaw deployment'},{date:'2026-02-06',action:'Telegram connected, personality established'},{date:'2026-02-10',action:'Polar Analytics API integrated'},{date:'2026-02-12',action:'Dashboard generation capability proven'},{date:'2026-02-14',action:'Slack connected, browser automation working'},{date:'2026-02-15',action:'Automated briefing system launched'},{date:'2026-02-18',action:'Outlook calendar access restored'},{date:'2026-02-20',action:'Sub-agent orchestration, cron management, OpenClaw self-update'}]
+  },
+  {
+    id:'ai-tracker',taskNo:'AI-016',title:'AI Initiatives Tracker',category:'intelligence',status:'complete',
+    description:'Interactive dashboard tracking all AI initiatives across Brand Collective. Feed view with category classification (Intelligence, Automation, Product, Security, Content), status filtering, impact tagging, detail modals with full audit trails, and dark/light mode. Self-updating as initiatives progress.',
+    howAchieved:'Built as self-contained HTML/CSS/JS with localStorage persistence. Classification system designed by The Claw to replace traditional department groupings. Task numbering system (AI-001+) for quick reference. Auto-deployed via Vercel at aarongard.com/ai-tracker.html.',
+    valueAdd:'Replaces ad-hoc tracking of AI projects across spreadsheets and Slack. Provides board-ready view of all AI investment, progress, and impact. Single source of truth updated in real-time via natural language instructions to The Claw.',
+    impact:'medium',impactLabel:'AI portfolio visibility',
+    mediaUrl:'',mediaType:'',
+    createdAt:'2026-02-14T10:00:00',updatedAt:'2026-02-20T10:00:00',
+    createdBy:'The Claw',
+    audit:[{date:'2026-02-14',action:'Initial tracker built with feed + kanban views'},{date:'2026-02-14',action:'Pre-filled with SNS App, Omneo Security, Scout SEO, PicJam'},{date:'2026-02-20',action:'Rebuilt: removed sidebar/kanban, new category classification system'},{date:'2026-02-20',action:'16 initiatives tracked with task numbers AI-001 to AI-016'},{date:'2026-02-20',action:'Status → Complete'}]
   }];
 
 let items = [...SEED_DATA];
