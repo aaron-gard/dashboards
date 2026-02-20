@@ -297,7 +297,7 @@ function getFiltered() {
   let f = items;
   if (filterCat !== 'all') f = f.filter(i => i.category === filterCat);
   if (filterStatus !== 'all') f = f.filter(i => i.status === filterStatus);
-  return f.sort((a,b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+  const impOrd = {high:0, med:1, medium:1, low:2}; return f.sort((a,b) => (impOrd[a.impact]??9) - (impOrd[b.impact]??9) || new Date(b.updatedAt) - new Date(a.updatedAt));
 }
 
 function renderSummary() {
