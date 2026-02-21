@@ -394,7 +394,7 @@ async function generateNanoBanana(prompt,fmt,key){
   if(uploadedImageBase64){
     parts.push({inlineData:{mimeType:uploadedImageMime||"image/png",data:uploadedImageBase64}});
   }
-  const resp=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-preview-image-generation:generateContent?key=${key}`,{
+  const resp=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3-pro-image-preview:generateContent?key=${key}`,{
     method:"POST",
     headers:{"Content-Type":"application/json"},
     body:JSON.stringify({
