@@ -445,6 +445,13 @@ async function generateImagen(prompt,fmt,key){
 }
 
 async function generate(){
+  try{ return await _generate(); }catch(e){
+    console.error("Generate error:",e);
+    document.getElementById("resultArea").innerHTML=`<div class="result-area empty"><p style="color:var(--accent2)">❌ ${e.message||e}</p></div>`;
+    document.getElementById("genBtn").disabled=false;
+  }
+}
+async function _generate(){
   // Handle resize-only mode (no AI needed)
   if(selectedMode==="resize"){
     if(!uploadedImageBase64){alert("Upload an image first");return}
@@ -478,7 +485,11 @@ async function generate(){
   }
 
   const key=getKey();
-  if(!key){alert("Please enter your Google AI Studio API key");return}
+  if(!key){
+    const resultArea=document.getElementById("resultArea");
+    resultArea.innerHTML=`<div class="result-area empty"><p style="color:var(--accent2)">❌ No API key — paste your Google AI Studio key and hit Save</p></div>`;
+    return;
+  }
 
   const brand=BRANDS[document.getElementById("brand").value];
   let fmt=FORMATS.find(f=>f.id===selectedFormat);
