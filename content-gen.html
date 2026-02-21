@@ -118,6 +118,14 @@ textarea{resize:vertical;min-height:70px}
       <div class="panel" style="margin-top:16px">
         <h2>Format</h2>
         <div class="formats" id="formats"></div>
+        <div id="customDims" style="display:none;margin-top:10px">
+          <div style="display:flex;gap:8px;align-items:center">
+            <input id="customW" type="number" placeholder="Width" style="width:50%"> 
+            <span style="color:var(--text2)">×</span>
+            <input id="customH" type="number" placeholder="Height" style="width:50%">
+            <span style="color:var(--text2);font-size:12px;white-space:nowrap">px</span>
+          </div>
+        </div>
       </div>
 
       <div class="panel" style="margin-top:16px">
@@ -213,7 +221,8 @@ const FORMATS=[
   {id:"social",name:"Social Post",w:1080,h:1080},
   {id:"collection",name:"Collection Tile",w:800,h:800},
   {id:"marketplace",name:"Marketplace",w:1440,h:400},
-  {id:"story",name:"Story / Reel",w:1080,h:1920}
+  {id:"story",name:"Story / Reel",w:1080,h:1920},
+  {id:"custom",name:"Custom",w:0,h:0}
 ];
 
 let selectedFormat="hero";
@@ -225,8 +234,9 @@ let history=JSON.parse(localStorage.getItem("cg_history")||"[]");
 function init(){
   const fmtDiv=document.getElementById("formats");
   FORMATS.forEach(f=>{
+    const dimLabel=f.id==="custom"?"Any size":`${f.w}×${f.h}`;
     fmtDiv.innerHTML+=`<div class="format-btn ${f.id===selectedFormat?'active':''}" data-id="${f.id}" onclick="selectFormat('${f.id}')">
-      ${f.name}<div class="dim">${f.w}×${f.h}</div></div>`;
+      ${f.name}<div class="dim">${dimLabel}</div></div>`;
   });
   document.getElementById("apiKey").value=localStorage.getItem("cg_apikey")||"";
   document.getElementById("googleKey").value=localStorage.getItem("cg_googlekey")||"";
@@ -255,6 +265,7 @@ function selectFormat(id){
   document.querySelectorAll(".format-btn").forEach(el=>{
     el.classList.toggle("active",el.dataset.id===id);
   });
+  document.getElementById("customDims").style.display=id==="custom"?"block":"none";
 }
 
 function handleUpload(e){
@@ -411,7 +422,13 @@ async function generate(){
   if(!key){alert(`Please enter your ${isNano?"Google AI Studio":"OpenAI"} API key`);return}
 
   const brand=BRANDS[document.getElementById("brand").value];
-  const fmt=FORMATS.find(f=>f.id===selectedFormat);
+  let fmt=FORMATS.find(f=>f.id===selectedFormat);
+  if(fmt.id==="custom"){
+    const cw=parseInt(document.getElementById("customW").value);
+    const ch=parseInt(document.getElementById("customH").value);
+    if(!cw||!ch||cw<100||ch<100){alert("Enter custom dimensions (min 100px)");btn.disabled=false;btn.textContent="✨ Generate Image";return}
+    fmt={...fmt,w:cw,h:ch,name:`Custom ${cw}×${ch}`};
+  }
   const campaign=document.getElementById("campaign").value;
   const headline=document.getElementById("headline").value;
   const body=document.getElementById("body").value;
