@@ -81,8 +81,8 @@ textarea{resize:vertical;min-height:70px}
 <body>
 <div class="container">
   <header>
-    <h1>🎨 <span>Content</span> Generator <span class="badge">v2</span></h1>
-    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+    <h1>🎨 <span>Content</span> Generator <span class="badge">v3</span> <span id="genCounter" style="font-size:12px;color:var(--text2);font-weight:400;margin-left:8px"></span></h1>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Switch between dark and light mode">🌙</button>
   </header>
   <div class="layout">
     <!-- TOP ROW: Reference Images (left) + Output (right) -->
@@ -90,7 +90,7 @@ textarea{resize:vertical;min-height:70px}
       <div>
         <div class="panel" style="min-height:400px">
           <h2>📸 Reference Images <span id="imgRequired" style="font-size:11px;color:var(--text2)">(optional)</span></h2>
-          <div class="upload-area" id="uploadArea">
+          <div class="upload-area" id="uploadArea" title="Drag & drop images, click to browse, or Ctrl+V to paste from clipboard">
             <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp,image/gif" multiple style="display:none">
             <div id="uploadPlaceholder">
               <div style="font-size:36px;margin-bottom:12px">📁</div>
@@ -99,11 +99,12 @@ textarea{resize:vertical;min-height:70px}
             </div>
           </div>
           <div id="imageGallery" class="image-gallery"></div>
-          <div id="galleryActions" style="display:none;margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
-            <button onclick="selectAllImages()" style="padding:5px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text2);cursor:pointer;font-size:12px">Select all</button>
-            <button onclick="deselectAllImages()" style="padding:5px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text2);cursor:pointer;font-size:12px">Deselect all</button>
-            <button onclick="removeSelectedImages()" style="padding:5px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--accent2);cursor:pointer;font-size:12px">Remove selected</button>
-            <button onclick="clearAllImages()" style="padding:5px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--accent2);cursor:pointer;font-size:12px">Clear all</button>
+          <div id="galleryActions" style="display:none;margin-top:10px;gap:8px;flex-wrap:wrap">
+            <button onclick="selectAllImages()" title="Select all uploaded images" style="padding:5px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text2);cursor:pointer;font-size:12px">Select all</button>
+            <button onclick="deselectAllImages()" title="Deselect all images" style="padding:5px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text2);cursor:pointer;font-size:12px">Deselect all</button>
+            <button onclick="removeSelectedImages()" title="Remove selected images from gallery" style="padding:5px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--accent2);cursor:pointer;font-size:12px">Remove selected</button>
+            <button onclick="clearAllImages()" title="Remove all uploaded images" style="padding:5px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--accent2);cursor:pointer;font-size:12px">Clear all</button>
+            <button onclick="document.getElementById('fileInput').click()" title="Upload more images" style="padding:5px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--accent);cursor:pointer;font-size:12px">+ Add more</button>
           </div>
           <div id="selectionInfo" style="font-size:12px;color:var(--text2);margin-top:6px"></div>
         </div>
@@ -134,13 +135,13 @@ textarea{resize:vertical;min-height:70px}
       <div class="panel">
         <h2>Mode</h2>
         <div class="formats">
-          <div class="format-btn active" data-mode="generate" onclick="selectMode('generate')">
+          <div class="format-btn active" data-mode="generate" onclick="selectMode('generate')" title="Create a new image from your brief using AI (Imagen 4 Ultra or Gemini)">
             ✨ Generate<div class="dim">AI creates from brief</div>
           </div>
-          <div class="format-btn" data-mode="resize" onclick="selectMode('resize')">
+          <div class="format-btn" data-mode="resize" onclick="selectMode('resize')" title="Client-side resize — no AI, instant result. Fits image to target with blurred background fill">
             📐 Resize Only<div class="dim">Fit image to new size</div>
           </div>
-          <div class="format-btn" data-mode="ai-resize" onclick="selectMode('ai-resize')">
+          <div class="format-btn" data-mode="ai-resize" onclick="selectMode('ai-resize')" title="AI intelligently extends the background to fit a new aspect ratio — no creative changes">
             🪄 AI Reformat<div class="dim">AI extends to new ratio</div>
           </div>
         </div>
@@ -149,7 +150,7 @@ textarea{resize:vertical;min-height:70px}
 
       <div class="panel">
         <h2>Brand</h2>
-        <select id="brand" onchange="loadBrand()">
+        <select id="brand" onchange="loadBrand()" title="Select a brand to apply its colors, logo, and identity to your generation">
           <option value="sns">Shoes & Sox</option>
           <option value="review">Review</option>
           <option value="blackpepper">Black Pepper</option>
@@ -170,10 +171,11 @@ textarea{resize:vertical;min-height:70px}
           <option value="harrison">Harrison</option>
           <option value="replay">Replay Jeans</option>
         </select>
+        <div id="brandDesc" style="font-size:11px;color:var(--text2);margin-top:6px;font-style:italic"></div>
         <label>Brand Colors</label>
         <div class="colors-row" id="colorsRow"></div>
         <label style="margin-top:12px;display:flex;align-items:center;gap:8px;cursor:pointer">
-          <input type="checkbox" id="useLogo" style="width:auto;accent-color:var(--accent)"> Use official logo
+          <input type="checkbox" id="useLogo" style="width:auto;accent-color:var(--accent)" title="Include the brand's official logo in generated images"> Use official logo
         </label>
         <div id="logoPreview" style="margin-top:8px;display:none">
           <img id="logoImg" style="max-height:40px;border-radius:4px;background:var(--surface2);padding:4px">
@@ -263,6 +265,8 @@ const FORMATS=[
   {id:"collection",name:"Collection Tile",w:800,h:800},
   {id:"marketplace",name:"Marketplace",w:1440,h:400},
   {id:"story",name:"Story / Reel",w:1080,h:1920},
+  {id:"shopify-hero",name:"Shopify Hero",w:2048,h:768},
+  {id:"email-banner",name:"Email Banner",w:600,h:200},
   {id:"custom",name:"Custom",w:0,h:0}
 ];
 
@@ -279,6 +283,8 @@ let imageGallery = [];
 let galleryIdCounter = 0;
 let isGenerating = false;
 let genHistory = [];
+let sessionGenCount = 0;
+let lastFeedback = "";
 
 try { genHistory = JSON.parse(localStorage.getItem("cg_history") || "[]"); } catch(e) { genHistory = []; }
 
@@ -365,13 +371,14 @@ function updateKeyStatus() {
 function loadBrand() {
   const b = BRANDS[document.getElementById("brand").value];
   if (!b) return;
+  document.getElementById("brandDesc").textContent = b.desc;
   const row = document.getElementById("colorsRow");
   row.innerHTML = "";
   b.colors.forEach(c => {
     const dot = document.createElement("div");
     dot.className = "color-dot";
     dot.style.background = c;
-    dot.title = c;
+    dot.title = `${c} — click to copy`;
     dot.onclick = () => { navigator.clipboard.writeText(c).then(() => toast(`Copied ${c}`, "info", 1500)); };
     row.appendChild(dot);
   });
@@ -469,6 +476,8 @@ function setupUpload() {
   area.addEventListener("drop", e => { if (e.dataTransfer.files.length) handleFiles(e.dataTransfer.files); });
 
   document.addEventListener("paste", e => {
+    const active = document.activeElement;
+    if (active && (active.tagName === "INPUT" || active.tagName === "TEXTAREA")) return;
     const items = e.clipboardData?.items;
     if (!items) return;
     const imgFiles = [];
@@ -536,11 +545,11 @@ function renderGallery() {
     gallery.innerHTML = "";
     actions.style.display = "none";
     info.textContent = "";
-    placeholder.style.display = "block";
+    if (placeholder) placeholder.style.display = "block";
     return;
   }
 
-  placeholder.style.display = "none";
+  if (placeholder) placeholder.style.display = "none";
   actions.style.display = "flex";
 
   gallery.innerHTML = imageGallery.map(img => `
@@ -809,6 +818,7 @@ RULES — YOU MUST FOLLOW ALL OF THESE:
     // No required fields — user can generate with just brand + format + tone
 
     const hasImage = getSelectedImages().length > 0;
+    const modelName = hasImage ? "Gemini" : "Imagen 4 Ultra";
     btn.textContent = "⏳ Generating...";
 
     let imgSrc;
@@ -819,7 +829,8 @@ RULES — YOU MUST FOLLOW ALL OF THESE:
       imgSrc = await callGeminiWithImage(imgPrompt, key);
     } else {
       // Pure text-to-image via Imagen 4 Ultra
-      resultArea.innerHTML = `<div class="spinner"></div><div class="status-msg">Creating ${fmt.name} for ${brand.name} via Imagen 4 Ultra...</div>`;
+      resultArea.innerHTML = `<div class="spinner"></div><div class="status-msg">Creating ${fmt.name} for ${brand.name} via Imagen 4 Ultra...</div><div class="status-msg" id="loadingHint" style="display:none;font-size:11px">This usually takes 10–20 seconds...</div>`;
+      setTimeout(() => { const h = document.getElementById("loadingHint"); if (h) h.style.display = "block"; }, 3000);
       const prompt = buildPrompt(brand, fmt, fields, false);
       imgSrc = await callImagen(prompt, fmt, key);
     }
@@ -844,25 +855,30 @@ let lastGeneratedSrc = null;
 
 function showResult(imgSrc, statusText, model) {
   lastGeneratedSrc = imgSrc;
+  sessionGenCount++;
+  const counter = document.getElementById("genCounter");
+  if (counter) counter.textContent = `${sessionGenCount} generated`;
   const resultArea = document.getElementById("resultArea");
   resultArea.innerHTML = `<img src="${imgSrc}" alt="Generated image">
     <div style="width:100%;margin-top:16px">
-      <textarea id="feedbackInput" rows="2" placeholder="e.g. Move the shoe to the right, make the background darker, remove the text..." style="width:100%;margin-bottom:8px"></textarea>
+      <textarea id="feedbackInput" rows="2" placeholder="e.g. Move the shoe to the right, make the background darker, remove the text..." style="width:100%;margin-bottom:8px">${escHtml(lastFeedback)}</textarea>
     </div>
     <div class="result-actions">
-      <button class="primary" onclick="downloadImg()">⬇️ Download</button>
-      <button onclick="copyImageToClipboard()">📋 Copy image</button>
-      <button onclick="uploadAndGetUrl()">🔗 Get URL</button>
-      <button onclick="regenerateWithFeedback()">🔄 Regenerate with changes</button>
-      <button onclick="generate()">🔁 Start fresh</button>
+      <button class="primary" onclick="downloadImg()" title="Save image as PNG">⬇️ Download</button>
+      <button onclick="copyImageToClipboard()" title="Copy to clipboard for pasting into other apps">📋 Copy image</button>
+      <button onclick="uploadAndGetUrl()" title="Upload to Imgur and get a shareable link">🔗 Get URL</button>
+      <button onclick="regenerateWithFeedback()" title="Apply your feedback to the current image">🔄 Regenerate with changes</button>
+      <button onclick="generate()" title="Generate a new image from scratch">🔁 Start fresh</button>
     </div>
     <div class="status-msg">${escHtml(statusText)}</div>`;
+  resultArea.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 /* ===== REGENERATE WITH FEEDBACK ===== */
 async function regenerateWithFeedback() {
   const feedback = document.getElementById("feedbackInput")?.value?.trim();
   if (!feedback) { toast("Enter your changes in the text box above", "info"); return; }
+  lastFeedback = feedback;
   if (!lastGeneratedSrc) { toast("No previous image to modify", "error"); return; }
   if (isGenerating) { toast("Already generating — please wait", "info"); return; }
 
@@ -1099,11 +1115,18 @@ function init() {
   renderHistory();
 
   // Generate button
-  document.getElementById("genBtn").addEventListener("click", generate);
+  const genBtn = document.getElementById("genBtn");
+  genBtn.addEventListener("click", generate);
+  genBtn.title = "Generate an image based on your settings (Ctrl+Enter)";
 
   // Enter key on inputs triggers generate
   ["campaign", "headline", "product"].forEach(id => {
     document.getElementById(id).addEventListener("keydown", e => { if (e.key === "Enter") generate(); });
+  });
+
+  // Ctrl+Enter / Cmd+Enter global shortcut
+  document.addEventListener("keydown", e => {
+    if ((e.ctrlKey || e.metaKey) && e.key === "Enter") { e.preventDefault(); generate(); }
   });
 
   console.log("Content Generator v2 initialized");
