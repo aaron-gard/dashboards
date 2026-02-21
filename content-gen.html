@@ -705,14 +705,88 @@ RULES — YOU MUST FOLLOW ALL OF THESE:
 }
 
 /* ===== SHOW RESULT ===== */
+let lastGeneratedSrc = null;
+
 function showResult(imgSrc, statusText, model) {
+  lastGeneratedSrc = imgSrc;
   const resultArea = document.getElementById("resultArea");
   resultArea.innerHTML = `<img src="${imgSrc}" alt="Generated image">
+    <div style="width:100%;margin-top:16px">
+      <textarea id="feedbackInput" rows="2" placeholder="e.g. Move the shoe to the right, make the background darker, remove the text..." style="width:100%;margin-bottom:8px"></textarea>
+    </div>
     <div class="result-actions">
       <button class="primary" onclick="downloadImg()">⬇️ Download</button>
-      <button onclick="generate()">🔄 Regenerate</button>
+      <button onclick="regenerateWithFeedback()">🔄 Regenerate with changes</button>
+      <button onclick="generate()">🔁 Start fresh</button>
     </div>
     <div class="status-msg">${escHtml(statusText)}</div>`;
+}
+
+/* ===== REGENERATE WITH FEEDBACK ===== */
+async function regenerateWithFeedback() {
+  const feedback = document.getElementById("feedbackInput")?.value?.trim();
+  if (!feedback) { toast("Enter your changes in the text box above", "info"); return; }
+  if (!lastGeneratedSrc) { toast("No previous image to modify", "error"); return; }
+  if (isGenerating) { toast("Already generating — please wait", "info"); return; }
+
+  const key = getKey();
+  if (!key) { showError("No API key"); return; }
+
+  const btn = document.getElementById("genBtn");
+  const resultArea = document.getElementById("resultArea");
+
+  try {
+    isGenerating = true;
+    btn.disabled = true;
+    btn.textContent = "⏳ Applying changes...";
+    resultArea.innerHTML = `<div class="spinner"></div><div class="status-msg">Applying: ${escHtml(feedback)}</div>`;
+
+    // Send the previous image + feedback to Gemini
+    const prevBase64 = lastGeneratedSrc.split(",")[1];
+    const prevMime = lastGeneratedSrc.split(";")[0].split(":")[1] || "image/png";
+
+    const editPrompt = `Edit this image based on the following instructions. Make ONLY the requested changes and keep everything else exactly the same.\n\nChanges requested: ${feedback}`;
+
+    const parts = [
+      { text: editPrompt },
+      { inlineData: { mimeType: prevMime, data: prevBase64 } }
+    ];
+
+    const resp = await fetchWithTimeout(`${GOOGLE_API_BASE}/${GEMINI_MODEL}:generateContent?key=${key}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [{ parts }],
+        generationConfig: { responseModalities: ["TEXT", "IMAGE"], responseMimeType: "text/plain" }
+      })
+    }, 60000);
+
+    if (!resp.ok) {
+      const err = await resp.json().catch(() => ({}));
+      throw new Error(err.error?.message || `API error (${resp.status})`);
+    }
+
+    const data = await resp.json();
+    const resParts = data.candidates?.[0]?.content?.parts || [];
+    const imgPart = resParts.find(p => p.inlineData);
+    if (!imgPart) throw new Error("No image returned — try different wording");
+
+    const imgSrc = `data:${imgPart.inlineData.mimeType};base64,${imgPart.inlineData.data}`;
+    showResult(imgSrc, `Edited: ${feedback}`, "Gemini");
+
+    const brand = BRANDS[document.getElementById("brand").value];
+    addToHistory(imgSrc, brand?.name || "Edit", feedback.slice(0, 40), "Edit", "Gemini");
+
+  } catch (e) {
+    console.error("Feedback error:", e);
+    showError(e.message || "Failed to apply changes");
+  } finally {
+    isGenerating = false;
+    btn.disabled = false;
+    if (selectedMode === "resize") btn.textContent = "📐 Resize Image";
+    else if (selectedMode === "ai-resize") btn.textContent = "🪄 AI Reformat";
+    else btn.textContent = "✨ Generate Image";
+  }
 }
 
 /* ===== DOWNLOAD ===== */
