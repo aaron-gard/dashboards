@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content Generator — Brand Collective</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0f1117;--surface:#1a1d27;--surface2:#242836;--border:#2e3345;--text:#e8eaed;--text2:#9aa0b0;--accent:#3398FF;--accent2:#FF4B0F;--radius:12px;--shadow:0 4px 24px rgba(0,0,0,0.3)}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.container{max-width:1200px;margin:0 auto;padding:24px}
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+header h1{font-size:24px;font-weight:600;display:flex;align-items:center;gap:10px}
+header h1 span{color:var(--accent2)}
+.badge{font-size:11px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:20px;font-weight:500}
+.theme-toggle{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:8px;cursor:pointer;font-size:14px}
+.layout{display:grid;grid-template-columns:400px 1fr;gap:24px;align-items:start}
+@media(max-width:900px){.layout{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px}
+.panel h2{font-size:16px;font-weight:600;margin-bottom:16px;color:var(--text)}
+label{display:block;font-size:13px;font-weight:500;color:var(--text2);margin-bottom:6px;margin-top:14px}
+label:first-of-type{margin-top:0}
+select,input,textarea{width:100%;padding:10px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:inherit;font-size:14px;outline:none;transition:border .2s}
+select:focus,input:focus,textarea:focus{border-color:var(--accent)}
+textarea{resize:vertical;min-height:70px}
+.formats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
+.format-btn{padding:10px;background:var(--surface2);border:2px solid var(--border);border-radius:8px;cursor:pointer;text-align:center;transition:all .2s;font-size:13px;color:var(--text)}
+.format-btn:hover{border-color:var(--accent);background:var(--bg)}
+.format-btn.active{border-color:var(--accent);background:rgba(51,152,255,0.1)}
+.format-btn .dim{font-size:11px;color:var(--text2);margin-top:2px}
+.colors-row{display:flex;gap:6px;margin-top:6px}
+.color-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);cursor:pointer;transition:transform .15s}
+.color-dot:hover{transform:scale(1.15)}
+.generate-btn{width:100%;margin-top:20px;padding:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;transition:opacity .2s}
+.generate-btn:hover{opacity:.9}
+.generate-btn:disabled{opacity:.5;cursor:not-allowed}
+.result-area{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px}
+.result-area.empty{color:var(--text2);font-size:14px}
+.result-area img{max-width:100%;border-radius:var(--radius);box-shadow:var(--shadow)}
+.result-actions{display:flex;gap:10px;margin-top:16px}
+.result-actions button{padding:10px 20px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-family:inherit;font-size:13px;cursor:pointer;font-weight:500}
+.result-actions button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.status-msg{margin-top:12px;font-size:13px;color:var(--text2)}
+.api-key-row{display:flex;gap:8px}
+.api-key-row input{flex:1}
+.api-key-row button{padding:10px 16px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;white-space:nowrap}
+.history{margin-top:16px}
+.history h3{font-size:14px;color:var(--text2);margin-bottom:8px}
+.history-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
+.history-grid img{width:100%;border-radius:8px;cursor:pointer;border:2px solid transparent;transition:border .2s}
+.history-grid img:hover{border-color:var(--accent)}
+
+/* Light mode */
+.light{--bg:#f5f6f8;--surface:#ffffff;--surface2:#f0f1f4;--border:#e0e2e8;--text:#1a1d27;--text2:#6b7280;--shadow:0 4px 24px rgba(0,0,0,0.08)}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>🎨 <span>Content</span> Generator <span class="badge">v1</span></h1>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+  </header>
+  <div class="layout">
+    <div>
+      <div class="panel">
+        <h2>Brand</h2>
+        <select id="brand" onchange="loadBrand()">
+          <option value="sns">Shoes & Sox</option>
+          <option value="review">Review</option>
+          <option value="blackpepper">Black Pepper</option>
+          <option value="elka">Elka Collective</option>
+          <option value="champion">Champion</option>
+          <option value="superdry">Superdry</option>
+          <option value="reebok">Reebok</option>
+          <option value="hushpuppies">Hush Puppies</option>
+          <option value="juliusmarlow">Julius Marlow</option>
+          <option value="volley">Volley</option>
+          <option value="clarks">Clarks</option>
+          <option value="everlast">Everlast</option>
+          <option value="yarratrail">Yarra Trail</option>
+          <option value="shoewarehouse">Shoe Warehouse</option>
+          <option value="umbro">Umbro</option>
+          <option value="happysocks">Happy Socks</option>
+          <option value="marcopolo">Marco Polo</option>
+          <option value="harrison">Harrison</option>
+          <option value="replay">Replay Jeans</option>
+        </select>
+        <label>Brand Colors</label>
+        <div class="colors-row" id="colorsRow"></div>
+      </div>
+
+      <div class="panel" style="margin-top:16px">
+        <h2>Brief</h2>
+        <label>Campaign Name</label>
+        <input id="campaign" placeholder="e.g. Back to School 2026">
+        <label>Headline</label>
+        <input id="headline" placeholder="e.g. Step Into the New Year">
+        <label>Body Copy (optional)</label>
+        <textarea id="body" placeholder="Supporting message or product details..."></textarea>
+        <label>Product / Category Focus</label>
+        <input id="product" placeholder="e.g. School shoes, Sneakers, Sandals">
+        <label>Tone / Mood</label>
+        <select id="tone">
+          <option value="fun and playful">Fun & Playful</option>
+          <option value="clean and modern">Clean & Modern</option>
+          <option value="bold and energetic">Bold & Energetic</option>
+          <option value="premium and sophisticated">Premium & Sophisticated</option>
+          <option value="warm and family-friendly">Warm & Family-friendly</option>
+        </select>
+      </div>
+
+      <div class="panel" style="margin-top:16px">
+        <h2>Format</h2>
+        <div class="formats" id="formats"></div>
+      </div>
+
+      <div class="panel" style="margin-top:16px">
+        <h2>Style Options</h2>
+        <label>Additional Instructions (optional)</label>
+        <textarea id="extra" rows="3" placeholder="e.g. Include kids playing, use orange background, add 20% OFF badge..."></textarea>
+      </div>
+
+      <button class="generate-btn" id="genBtn" onclick="generate()">✨ Generate Image</button>
+
+      <div class="panel" style="margin-top:16px">
+        <h2>⚙️ API Key</h2>
+        <div class="api-key-row">
+          <input id="apiKey" type="password" placeholder="sk-...">
+          <button onclick="saveKey()">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="panel result-area" id="resultArea">
+        <div class="result-area empty">
+          <p>Generated images will appear here</p>
+          <p style="margin-top:8px;font-size:12px">Select a brand, fill in your brief, choose a format, and hit Generate</p>
+        </div>
+      </div>
+      <div class="history" id="historySection" style="display:none">
+        <div class="panel">
+          <h3>Recent Generations</h3>
+          <div class="history-grid" id="historyGrid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const BRANDS={
+  sns:{name:"Shoes & Sox",colors:["#FF4B0F","#FDC145","#3398FF","#389810","#1E1E1E","#FFFFFF"],logo:"https://shoesandsox.com.au/cdn/shop/files/SNS_Logo_Responsive.svg",desc:"Australian children's footwear retailer"},
+  review:{name:"Review",colors:["#000000","#C4A87C","#FFFFFF","#F5F0EB"],logo:"",desc:"Women's fashion brand known for feminine, vintage-inspired designs"},
+  blackpepper:{name:"Black Pepper",colors:["#000000","#FFFFFF","#8B6F4E"],logo:"",desc:"Women's fashion brand for modern everyday style"},
+  elka:{name:"Elka Collective",colors:["#000000","#FFFFFF","#C4A87C"],logo:"",desc:"Premium contemporary women's fashion"},
+  champion:{name:"Champion",colors:["#D50032","#003DA5","#FFFFFF","#000000"],logo:"",desc:"Iconic sportswear and athletic apparel"},
+  superdry:{name:"Superdry",colors:["#000000","#FF6600","#FFFFFF"],logo:"",desc:"British-inspired fashion with Japanese graphics"},
+  reebok:{name:"Reebok",colors:["#000000","#E41134","#FFFFFF"],logo:"",desc:"Athletic footwear and apparel"},
+  hushpuppies:{name:"Hush Puppies",colors:["#8B4513","#D2691E","#FFFFFF","#F5F0EB"],logo:"",desc:"Casual comfort footwear"},
+  juliusmarlow:{name:"Julius Marlow",colors:["#1A1A1A","#8B6F4E","#FFFFFF"],logo:"",desc:"Men's footwear - smart casual to formal"},
+  volley:{name:"Volley",colors:["#003DA5","#FFD700","#FFFFFF","#008000"],logo:"",desc:"Iconic Australian canvas sneakers"},
+  clarks:{name:"Clarks",colors:["#000000","#8B4513","#FFFFFF"],logo:"",desc:"Heritage footwear craftsmanship since 1825"},
+  everlast:{name:"Everlast",colors:["#000000","#FF0000","#FFFFFF"],logo:"",desc:"Boxing and fitness apparel"},
+  yarratrail:{name:"Yarra Trail",colors:["#2C3E50","#8E6F5E","#FFFFFF","#F5F0EB"],logo:"",desc:"Relaxed Australian women's fashion"},
+  shoewarehouse:{name:"Shoe Warehouse",colors:["#FF0000","#000000","#FFFFFF","#FFD700"],logo:"",desc:"Value footwear retailer"},
+  umbro:{name:"Umbro",colors:["#000000","#FFFFFF","#003DA5"],logo:"",desc:"Football and sportswear heritage brand"},
+  happysocks:{name:"Happy Socks",colors:["#FF6B6B","#4ECDC4","#FFE66D","#2C3E50","#FFFFFF"],logo:"",desc:"Colorful, playful socks and underwear"},
+  marcopolo:{name:"Marco Polo",colors:["#000000","#8B6F4E","#FFFFFF","#2C3E50"],logo:"",desc:"Relaxed women's fashion with natural fabrics"},
+  harrison:{name:"Harrison",colors:["#000000","#8B4513","#FFFFFF"],logo:"",desc:"Men's dress and business footwear"},
+  replay:{name:"Replay Jeans",colors:["#000000","#C41230","#FFFFFF","#1A1A1A"],logo:"",desc:"Italian denim and casual fashion"}
+};
+
+const FORMATS=[
+  {id:"hero",name:"Hero Banner",w:1920,h:680},
+  {id:"app",name:"App Banner",w:1200,h:628},
+  {id:"social",name:"Social Post",w:1080,h:1080},
+  {id:"collection",name:"Collection Tile",w:800,h:800},
+  {id:"marketplace",name:"Marketplace",w:1440,h:400},
+  {id:"story",name:"Story / Reel",w:1080,h:1920}
+];
+
+let selectedFormat="hero";
+let history=JSON.parse(localStorage.getItem("cg_history")||"[]");
+
+function init(){
+  const fmtDiv=document.getElementById("formats");
+  FORMATS.forEach(f=>{
+    fmtDiv.innerHTML+=`<div class="format-btn ${f.id===selectedFormat?'active':''}" data-id="${f.id}" onclick="selectFormat('${f.id}')">
+      ${f.name}<div class="dim">${f.w}×${f.h}</div></div>`;
+  });
+  const key=localStorage.getItem("cg_apikey")||"";
+  document.getElementById("apiKey").value=key;
+  loadBrand();
+  renderHistory();
+}
+
+function loadBrand(){
+  const b=BRANDS[document.getElementById("brand").value];
+  const row=document.getElementById("colorsRow");
+  row.innerHTML="";
+  b.colors.forEach(c=>{
+    row.innerHTML+=`<div class="color-dot" style="background:${c}" title="${c}"></div>`;
+  });
+}
+
+function selectFormat(id){
+  selectedFormat=id;
+  document.querySelectorAll(".format-btn").forEach(el=>{
+    el.classList.toggle("active",el.dataset.id===id);
+  });
+}
+
+function saveKey(){
+  localStorage.setItem("cg_apikey",document.getElementById("apiKey").value.trim());
+  alert("API key saved");
+}
+
+function getKey(){
+  return document.getElementById("apiKey").value.trim()||localStorage.getItem("cg_apikey")||"";
+}
+
+async function generate(){
+  const key=getKey();
+  if(!key){alert("Please enter your OpenAI API key");return}
+
+  const brand=BRANDS[document.getElementById("brand").value];
+  const fmt=FORMATS.find(f=>f.id===selectedFormat);
+  const campaign=document.getElementById("campaign").value;
+  const headline=document.getElementById("headline").value;
+  const body=document.getElementById("body").value;
+  const product=document.getElementById("product").value;
+  const tone=document.getElementById("tone").value;
+  const extra=document.getElementById("extra").value;
+
+  if(!headline&&!campaign){alert("Please enter at least a campaign name or headline");return}
+
+  const btn=document.getElementById("genBtn");
+  btn.disabled=true;btn.textContent="⏳ Generating...";
+
+  const resultArea=document.getElementById("resultArea");
+  resultArea.innerHTML=`<div class="spinner"></div><div class="status-msg">Creating your ${fmt.name} for ${brand.name}...</div>`;
+
+  const prompt=`Create a professional promotional banner image for ${brand.name} (${brand.desc}).
+
+BRAND GUIDELINES:
+- Brand colors: ${brand.colors.join(", ")}
+- Design style: ${tone}
+${brand.logo?`- Include the brand logo/name prominently`:`- Include the brand name "${brand.name}" as text in the design`}
+
+CONTENT:
+${campaign?`- Campaign: ${campaign}`:""}
+${headline?`- Headline text: "${headline}"`:""}
+${body?`- Supporting copy: "${body}"`:""}
+${product?`- Product/category focus: ${product}`:""}
+
+REQUIREMENTS:
+- Dimensions: ${fmt.w}x${fmt.h} pixels (${fmt.w>fmt.h?"landscape":fmt.w===fmt.h?"square":"portrait"} orientation)
+- Make it retail-ready and professional
+- Use the brand colors as the primary palette
+- Text should be legible and well-positioned
+- Clean, modern design suitable for web/digital use
+${extra?`- Additional instructions: ${extra}`:""}
+
+This is for a major Australian retail brand. The image must look polished and commercially viable.`;
+
+  try{
+    const resp=await fetch("https://api.openai.com/v1/images/generations",{
+      method:"POST",
+      headers:{"Content-Type":"application/json","Authorization":`Bearer ${key}`},
+      body:JSON.stringify({
+        model:"gpt-image-1",
+        prompt:prompt,
+        n:1,
+        size:fmt.w>=fmt.h?(fmt.w/fmt.h>1.3?"1536x1024":(fmt.h/fmt.w>1.3?"1024x1536":"1024x1024")):(fmt.h/fmt.w>1.3?"1024x1536":"1024x1024"),
+        quality:"high"
+      })
+    });
+
+    if(!resp.ok){
+      const err=await resp.json().catch(()=>({}));
+      throw new Error(err.error?.message||`API error ${resp.status}`);
+    }
+
+    const data=await resp.json();
+    const imgData=data.data[0].b64_json||data.data[0].url;
+    const isBase64=!!data.data[0].b64_json;
+    const imgSrc=isBase64?`data:image/png;base64,${imgData}`:imgData;
+
+    resultArea.innerHTML=`<img src="${imgSrc}" alt="Generated banner">
+      <div class="result-actions">
+        <button class="primary" onclick="downloadImg()">⬇️ Download</button>
+        <button onclick="generate()">🔄 Regenerate</button>
+      </div>`;
+
+    // Save to history
+    if(isBase64){
+      history.unshift({src:imgSrc,brand:brand.name,campaign:campaign||headline,format:fmt.name,time:Date.now()});
+      if(history.length>12)history=history.slice(0,12);
+      try{localStorage.setItem("cg_history",JSON.stringify(history))}catch(e){}
+      renderHistory();
+    }
+
+  }catch(e){
+    resultArea.innerHTML=`<div class="result-area empty"><p style="color:var(--accent2)">❌ ${e.message}</p><p style="margin-top:8px;font-size:12px">Check your API key and try again</p></div>`;
+  }
+
+  btn.disabled=false;btn.textContent="✨ Generate Image";
+}
+
+function downloadImg(){
+  const img=document.querySelector("#resultArea img");
+  if(!img)return;
+  const a=document.createElement("a");
+  a.href=img.src;
+  const brand=document.getElementById("brand").value;
+  const fmt=selectedFormat;
+  a.download=`${brand}-${fmt}-${Date.now()}.png`;
+  a.click();
+}
+
+function renderHistory(){
+  const section=document.getElementById("historySection");
+  const grid=document.getElementById("historyGrid");
+  if(!history.length){section.style.display="none";return}
+  section.style.display="block";
+  grid.innerHTML="";
+  history.forEach((h,i)=>{
+    grid.innerHTML+=`<img src="${h.src}" title="${h.brand} — ${h.campaign} (${h.format})" onclick="showHistoryItem(${i})">`;
+  });
+}
+
+function showHistoryItem(i){
+  const h=history[i];
+  const resultArea=document.getElementById("resultArea");
+  resultArea.innerHTML=`<img src="${h.src}" alt="Generated banner">
+    <div class="result-actions">
+      <button class="primary" onclick="downloadImg()">⬇️ Download</button>
+      <button onclick="generate()">🔄 New Generation</button>
+    </div>
+    <div class="status-msg">${h.brand} — ${h.campaign} (${h.format})</div>`;
+}
+
+function toggleTheme(){
+  document.body.classList.toggle("light");
+  document.querySelector(".theme-toggle").textContent=document.body.classList.contains("light")?"🌙":"☀️";
+}
+
+init();
+</script>
+</body>
+</html>
