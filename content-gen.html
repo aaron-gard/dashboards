@@ -650,12 +650,14 @@ async function generate() {
     if (selectedMode === "ai-resize") {
       if (!uploadedImageBase64) { showError("No image uploaded", "AI Reformat needs a source image to work with"); return; }
       btn.textContent = "⏳ Reformatting...";
-      resultArea.innerHTML = `<div class="spinner"></div><div class="status-msg">AI is reformatting your image for ${brand.name}...</div>`;
+      resultArea.innerHTML = `<div class="spinner"></div><div class="status-msg">AI is reformatting your image to ${fmt.w}×${fmt.h}...</div>`;
 
-      const prompt = buildPrompt(brand, fmt, fields, true);
-      const imgSrc = await callGeminiWithImage(prompt, key);
-      showResult(imgSrc, `AI reformatted for ${brand.name} (${fmt.name})`, "Gemini");
-      addToHistory(imgSrc, brand.name, fields.campaign || fields.headline || "Reformat", fmt.name, "Gemini");
+      // Simple reformat prompt — preserve the image, just change dimensions
+      const reformatPrompt = `Reformat this image to a ${fmt.w}x${fmt.h} pixel ${fmt.w > fmt.h ? "landscape" : fmt.w === fmt.h ? "square" : "portrait"} layout. Keep the subject, composition, and style as close to the original as possible. Extend or fill the background naturally where needed to fit the new aspect ratio. Do not add new elements, text, or graphics. Do not change the style or mood.${fields.extra ? " " + fields.extra : ""}`;
+
+      const imgSrc = await callGeminiWithImage(reformatPrompt, key);
+      showResult(imgSrc, `Reformatted to ${fmt.w}×${fmt.h}`, "Gemini");
+      addToHistory(imgSrc, brand.name, "Reformat", fmt.name, "Gemini");
       return;
     }
 
