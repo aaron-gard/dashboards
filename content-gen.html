@@ -158,8 +158,8 @@ textarea{resize:vertical;min-height:70px}
           <div class="format-btn active" data-model="openai" onclick="selectModel('openai')">
             GPT Image 1<div class="dim">Best for text on images</div>
           </div>
-          <div class="format-btn" data-model="nano" onclick="selectModel('nano')">
-            Nano Banana Pro<div class="dim">Best for photorealism</div>
+          <div class="format-btn" data-model="imagen" onclick="selectModel('imagen')">
+            Imagen 4 Ultra<div class="dim">Best quality — photorealism</div>
           </div>
         </div>
         <label>OpenAI API Key</label>
@@ -389,37 +389,49 @@ async function generateOpenAI(prompt,fmt,key){
   return data.data[0].b64_json?`data:image/png;base64,${imgData}`:imgData;
 }
 
-async function generateNanoBanana(prompt,fmt,key){
-  const parts=[{text:prompt}];
+async function generateImagen(prompt,fmt,key){
+  // Map format to Imagen aspect ratios
+  const ratio=fmt.w/fmt.h;
+  let aspectRatio="1:1";
+  if(ratio>1.6) aspectRatio="16:9";
+  else if(ratio>1.2) aspectRatio="4:3";
+  else if(ratio>0.9) aspectRatio="1:1";
+  else if(ratio>0.6) aspectRatio="3:4";
+  else aspectRatio="9:16";
+
+  const body={
+    instances:[{prompt:prompt}],
+    parameters:{sampleCount:1,aspectRatio:aspectRatio}
+  };
+  // Imagen supports image editing via referenceImages
   if(uploadedImageBase64){
-    parts.push({inlineData:{mimeType:uploadedImageMime||"image/png",data:uploadedImageBase64}});
+    body.instances[0].referenceImages=[{
+      referenceImage:{bytesBase64Encoded:uploadedImageBase64},
+      referenceType:"STYLE_IMAGE"
+    }];
   }
-  const resp=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3-pro-image-preview:generateContent?key=${key}`,{
+
+  const resp=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-ultra-generate-001:predict?key=${key}`,{
     method:"POST",
     headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({
-      contents:[{parts}],
-      generationConfig:{
-        responseModalities:["TEXT","IMAGE"],
-        responseMimeType:"text/plain"
-      }
-    })
+    body:JSON.stringify(body)
   });
   if(!resp.ok){
     const err=await resp.json().catch(()=>({}));
-    throw new Error(err.error?.message||`Google API error ${resp.status}`);
+    throw new Error(err.error?.message||`Imagen API error ${resp.status}`);
   }
   const data=await resp.json();
-  const resParts=data.candidates?.[0]?.content?.parts||[];
-  const imgPart=resParts.find(p=>p.inlineData);
-  if(!imgPart) throw new Error("No image returned — try a different prompt");
-  return `data:${imgPart.inlineData.mimeType};base64,${imgPart.inlineData.data}`;
+  const predictions=data.predictions||[];
+  if(!predictions.length) throw new Error("No image returned — try a different prompt");
+  const b64=predictions[0].bytesBase64Encoded;
+  if(!b64) throw new Error("No image data in response");
+  return `data:image/png;base64,${b64}`;
 }
 
 async function generate(){
-  const isNano=selectedModel==="nano";
-  const key=isNano?getKey("google"):getKey("openai");
-  if(!key){alert(`Please enter your ${isNano?"Google AI Studio":"OpenAI"} API key`);return}
+  const isImagen=selectedModel==="imagen";
+  const key=isImagen?getKey("google"):getKey("openai");
+  if(!key){alert(`Please enter your ${isImagen?"Google AI Studio":"OpenAI"} API key`);return}
 
   const brand=BRANDS[document.getElementById("brand").value];
   let fmt=FORMATS.find(f=>f.id===selectedFormat);
@@ -442,13 +454,13 @@ async function generate(){
   btn.disabled=true;btn.textContent="⏳ Generating...";
 
   const resultArea=document.getElementById("resultArea");
-  const modelLabel=isNano?"Nano Banana Pro":"GPT Image 1";
+  const modelLabel=isImagen?"Imagen 4 Ultra":"GPT Image 1";
   resultArea.innerHTML=`<div class="spinner"></div><div class="status-msg">Creating your ${fmt.name} for ${brand.name} via ${modelLabel}...</div>`;
 
   const prompt=buildPrompt(brand,fmt,campaign,headline,body,product,tone,extra,!!uploadedImageBase64);
 
   try{
-    const imgSrc=isNano?await generateNanoBanana(prompt,fmt,key):await generateOpenAI(prompt,fmt,key);
+    const imgSrc=isImagen?await generateImagen(prompt,fmt,key):await generateOpenAI(prompt,fmt,key);
 
     resultArea.innerHTML=`<img src="${imgSrc}" alt="Generated banner">
       <div class="result-actions">
@@ -463,7 +475,7 @@ async function generate(){
     renderHistory();
 
   }catch(e){
-    resultArea.innerHTML=`<div class="result-area empty"><p style="color:var(--accent2)">❌ ${e.message}</p><p style="margin-top:8px;font-size:12px">Check your ${isNano?"Google":"OpenAI"} API key and try again</p></div>`;
+    resultArea.innerHTML=`<div class="result-area empty"><p style="color:var(--accent2)">❌ ${e.message}</p><p style="margin-top:8px;font-size:12px">Check your ${isImagen?"Google":"OpenAI"} API key and try again</p></div>`;
   }
 
   btn.disabled=false;btn.textContent="✨ Generate Image";
