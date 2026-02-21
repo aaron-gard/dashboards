@@ -155,10 +155,10 @@ textarea{resize:vertical;min-height:70px}
       <div class="panel" style="margin-top:16px">
         <h2>🤖 Model</h2>
         <div class="formats" style="margin-bottom:14px">
-          <div class="format-btn active" data-model="openai" onclick="selectModel('openai')">
+          <div class="format-btn" data-model="openai" onclick="selectModel('openai')">
             GPT Image 1<div class="dim">Best for text on images</div>
           </div>
-          <div class="format-btn" data-model="imagen" onclick="selectModel('imagen')">
+          <div class="format-btn active" data-model="imagen" onclick="selectModel('imagen')">
             Imagen 4 Ultra<div class="dim">Best quality — photorealism</div>
           </div>
         </div>
@@ -226,7 +226,7 @@ const FORMATS=[
 ];
 
 let selectedFormat="hero";
-let selectedModel="openai"; // Default — Imagen requires Google billing
+let selectedModel="imagen";
 let uploadedImageBase64=null;
 let uploadedImageMime=null;
 let history=JSON.parse(localStorage.getItem("cg_history")||"[]");
@@ -347,34 +347,8 @@ This is for a major Australian retail brand. The image must look polished and co
 async function generateOpenAI(prompt,fmt,key){
   const size=fmt.w>=fmt.h?(fmt.w/fmt.h>1.3?"1536x1024":(fmt.h/fmt.w>1.3?"1024x1536":"1024x1024")):(fmt.h/fmt.w>1.3?"1024x1536":"1024x1024");
 
-  if(uploadedImageBase64){
-    // Use chat completions with image input for edit/reformat
-    const resp=await fetch("https://api.openai.com/v1/chat/completions",{
-      method:"POST",
-      headers:{"Content-Type":"application/json","Authorization":`Bearer ${key}`},
-      body:JSON.stringify({
-        model:"gpt-4o",
-        messages:[{role:"user",content:[
-          {type:"text",text:prompt},
-          {type:"image_url",image_url:{url:`data:${uploadedImageMime};base64,${uploadedImageBase64}`}}
-        ]}],
-        modalities:["text","image"],
-        max_tokens:1024
-      })
-    });
-    if(!resp.ok){
-      const err=await resp.json().catch(()=>({}));
-      throw new Error(err.error?.message||`OpenAI API error ${resp.status}`);
-    }
-    const data=await resp.json();
-    const parts=data.choices?.[0]?.message?.content;
-    if(typeof parts==="string") throw new Error("Model returned text only — try a different prompt");
-    const imgPart=Array.isArray(parts)?parts.find(p=>p.type==="image_url"):null;
-    if(!imgPart) throw new Error("No image returned — try a different prompt");
-    return imgPart.image_url.url;
-  }
-
-  // Text-only: use images endpoint
+  // GPT Image 1 doesn't support reference image input directly.
+  // If image uploaded, we enhance the prompt and note it in the instructions.
   const resp=await fetch("https://api.openai.com/v1/images/generations",{
     method:"POST",
     headers:{"Content-Type":"application/json","Authorization":`Bearer ${key}`},
