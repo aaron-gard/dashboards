@@ -172,6 +172,12 @@ textarea{resize:vertical;min-height:70px}
         </select>
         <label>Brand Colors</label>
         <div class="colors-row" id="colorsRow"></div>
+        <label style="margin-top:12px;display:flex;align-items:center;gap:8px;cursor:pointer">
+          <input type="checkbox" id="useLogo" style="width:auto;accent-color:var(--accent)"> Use official logo
+        </label>
+        <div id="logoPreview" style="margin-top:8px;display:none">
+          <img id="logoImg" style="max-height:40px;border-radius:4px;background:var(--surface2);padding:4px">
+        </div>
       </div>
 
       <div class="panel">
@@ -230,24 +236,24 @@ textarea{resize:vertical;min-height:70px}
 /* ===== CONFIG ===== */
 const BRANDS={
   sns:{name:"Shoes & Sox",colors:["#FF4B0F","#FDC145","#3398FF","#389810","#1E1E1E","#FFFFFF"],logo:"https://shoesandsox.com.au/cdn/shop/files/SNS_Logo_Responsive.svg",desc:"Australian children's footwear retailer"},
-  review:{name:"Review",colors:["#000000","#C4A87C","#FFFFFF","#F5F0EB"],desc:"Women's fashion brand known for feminine, vintage-inspired designs"},
-  blackpepper:{name:"Black Pepper",colors:["#000000","#FFFFFF","#8B6F4E"],desc:"Women's fashion brand for modern everyday style"},
-  elka:{name:"Elka Collective",colors:["#000000","#FFFFFF","#C4A87C"],desc:"Premium contemporary women's fashion"},
-  champion:{name:"Champion",colors:["#D50032","#003DA5","#FFFFFF","#000000"],desc:"Iconic sportswear and athletic apparel"},
-  superdry:{name:"Superdry",colors:["#000000","#FF6600","#FFFFFF"],desc:"British-inspired fashion with Japanese graphics"},
-  reebok:{name:"Reebok",colors:["#000000","#E41134","#FFFFFF"],desc:"Athletic footwear and apparel"},
-  hushpuppies:{name:"Hush Puppies",colors:["#8B4513","#D2691E","#FFFFFF","#F5F0EB"],desc:"Casual comfort footwear"},
-  juliusmarlow:{name:"Julius Marlow",colors:["#1A1A1A","#8B6F4E","#FFFFFF"],desc:"Men's footwear — smart casual to formal"},
-  volley:{name:"Volley",colors:["#003DA5","#FFD700","#FFFFFF","#008000"],desc:"Iconic Australian canvas sneakers"},
-  clarks:{name:"Clarks",colors:["#000000","#8B4513","#FFFFFF"],desc:"Heritage footwear craftsmanship since 1825"},
-  everlast:{name:"Everlast",colors:["#000000","#FF0000","#FFFFFF"],desc:"Boxing and fitness apparel"},
-  yarratrail:{name:"Yarra Trail",colors:["#2C3E50","#8E6F5E","#FFFFFF","#F5F0EB"],desc:"Relaxed Australian women's fashion"},
-  shoewarehouse:{name:"Shoe Warehouse",colors:["#FF0000","#000000","#FFFFFF","#FFD700"],desc:"Value footwear retailer"},
-  umbro:{name:"Umbro",colors:["#000000","#FFFFFF","#003DA5"],desc:"Football and sportswear heritage brand"},
-  happysocks:{name:"Happy Socks",colors:["#FF6B6B","#4ECDC4","#FFE66D","#2C3E50","#FFFFFF"],desc:"Colorful, playful socks and underwear"},
-  marcopolo:{name:"Marco Polo",colors:["#000000","#8B6F4E","#FFFFFF","#2C3E50"],desc:"Relaxed women's fashion with natural fabrics"},
-  harrison:{name:"Harrison",colors:["#000000","#8B4513","#FFFFFF"],desc:"Men's dress and business footwear"},
-  replay:{name:"Replay Jeans",colors:["#000000","#C41230","#FFFFFF","#1A1A1A"],desc:"Italian denim and casual fashion"}
+  review:{name:"Review",colors:["#000000","#C4A87C","#FFFFFF","#F5F0EB"],logo:"",desc:"Women's fashion brand known for feminine, vintage-inspired designs"},
+  blackpepper:{name:"Black Pepper",colors:["#000000","#FFFFFF","#8B6F4E"],logo:"https://www.blackpepper.com.au/cdn/shop/files/Untitled_design_98.png",desc:"Women's fashion brand for modern everyday style"},
+  elka:{name:"Elka Collective",colors:["#000000","#FFFFFF","#C4A87C"],logo:"",desc:"Premium contemporary women's fashion"},
+  champion:{name:"Champion",colors:["#D50032","#003DA5","#FFFFFF","#000000"],logo:"https://www.champion.com.au/cdn/shop/files/FAV-CHAMP-180x180.png",desc:"Iconic sportswear and athletic apparel"},
+  superdry:{name:"Superdry",colors:["#000000","#FF6600","#FFFFFF"],logo:"https://superdry.com.au/cdn/shop/files/Logo.svg",desc:"British-inspired fashion with Japanese graphics"},
+  reebok:{name:"Reebok",colors:["#000000","#E41134","#FFFFFF"],logo:"https://reebok.com.au/cdn/shop/files/icon-reebok-logo-white.png",desc:"Athletic footwear and apparel"},
+  hushpuppies:{name:"Hush Puppies",colors:["#8B4513","#D2691E","#FFFFFF","#F5F0EB"],logo:"https://hushpuppies.com.au/cdn/shop/files/mob_menu_brand.png",desc:"Casual comfort footwear"},
+  juliusmarlow:{name:"Julius Marlow",colors:["#1A1A1A","#8B6F4E","#FFFFFF"],logo:"https://juliusmarlow.com.au/cdn/shop/files/JM-Wordmark_Black_RGB_large_3cd48bbf-682a-4171-8ac3-646effb76682.png",desc:"Men's footwear — smart casual to formal"},
+  volley:{name:"Volley",colors:["#003DA5","#FFD700","#FFFFFF","#008000"],logo:"https://volley.com.au/cdn/shop/files/Volley_Logo_White_GrandSlam_Shadow.png",desc:"Iconic Australian canvas sneakers"},
+  clarks:{name:"Clarks",colors:["#000000","#8B4513","#FFFFFF"],logo:"https://clarks.com.au/cdn/shop/files/CLARKS_LOGO_1.png",desc:"Heritage footwear craftsmanship since 1825"},
+  everlast:{name:"Everlast",colors:["#000000","#FF0000","#FFFFFF"],logo:"https://everlast.com.au/wp-content/uploads/2020/05/cropped-logo-new-270x270.png",desc:"Boxing and fitness apparel"},
+  yarratrail:{name:"Yarra Trail",colors:["#2C3E50","#8E6F5E","#FFFFFF","#F5F0EB"],logo:"https://www.yarratrail.com.au/cdn/shop/files/apple-touch-icon.png",desc:"Relaxed Australian women's fashion"},
+  shoewarehouse:{name:"Shoe Warehouse",colors:["#FF0000","#000000","#FFFFFF","#FFD700"],logo:"https://shoewarehouse.com.au/cdn/shop/files/little-logo_796618b0-aa9e-4060-9edd-e5571a8f6a3a.jpg",desc:"Value footwear retailer"},
+  umbro:{name:"Umbro",colors:["#000000","#FFFFFF","#003DA5"],logo:"https://www.umbro.com.au/cdn/shop/files/Umbro_logo.jpg",desc:"Football and sportswear heritage brand"},
+  happysocks:{name:"Happy Socks",colors:["#FF6B6B","#4ECDC4","#FFE66D","#2C3E50","#FFFFFF"],logo:"https://www.happysocks.com.au/cdn/shop/files/State_180.png",desc:"Colorful, playful socks and underwear"},
+  marcopolo:{name:"Marco Polo",colors:["#000000","#8B6F4E","#FFFFFF","#2C3E50"],logo:"https://marcopolo-australia.com.au/cdn/shop/files/MP_logo.svg",desc:"Relaxed women's fashion with natural fabrics"},
+  harrison:{name:"Harrison",colors:["#000000","#8B4513","#FFFFFF"],logo:"https://harrison.com.au/wp-content/uploads/2020/04/Harrison-Manufacturing.png",desc:"Men's dress and business footwear"},
+  replay:{name:"Replay Jeans",colors:["#000000","#C41230","#FFFFFF","#1A1A1A"],logo:"",desc:"Italian denim and casual fashion"}
 };
 
 const FORMATS=[
@@ -369,7 +375,31 @@ function loadBrand() {
     dot.onclick = () => { navigator.clipboard.writeText(c).then(() => toast(`Copied ${c}`, "info", 1500)); };
     row.appendChild(dot);
   });
+  // Logo preview
+  const logoCheck = document.getElementById("useLogo");
+  const logoPreview = document.getElementById("logoPreview");
+  const logoImg = document.getElementById("logoImg");
+  if (b.logo) {
+    logoCheck.disabled = false;
+    logoCheck.parentElement.style.opacity = "1";
+    logoImg.src = b.logo;
+    logoPreview.style.display = logoCheck.checked ? "block" : "none";
+  } else {
+    logoCheck.disabled = true;
+    logoCheck.checked = false;
+    logoCheck.parentElement.style.opacity = "0.4";
+    logoPreview.style.display = "none";
+  }
 }
+
+// Toggle logo preview when checkbox changes
+document.addEventListener("DOMContentLoaded", () => {
+  const cb = document.getElementById("useLogo");
+  if (cb) cb.addEventListener("change", () => {
+    const b = BRANDS[document.getElementById("brand").value];
+    document.getElementById("logoPreview").style.display = (cb.checked && b?.logo) ? "block" : "none";
+  });
+});
 
 /* ===== FORMAT ===== */
 function selectFormat(id) {
@@ -570,12 +600,13 @@ function resizeImage(fmt) {
 /* ===== PROMPT BUILDER ===== */
 function buildPrompt(brand, fmt, fields, hasImage) {
   const { campaign, headline, body, product, tone, extra } = fields;
+  const useLogo = document.getElementById("useLogo")?.checked && brand.logo;
   return `${hasImage ? "Reformat and restyle the provided reference image as a" : "Create a"} professional promotional banner image for ${brand.name} (${brand.desc}).${hasImage ? "\nUse the uploaded image as the primary visual reference. Maintain the key subject/product from the image but adapt it to fit the target format and brand style." : ""}
 
 BRAND GUIDELINES:
 - Brand colors: ${brand.colors.join(", ")}
 - Design style: ${tone}
-- Include the brand name "${brand.name}" as text in the design
+${useLogo ? `- Include the official ${brand.name} logo prominently in the design. The logo should be clearly visible, properly sized, and placed in a standard position (top-left or top-center).` : `- Include the brand name "${brand.name}" as text in the design`}
 
 CONTENT:
 ${campaign ? `- Campaign: ${campaign}` : ""}
@@ -638,6 +669,18 @@ async function callGeminiWithImage(prompt, key, images) {
   sel.forEach(img => {
     parts.push({ inlineData: { mimeType: img.mime || "image/png", data: img.base64 } });
   });
+  // If "use logo" is checked and brand has a logo, fetch and include it
+  const brand = BRANDS[document.getElementById("brand").value];
+  const useLogo = document.getElementById("useLogo")?.checked && brand?.logo;
+  if (useLogo) {
+    try {
+      const logoB64 = await fetchImageAsBase64(brand.logo);
+      if (logoB64) {
+        parts.splice(1, 0, { text: `The following image is the official ${brand.name} logo. Include it prominently in the generated image:` });
+        parts.splice(2, 0, { inlineData: { mimeType: logoB64.mime, data: logoB64.data } });
+      }
+    } catch(e) { console.warn("Could not fetch logo:", e); }
+  }
 
   const resp = await fetchWithTimeout(`${GOOGLE_API_BASE}/${GEMINI_MODEL}:generateContent?key=${key}`, {
     method: "POST",
@@ -663,6 +706,22 @@ async function callGeminiWithImage(prompt, key, images) {
     throw new Error(textPart ? `AI couldn't generate image: ${textPart.text.slice(0, 100)}` : "No image returned — try a different prompt");
   }
   return `data:${imgPart.inlineData.mimeType};base64,${imgPart.inlineData.data}`;
+}
+
+/* ===== FETCH IMAGE AS BASE64 ===== */
+async function fetchImageAsBase64(url) {
+  const resp = await fetch(url);
+  if (!resp.ok) throw new Error(`Failed to fetch ${url}`);
+  const blob = await resp.blob();
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = reader.result;
+      resolve({ mime: blob.type || "image/png", data: dataUrl.split(",")[1] });
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
 }
 
 /* ===== FETCH WITH TIMEOUT ===== */
