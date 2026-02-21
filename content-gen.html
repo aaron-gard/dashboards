@@ -653,7 +653,16 @@ async function generate() {
       resultArea.innerHTML = `<div class="spinner"></div><div class="status-msg">AI is reformatting your image to ${fmt.w}×${fmt.h}...</div>`;
 
       // Simple reformat prompt — preserve the image, just change dimensions
-      const reformatPrompt = `Reformat this image to a ${fmt.w}x${fmt.h} pixel ${fmt.w > fmt.h ? "landscape" : fmt.w === fmt.h ? "square" : "portrait"} layout. Keep the subject, composition, and style as close to the original as possible. Extend or fill the background naturally where needed to fit the new aspect ratio. Do not add new elements, text, or graphics. Do not change the style or mood.${fields.extra ? " " + fields.extra : ""}`;
+      const reformatPrompt = `STRICT REFORMAT ONLY. Change this image to ${fmt.w}x${fmt.h} pixels (${fmt.w > fmt.h ? "landscape" : fmt.w === fmt.h ? "square" : "portrait"}).
+
+RULES — YOU MUST FOLLOW ALL OF THESE:
+- DO NOT add any text, logos, watermarks, labels, or overlays
+- DO NOT add new objects, people, products, or decorative elements
+- DO NOT change colors, filters, style, or mood
+- DO NOT crop or remove any part of the original subject
+- ONLY extend/fill the background or margins to fit the new aspect ratio
+- The extended areas must seamlessly match the existing background
+- The final image must look like the original was always this size${fields.extra ? "\n- Additional: " + fields.extra : ""}`;
 
       const imgSrc = await callGeminiWithImage(reformatPrompt, key);
       showResult(imgSrc, `Reformatted to ${fmt.w}×${fmt.h}`, "Gemini");
