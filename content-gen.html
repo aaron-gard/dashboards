@@ -660,10 +660,7 @@ async function generate() {
     }
 
     // === GENERATE MODE ===
-    if (!fields.campaign && !fields.headline) {
-      showError("Missing brief", "Enter at least a campaign name or headline");
-      return;
-    }
+    // No required fields — user can generate with just brand + format + tone
 
     const hasImage = !!uploadedImageBase64;
     btn.textContent = "⏳ Generating...";
