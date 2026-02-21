@@ -150,6 +150,21 @@ textarea{resize:vertical;min-height:70px}
         <textarea id="extra" rows="3" placeholder="e.g. Include kids playing, use orange background, add 20% OFF badge..."></textarea>
       </div>
 
+      <div class="panel" style="margin-top:16px">
+        <h2>Mode</h2>
+        <div class="formats">
+          <div class="format-btn active" data-mode="generate" onclick="selectMode('generate')">
+            ✨ Generate<div class="dim">AI creates from brief</div>
+          </div>
+          <div class="format-btn" data-mode="resize" onclick="selectMode('resize')">
+            📐 Resize Only<div class="dim">Crop/fit uploaded image</div>
+          </div>
+          <div class="format-btn" data-mode="ai-resize" onclick="selectMode('ai-resize')">
+            🪄 AI Reformat<div class="dim">AI extends to new ratio</div>
+          </div>
+        </div>
+      </div>
+
       <button class="generate-btn" id="genBtn" onclick="generate()">✨ Generate Image</button>
 
       <div class="panel" style="margin-top:16px">
@@ -229,6 +244,7 @@ let selectedFormat="hero";
 let selectedModel="imagen";
 let uploadedImageBase64=null;
 let uploadedImageMime=null;
+let selectedMode="generate";
 let history=JSON.parse(localStorage.getItem("cg_history")||"[]");
 
 function init(){
@@ -304,6 +320,37 @@ function clearUpload(e){
     }
   });
 })();
+
+function selectMode(m){
+  selectedMode=m;
+  document.querySelectorAll("[data-mode]").forEach(el=>{
+    el.classList.toggle("active",el.dataset.mode===m);
+  });
+  const btn=document.getElementById("genBtn");
+  if(m==="resize") btn.textContent="📐 Resize Image";
+  else if(m==="ai-resize") btn.textContent="🪄 AI Reformat";
+  else btn.textContent="✨ Generate Image";
+}
+
+function resizeImage(fmt){
+  return new Promise((resolve,reject)=>{
+    if(!uploadedImageBase64){reject(new Error("Upload an image first"));return}
+    const img=new Image();
+    img.onload=()=>{
+      const canvas=document.createElement("canvas");
+      canvas.width=fmt.w;canvas.height=fmt.h;
+      const ctx=canvas.getContext("2d");
+      // Cover fill (crop to fit)
+      const scale=Math.max(fmt.w/img.width,fmt.h/img.height);
+      const sw=fmt.w/scale,sh=fmt.h/scale;
+      const sx=(img.width-sw)/2,sy=(img.height-sh)/2;
+      ctx.drawImage(img,sx,sy,sw,sh,0,0,fmt.w,fmt.h);
+      resolve(canvas.toDataURL("image/png"));
+    };
+    img.onerror=()=>reject(new Error("Failed to load image"));
+    img.src=`data:${uploadedImageMime||"image/png"};base64,${uploadedImageBase64}`;
+  });
+}
 
 function saveKey(type){
   if(type==='google'){
@@ -422,6 +469,38 @@ async function generateImagen(prompt,fmt,key){
 }
 
 async function generate(){
+  // Handle resize-only mode (no AI needed)
+  if(selectedMode==="resize"){
+    if(!uploadedImageBase64){alert("Upload an image first");return}
+    let fmt=FORMATS.find(f=>f.id===selectedFormat);
+    if(fmt.id==="custom"){
+      const cw=parseInt(document.getElementById("customW").value);
+      const ch=parseInt(document.getElementById("customH").value);
+      if(!cw||!ch||cw<100||ch<100){alert("Enter custom dimensions (min 100px)");return}
+      fmt={...fmt,w:cw,h:ch,name:`Custom ${cw}×${ch}`};
+    }
+    const btn=document.getElementById("genBtn");
+    btn.disabled=true;
+    const resultArea=document.getElementById("resultArea");
+    resultArea.innerHTML=`<div class="spinner"></div><div class="status-msg">Resizing to ${fmt.w}×${fmt.h}...</div>`;
+    try{
+      const imgSrc=await resizeImage(fmt);
+      resultArea.innerHTML=`<img src="${imgSrc}" alt="Resized image">
+        <div class="result-actions">
+          <button class="primary" onclick="downloadImg()">⬇️ Download</button>
+        </div>
+        <div class="status-msg">Resized to ${fmt.w}×${fmt.h}</div>`;
+      history.unshift({src:imgSrc,brand:"Resize",campaign:`${fmt.w}×${fmt.h}`,format:fmt.name,model:"Resize",time:Date.now()});
+      if(history.length>12)history=history.slice(0,12);
+      try{localStorage.setItem("cg_history",JSON.stringify(history))}catch(e){}
+      renderHistory();
+    }catch(e){
+      resultArea.innerHTML=`<div class="result-area empty"><p style="color:var(--accent2)">❌ ${e.message}</p></div>`;
+    }
+    btn.disabled=false;btn.textContent="📐 Resize Image";
+    return;
+  }
+
   const isImagen=selectedModel==="imagen";
   const key=isImagen?getKey("google"):getKey("openai");
   if(!key){alert(`Please enter your ${isImagen?"Google AI Studio":"OpenAI"} API key`);return}
@@ -441,7 +520,8 @@ async function generate(){
   const tone=document.getElementById("tone").value;
   const extra=document.getElementById("extra").value;
 
-  if(!headline&&!campaign){alert("Please enter at least a campaign name or headline");return}
+  if(selectedMode==="ai-resize"&&!uploadedImageBase64){alert("Upload an image to reformat");return}
+  if(selectedMode==="generate"&&!headline&&!campaign){alert("Please enter at least a campaign name or headline");return}
 
   const btn=document.getElementById("genBtn");
   btn.disabled=true;btn.textContent="⏳ Generating...";
