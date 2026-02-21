@@ -1,245 +1,239 @@
 {
   "morning": {
-    "generated": "2026-02-21T05:47:00+11:00",
+    "generated": "2026-02-22T05:45:00+11:00",
     "calendar": {
-      "date": "Saturday, 21 February 2026",
+      "date": "Sunday, 22 February 2026",
       "meetings": [],
       "freeBlocks": [
         {
           "start": "09:00",
           "end": "17:00"
         }
-      ],
-      "note": "Calendar unavailable - Outlook session expired"
+      ]
     },
     "sales": {
-      "date": "Friday, 20 February 2026",
-      "ly_date": "Friday, 21 February 2025",
+      "date": "Saturday, 21 February 2026",
+      "ly_date": "Saturday, 22 February 2025",
       "brands": [
         {
-          "name": "Shoes & Sox",
-          "demand": 25888,
-          "orders": 277,
-          "ly_demand": 13823,
-          "ly_orders": 146
-        },
-        {
           "name": "Reebok",
-          "demand": 21796,
-          "orders": 152,
-          "ly_demand": 28700,
-          "ly_orders": 198
+          "demand": 27747,
+          "orders": 202,
+          "ly_demand": 19513,
+          "ly_orders": 140
         },
         {
-          "name": "Review",
-          "demand": 20701,
-          "orders": 94,
-          "ly_demand": 15047,
-          "ly_orders": 80
-        },
-        {
-          "name": "Black Pepper",
-          "demand": 17751,
-          "orders": 140,
-          "ly_demand": 26530,
-          "ly_orders": 209
-        },
-        {
-          "name": "Shoe Warehouse",
-          "demand": 14156,
-          "orders": 140,
-          "ly_demand": 6098,
-          "ly_orders": 72
+          "name": "Shoes & Sox",
+          "demand": 27021,
+          "orders": 287,
+          "ly_demand": 17237,
+          "ly_orders": 162
         },
         {
           "name": "Superdry",
-          "demand": 14098,
-          "orders": 108,
-          "ly_demand": 14625,
-          "ly_orders": 114
+          "demand": 23717,
+          "orders": 167,
+          "ly_demand": 16832,
+          "ly_orders": 119
+        },
+        {
+          "name": "Review",
+          "demand": 19486,
+          "orders": 84,
+          "ly_demand": 21385,
+          "ly_orders": 103
+        },
+        {
+          "name": "Black Pepper",
+          "demand": 19482,
+          "orders": 141,
+          "ly_demand": 18383,
+          "ly_orders": 144
         },
         {
           "name": "Hush Puppies",
-          "demand": 13625,
-          "orders": 91,
-          "ly_demand": 27373,
-          "ly_orders": 176
+          "demand": 14820,
+          "orders": 89,
+          "ly_demand": 25660,
+          "ly_orders": 169
+        },
+        {
+          "name": "Shoe Warehouse",
+          "demand": 14178,
+          "orders": 132,
+          "ly_demand": 8247,
+          "ly_orders": 92
         },
         {
           "name": "Elka Collective",
-          "demand": 10692,
-          "orders": 38,
-          "ly_demand": 4094,
-          "ly_orders": 19
-        },
-        {
-          "name": "Canada Goose",
-          "demand": 8636,
-          "orders": 4,
-          "ly_demand": 3400,
-          "ly_orders": 2
-        },
-        {
-          "name": "Yarra Trail",
-          "demand": 6529,
-          "orders": 42,
-          "ly_demand": 3252,
-          "ly_orders": 21
+          "demand": 9385,
+          "orders": 36,
+          "ly_demand": 6822,
+          "ly_orders": 25
         },
         {
           "name": "Clarks",
-          "demand": 4094,
-          "orders": 38,
-          "ly_demand": 7857,
+          "demand": 6553,
+          "orders": 49,
+          "ly_demand": 7140,
           "ly_orders": 54
         },
         {
+          "name": "Yarra Trail",
+          "demand": 6379,
+          "orders": 39,
+          "ly_demand": 3491,
+          "ly_orders": 24
+        },
+        {
           "name": "Volley",
-          "demand": 2925,
-          "orders": 27,
-          "ly_demand": 4307,
-          "ly_orders": 59
+          "demand": 2742,
+          "orders": 24,
+          "ly_demand": 4354,
+          "ly_orders": 63
         },
         {
           "name": "Julius Marlow",
-          "demand": 2418,
-          "orders": 12,
-          "ly_demand": 3259,
-          "ly_orders": 21
+          "demand": 2586,
+          "orders": 17,
+          "ly_demand": 2587,
+          "ly_orders": 17
         },
         {
           "name": "Champion",
-          "demand": 2069,
-          "orders": 18,
-          "ly_demand": 994,
-          "ly_orders": 12
+          "demand": 1906,
+          "orders": 17,
+          "ly_demand": 6373,
+          "ly_orders": 29
         },
         {
           "name": "Everlast",
-          "demand": 1064,
-          "orders": 11,
-          "ly_demand": 3016,
-          "ly_orders": 15
-        },
-        {
-          "name": "Marco Polo",
-          "demand": 1001,
-          "orders": 9,
-          "ly_demand": 416,
-          "ly_orders": 4
-        },
-        {
-          "name": "Umbro",
-          "demand": 627,
-          "orders": 5,
-          "ly_demand": 931,
-          "ly_orders": 8
+          "demand": 1850,
+          "orders": 13,
+          "ly_demand": 2414,
+          "ly_orders": 19
         },
         {
           "name": "Happy Socks",
-          "demand": 483,
-          "orders": 7,
+          "demand": 1094,
+          "orders": 15,
           "ly_demand": 0,
           "ly_orders": 0
         },
         {
-          "name": "Harrison",
-          "demand": 112,
+          "name": "Marco Polo",
+          "demand": 649,
+          "orders": 5,
+          "ly_demand": 1188,
+          "ly_orders": 9
+        },
+        {
+          "name": "Umbro",
+          "demand": 359,
+          "orders": 3,
+          "ly_demand": 779,
+          "ly_orders": 7
+        },
+        {
+          "name": "Replay",
+          "demand": 307,
+          "orders": 2,
+          "ly_demand": 774,
+          "ly_orders": 6
+        },
+        {
+          "name": "Canada Goose",
+          "demand": 300,
           "orders": 1,
-          "ly_demand": 0,
-          "ly_orders": 0
+          "ly_demand": 2900,
+          "ly_orders": 1
         }
       ],
       "total": {
-        "demand": 168665,
-        "orders": 1214,
-        "ly_demand": 163722,
-        "ly_orders": 1210,
-        "yoy_pct": 3.0
+        "demand": 180561,
+        "orders": 1323,
+        "ly_demand": 166079,
+        "ly_orders": 1183,
+        "yoy_pct": 8.7
       }
     },
     "markets": {
       "audusd": {
-        "value": 0.705
+        "value": 0.707
       },
       "btc": {
-        "value": 67789
+        "value": 68523
       },
       "eth": {
-        "value": 1972
+        "value": 1992
       },
       "xrp": {
-        "value": 1.43
+        "value": 1.45
       }
     },
     "weather": {
-      "current_temp": 18,
-      "high": 27,
+      "current_temp": 22,
+      "high": 30,
       "low": 18,
-      "condition": "Partly cloudy",
-      "precip": 0,
-      "icon": "⛅"
+      "condition": "Showers clearing to partly cloudy",
+      "precip": 88,
+      "icon": "\ud83c\udf26"
     },
     "news": [
       {
-        "emoji": "🤖",
+        "emoji": "\ud83e\udd16",
         "topic": "AI",
-        "text": "ByteDance's Seedance 2.0 goes viral — Hollywood spooked by cinematic AI video gen quality"
+        "text": "ByteDance's Seedance 2.0 generates cinema-quality video with dialogue from text prompts \u2014 Hollywood rattled"
       },
       {
-        "emoji": "🏎️",
+        "emoji": "\ud83c\udfce\ufe0f",
         "topic": "F1",
-        "text": "F1 moves to close engine loophole Mercedes accused of exploiting ahead of final Bahrain pre-season test"
+        "text": "Bahrain preseason testing wraps up: Mercedes and Ferrari emerge as early 2026 favourites under new regs"
       },
       {
-        "emoji": "🏀",
+        "emoji": "\ud83c\udfc0",
         "topic": "Bulls",
-        "text": "Post-deadline rebuild: Vučević, White, Dosunmu all traded — Buzelis era begins as Bulls drop 12+ straight"
+        "text": "Bulls lose 7th straight post All-Star break, fall 110-101 to Raptors \u2014 draft guard talk heating up"
       },
       {
-        "emoji": "🏈",
-        "topic": "AFL",
-        "text": "2026 AFL season starts March 5; AAMI Community Series pre-season matches underway"
-      },
-      {
-        "emoji": "🇦🇺",
-        "topic": "AU Politics",
-        "text": "Coalition backs strengthening passport refusal powers for IS-linked women; SA election March 21"
+        "emoji": "\ud83c\udfc8",
+        "topic": "NIST",
+        "text": "US Commerce Dept announces agentic AI standards initiative through NIST at India AI Summit"
       }
     ],
     "content_picks": [
       {
-        "title": "Seedance 2.0: China's latest AI is so good it's spooked Hollywood",
-        "source": "CNN",
-        "url": "https://www.cnn.com/2026/02/20/china/china-ai-seedance-intl-hnk-dst",
-        "why": "ByteDance's video gen model is producing cinematic-quality output — big implications for creative tools",
+        "title": "What is Seedance? The Chinese AI app sending Hollywood into a panic",
+        "source": "BBC News",
+        "url": "https://www.bbc.com/news/articles/ckg1dl410q9o",
+        "why": "Best explainer on ByteDance's new video AI that generates cinema-quality clips from text",
         "type": "article"
       },
       {
-        "title": "Best AI February 2026 Rankings: GPT-5.2, Claude Opus 4.6, and Gemini 3",
-        "source": "FelloAI",
-        "url": "https://felloai.com/best-ai-february-2026/",
-        "why": "Good overview of where all the frontier models stand right now, including Gemini 3 Deep Think",
-        "type": "article"
-      },
-      {
-        "title": "How the anxiety over AI could fuel a new workers' movement",
-        "source": "The Guardian",
-        "url": "https://www.theguardian.com/technology/ng-interactive/2026/feb/19/ai-work-future",
-        "why": "Long-form piece on AI's real impact on labour — the human side of the disruption you're managing",
-        "type": "article"
-      },
-      {
-        "title": "The Bulls after franchise-altering trade-deadline moves: 3 burning questions",
+        "title": "F1 preseason is over and the fastest team is still a mystery",
         "source": "The Athletic",
-        "url": "https://www.nytimes.com/athletic/7057331/2026/02/19/bulls-nba-trade-deadline-matas-guards/",
-        "why": "Deep dive into the Bulls rebuild — Buzelis' role and what the draft strategy looks like now",
+        "url": "https://www.nytimes.com/athletic/7060337/2026/02/20/f1-preseason-testing-takeaways/",
+        "why": "Deep dive into the 2026 reg changes and who's actually fast behind the sandbagging",
+        "type": "article"
+      },
+      {
+        "title": "Google and Shopee-owner Sea to develop AI tools for e-commerce",
+        "source": "Reuters",
+        "url": "https://www.reuters.com/world/asia-pacific/google-shopee-owner-sea-develop-ai-tools-e-commerce-gaming-2026-02-19/",
+        "why": "Google + Sea partnership on AI commerce tools \u2014 relevant to your world",
+        "type": "article"
+      },
+      {
+        "title": "AI-driven experiences transform online shopping: biggest retail tech stories",
+        "source": "Retail Tech Innovation Hub",
+        "url": "https://retailtechinnovationhub.com/home/2026/2/19/ai-driven-experiences-transform-online-shopping-this-weeks-biggest-retail-technology-stories",
+        "why": "Weekly roundup covering Debenhams, PayPal, Tesco, adidas AI retail moves",
         "type": "article"
       }
     ],
-    "comms_task": "In your first Slack message or email today, before making your request, add one sentence of context explaining WHY it matters right now. Example: 'Because we launch next Friday, I need X by Tuesday.'",
+    "comms_task": "It's Sunday \u2014 use a quiet moment to draft a short Monday morning Slack message to your team previewing the week ahead. Structure it as: one line on last week's win, one line on this week's priority, and one open question to invite input.",
     "quote": {
-      "text": "The best way to predict the future is to create it.",
+      "text": "The best way to predict the future is to invent it.",
       "author": "Alan Kay"
     }
   },
@@ -249,7 +243,7 @@
       "date": "Saturday, 21 February 2026",
       "meetings": [],
       "tomorrow": [],
-      "note": "Tomorrow is Sunday — no meetings scheduled"
+      "note": "Tomorrow is Sunday \u2014 no meetings scheduled"
     },
     "sales": {
       "date": "Saturday, 21 February 2026",
@@ -375,38 +369,38 @@
       "low": 18,
       "condition": "Moderate rain",
       "precip": 95,
-      "icon": "🌧"
+      "icon": "\ud83c\udf27"
     },
     "content_picks": [
       {
         "title": "The A.I. Disruption Has Arrived, and It Sure Is Fun",
         "source": "NYT Opinion",
         "url": "https://www.nytimes.com/2026/02/18/opinion/ai-software.html",
-        "why": "Sharp take on how AI could finally make software want to ship — challenges every process you manage",
+        "why": "Sharp take on how AI could finally make software want to ship \u2014 challenges every process you manage",
         "type": "article"
       },
       {
         "title": "The State of Retail & eCommerce in 2026: From Transactions to Connected Commerce",
         "source": "RetailToday",
         "url": "https://retail-today.com/the-state-of-retail-ecommerce-in-2026-from-transactions-to-connected-commerce/",
-        "why": "AI-powered dynamic creative across channels — directly relevant to BC's multi-brand strategy",
+        "why": "AI-powered dynamic creative across channels \u2014 directly relevant to BC's multi-brand strategy",
         "type": "article"
       },
       {
         "title": "Ecommerce Platform Features Betting Big in 2026",
         "source": "Digital Commerce 360",
         "url": "https://www.digitalcommerce360.com/2026/02/19/ecommerce-trends-retail-platform-features-2026/",
-        "why": "What Shopify and competitors are shipping this year — useful for your platform roadmap",
+        "why": "What Shopify and competitors are shipping this year \u2014 useful for your platform roadmap",
         "type": "article"
       },
       {
         "title": "Chip startup Taalas raises $169M to take on Nvidia",
         "source": "Reuters",
         "url": "https://www.reuters.com/technology/",
-        "why": "The AI chip race is heating up — competition could reshape infrastructure costs",
+        "why": "The AI chip race is heating up \u2014 competition could reshape infrastructure costs",
         "type": "article"
       }
     ],
-    "closing_thought": "Saturday evening, rain forecast for tomorrow — perfect excuse to stay in, make something warm, and let the weekend be exactly what it needs to be. Not every day has to be productive to be worthwhile."
+    "closing_thought": "Saturday evening, rain forecast for tomorrow \u2014 perfect excuse to stay in, make something warm, and let the weekend be exactly what it needs to be. Not every day has to be productive to be worthwhile."
   }
 }
