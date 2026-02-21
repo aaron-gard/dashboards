@@ -784,6 +784,7 @@ function showResult(imgSrc, statusText, model) {
     </div>
     <div class="result-actions">
       <button class="primary" onclick="downloadImg()">⬇️ Download</button>
+      <button onclick="copyImageToClipboard()">📋 Copy image</button>
       <button onclick="regenerateWithFeedback()">🔄 Regenerate with changes</button>
       <button onclick="generate()">🔁 Start fresh</button>
     </div>
@@ -855,6 +856,37 @@ async function regenerateWithFeedback() {
     else if (selectedMode === "ai-resize") btn.textContent = "🪄 AI Reformat";
     else btn.textContent = "✨ Generate Image";
   }
+}
+
+/* ===== COPY IMAGE TO CLIPBOARD ===== */
+async function copyImageToClipboard() {
+  const img = document.querySelector("#resultArea img");
+  if (!img || !img.src) { toast("No image to copy", "error"); return; }
+  try {
+    const resp = await fetch(img.src);
+    const blob = await resp.blob();
+    const pngBlob = blob.type === "image/png" ? blob : await convertToPngBlob(img);
+    await navigator.clipboard.write([new ClipboardItem({ "image/png": pngBlob })]);
+    toast("Image copied to clipboard ✓", "success", 2000);
+  } catch (e) {
+    // Fallback: copy data URL as text
+    try {
+      await navigator.clipboard.writeText(img.src);
+      toast("Data URL copied to clipboard ✓", "success", 2000);
+    } catch (e2) {
+      toast("Clipboard access denied — try downloading instead", "error");
+    }
+  }
+}
+
+function convertToPngBlob(imgEl) {
+  return new Promise(resolve => {
+    const canvas = document.createElement("canvas");
+    canvas.width = imgEl.naturalWidth || imgEl.width;
+    canvas.height = imgEl.naturalHeight || imgEl.height;
+    canvas.getContext("2d").drawImage(imgEl, 0, 0);
+    canvas.toBlob(blob => resolve(blob), "image/png");
+  });
 }
 
 /* ===== DOWNLOAD ===== */
