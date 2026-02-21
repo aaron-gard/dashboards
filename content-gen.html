@@ -168,20 +168,7 @@ textarea{resize:vertical;min-height:70px}
       <button class="generate-btn" id="genBtn" onclick="generate()">✨ Generate Image</button>
 
       <div class="panel" style="margin-top:16px">
-        <h2>🤖 Model</h2>
-        <div class="formats" style="margin-bottom:14px">
-          <div class="format-btn" data-model="openai" onclick="selectModel('openai')">
-            GPT Image 1<div class="dim">Best for text on images</div>
-          </div>
-          <div class="format-btn active" data-model="imagen" onclick="selectModel('imagen')">
-            Imagen 4 Ultra<div class="dim">Best quality — photorealism</div>
-          </div>
-        </div>
-        <label>OpenAI API Key</label>
-        <div class="api-key-row">
-          <input id="apiKey" type="password" placeholder="sk-...">
-          <button onclick="saveKey('openai')">Save</button>
-        </div>
+        <h2>⚙️ API Key</h2>
         <label>Google AI Studio Key</label>
         <div class="api-key-row">
           <input id="googleKey" type="password" placeholder="AIza...">
