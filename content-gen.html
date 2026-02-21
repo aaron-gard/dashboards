@@ -363,6 +363,27 @@ async function generateOpenAI(prompt,fmt,key){
   return data.data[0].b64_json?`data:image/png;base64,${imgData}`:imgData;
 }
 
+async function generateGeminiWithImage(prompt,key){
+  const parts=[{text:prompt},{inlineData:{mimeType:uploadedImageMime||"image/png",data:uploadedImageBase64}}];
+  const resp=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:generateContent?key=${key}`,{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      contents:[{parts}],
+      generationConfig:{responseModalities:["TEXT","IMAGE"],responseMimeType:"text/plain"}
+    })
+  });
+  if(!resp.ok){
+    const err=await resp.json().catch(()=>({}));
+    throw new Error(err.error?.message||`Gemini API error ${resp.status}`);
+  }
+  const data=await resp.json();
+  const resParts=data.candidates?.[0]?.content?.parts||[];
+  const imgPart=resParts.find(p=>p.inlineData);
+  if(!imgPart) throw new Error("No image returned — try a different prompt");
+  return `data:${imgPart.inlineData.mimeType};base64,${imgPart.inlineData.data}`;
+}
+
 async function generateImagen(prompt,fmt,key){
   // Map format to Imagen aspect ratios
   const ratio=fmt.w/fmt.h;
@@ -377,12 +398,10 @@ async function generateImagen(prompt,fmt,key){
     instances:[{prompt:prompt}],
     parameters:{sampleCount:1,aspectRatio:aspectRatio}
   };
+  // Imagen 4 Ultra is text-to-image only — no reference image support.
+  // If image uploaded, we fall back to Gemini 3 Pro Image.
   if(uploadedImageBase64){
-    body.instances[0].referenceImages=[{
-      referenceId:1,
-      referenceImage:{bytesBase64Encoded:uploadedImageBase64},
-      referenceType:"STYLE_IMAGE"
-    }];
+    return generateGeminiWithImage(prompt,key);
   }
 
   const resp=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-ultra-generate-001:predict?key=${key}`,{
