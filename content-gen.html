@@ -172,7 +172,7 @@ textarea{resize:vertical;min-height:70px}
         <label>Google AI Studio Key</label>
         <div class="api-key-row">
           <input id="googleKey" type="password" placeholder="AIza...">
-          <button onclick="saveKey('google')">Save</button>
+          <button onclick="saveKey()">Save</button>
         </div>
       </div>
     </div>
@@ -241,7 +241,6 @@ function init(){
     fmtDiv.innerHTML+=`<div class="format-btn ${f.id===selectedFormat?'active':''}" data-id="${f.id}" onclick="selectFormat('${f.id}')">
       ${f.name}<div class="dim">${dimLabel}</div></div>`;
   });
-  document.getElementById("apiKey").value=localStorage.getItem("cg_apikey")||"";
   document.getElementById("googleKey").value=localStorage.getItem("cg_googlekey")||"";
   loadBrand();
   renderHistory();
@@ -339,18 +338,13 @@ function resizeImage(fmt){
   });
 }
 
-function saveKey(type){
-  if(type==='google'){
-    localStorage.setItem("cg_googlekey",document.getElementById("googleKey").value.trim());
-  } else {
-    localStorage.setItem("cg_apikey",document.getElementById("apiKey").value.trim());
-  }
+function saveKey(){
+  localStorage.setItem("cg_googlekey",document.getElementById("googleKey").value.trim());
   alert("Key saved");
 }
 
-function getKey(type){
-  if(type==='google') return document.getElementById("googleKey").value.trim()||localStorage.getItem("cg_googlekey")||"";
-  return document.getElementById("apiKey").value.trim()||localStorage.getItem("cg_apikey")||"";
+function getKey(){
+  return document.getElementById("googleKey").value.trim()||localStorage.getItem("cg_googlekey")||"";
 }
 
 function buildPrompt(brand,fmt,campaign,headline,body,product,tone,extra,hasImage){
@@ -376,25 +370,6 @@ REQUIREMENTS:
 ${extra?`- Additional instructions: ${extra}`:""}
 
 This is for a major Australian retail brand. The image must look polished and commercially viable.`;
-}
-
-async function generateOpenAI(prompt,fmt,key){
-  const size=fmt.w>=fmt.h?(fmt.w/fmt.h>1.3?"1536x1024":(fmt.h/fmt.w>1.3?"1024x1536":"1024x1024")):(fmt.h/fmt.w>1.3?"1024x1536":"1024x1024");
-
-  // GPT Image 1 doesn't support reference image input directly.
-  // If image uploaded, we enhance the prompt and note it in the instructions.
-  const resp=await fetch("https://api.openai.com/v1/images/generations",{
-    method:"POST",
-    headers:{"Content-Type":"application/json","Authorization":`Bearer ${key}`},
-    body:JSON.stringify({model:"gpt-image-1",prompt,n:1,size,quality:"high"})
-  });
-  if(!resp.ok){
-    const err=await resp.json().catch(()=>({}));
-    throw new Error(err.error?.message||`OpenAI API error ${resp.status}`);
-  }
-  const data=await resp.json();
-  const imgData=data.data[0].b64_json||data.data[0].url;
-  return data.data[0].b64_json?`data:image/png;base64,${imgData}`:imgData;
 }
 
 async function generateGeminiWithImage(prompt,key){
@@ -488,9 +463,8 @@ async function generate(){
     return;
   }
 
-  const isImagen=selectedModel==="imagen";
-  const key=isImagen?getKey("google"):getKey("openai");
-  if(!key){alert(`Please enter your ${isImagen?"Google AI Studio":"OpenAI"} API key`);return}
+  const key=getKey();
+  if(!key){alert("Please enter your Google AI Studio API key");return}
 
   const brand=BRANDS[document.getElementById("brand").value];
   let fmt=FORMATS.find(f=>f.id===selectedFormat);
@@ -514,28 +488,27 @@ async function generate(){
   btn.disabled=true;btn.textContent="⏳ Generating...";
 
   const resultArea=document.getElementById("resultArea");
-  const modelLabel=isImagen?"Imagen 4 Ultra":"GPT Image 1";
-  resultArea.innerHTML=`<div class="spinner"></div><div class="status-msg">Creating your ${fmt.name} for ${brand.name} via ${modelLabel}...</div>`;
+  resultArea.innerHTML=`<div class="spinner"></div><div class="status-msg">Creating your ${fmt.name} for ${brand.name} via Imagen 4 Ultra...</div>`;
 
   const prompt=buildPrompt(brand,fmt,campaign,headline,body,product,tone,extra,!!uploadedImageBase64);
 
   try{
-    const imgSrc=isImagen?await generateImagen(prompt,fmt,key):await generateOpenAI(prompt,fmt,key);
+    const imgSrc=await generateImagen(prompt,fmt,key);
 
     resultArea.innerHTML=`<img src="${imgSrc}" alt="Generated banner">
       <div class="result-actions">
         <button class="primary" onclick="downloadImg()">⬇️ Download</button>
         <button onclick="generate()">🔄 Regenerate</button>
       </div>
-      <div class="status-msg">Generated with ${modelLabel}</div>`;
+      <div class="status-msg">Generated with Imagen 4 Ultra</div>`;
 
-    history.unshift({src:imgSrc,brand:brand.name,campaign:campaign||headline,format:fmt.name,model:modelLabel,time:Date.now()});
+    history.unshift({src:imgSrc,brand:brand.name,campaign:campaign||headline,format:fmt.name,model:"Imagen 4 Ultra",time:Date.now()});
     if(history.length>12)history=history.slice(0,12);
     try{localStorage.setItem("cg_history",JSON.stringify(history))}catch(e){}
     renderHistory();
 
   }catch(e){
-    resultArea.innerHTML=`<div class="result-area empty"><p style="color:var(--accent2)">❌ ${e.message}</p><p style="margin-top:8px;font-size:12px">Check your ${isImagen?"Google":"OpenAI"} API key and try again</p></div>`;
+    resultArea.innerHTML=`<div class="result-area empty"><p style="color:var(--accent2)">❌ ${e.message}</p><p style="margin-top:8px;font-size:12px">Check your Google AI Studio key and try again</p></div>`;
   }
 
   btn.disabled=false;btn.textContent="✨ Generate Image";
