@@ -53,6 +53,14 @@ textarea{resize:vertical;min-height:70px}
 .history-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
 .history-grid img{width:100%;border-radius:8px;cursor:pointer;border:2px solid transparent;transition:border .2s}
 .history-grid img:hover{border-color:var(--accent)}
+.image-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:6px;margin-top:8px}
+.image-gallery .thumb{position:relative;aspect-ratio:1;border-radius:6px;overflow:hidden;cursor:pointer;border:2px solid var(--border);transition:all .2s}
+.image-gallery .thumb img{width:100%;height:100%;object-fit:cover}
+.image-gallery .thumb.selected{border-color:var(--accent);box-shadow:0 0 0 2px rgba(51,152,255,0.3)}
+.image-gallery .thumb .check{position:absolute;top:4px;right:4px;width:20px;height:20px;border-radius:50%;background:var(--accent);color:#fff;display:none;align-items:center;justify-content:center;font-size:12px}
+.image-gallery .thumb.selected .check{display:flex}
+.image-gallery .thumb .remove-x{position:absolute;top:4px;left:4px;width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,0.6);color:#fff;display:none;align-items:center;justify-content:center;font-size:10px;cursor:pointer}
+.image-gallery .thumb:hover .remove-x{display:flex}
 .upload-area{border:2px dashed var(--border);border-radius:8px;padding:20px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;color:var(--text2);font-size:13px}
 .upload-area:hover,.upload-area.dragover{border-color:var(--accent);background:rgba(51,152,255,0.05)}
 .key-status{font-size:11px;margin-top:6px;padding:4px 8px;border-radius:4px;display:inline-block}
@@ -170,20 +178,23 @@ textarea{resize:vertical;min-height:70px}
       </div>
 
       <div class="panel" style="margin-top:16px">
-        <h2>📸 Reference Image <span id="imgRequired" style="font-size:11px;color:var(--text2)">(optional)</span></h2>
+        <h2>📸 Reference Images <span id="imgRequired" style="font-size:11px;color:var(--text2)">(optional)</span></h2>
         <div class="upload-area" id="uploadArea">
-          <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp,image/gif" style="display:none">
+          <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp,image/gif" multiple style="display:none">
           <div id="uploadPlaceholder">
             <div style="font-size:28px;margin-bottom:8px">📁</div>
-            <div>Drop an image here or click to upload</div>
-            <div style="font-size:11px;color:var(--text2);margin-top:4px">PNG, JPEG, WebP — max 10MB</div>
-          </div>
-          <div id="uploadPreview" style="display:none">
-            <img id="previewImg" style="max-width:100%;max-height:180px;border-radius:8px">
-            <div id="imgInfo" style="font-size:11px;color:var(--text2);margin-top:4px"></div>
-            <button id="removeBtn" style="margin-top:8px;padding:4px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text2);cursor:pointer;font-size:12px">✕ Remove</button>
+            <div>Drop images here or click to upload</div>
+            <div style="font-size:11px;color:var(--text2);margin-top:4px">PNG, JPEG, WebP — max 10MB each — click thumbnails to select</div>
           </div>
         </div>
+        <div id="imageGallery" class="image-gallery"></div>
+        <div id="galleryActions" style="display:none;margin-top:8px;display:flex;gap:8px">
+          <button onclick="selectAllImages()" style="padding:4px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text2);cursor:pointer;font-size:11px">Select all</button>
+          <button onclick="deselectAllImages()" style="padding:4px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text2);cursor:pointer;font-size:11px">Deselect all</button>
+          <button onclick="removeSelectedImages()" style="padding:4px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--accent2);cursor:pointer;font-size:11px">Remove selected</button>
+          <button onclick="clearAllImages()" style="padding:4px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--accent2);cursor:pointer;font-size:11px">Clear all</button>
+        </div>
+        <div id="selectionInfo" style="font-size:11px;color:var(--text2);margin-top:4px"></div>
       </div>
 
       <button class="generate-btn" id="genBtn">✨ Generate Image</button>
@@ -249,9 +260,9 @@ const GOOGLE_API_BASE = "https://generativelanguage.googleapis.com/v1beta/models
 /* ===== STATE ===== */
 let selectedFormat = "hero";
 let selectedMode = "generate";
-let uploadedImageBase64 = null;
-let uploadedImageMime = null;
-let uploadedImageName = "";
+// Multi-image gallery: [{id, base64, mime, name, width, height, selected}]
+let imageGallery = [];
+let galleryIdCounter = 0;
 let isGenerating = false;
 let genHistory = [];
 
@@ -411,92 +422,107 @@ function selectMode(m) {
 function setupUpload() {
   const area = document.getElementById("uploadArea");
   const input = document.getElementById("fileInput");
-  const removeBtn = document.getElementById("removeBtn");
 
-  area.addEventListener("click", (e) => {
-    if (e.target === removeBtn || removeBtn.contains(e.target)) return;
-    input.click();
-  });
-
+  area.addEventListener("click", () => input.click());
   input.addEventListener("change", (e) => handleFiles(e.target.files));
 
-  removeBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    clearUpload();
-  });
-
-  // Drag and drop
   ["dragenter", "dragover"].forEach(ev => area.addEventListener(ev, e => { e.preventDefault(); area.classList.add("dragover"); }));
   ["dragleave", "drop"].forEach(ev => area.addEventListener(ev, e => { e.preventDefault(); area.classList.remove("dragover"); }));
-  area.addEventListener("drop", e => {
-    const files = e.dataTransfer.files;
-    if (files.length) handleFiles(files);
-  });
+  area.addEventListener("drop", e => { if (e.dataTransfer.files.length) handleFiles(e.dataTransfer.files); });
 
-  // Paste from clipboard
   document.addEventListener("paste", e => {
     const items = e.clipboardData?.items;
     if (!items) return;
+    const imgFiles = [];
     for (const item of items) {
-      if (item.type.startsWith("image/")) {
-        const file = item.getAsFile();
-        if (file) handleFiles([file]);
-        break;
-      }
+      if (item.type.startsWith("image/")) { const f = item.getAsFile(); if (f) imgFiles.push(f); }
     }
+    if (imgFiles.length) handleFiles(imgFiles);
   });
 }
 
 function handleFiles(files) {
-  const file = files[0];
-  if (!file) return;
+  let added = 0;
+  Array.from(files).forEach(file => {
+    if (!file.type.match(/^image\/(png|jpeg|webp|gif)$/)) { toast(`Skipped ${file.name} — unsupported format`, "error"); return; }
+    if (file.size > MAX_UPLOAD_MB * 1024 * 1024) { toast(`Skipped ${file.name} — over ${MAX_UPLOAD_MB}MB`, "error"); return; }
 
-  // Validate type
-  if (!file.type.match(/^image\/(png|jpeg|webp|gif)$/)) {
-    toast("Unsupported format — use PNG, JPEG, or WebP", "error");
-    return;
-  }
-
-  // Validate size
-  if (file.size > MAX_UPLOAD_MB * 1024 * 1024) {
-    toast(`Image too large — max ${MAX_UPLOAD_MB}MB (yours: ${(file.size / 1024 / 1024).toFixed(1)}MB)`, "error");
-    return;
-  }
-
-  const reader = new FileReader();
-  reader.onload = (ev) => {
-    const dataUrl = ev.target.result;
-    uploadedImageMime = file.type;
-    uploadedImageBase64 = dataUrl.split(",")[1];
-    uploadedImageName = file.name;
-
-    const preview = document.getElementById("previewImg");
-    preview.src = dataUrl;
-    preview.onload = () => {
-      document.getElementById("imgInfo").textContent = `${file.name} — ${preview.naturalWidth}×${preview.naturalHeight} — ${(file.size/1024).toFixed(0)}KB`;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const dataUrl = ev.target.result;
+      const img = new Image();
+      img.onload = () => {
+        imageGallery.push({
+          id: "img_" + (++galleryIdCounter),
+          base64: dataUrl.split(",")[1],
+          mime: file.type,
+          name: file.name,
+          width: img.naturalWidth,
+          height: img.naturalHeight,
+          size: file.size,
+          selected: imageGallery.length === 0 // Auto-select first image
+        });
+        renderGallery();
+      };
+      img.src = dataUrl;
     };
-
-    document.getElementById("uploadPlaceholder").style.display = "none";
-    document.getElementById("uploadPreview").style.display = "block";
-    toast("Image uploaded ✓", "success", 2000);
-  };
-  reader.onerror = () => toast("Failed to read image", "error");
-  reader.readAsDataURL(file);
+    reader.onerror = () => toast(`Failed to read ${file.name}`, "error");
+    reader.readAsDataURL(file);
+    added++;
+  });
+  if (added) toast(`${added} image${added > 1 ? "s" : ""} uploaded`, "success", 2000);
+  document.getElementById("fileInput").value = "";
 }
 
-function clearUpload() {
-  uploadedImageBase64 = null;
-  uploadedImageMime = null;
-  uploadedImageName = "";
-  document.getElementById("fileInput").value = "";
-  document.getElementById("uploadPlaceholder").style.display = "block";
-  document.getElementById("uploadPreview").style.display = "none";
+function toggleImageSelection(id) {
+  const img = imageGallery.find(i => i.id === id);
+  if (img) img.selected = !img.selected;
+  renderGallery();
+}
+
+function selectAllImages() { imageGallery.forEach(i => i.selected = true); renderGallery(); }
+function deselectAllImages() { imageGallery.forEach(i => i.selected = false); renderGallery(); }
+function removeImage(id) { imageGallery = imageGallery.filter(i => i.id !== id); renderGallery(); }
+function removeSelectedImages() { imageGallery = imageGallery.filter(i => !i.selected); renderGallery(); }
+function clearAllImages() { imageGallery = []; renderGallery(); }
+
+function getSelectedImages() { return imageGallery.filter(i => i.selected); }
+
+function renderGallery() {
+  const gallery = document.getElementById("imageGallery");
+  const actions = document.getElementById("galleryActions");
+  const info = document.getElementById("selectionInfo");
+  const placeholder = document.getElementById("uploadPlaceholder");
+
+  if (!imageGallery.length) {
+    gallery.innerHTML = "";
+    actions.style.display = "none";
+    info.textContent = "";
+    placeholder.style.display = "block";
+    return;
+  }
+
+  placeholder.style.display = "none";
+  actions.style.display = "flex";
+
+  gallery.innerHTML = imageGallery.map(img => `
+    <div class="thumb ${img.selected ? "selected" : ""}" onclick="toggleImageSelection('${img.id}')" title="${img.name} (${img.width}×${img.height})">
+      <img src="data:${img.mime};base64,${img.base64}" loading="lazy">
+      <div class="check">✓</div>
+      <div class="remove-x" onclick="event.stopPropagation();removeImage('${img.id}')">✕</div>
+    </div>
+  `).join("");
+
+  const sel = getSelectedImages();
+  info.textContent = `${imageGallery.length} image${imageGallery.length > 1 ? "s" : ""} uploaded, ${sel.length} selected`;
 }
 
 /* ===== CLIENT-SIDE RESIZE ===== */
 function resizeImage(fmt) {
   return new Promise((resolve, reject) => {
-    if (!uploadedImageBase64) { reject(new Error("Upload an image first")); return; }
+    const sel = getSelectedImages();
+    if (!sel.length) { reject(new Error("Upload and select an image first")); return; }
+    const srcImg = sel[0]; // Resize uses first selected image
     const img = new Image();
     img.onload = () => {
       try {
@@ -529,7 +555,7 @@ function resizeImage(fmt) {
       }
     };
     img.onerror = () => reject(new Error("Failed to load image for resize"));
-    img.src = `data:${uploadedImageMime || "image/png"};base64,${uploadedImageBase64}`;
+    img.src = `data:${srcImg.mime || "image/png"};base64,${srcImg.base64}`;
   });
 }
 
@@ -597,11 +623,13 @@ async function callImagen(prompt, fmt, key) {
 }
 
 /* ===== GEMINI (image-to-image, for AI reformat with uploaded image) ===== */
-async function callGeminiWithImage(prompt, key) {
-  const parts = [
-    { text: prompt },
-    { inlineData: { mimeType: uploadedImageMime || "image/png", data: uploadedImageBase64 } }
-  ];
+async function callGeminiWithImage(prompt, key, images) {
+  const sel = images || getSelectedImages();
+  if (!sel.length) throw new Error("No images selected");
+  const parts = [{ text: prompt }];
+  sel.forEach(img => {
+    parts.push({ inlineData: { mimeType: img.mime || "image/png", data: img.base64 } });
+  });
 
   const resp = await fetchWithTimeout(`${GOOGLE_API_BASE}/${GEMINI_MODEL}:generateContent?key=${key}`, {
     method: "POST",
@@ -657,7 +685,7 @@ async function generate() {
 
     // === RESIZE MODE (no AI) ===
     if (selectedMode === "resize") {
-      if (!uploadedImageBase64) { showError("No image uploaded", "Upload an image first, then resize"); return; }
+      if (!getSelectedImages().length) { showError("No image selected", "Upload and select an image first, then resize"); return; }
       btn.textContent = "⏳ Resizing...";
       resultArea.innerHTML = `<div class="spinner"></div><div class="status-msg">Resizing to ${fmt.w}×${fmt.h}...</div>`;
 
@@ -688,7 +716,7 @@ async function generate() {
 
     // === AI REFORMAT MODE ===
     if (selectedMode === "ai-resize") {
-      if (!uploadedImageBase64) { showError("No image uploaded", "AI Reformat needs a source image to work with"); return; }
+      if (!getSelectedImages().length) { showError("No image selected", "AI Reformat needs at least one selected image"); return; }
       btn.textContent = "⏳ Reformatting...";
       resultArea.innerHTML = `<div class="spinner"></div><div class="status-msg">AI is reformatting your image to ${fmt.w}×${fmt.h}...</div>`;
 
@@ -713,7 +741,7 @@ RULES — YOU MUST FOLLOW ALL OF THESE:
     // === GENERATE MODE ===
     // No required fields — user can generate with just brand + format + tone
 
-    const hasImage = !!uploadedImageBase64;
+    const hasImage = getSelectedImages().length > 0;
     btn.textContent = "⏳ Generating...";
 
     let imgSrc;
