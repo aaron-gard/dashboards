@@ -29,7 +29,7 @@ textarea{resize:vertical;min-height:70px}
 .format-btn:hover{border-color:var(--accent);background:var(--bg)}
 .format-btn.active{border-color:var(--accent);background:rgba(51,152,255,0.1)}
 .format-btn .dim{font-size:11px;color:var(--text2);margin-top:2px}
-.colors-row{display:flex;gap:6px;margin-top:6px}
+.colors-row{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
 .color-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);cursor:pointer;transition:transform .15s}
 .color-dot:hover{transform:scale(1.15)}
 .generate-btn{width:100%;margin-top:20px;padding:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;transition:opacity .2s}
@@ -38,12 +38,13 @@ textarea{resize:vertical;min-height:70px}
 .result-area{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px}
 .result-area.empty{color:var(--text2);font-size:14px}
 .result-area img{max-width:100%;border-radius:var(--radius);box-shadow:var(--shadow)}
-.result-actions{display:flex;gap:10px;margin-top:16px}
+.result-actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;justify-content:center}
 .result-actions button{padding:10px 20px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-family:inherit;font-size:13px;cursor:pointer;font-weight:500}
 .result-actions button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
 .spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.status-msg{margin-top:12px;font-size:13px;color:var(--text2)}
+.status-msg{margin-top:12px;font-size:13px;color:var(--text2);text-align:center}
+.error-msg{color:var(--accent2);text-align:center}
 .api-key-row{display:flex;gap:8px}
 .api-key-row input{flex:1}
 .api-key-row button{padding:10px 16px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;white-space:nowrap}
@@ -52,23 +53,56 @@ textarea{resize:vertical;min-height:70px}
 .history-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
 .history-grid img{width:100%;border-radius:8px;cursor:pointer;border:2px solid transparent;transition:border .2s}
 .history-grid img:hover{border-color:var(--accent)}
-
 .upload-area{border:2px dashed var(--border);border-radius:8px;padding:20px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;color:var(--text2);font-size:13px}
 .upload-area:hover,.upload-area.dragover{border-color:var(--accent);background:rgba(51,152,255,0.05)}
-
-/* Light mode */
+.key-status{font-size:11px;margin-top:6px;padding:4px 8px;border-radius:4px;display:inline-block}
+.key-status.ok{color:#4ade80;background:rgba(74,222,128,0.1)}
+.key-status.missing{color:var(--accent2);background:rgba(255,75,15,0.1)}
+.toast{position:fixed;top:20px;right:20px;padding:12px 20px;border-radius:8px;font-size:13px;font-family:inherit;z-index:1000;animation:slideIn .3s ease;box-shadow:var(--shadow)}
+.toast.success{background:#065f46;color:#6ee7b7;border:1px solid #10b981}
+.toast.error{background:#7f1d1d;color:#fca5a5;border:1px solid #ef4444}
+.toast.info{background:#1e3a5f;color:#93c5fd;border:1px solid #3b82f6}
+@keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+.mode-hint{font-size:11px;color:var(--text2);margin-top:8px;padding:8px;background:var(--surface2);border-radius:6px;display:none}
+.mode-hint.visible{display:block}
 .light{--bg:#f5f6f8;--surface:#ffffff;--surface2:#f0f1f4;--border:#e0e2e8;--text:#1a1d27;--text2:#6b7280;--shadow:0 4px 24px rgba(0,0,0,0.08)}
 </style>
 </head>
 <body>
 <div class="container">
   <header>
-    <h1>🎨 <span>Content</span> Generator <span class="badge">v1</span></h1>
+    <h1>🎨 <span>Content</span> Generator <span class="badge">v2</span></h1>
     <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
   </header>
   <div class="layout">
     <div>
+      <!-- API Key — first, so users set it up before anything else -->
       <div class="panel">
+        <h2>⚙️ Google AI Studio Key</h2>
+        <div class="api-key-row">
+          <input id="googleKey" type="password" placeholder="AIza...">
+          <button onclick="saveKey()">Save</button>
+        </div>
+        <div id="keyStatus"></div>
+      </div>
+
+      <div class="panel" style="margin-top:16px">
+        <h2>Mode</h2>
+        <div class="formats">
+          <div class="format-btn active" data-mode="generate" onclick="selectMode('generate')">
+            ✨ Generate<div class="dim">AI creates from brief</div>
+          </div>
+          <div class="format-btn" data-mode="resize" onclick="selectMode('resize')">
+            📐 Resize Only<div class="dim">Fit image to new size</div>
+          </div>
+          <div class="format-btn" data-mode="ai-resize" onclick="selectMode('ai-resize')">
+            🪄 AI Reformat<div class="dim">AI extends to new ratio</div>
+          </div>
+        </div>
+        <div class="mode-hint" id="modeHint"></div>
+      </div>
+
+      <div class="panel" style="margin-top:16px">
         <h2>Brand</h2>
         <select id="brand" onchange="loadBrand()">
           <option value="sns">Shoes & Sox</option>
@@ -95,7 +129,7 @@ textarea{resize:vertical;min-height:70px}
         <div class="colors-row" id="colorsRow"></div>
       </div>
 
-      <div class="panel" style="margin-top:16px">
+      <div class="panel" style="margin-top:16px" id="briefPanel">
         <h2>Brief</h2>
         <label>Campaign Name</label>
         <input id="campaign" placeholder="e.g. Back to School 2026">
@@ -113,6 +147,8 @@ textarea{resize:vertical;min-height:70px}
           <option value="premium and sophisticated">Premium & Sophisticated</option>
           <option value="warm and family-friendly">Warm & Family-friendly</option>
         </select>
+        <label>Additional Instructions (optional)</label>
+        <textarea id="extra" rows="2" placeholder="e.g. Use orange background, add 20% OFF badge..."></textarea>
       </div>
 
       <div class="panel" style="margin-top:16px">
@@ -120,61 +156,32 @@ textarea{resize:vertical;min-height:70px}
         <div class="formats" id="formats"></div>
         <div id="customDims" style="display:none;margin-top:10px">
           <div style="display:flex;gap:8px;align-items:center">
-            <input id="customW" type="number" placeholder="Width" style="width:50%"> 
+            <input id="customW" type="number" placeholder="Width" min="100" max="4096" style="width:50%">
             <span style="color:var(--text2)">×</span>
-            <input id="customH" type="number" placeholder="Height" style="width:50%">
+            <input id="customH" type="number" placeholder="Height" min="100" max="4096" style="width:50%">
             <span style="color:var(--text2);font-size:12px;white-space:nowrap">px</span>
           </div>
         </div>
       </div>
 
       <div class="panel" style="margin-top:16px">
-        <h2>📸 Reference Image (optional)</h2>
-        <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
-          <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleUpload(event)">
+        <h2>📸 Reference Image <span id="imgRequired" style="font-size:11px;color:var(--text2)">(optional)</span></h2>
+        <div class="upload-area" id="uploadArea">
+          <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp,image/gif" style="display:none">
           <div id="uploadPlaceholder">
             <div style="font-size:28px;margin-bottom:8px">📁</div>
             <div>Drop an image here or click to upload</div>
-            <div style="font-size:11px;color:var(--text2);margin-top:4px">Product photo, campaign asset, or any source image to reformat</div>
+            <div style="font-size:11px;color:var(--text2);margin-top:4px">PNG, JPEG, WebP — max 10MB</div>
           </div>
           <div id="uploadPreview" style="display:none">
             <img id="previewImg" style="max-width:100%;max-height:180px;border-radius:8px">
-            <button onclick="clearUpload(event)" style="margin-top:8px;padding:4px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text2);cursor:pointer;font-size:12px">✕ Remove</button>
+            <div id="imgInfo" style="font-size:11px;color:var(--text2);margin-top:4px"></div>
+            <button id="removeBtn" style="margin-top:8px;padding:4px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text2);cursor:pointer;font-size:12px">✕ Remove</button>
           </div>
         </div>
       </div>
 
-      <div class="panel" style="margin-top:16px">
-        <h2>Style Options</h2>
-        <label>Additional Instructions (optional)</label>
-        <textarea id="extra" rows="3" placeholder="e.g. Include kids playing, use orange background, add 20% OFF badge..."></textarea>
-      </div>
-
-      <div class="panel" style="margin-top:16px">
-        <h2>Mode</h2>
-        <div class="formats">
-          <div class="format-btn active" data-mode="generate" onclick="selectMode('generate')">
-            ✨ Generate<div class="dim">AI creates from brief</div>
-          </div>
-          <div class="format-btn" data-mode="resize" onclick="selectMode('resize')">
-            📐 Resize Only<div class="dim">Crop/fit uploaded image</div>
-          </div>
-          <div class="format-btn" data-mode="ai-resize" onclick="selectMode('ai-resize')">
-            🪄 AI Reformat<div class="dim">AI extends to new ratio</div>
-          </div>
-        </div>
-      </div>
-
-      <button class="generate-btn" id="genBtn" onclick="generate()">✨ Generate Image</button>
-
-      <div class="panel" style="margin-top:16px">
-        <h2>⚙️ API Key</h2>
-        <label>Google AI Studio Key</label>
-        <div class="api-key-row">
-          <input id="googleKey" type="password" placeholder="AIza...">
-          <button onclick="saveKey()">Save</button>
-        </div>
-      </div>
+      <button class="generate-btn" id="genBtn">✨ Generate Image</button>
     </div>
 
     <div>
@@ -188,6 +195,7 @@ textarea{resize:vertical;min-height:70px}
         <div class="panel">
           <h3>Recent Generations</h3>
           <div class="history-grid" id="historyGrid"></div>
+          <button onclick="clearHistory()" style="margin-top:10px;padding:6px 12px;background:none;border:1px solid var(--border);border-radius:6px;color:var(--text2);cursor:pointer;font-size:11px">Clear history</button>
         </div>
       </div>
     </div>
@@ -195,26 +203,27 @@ textarea{resize:vertical;min-height:70px}
 </div>
 
 <script>
+/* ===== CONFIG ===== */
 const BRANDS={
   sns:{name:"Shoes & Sox",colors:["#FF4B0F","#FDC145","#3398FF","#389810","#1E1E1E","#FFFFFF"],logo:"https://shoesandsox.com.au/cdn/shop/files/SNS_Logo_Responsive.svg",desc:"Australian children's footwear retailer"},
-  review:{name:"Review",colors:["#000000","#C4A87C","#FFFFFF","#F5F0EB"],logo:"",desc:"Women's fashion brand known for feminine, vintage-inspired designs"},
-  blackpepper:{name:"Black Pepper",colors:["#000000","#FFFFFF","#8B6F4E"],logo:"",desc:"Women's fashion brand for modern everyday style"},
-  elka:{name:"Elka Collective",colors:["#000000","#FFFFFF","#C4A87C"],logo:"",desc:"Premium contemporary women's fashion"},
-  champion:{name:"Champion",colors:["#D50032","#003DA5","#FFFFFF","#000000"],logo:"",desc:"Iconic sportswear and athletic apparel"},
-  superdry:{name:"Superdry",colors:["#000000","#FF6600","#FFFFFF"],logo:"",desc:"British-inspired fashion with Japanese graphics"},
-  reebok:{name:"Reebok",colors:["#000000","#E41134","#FFFFFF"],logo:"",desc:"Athletic footwear and apparel"},
-  hushpuppies:{name:"Hush Puppies",colors:["#8B4513","#D2691E","#FFFFFF","#F5F0EB"],logo:"",desc:"Casual comfort footwear"},
-  juliusmarlow:{name:"Julius Marlow",colors:["#1A1A1A","#8B6F4E","#FFFFFF"],logo:"",desc:"Men's footwear - smart casual to formal"},
-  volley:{name:"Volley",colors:["#003DA5","#FFD700","#FFFFFF","#008000"],logo:"",desc:"Iconic Australian canvas sneakers"},
-  clarks:{name:"Clarks",colors:["#000000","#8B4513","#FFFFFF"],logo:"",desc:"Heritage footwear craftsmanship since 1825"},
-  everlast:{name:"Everlast",colors:["#000000","#FF0000","#FFFFFF"],logo:"",desc:"Boxing and fitness apparel"},
-  yarratrail:{name:"Yarra Trail",colors:["#2C3E50","#8E6F5E","#FFFFFF","#F5F0EB"],logo:"",desc:"Relaxed Australian women's fashion"},
-  shoewarehouse:{name:"Shoe Warehouse",colors:["#FF0000","#000000","#FFFFFF","#FFD700"],logo:"",desc:"Value footwear retailer"},
-  umbro:{name:"Umbro",colors:["#000000","#FFFFFF","#003DA5"],logo:"",desc:"Football and sportswear heritage brand"},
-  happysocks:{name:"Happy Socks",colors:["#FF6B6B","#4ECDC4","#FFE66D","#2C3E50","#FFFFFF"],logo:"",desc:"Colorful, playful socks and underwear"},
-  marcopolo:{name:"Marco Polo",colors:["#000000","#8B6F4E","#FFFFFF","#2C3E50"],logo:"",desc:"Relaxed women's fashion with natural fabrics"},
-  harrison:{name:"Harrison",colors:["#000000","#8B4513","#FFFFFF"],logo:"",desc:"Men's dress and business footwear"},
-  replay:{name:"Replay Jeans",colors:["#000000","#C41230","#FFFFFF","#1A1A1A"],logo:"",desc:"Italian denim and casual fashion"}
+  review:{name:"Review",colors:["#000000","#C4A87C","#FFFFFF","#F5F0EB"],desc:"Women's fashion brand known for feminine, vintage-inspired designs"},
+  blackpepper:{name:"Black Pepper",colors:["#000000","#FFFFFF","#8B6F4E"],desc:"Women's fashion brand for modern everyday style"},
+  elka:{name:"Elka Collective",colors:["#000000","#FFFFFF","#C4A87C"],desc:"Premium contemporary women's fashion"},
+  champion:{name:"Champion",colors:["#D50032","#003DA5","#FFFFFF","#000000"],desc:"Iconic sportswear and athletic apparel"},
+  superdry:{name:"Superdry",colors:["#000000","#FF6600","#FFFFFF"],desc:"British-inspired fashion with Japanese graphics"},
+  reebok:{name:"Reebok",colors:["#000000","#E41134","#FFFFFF"],desc:"Athletic footwear and apparel"},
+  hushpuppies:{name:"Hush Puppies",colors:["#8B4513","#D2691E","#FFFFFF","#F5F0EB"],desc:"Casual comfort footwear"},
+  juliusmarlow:{name:"Julius Marlow",colors:["#1A1A1A","#8B6F4E","#FFFFFF"],desc:"Men's footwear — smart casual to formal"},
+  volley:{name:"Volley",colors:["#003DA5","#FFD700","#FFFFFF","#008000"],desc:"Iconic Australian canvas sneakers"},
+  clarks:{name:"Clarks",colors:["#000000","#8B4513","#FFFFFF"],desc:"Heritage footwear craftsmanship since 1825"},
+  everlast:{name:"Everlast",colors:["#000000","#FF0000","#FFFFFF"],desc:"Boxing and fitness apparel"},
+  yarratrail:{name:"Yarra Trail",colors:["#2C3E50","#8E6F5E","#FFFFFF","#F5F0EB"],desc:"Relaxed Australian women's fashion"},
+  shoewarehouse:{name:"Shoe Warehouse",colors:["#FF0000","#000000","#FFFFFF","#FFD700"],desc:"Value footwear retailer"},
+  umbro:{name:"Umbro",colors:["#000000","#FFFFFF","#003DA5"],desc:"Football and sportswear heritage brand"},
+  happysocks:{name:"Happy Socks",colors:["#FF6B6B","#4ECDC4","#FFE66D","#2C3E50","#FFFFFF"],desc:"Colorful, playful socks and underwear"},
+  marcopolo:{name:"Marco Polo",colors:["#000000","#8B6F4E","#FFFFFF","#2C3E50"],desc:"Relaxed women's fashion with natural fabrics"},
+  harrison:{name:"Harrison",colors:["#000000","#8B4513","#FFFFFF"],desc:"Men's dress and business footwear"},
+  replay:{name:"Replay Jeans",colors:["#000000","#C41230","#FFFFFF","#1A1A1A"],desc:"Italian denim and casual fashion"}
 };
 
 const FORMATS=[
@@ -227,354 +236,574 @@ const FORMATS=[
   {id:"custom",name:"Custom",w:0,h:0}
 ];
 
-let selectedFormat="hero";
-let selectedModel="imagen";
-let uploadedImageBase64=null;
-let uploadedImageMime=null;
-let selectedMode="generate";
-let history=JSON.parse(localStorage.getItem("cg_history")||"[]");
+const MAX_UPLOAD_MB = 10;
+const IMAGEN_MODEL = "imagen-4.0-ultra-generate-001";
+const GEMINI_MODEL = "gemini-2.0-flash-exp-image-generation";
+const GOOGLE_API_BASE = "https://generativelanguage.googleapis.com/v1beta/models";
 
-function init(){
-  const fmtDiv=document.getElementById("formats");
-  FORMATS.forEach(f=>{
-    const dimLabel=f.id==="custom"?"Any size":`${f.w}×${f.h}`;
-    fmtDiv.innerHTML+=`<div class="format-btn ${f.id===selectedFormat?'active':''}" data-id="${f.id}" onclick="selectFormat('${f.id}')">
-      ${f.name}<div class="dim">${dimLabel}</div></div>`;
+/* ===== STATE ===== */
+let selectedFormat = "hero";
+let selectedMode = "generate";
+let uploadedImageBase64 = null;
+let uploadedImageMime = null;
+let uploadedImageName = "";
+let isGenerating = false;
+let genHistory = [];
+
+try { genHistory = JSON.parse(localStorage.getItem("cg_history") || "[]"); } catch(e) { genHistory = []; }
+
+/* ===== TOAST NOTIFICATIONS ===== */
+function toast(msg, type="info", duration=4000) {
+  const el = document.createElement("div");
+  el.className = `toast ${type}`;
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => { el.style.opacity = "0"; el.style.transition = "opacity .3s"; setTimeout(() => el.remove(), 300); }, duration);
+}
+
+/* ===== SHOW ERROR IN RESULT AREA ===== */
+function showError(msg, hint) {
+  const ra = document.getElementById("resultArea");
+  ra.innerHTML = `<div style="text-align:center">
+    <p class="error-msg" style="font-size:15px">❌ ${escHtml(msg)}</p>
+    ${hint ? `<p style="margin-top:8px;font-size:12px;color:var(--text2)">${escHtml(hint)}</p>` : ""}
+    <button onclick="generate()" style="margin-top:16px;padding:8px 20px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);cursor:pointer;font-size:13px">Try Again</button>
+  </div>`;
+}
+
+function escHtml(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+
+/* ===== KEY MANAGEMENT ===== */
+function saveKey() {
+  const val = document.getElementById("googleKey").value.trim();
+  if (!val) { toast("Enter a key first", "error"); return; }
+  if (!val.startsWith("AIza")) { toast("Key should start with AIza...", "error"); return; }
+  localStorage.setItem("cg_googlekey", val);
+  toast("API key saved ✓", "success");
+  updateKeyStatus();
+}
+
+function getKey() {
+  return document.getElementById("googleKey").value.trim() || localStorage.getItem("cg_googlekey") || "";
+}
+
+function updateKeyStatus() {
+  const el = document.getElementById("keyStatus");
+  const key = getKey();
+  if (key) {
+    el.innerHTML = `<span class="key-status ok">✓ Key saved (${key.slice(0,8)}...)</span>`;
+  } else {
+    el.innerHTML = `<span class="key-status missing">⚠ No key — get one free at <a href="https://aistudio.google.com" target="_blank" style="color:var(--accent)">aistudio.google.com</a></span>`;
+  }
+}
+
+/* ===== BRAND ===== */
+function loadBrand() {
+  const b = BRANDS[document.getElementById("brand").value];
+  if (!b) return;
+  const row = document.getElementById("colorsRow");
+  row.innerHTML = "";
+  b.colors.forEach(c => {
+    const dot = document.createElement("div");
+    dot.className = "color-dot";
+    dot.style.background = c;
+    dot.title = c;
+    dot.onclick = () => { navigator.clipboard.writeText(c).then(() => toast(`Copied ${c}`, "info", 1500)); };
+    row.appendChild(dot);
   });
-  document.getElementById("googleKey").value=localStorage.getItem("cg_googlekey")||"";
-  loadBrand();
-  renderHistory();
 }
 
-function selectModel(m){
-  selectedModel=m;
-  document.querySelectorAll("[data-model]").forEach(el=>{
-    el.classList.toggle("active",el.dataset.model===m);
+/* ===== FORMAT ===== */
+function selectFormat(id) {
+  selectedFormat = id;
+  document.querySelectorAll("[data-fid]").forEach(el => {
+    el.classList.toggle("active", el.dataset.fid === id);
   });
+  document.getElementById("customDims").style.display = id === "custom" ? "block" : "none";
 }
 
-function loadBrand(){
-  const b=BRANDS[document.getElementById("brand").value];
-  const row=document.getElementById("colorsRow");
-  row.innerHTML="";
-  b.colors.forEach(c=>{
-    row.innerHTML+=`<div class="color-dot" style="background:${c}" title="${c}"></div>`;
+function getFormat() {
+  let fmt = FORMATS.find(f => f.id === selectedFormat);
+  if (!fmt) fmt = FORMATS[0];
+  if (fmt.id === "custom") {
+    const cw = parseInt(document.getElementById("customW").value) || 0;
+    const ch = parseInt(document.getElementById("customH").value) || 0;
+    if (cw < 100 || ch < 100 || cw > 4096 || ch > 4096) return null;
+    return { ...fmt, w: cw, h: ch, name: `Custom ${cw}×${ch}` };
+  }
+  return fmt;
+}
+
+/* ===== MODE ===== */
+function selectMode(m) {
+  selectedMode = m;
+  document.querySelectorAll("[data-mode]").forEach(el => {
+    el.classList.toggle("active", el.dataset.mode === m);
   });
+
+  const btn = document.getElementById("genBtn");
+  const hint = document.getElementById("modeHint");
+  const briefPanel = document.getElementById("briefPanel");
+  const imgLabel = document.getElementById("imgRequired");
+
+  if (m === "resize") {
+    btn.textContent = "📐 Resize Image";
+    hint.textContent = "Upload an image → pick a format → resize. No AI needed, instant result. Image is fit to target without cropping.";
+    hint.classList.add("visible");
+    briefPanel.style.display = "none";
+    imgLabel.textContent = "(required)";
+  } else if (m === "ai-resize") {
+    btn.textContent = "🪄 AI Reformat";
+    hint.textContent = "Upload an image and the AI will intelligently adapt it to the new aspect ratio, extending or filling as needed.";
+    hint.classList.add("visible");
+    briefPanel.style.display = "block";
+    imgLabel.textContent = "(required)";
+  } else {
+    btn.textContent = "✨ Generate Image";
+    hint.textContent = "";
+    hint.classList.remove("visible");
+    briefPanel.style.display = "block";
+    imgLabel.textContent = "(optional)";
+  }
 }
 
-function selectFormat(id){
-  selectedFormat=id;
-  document.querySelectorAll(".format-btn").forEach(el=>{
-    el.classList.toggle("active",el.dataset.id===id);
+/* ===== IMAGE UPLOAD ===== */
+function setupUpload() {
+  const area = document.getElementById("uploadArea");
+  const input = document.getElementById("fileInput");
+  const removeBtn = document.getElementById("removeBtn");
+
+  area.addEventListener("click", (e) => {
+    if (e.target === removeBtn || removeBtn.contains(e.target)) return;
+    input.click();
   });
-  document.getElementById("customDims").style.display=id==="custom"?"block":"none";
-}
 
-function handleUpload(e){
-  const file=e.target.files[0];
-  if(!file)return;
-  const reader=new FileReader();
-  reader.onload=function(ev){
-    const dataUrl=ev.target.result;
-    uploadedImageMime=file.type||"image/png";
-    uploadedImageBase64=dataUrl.split(",")[1];
-    document.getElementById("previewImg").src=dataUrl;
-    document.getElementById("uploadPlaceholder").style.display="none";
-    document.getElementById("uploadPreview").style.display="block";
-  };
-  reader.readAsDataURL(file);
-}
-function clearUpload(e){
-  if(e)e.stopPropagation();
-  uploadedImageBase64=null;uploadedImageMime=null;
-  document.getElementById("fileInput").value="";
-  document.getElementById("uploadPlaceholder").style.display="block";
-  document.getElementById("uploadPreview").style.display="none";
-}
-// Drag and drop
-(function(){
-  const area=document.getElementById("uploadArea");
-  if(!area)return;
-  ["dragenter","dragover"].forEach(ev=>area.addEventListener(ev,e=>{e.preventDefault();area.classList.add("dragover")}));
-  ["dragleave","drop"].forEach(ev=>area.addEventListener(ev,e=>{e.preventDefault();area.classList.remove("dragover")}));
-  area.addEventListener("drop",e=>{
-    const file=e.dataTransfer.files[0];
-    if(file&&file.type.startsWith("image/")){
-      const dt=new DataTransfer();dt.items.add(file);
-      document.getElementById("fileInput").files=dt.files;
-      handleUpload({target:{files:[file]}});
+  input.addEventListener("change", (e) => handleFiles(e.target.files));
+
+  removeBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    clearUpload();
+  });
+
+  // Drag and drop
+  ["dragenter", "dragover"].forEach(ev => area.addEventListener(ev, e => { e.preventDefault(); area.classList.add("dragover"); }));
+  ["dragleave", "drop"].forEach(ev => area.addEventListener(ev, e => { e.preventDefault(); area.classList.remove("dragover"); }));
+  area.addEventListener("drop", e => {
+    const files = e.dataTransfer.files;
+    if (files.length) handleFiles(files);
+  });
+
+  // Paste from clipboard
+  document.addEventListener("paste", e => {
+    const items = e.clipboardData?.items;
+    if (!items) return;
+    for (const item of items) {
+      if (item.type.startsWith("image/")) {
+        const file = item.getAsFile();
+        if (file) handleFiles([file]);
+        break;
+      }
     }
   });
-})();
-
-function selectMode(m){
-  selectedMode=m;
-  document.querySelectorAll("[data-mode]").forEach(el=>{
-    el.classList.toggle("active",el.dataset.mode===m);
-  });
-  const btn=document.getElementById("genBtn");
-  if(m==="resize") btn.textContent="📐 Resize Image";
-  else if(m==="ai-resize") btn.textContent="🪄 AI Reformat";
-  else btn.textContent="✨ Generate Image";
 }
 
-function resizeImage(fmt){
-  return new Promise((resolve,reject)=>{
-    if(!uploadedImageBase64){reject(new Error("Upload an image first"));return}
-    const img=new Image();
-    img.onload=()=>{
-      const canvas=document.createElement("canvas");
-      canvas.width=fmt.w;canvas.height=fmt.h;
-      const ctx=canvas.getContext("2d");
+function handleFiles(files) {
+  const file = files[0];
+  if (!file) return;
 
-      // Step 1: Draw blurred, scaled-up version as background fill
-      ctx.save();
-      ctx.filter="blur(40px)";
-      const bgScale=Math.max(fmt.w/img.width,fmt.h/img.height)*1.2;
-      const bgW=img.width*bgScale,bgH=img.height*bgScale;
-      ctx.drawImage(img,(fmt.w-bgW)/2,(fmt.h-bgH)/2,bgW,bgH);
-      ctx.restore();
+  // Validate type
+  if (!file.type.match(/^image\/(png|jpeg|webp|gif)$/)) {
+    toast("Unsupported format — use PNG, JPEG, or WebP", "error");
+    return;
+  }
 
-      // Step 2: Slight darken overlay for contrast
-      ctx.fillStyle="rgba(0,0,0,0.15)";
-      ctx.fillRect(0,0,fmt.w,fmt.h);
+  // Validate size
+  if (file.size > MAX_UPLOAD_MB * 1024 * 1024) {
+    toast(`Image too large — max ${MAX_UPLOAD_MB}MB (yours: ${(file.size / 1024 / 1024).toFixed(1)}MB)`, "error");
+    return;
+  }
 
-      // Step 3: Contain-fit the original image (no crop)
-      const scale=Math.min(fmt.w/img.width,fmt.h/img.height);
-      const dw=img.width*scale,dh=img.height*scale;
-      const dx=(fmt.w-dw)/2,dy=(fmt.h-dh)/2;
-      ctx.drawImage(img,0,0,img.width,img.height,dx,dy,dw,dh);
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    const dataUrl = ev.target.result;
+    uploadedImageMime = file.type;
+    uploadedImageBase64 = dataUrl.split(",")[1];
+    uploadedImageName = file.name;
 
-      resolve(canvas.toDataURL("image/png"));
+    const preview = document.getElementById("previewImg");
+    preview.src = dataUrl;
+    preview.onload = () => {
+      document.getElementById("imgInfo").textContent = `${file.name} — ${preview.naturalWidth}×${preview.naturalHeight} — ${(file.size/1024).toFixed(0)}KB`;
     };
-    img.onerror=()=>reject(new Error("Failed to load image"));
-    img.src=`data:${uploadedImageMime||"image/png"};base64,${uploadedImageBase64}`;
+
+    document.getElementById("uploadPlaceholder").style.display = "none";
+    document.getElementById("uploadPreview").style.display = "block";
+    toast("Image uploaded ✓", "success", 2000);
+  };
+  reader.onerror = () => toast("Failed to read image", "error");
+  reader.readAsDataURL(file);
+}
+
+function clearUpload() {
+  uploadedImageBase64 = null;
+  uploadedImageMime = null;
+  uploadedImageName = "";
+  document.getElementById("fileInput").value = "";
+  document.getElementById("uploadPlaceholder").style.display = "block";
+  document.getElementById("uploadPreview").style.display = "none";
+}
+
+/* ===== CLIENT-SIDE RESIZE ===== */
+function resizeImage(fmt) {
+  return new Promise((resolve, reject) => {
+    if (!uploadedImageBase64) { reject(new Error("Upload an image first")); return; }
+    const img = new Image();
+    img.onload = () => {
+      try {
+        const canvas = document.createElement("canvas");
+        canvas.width = fmt.w;
+        canvas.height = fmt.h;
+        const ctx = canvas.getContext("2d");
+
+        // Background: blurred scaled version of the image
+        ctx.save();
+        ctx.filter = "blur(40px)";
+        const bgScale = Math.max(fmt.w / img.width, fmt.h / img.height) * 1.2;
+        const bgW = img.width * bgScale, bgH = img.height * bgScale;
+        ctx.drawImage(img, (fmt.w - bgW) / 2, (fmt.h - bgH) / 2, bgW, bgH);
+        ctx.restore();
+
+        // Darken overlay
+        ctx.fillStyle = "rgba(0,0,0,0.15)";
+        ctx.fillRect(0, 0, fmt.w, fmt.h);
+
+        // Contain-fit (no crop, full image visible)
+        const scale = Math.min(fmt.w / img.width, fmt.h / img.height);
+        const dw = img.width * scale, dh = img.height * scale;
+        const dx = (fmt.w - dw) / 2, dy = (fmt.h - dh) / 2;
+        ctx.drawImage(img, 0, 0, img.width, img.height, dx, dy, dw, dh);
+
+        resolve(canvas.toDataURL("image/png"));
+      } catch (err) {
+        reject(new Error("Resize failed: " + err.message));
+      }
+    };
+    img.onerror = () => reject(new Error("Failed to load image for resize"));
+    img.src = `data:${uploadedImageMime || "image/png"};base64,${uploadedImageBase64}`;
   });
 }
 
-function saveKey(){
-  localStorage.setItem("cg_googlekey",document.getElementById("googleKey").value.trim());
-  alert("Key saved");
-}
-
-function getKey(){
-  return document.getElementById("googleKey").value.trim()||localStorage.getItem("cg_googlekey")||"";
-}
-
-function buildPrompt(brand,fmt,campaign,headline,body,product,tone,extra,hasImage){
-  return `${hasImage?"Reformat and restyle the provided reference image as a":"Create a"} professional promotional banner image for ${brand.name} (${brand.desc}).${hasImage?"\nUse the uploaded image as the primary visual reference. Maintain the key subject/product from the image but adapt it to fit the target format and brand style.":""}
+/* ===== PROMPT BUILDER ===== */
+function buildPrompt(brand, fmt, fields, hasImage) {
+  const { campaign, headline, body, product, tone, extra } = fields;
+  return `${hasImage ? "Reformat and restyle the provided reference image as a" : "Create a"} professional promotional banner image for ${brand.name} (${brand.desc}).${hasImage ? "\nUse the uploaded image as the primary visual reference. Maintain the key subject/product from the image but adapt it to fit the target format and brand style." : ""}
 
 BRAND GUIDELINES:
 - Brand colors: ${brand.colors.join(", ")}
 - Design style: ${tone}
-${brand.logo?`- Include the brand logo/name prominently`:`- Include the brand name "${brand.name}" as text in the design`}
+- Include the brand name "${brand.name}" as text in the design
 
 CONTENT:
-${campaign?`- Campaign: ${campaign}`:""}
-${headline?`- Headline text: "${headline}"`:""}
-${body?`- Supporting copy: "${body}"`:""}
-${product?`- Product/category focus: ${product}`:""}
+${campaign ? `- Campaign: ${campaign}` : ""}
+${headline ? `- Headline text: "${headline}"` : ""}
+${body ? `- Supporting copy: "${body}"` : ""}
+${product ? `- Product/category focus: ${product}` : ""}
 
 REQUIREMENTS:
-- Dimensions: ${fmt.w}x${fmt.h} pixels (${fmt.w>fmt.h?"landscape":fmt.w===fmt.h?"square":"portrait"} orientation)
+- Dimensions: ${fmt.w}x${fmt.h} pixels (${fmt.w > fmt.h ? "landscape" : fmt.w === fmt.h ? "square" : "portrait"} orientation)
 - Make it retail-ready and professional
 - Use the brand colors as the primary palette
 - Text should be legible and well-positioned
 - Clean, modern design suitable for web/digital use
-${extra?`- Additional instructions: ${extra}`:""}
+${extra ? `- Additional instructions: ${extra}` : ""}
 
 This is for a major Australian retail brand. The image must look polished and commercially viable.`;
 }
 
-async function generateGeminiWithImage(prompt,key){
-  const parts=[{text:prompt},{inlineData:{mimeType:uploadedImageMime||"image/png",data:uploadedImageBase64}}];
-  const resp=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:generateContent?key=${key}`,{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({
-      contents:[{parts}],
-      generationConfig:{responseModalities:["TEXT","IMAGE"],responseMimeType:"text/plain"}
+/* ===== IMAGEN 4 ULTRA (text-to-image) ===== */
+async function callImagen(prompt, fmt, key) {
+  const ratio = fmt.w / fmt.h;
+  let aspectRatio = "1:1";
+  if (ratio > 1.6) aspectRatio = "16:9";
+  else if (ratio > 1.2) aspectRatio = "4:3";
+  else if (ratio > 0.9) aspectRatio = "1:1";
+  else if (ratio > 0.6) aspectRatio = "3:4";
+  else aspectRatio = "9:16";
+
+  const resp = await fetchWithTimeout(`${GOOGLE_API_BASE}/${IMAGEN_MODEL}:predict?key=${key}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      instances: [{ prompt }],
+      parameters: { sampleCount: 1, aspectRatio }
     })
-  });
-  if(!resp.ok){
-    const err=await resp.json().catch(()=>({}));
-    throw new Error(err.error?.message||`Gemini API error ${resp.status}`);
-  }
-  const data=await resp.json();
-  const resParts=data.candidates?.[0]?.content?.parts||[];
-  const imgPart=resParts.find(p=>p.inlineData);
-  if(!imgPart) throw new Error("No image returned — try a different prompt");
-  return `data:${imgPart.inlineData.mimeType};base64,${imgPart.inlineData.data}`;
-}
+  }, 60000);
 
-async function generateImagen(prompt,fmt,key){
-  // Map format to Imagen aspect ratios
-  const ratio=fmt.w/fmt.h;
-  let aspectRatio="1:1";
-  if(ratio>1.6) aspectRatio="16:9";
-  else if(ratio>1.2) aspectRatio="4:3";
-  else if(ratio>0.9) aspectRatio="1:1";
-  else if(ratio>0.6) aspectRatio="3:4";
-  else aspectRatio="9:16";
-
-  const body={
-    instances:[{prompt:prompt}],
-    parameters:{sampleCount:1,aspectRatio:aspectRatio}
-  };
-  // Imagen 4 Ultra is text-to-image only — no reference image support.
-  // If image uploaded, we fall back to Gemini 3 Pro Image.
-  if(uploadedImageBase64){
-    return generateGeminiWithImage(prompt,key);
+  if (!resp.ok) {
+    const err = await resp.json().catch(() => ({}));
+    const msg = err.error?.message || `Imagen API error (${resp.status})`;
+    if (resp.status === 403 || msg.includes("billed")) throw new Error("Imagen requires a billed Google Cloud account. Enable billing at console.cloud.google.com");
+    if (resp.status === 429) throw new Error("Rate limited — wait a moment and try again");
+    if (resp.status === 400 && msg.includes("safety")) throw new Error("Content blocked by safety filter — try different wording");
+    throw new Error(msg);
   }
 
-  const resp=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-ultra-generate-001:predict?key=${key}`,{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify(body)
-  });
-  if(!resp.ok){
-    const err=await resp.json().catch(()=>({}));
-    throw new Error(err.error?.message||`Imagen API error ${resp.status}`);
-  }
-  const data=await resp.json();
-  const predictions=data.predictions||[];
-  if(!predictions.length) throw new Error("No image returned — try a different prompt");
-  const b64=predictions[0].bytesBase64Encoded;
-  if(!b64) throw new Error("No image data in response");
+  const data = await resp.json();
+  const predictions = data.predictions || [];
+  if (!predictions.length) throw new Error("No image returned — the model may have filtered this prompt. Try different wording.");
+  const b64 = predictions[0].bytesBase64Encoded;
+  if (!b64) throw new Error("Empty image data in response");
   return `data:image/png;base64,${b64}`;
 }
 
-async function generate(){
-  try{ return await _generate(); }catch(e){
-    console.error("Generate error:",e);
-    document.getElementById("resultArea").innerHTML=`<div class="result-area empty"><p style="color:var(--accent2)">❌ ${e.message||e}</p></div>`;
-    document.getElementById("genBtn").disabled=false;
-  }
-}
-async function _generate(){
-  // Handle resize-only mode (no AI needed)
-  if(selectedMode==="resize"){
-    if(!uploadedImageBase64){alert("Upload an image first");return}
-    let fmt=FORMATS.find(f=>f.id===selectedFormat);
-    if(fmt.id==="custom"){
-      const cw=parseInt(document.getElementById("customW").value);
-      const ch=parseInt(document.getElementById("customH").value);
-      if(!cw||!ch||cw<100||ch<100){alert("Enter custom dimensions (min 100px)");return}
-      fmt={...fmt,w:cw,h:ch,name:`Custom ${cw}×${ch}`};
-    }
-    const btn=document.getElementById("genBtn");
-    btn.disabled=true;
-    const resultArea=document.getElementById("resultArea");
-    resultArea.innerHTML=`<div class="spinner"></div><div class="status-msg">Resizing to ${fmt.w}×${fmt.h}...</div>`;
-    try{
-      const imgSrc=await resizeImage(fmt);
-      resultArea.innerHTML=`<img src="${imgSrc}" alt="Resized image">
-        <div class="result-actions">
-          <button class="primary" onclick="downloadImg()">⬇️ Download</button>
-        </div>
-        <div class="status-msg">Resized to ${fmt.w}×${fmt.h}</div>`;
-      history.unshift({src:imgSrc,brand:"Resize",campaign:`${fmt.w}×${fmt.h}`,format:fmt.name,model:"Resize",time:Date.now()});
-      if(history.length>12)history=history.slice(0,12);
-      try{localStorage.setItem("cg_history",JSON.stringify(history))}catch(e){}
-      renderHistory();
-    }catch(e){
-      resultArea.innerHTML=`<div class="result-area empty"><p style="color:var(--accent2)">❌ ${e.message}</p></div>`;
-    }
-    btn.disabled=false;btn.textContent="📐 Resize Image";
-    return;
+/* ===== GEMINI (image-to-image, for AI reformat with uploaded image) ===== */
+async function callGeminiWithImage(prompt, key) {
+  const parts = [
+    { text: prompt },
+    { inlineData: { mimeType: uploadedImageMime || "image/png", data: uploadedImageBase64 } }
+  ];
+
+  const resp = await fetchWithTimeout(`${GOOGLE_API_BASE}/${GEMINI_MODEL}:generateContent?key=${key}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      contents: [{ parts }],
+      generationConfig: { responseModalities: ["TEXT", "IMAGE"], responseMimeType: "text/plain" }
+    })
+  }, 60000);
+
+  if (!resp.ok) {
+    const err = await resp.json().catch(() => ({}));
+    const msg = err.error?.message || `Gemini API error (${resp.status})`;
+    if (resp.status === 429) throw new Error("Rate limited — wait 30 seconds and try again");
+    throw new Error(msg);
   }
 
-  const key=getKey();
-  if(!key){
-    const resultArea=document.getElementById("resultArea");
-    resultArea.innerHTML=`<div class="result-area empty"><p style="color:var(--accent2)">❌ No API key — paste your Google AI Studio key and hit Save</p></div>`;
-    return;
+  const data = await resp.json();
+  const resParts = data.candidates?.[0]?.content?.parts || [];
+  const imgPart = resParts.find(p => p.inlineData);
+  if (!imgPart) {
+    const textPart = resParts.find(p => p.text);
+    throw new Error(textPart ? `AI couldn't generate image: ${textPart.text.slice(0, 100)}` : "No image returned — try a different prompt");
   }
-
-  const brand=BRANDS[document.getElementById("brand").value];
-  let fmt=FORMATS.find(f=>f.id===selectedFormat);
-  if(fmt.id==="custom"){
-    const cw=parseInt(document.getElementById("customW").value);
-    const ch=parseInt(document.getElementById("customH").value);
-    if(!cw||!ch||cw<100||ch<100){alert("Enter custom dimensions (min 100px)");btn.disabled=false;btn.textContent="✨ Generate Image";return}
-    fmt={...fmt,w:cw,h:ch,name:`Custom ${cw}×${ch}`};
-  }
-  const campaign=document.getElementById("campaign").value;
-  const headline=document.getElementById("headline").value;
-  const body=document.getElementById("body").value;
-  const product=document.getElementById("product").value;
-  const tone=document.getElementById("tone").value;
-  const extra=document.getElementById("extra").value;
-
-  if(selectedMode==="ai-resize"&&!uploadedImageBase64){alert("Upload an image to reformat");return}
-  if(selectedMode==="generate"&&!headline&&!campaign){alert("Please enter at least a campaign name or headline");return}
-
-  const btn=document.getElementById("genBtn");
-  btn.disabled=true;btn.textContent="⏳ Generating...";
-
-  const resultArea=document.getElementById("resultArea");
-  resultArea.innerHTML=`<div class="spinner"></div><div class="status-msg">Creating your ${fmt.name} for ${brand.name} via Imagen 4 Ultra...</div>`;
-
-  const prompt=buildPrompt(brand,fmt,campaign,headline,body,product,tone,extra,!!uploadedImageBase64);
-
-  try{
-    const imgSrc=await generateImagen(prompt,fmt,key);
-
-    resultArea.innerHTML=`<img src="${imgSrc}" alt="Generated banner">
-      <div class="result-actions">
-        <button class="primary" onclick="downloadImg()">⬇️ Download</button>
-        <button onclick="generate()">🔄 Regenerate</button>
-      </div>
-      <div class="status-msg">Generated with Imagen 4 Ultra</div>`;
-
-    history.unshift({src:imgSrc,brand:brand.name,campaign:campaign||headline,format:fmt.name,model:"Imagen 4 Ultra",time:Date.now()});
-    if(history.length>12)history=history.slice(0,12);
-    try{localStorage.setItem("cg_history",JSON.stringify(history))}catch(e){}
-    renderHistory();
-
-  }catch(e){
-    resultArea.innerHTML=`<div class="result-area empty"><p style="color:var(--accent2)">❌ ${e.message}</p><p style="margin-top:8px;font-size:12px">Check your Google AI Studio key and try again</p></div>`;
-  }
-
-  btn.disabled=false;btn.textContent="✨ Generate Image";
+  return `data:${imgPart.inlineData.mimeType};base64,${imgPart.inlineData.data}`;
 }
 
-function downloadImg(){
-  const img=document.querySelector("#resultArea img");
-  if(!img)return;
-  const a=document.createElement("a");
-  a.href=img.src;
-  const brand=document.getElementById("brand").value;
-  const fmt=selectedFormat;
-  a.download=`${brand}-${fmt}-${Date.now()}.png`;
+/* ===== FETCH WITH TIMEOUT ===== */
+function fetchWithTimeout(url, options, timeoutMs) {
+  return Promise.race([
+    fetch(url, options),
+    new Promise((_, reject) => setTimeout(() => reject(new Error(`Request timed out after ${timeoutMs / 1000}s — try again`)), timeoutMs))
+  ]);
+}
+
+/* ===== MAIN GENERATE ===== */
+async function generate() {
+  if (isGenerating) { toast("Already generating — please wait", "info"); return; }
+
+  const btn = document.getElementById("genBtn");
+  const resultArea = document.getElementById("resultArea");
+
+  try {
+    isGenerating = true;
+    btn.disabled = true;
+
+    // Get format (validates custom dims)
+    const fmt = getFormat();
+    if (!fmt) {
+      showError("Invalid dimensions", "Custom size must be between 100 and 4096 pixels");
+      return;
+    }
+
+    // === RESIZE MODE (no AI) ===
+    if (selectedMode === "resize") {
+      if (!uploadedImageBase64) { showError("No image uploaded", "Upload an image first, then resize"); return; }
+      btn.textContent = "⏳ Resizing...";
+      resultArea.innerHTML = `<div class="spinner"></div><div class="status-msg">Resizing to ${fmt.w}×${fmt.h}...</div>`;
+
+      const imgSrc = await resizeImage(fmt);
+      showResult(imgSrc, `Resized to ${fmt.w}×${fmt.h}`, "Resize");
+      addToHistory(imgSrc, "Resize", `${fmt.w}×${fmt.h}`, fmt.name, "Client");
+      return;
+    }
+
+    // === AI MODES (need API key) ===
+    const key = getKey();
+    if (!key) {
+      showError("No API key", "Paste your Google AI Studio key above and hit Save. Get one free at aistudio.google.com");
+      return;
+    }
+
+    const brand = BRANDS[document.getElementById("brand").value];
+    if (!brand) { showError("Select a brand"); return; }
+
+    const fields = {
+      campaign: document.getElementById("campaign").value.trim(),
+      headline: document.getElementById("headline").value.trim(),
+      body: document.getElementById("body").value.trim(),
+      product: document.getElementById("product").value.trim(),
+      tone: document.getElementById("tone").value,
+      extra: document.getElementById("extra").value.trim()
+    };
+
+    // === AI REFORMAT MODE ===
+    if (selectedMode === "ai-resize") {
+      if (!uploadedImageBase64) { showError("No image uploaded", "AI Reformat needs a source image to work with"); return; }
+      btn.textContent = "⏳ Reformatting...";
+      resultArea.innerHTML = `<div class="spinner"></div><div class="status-msg">AI is reformatting your image for ${brand.name}...</div>`;
+
+      const prompt = buildPrompt(brand, fmt, fields, true);
+      const imgSrc = await callGeminiWithImage(prompt, key);
+      showResult(imgSrc, `AI reformatted for ${brand.name} (${fmt.name})`, "Gemini");
+      addToHistory(imgSrc, brand.name, fields.campaign || fields.headline || "Reformat", fmt.name, "Gemini");
+      return;
+    }
+
+    // === GENERATE MODE ===
+    if (!fields.campaign && !fields.headline) {
+      showError("Missing brief", "Enter at least a campaign name or headline");
+      return;
+    }
+
+    const hasImage = !!uploadedImageBase64;
+    btn.textContent = "⏳ Generating...";
+    const modelName = hasImage ? "Gemini" : "Imagen 4 Ultra";
+    resultArea.innerHTML = `<div class="spinner"></div><div class="status-msg">Creating ${fmt.name} for ${brand.name} via ${modelName}...</div>`;
+
+    const prompt = buildPrompt(brand, fmt, fields, hasImage);
+    const imgSrc = hasImage ? await callGeminiWithImage(prompt, key) : await callImagen(prompt, fmt, key);
+    showResult(imgSrc, `Generated with ${modelName}`, modelName);
+    addToHistory(imgSrc, brand.name, fields.campaign || fields.headline, fmt.name, modelName);
+
+  } catch (e) {
+    console.error("Generate error:", e);
+    showError(e.message || "Unknown error", "Check the console for details");
+  } finally {
+    isGenerating = false;
+    btn.disabled = false;
+    // Restore button text based on mode
+    if (selectedMode === "resize") btn.textContent = "📐 Resize Image";
+    else if (selectedMode === "ai-resize") btn.textContent = "🪄 AI Reformat";
+    else btn.textContent = "✨ Generate Image";
+  }
+}
+
+/* ===== SHOW RESULT ===== */
+function showResult(imgSrc, statusText, model) {
+  const resultArea = document.getElementById("resultArea");
+  resultArea.innerHTML = `<img src="${imgSrc}" alt="Generated image">
+    <div class="result-actions">
+      <button class="primary" onclick="downloadImg()">⬇️ Download</button>
+      <button onclick="generate()">🔄 Regenerate</button>
+    </div>
+    <div class="status-msg">${escHtml(statusText)}</div>`;
+}
+
+/* ===== DOWNLOAD ===== */
+function downloadImg() {
+  const img = document.querySelector("#resultArea img");
+  if (!img || !img.src) { toast("No image to download", "error"); return; }
+  const a = document.createElement("a");
+  a.href = img.src;
+  const brand = document.getElementById("brand").value;
+  a.download = `${brand}-${selectedFormat}-${Date.now()}.png`;
+  document.body.appendChild(a);
   a.click();
+  document.body.removeChild(a);
 }
 
-function renderHistory(){
-  const section=document.getElementById("historySection");
-  const grid=document.getElementById("historyGrid");
-  if(!history.length){section.style.display="none";return}
-  section.style.display="block";
-  grid.innerHTML="";
-  history.forEach((h,i)=>{
-    grid.innerHTML+=`<img src="${h.src}" title="${h.brand} — ${h.campaign} (${h.format})" onclick="showHistoryItem(${i})">`;
+/* ===== HISTORY ===== */
+function addToHistory(src, brand, campaign, format, model) {
+  // Don't store huge base64 blobs if localStorage is full
+  try {
+    genHistory.unshift({ src, brand, campaign, format, model, time: Date.now() });
+    if (genHistory.length > 8) genHistory = genHistory.slice(0, 8);
+    localStorage.setItem("cg_history", JSON.stringify(genHistory));
+  } catch (e) {
+    // localStorage full — trim history
+    genHistory = genHistory.slice(0, 3);
+    try { localStorage.setItem("cg_history", JSON.stringify(genHistory)); } catch (e2) {
+      genHistory = [];
+      try { localStorage.removeItem("cg_history"); } catch (e3) {}
+    }
+  }
+  renderHistory();
+}
+
+function renderHistory() {
+  const section = document.getElementById("historySection");
+  const grid = document.getElementById("historyGrid");
+  if (!genHistory.length) { section.style.display = "none"; return; }
+  section.style.display = "block";
+  grid.innerHTML = "";
+  genHistory.forEach((h, i) => {
+    const img = document.createElement("img");
+    img.src = h.src;
+    img.title = `${h.brand} — ${h.campaign} (${h.format})`;
+    img.loading = "lazy";
+    img.onclick = () => showHistoryItem(i);
+    img.onerror = () => img.remove(); // Remove broken thumbnails
+    grid.appendChild(img);
   });
 }
 
-function showHistoryItem(i){
-  const h=history[i];
-  const resultArea=document.getElementById("resultArea");
-  resultArea.innerHTML=`<img src="${h.src}" alt="Generated banner">
-    <div class="result-actions">
-      <button class="primary" onclick="downloadImg()">⬇️ Download</button>
-      <button onclick="generate()">🔄 New Generation</button>
-    </div>
-    <div class="status-msg">${h.brand} — ${h.campaign} (${h.format})</div>`;
+function showHistoryItem(i) {
+  const h = genHistory[i];
+  if (!h) return;
+  showResult(h.src, `${h.brand} — ${h.campaign} (${h.format})`, h.model);
 }
 
-function toggleTheme(){
+function clearHistory() {
+  genHistory = [];
+  try { localStorage.removeItem("cg_history"); } catch (e) {}
+  renderHistory();
+  toast("History cleared", "info", 1500);
+}
+
+/* ===== THEME ===== */
+function toggleTheme() {
   document.body.classList.toggle("light");
-  document.querySelector(".theme-toggle").textContent=document.body.classList.contains("light")?"🌙":"☀️";
+  const isLight = document.body.classList.contains("light");
+  document.querySelector(".theme-toggle").textContent = isLight ? "☀️" : "🌙";
+  try { localStorage.setItem("cg_theme", isLight ? "light" : "dark"); } catch (e) {}
+}
+
+/* ===== INIT ===== */
+function init() {
+  // Formats
+  const fmtDiv = document.getElementById("formats");
+  FORMATS.forEach(f => {
+    const btn = document.createElement("div");
+    btn.className = `format-btn ${f.id === selectedFormat ? "active" : ""}`;
+    btn.dataset.fid = f.id;
+    btn.innerHTML = `${f.name}<div class="dim">${f.id === "custom" ? "Any size" : `${f.w}×${f.h}`}</div>`;
+    btn.onclick = () => selectFormat(f.id);
+    fmtDiv.appendChild(btn);
+  });
+
+  // Load saved key
+  const savedKey = localStorage.getItem("cg_googlekey") || "";
+  document.getElementById("googleKey").value = savedKey;
+  updateKeyStatus();
+
+  // Load saved theme
+  const savedTheme = localStorage.getItem("cg_theme");
+  if (savedTheme === "light") { document.body.classList.add("light"); document.querySelector(".theme-toggle").textContent = "☀️"; }
+
+  // Setup
+  loadBrand();
+  setupUpload();
+  renderHistory();
+
+  // Generate button
+  document.getElementById("genBtn").addEventListener("click", generate);
+
+  // Enter key on inputs triggers generate
+  ["campaign", "headline", "product"].forEach(id => {
+    document.getElementById(id).addEventListener("keydown", e => { if (e.key === "Enter") generate(); });
+  });
+
+  console.log("Content Generator v2 initialized");
 }
 
 init();
