@@ -807,9 +807,9 @@ async function generate() {
       btn.textContent = "⏳ Resizing...";
       resultArea.innerHTML = `<div class="spinner"></div><div class="status-msg">Resizing to ${fmt.w}×${fmt.h}...</div>`;
 
-      const imgSrc = await resizeImage(fmt);
-      showResult(imgSrc, `Resized to ${fmt.w}×${fmt.h}`, "Resize");
-      addToHistory(imgSrc, "Resize", `${fmt.w}×${fmt.h}`, fmt.name, "Client");
+      const resizedSrc = await resizeImage(fmt);
+      showResult(resizedSrc, `Resized to ${fmt.w}×${fmt.h}`, "Resize");
+      addToHistory(resizedSrc, "Resize", `${fmt.w}×${fmt.h}`, fmt.name, "Client");
       return;
     }
 
@@ -853,7 +853,7 @@ RULES — YOU MUST FOLLOW ALL OF THESE:
       let rfSrc = await callGeminiWithImage(reformatPrompt, key);
       rfSrc = await upscaleToExact(rfSrc, fmt.w, fmt.h);
       showResult(rfSrc, `Reformatted to ${fmt.w}×${fmt.h}`, "Gemini");
-      addToHistory(imgSrc, brand.name, "Reformat", fmt.name, "Gemini");
+      addToHistory(rfSrc, brand.name, "Reformat", fmt.name, "Gemini");
       return;
     }
 
