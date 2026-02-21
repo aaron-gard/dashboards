@@ -666,11 +666,19 @@ async function generate() {
 
     const hasImage = !!uploadedImageBase64;
     btn.textContent = "⏳ Generating...";
-    const modelName = hasImage ? "Gemini" : "Imagen 4 Ultra";
-    resultArea.innerHTML = `<div class="spinner"></div><div class="status-msg">Creating ${fmt.name} for ${brand.name} via ${modelName}...</div>`;
 
-    const prompt = buildPrompt(brand, fmt, fields, hasImage);
-    const imgSrc = hasImage ? await callGeminiWithImage(prompt, key) : await callImagen(prompt, fmt, key);
+    let imgSrc;
+    if (hasImage) {
+      // Generate mode + image: user wants AI to use their image as inspiration, but generate fresh
+      resultArea.innerHTML = `<div class="spinner"></div><div class="status-msg">Generating from your image for ${brand.name}...</div>`;
+      const imgPrompt = `Using the provided image as a reference, create a new ${fmt.w}x${fmt.h} ${fmt.w > fmt.h ? "landscape" : fmt.w === fmt.h ? "square" : "portrait"} promotional banner for ${brand.name}. Keep the same subject and visual theme from the reference image.${fields.campaign ? " Campaign: " + fields.campaign : ""}${fields.headline ? ' Headline: "' + fields.headline + '"' : ""}${fields.product ? " Product focus: " + fields.product : ""}${fields.extra ? " " + fields.extra : ""} Professional, retail-ready, clean design.`;
+      imgSrc = await callGeminiWithImage(imgPrompt, key);
+    } else {
+      // Pure text-to-image via Imagen 4 Ultra
+      resultArea.innerHTML = `<div class="spinner"></div><div class="status-msg">Creating ${fmt.name} for ${brand.name} via Imagen 4 Ultra...</div>`;
+      const prompt = buildPrompt(brand, fmt, fields, false);
+      imgSrc = await callImagen(prompt, fmt, key);
+    }
     showResult(imgSrc, `Generated with ${modelName}`, modelName);
     addToHistory(imgSrc, brand.name, fields.campaign || fields.headline, fmt.name, modelName);
 
