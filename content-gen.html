@@ -156,12 +156,17 @@ textarea{resize:vertical;min-height:70px}
         <div class="formats" id="formats"></div>
         <div id="customDims" style="display:none;margin-top:10px">
           <div style="display:flex;gap:8px;align-items:center">
-            <input id="customW" type="number" placeholder="Width" min="100" max="4096" style="width:50%">
+            <input id="customW" type="number" placeholder="Width" min="100" max="4096" style="width:40%">
             <span style="color:var(--text2)">×</span>
-            <input id="customH" type="number" placeholder="Height" min="100" max="4096" style="width:50%">
+            <input id="customH" type="number" placeholder="Height" min="100" max="4096" style="width:40%">
             <span style="color:var(--text2);font-size:12px;white-space:nowrap">px</span>
           </div>
+          <div style="display:flex;gap:8px;margin-top:8px;align-items:center">
+            <input id="customName" type="text" placeholder="Name (e.g. EDM Header)" style="flex:1">
+            <button onclick="saveCustomFormat()" style="padding:8px 14px;background:var(--accent);color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;white-space:nowrap">💾 Save</button>
+          </div>
         </div>
+        <div id="savedFormats" style="margin-top:8px"></div>
       </div>
 
       <div class="panel" style="margin-top:16px">
@@ -252,6 +257,40 @@ let genHistory = [];
 
 try { genHistory = JSON.parse(localStorage.getItem("cg_history") || "[]"); } catch(e) { genHistory = []; }
 
+/* ===== SAVED CUSTOM FORMATS ===== */
+let savedFormats = [];
+try { savedFormats = JSON.parse(localStorage.getItem("cg_formats") || "[]"); } catch(e) { savedFormats = []; }
+
+function saveCustomFormat() {
+  const w = parseInt(document.getElementById("customW").value) || 0;
+  const h = parseInt(document.getElementById("customH").value) || 0;
+  const name = document.getElementById("customName").value.trim();
+  if (w < 100 || h < 100 || w > 4096 || h > 4096) { toast("Enter valid dimensions (100–4096px)", "error"); return; }
+  if (!name) { toast("Give it a name", "error"); return; }
+  if (savedFormats.some(f => f.name === name)) { toast("Name already exists", "error"); return; }
+  savedFormats.push({ name, w, h, id: "saved_" + Date.now() });
+  try { localStorage.setItem("cg_formats", JSON.stringify(savedFormats)); } catch(e) {}
+  document.getElementById("customName").value = "";
+  renderSavedFormats();
+  toast(`Saved: ${name} (${w}×${h})`, "success", 2000);
+}
+
+function deleteSavedFormat(id) {
+  savedFormats = savedFormats.filter(f => f.id !== id);
+  try { localStorage.setItem("cg_formats", JSON.stringify(savedFormats)); } catch(e) {}
+  renderSavedFormats();
+  toast("Format removed", "info", 1500);
+}
+
+function renderSavedFormats() {
+  const container = document.getElementById("savedFormats");
+  if (!savedFormats.length) { container.innerHTML = ""; return; }
+  container.innerHTML = `<div style="font-size:11px;color:var(--text2);margin-bottom:4px">Saved formats:</div><div class="formats">` +
+    savedFormats.map(f => `<div class="format-btn ${selectedFormat === f.id ? 'active' : ''}" data-fid="${f.id}" onclick="selectFormat('${f.id}')">
+      ${escHtml(f.name)}<div class="dim">${f.w}×${f.h} <span onclick="event.stopPropagation();deleteSavedFormat('${f.id}')" style="cursor:pointer;opacity:0.5;margin-left:4px" title="Delete">✕</span></div>
+    </div>`).join("") + `</div>`;
+}
+
 /* ===== TOAST NOTIFICATIONS ===== */
 function toast(msg, type="info", duration=4000) {
   const el = document.createElement("div");
@@ -324,6 +363,7 @@ function selectFormat(id) {
 
 function getFormat() {
   let fmt = FORMATS.find(f => f.id === selectedFormat);
+  if (!fmt) fmt = savedFormats.find(f => f.id === selectedFormat);
   if (!fmt) fmt = FORMATS[0];
   if (fmt.id === "custom") {
     const cw = parseInt(document.getElementById("customW").value) || 0;
@@ -883,6 +923,7 @@ function init() {
   // Setup
   loadBrand();
   setupUpload();
+  renderSavedFormats();
   renderHistory();
 
   // Generate button
