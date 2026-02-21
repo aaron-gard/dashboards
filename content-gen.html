@@ -761,6 +761,28 @@ function fetchWithTimeout(url, options, timeoutMs) {
   ]);
 }
 
+/* ===== UPSCALE TO EXACT DIMENSIONS ===== */
+function upscaleToExact(imgSrc, targetW, targetH) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      // If already at or above target, skip
+      if (img.naturalWidth >= targetW && img.naturalHeight >= targetH) { resolve(imgSrc); return; }
+      const canvas = document.createElement("canvas");
+      canvas.width = targetW;
+      canvas.height = targetH;
+      const ctx = canvas.getContext("2d");
+      // High-quality upscale
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "high";
+      ctx.drawImage(img, 0, 0, targetW, targetH);
+      resolve(canvas.toDataURL("image/png"));
+    };
+    img.onerror = () => resolve(imgSrc); // fallback to original
+    img.src = imgSrc;
+  });
+}
+
 /* ===== MAIN GENERATE ===== */
 async function generate() {
   if (isGenerating) { toast("Already generating — please wait", "info"); return; }
@@ -828,8 +850,9 @@ RULES — YOU MUST FOLLOW ALL OF THESE:
 - The extended areas must seamlessly match the existing background
 - The final image must look like the original was always this size${fields.extra ? "\n- Additional: " + fields.extra : ""}`;
 
-      const imgSrc = await callGeminiWithImage(reformatPrompt, key);
-      showResult(imgSrc, `Reformatted to ${fmt.w}×${fmt.h}`, "Gemini");
+      let rfSrc = await callGeminiWithImage(reformatPrompt, key);
+      rfSrc = await upscaleToExact(rfSrc, fmt.w, fmt.h);
+      showResult(rfSrc, `Reformatted to ${fmt.w}×${fmt.h}`, "Gemini");
       addToHistory(imgSrc, brand.name, "Reformat", fmt.name, "Gemini");
       return;
     }
@@ -847,12 +870,15 @@ RULES — YOU MUST FOLLOW ALL OF THESE:
       resultArea.innerHTML = `<div class="spinner"></div><div class="status-msg">Generating from your image for ${brand.name}...</div>`;
       const imgPrompt = `Using the provided image as a reference, create a new ${fmt.w}x${fmt.h} ${fmt.w > fmt.h ? "landscape" : fmt.w === fmt.h ? "square" : "portrait"} promotional banner for ${brand.name}. Keep the same subject and visual theme from the reference image.${fields.campaign ? " Campaign: " + fields.campaign : ""}${fields.headline ? ' Headline: "' + fields.headline + '"' : ""}${fields.product ? " Product focus: " + fields.product : ""}${fields.extra ? " " + fields.extra : ""} Professional, retail-ready, clean design.`;
       imgSrc = await callGeminiWithImage(imgPrompt, key);
+      imgSrc = await upscaleToExact(imgSrc, fmt.w, fmt.h);
     } else {
       // Pure text-to-image via Imagen 4 Ultra
       resultArea.innerHTML = `<div class="spinner"></div><div class="status-msg">Creating ${fmt.name} for ${brand.name} via Imagen 4 Ultra...</div><div class="status-msg" id="loadingHint" style="display:none;font-size:11px">This usually takes 10–20 seconds...</div>`;
       setTimeout(() => { const h = document.getElementById("loadingHint"); if (h) h.style.display = "block"; }, 3000);
       const prompt = buildPrompt(brand, fmt, fields, false);
       imgSrc = await callImagen(prompt, fmt, key);
+      // Upscale to exact requested dimensions (Imagen outputs at fixed native res)
+      imgSrc = await upscaleToExact(imgSrc, fmt.w, fmt.h);
     }
     showResult(imgSrc, `Generated with ${modelName}`, modelName);
     addToHistory(imgSrc, brand.name, fields.campaign || fields.headline, fmt.name, modelName);
