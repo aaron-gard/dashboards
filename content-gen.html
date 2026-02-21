@@ -785,6 +785,7 @@ function showResult(imgSrc, statusText, model) {
     <div class="result-actions">
       <button class="primary" onclick="downloadImg()">⬇️ Download</button>
       <button onclick="copyImageToClipboard()">📋 Copy image</button>
+      <button onclick="uploadAndGetUrl()">🔗 Get URL</button>
       <button onclick="regenerateWithFeedback()">🔄 Regenerate with changes</button>
       <button onclick="generate()">🔁 Start fresh</button>
     </div>
@@ -855,6 +856,50 @@ async function regenerateWithFeedback() {
     if (selectedMode === "resize") btn.textContent = "📐 Resize Image";
     else if (selectedMode === "ai-resize") btn.textContent = "🪄 AI Reformat";
     else btn.textContent = "✨ Generate Image";
+  }
+}
+
+/* ===== UPLOAD TO IMGUR & GET URL ===== */
+async function uploadAndGetUrl() {
+  const img = document.querySelector("#resultArea img");
+  if (!img || !img.src) { toast("No image to upload", "error"); return; }
+
+  toast("Uploading...", "info", 10000);
+
+  try {
+    // Extract base64 data (strip data URL prefix)
+    const b64 = img.src.includes(",") ? img.src.split(",")[1] : img.src;
+
+    const resp = await fetch("https://api.imgur.com/3/image", {
+      method: "POST",
+      headers: {
+        "Authorization": "Client-ID 546c25a59c58ad7",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ image: b64, type: "base64" })
+    });
+
+    if (!resp.ok) throw new Error(`Imgur error (${resp.status})`);
+
+    const data = await resp.json();
+    const url = data.data?.link;
+    if (!url) throw new Error("No URL returned");
+
+    await navigator.clipboard.writeText(url);
+    toast("URL copied to clipboard ✓", "success", 3000);
+
+    // Show URL below the image
+    const existing = document.getElementById("imgUrlDisplay");
+    if (existing) existing.remove();
+    const div = document.createElement("div");
+    div.id = "imgUrlDisplay";
+    div.style.cssText = "margin-top:8px;padding:8px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;font-size:12px;word-break:break-all;display:flex;align-items:center;gap:8px";
+    div.innerHTML = `<a href="${url}" target="_blank" style="color:var(--accent);flex:1">${url}</a><button onclick="navigator.clipboard.writeText('${url}');toast('Copied ✓','success',1500)" style="padding:4px 8px;background:var(--accent);color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:11px;white-space:nowrap">Copy</button>`;
+    document.querySelector("#resultArea .status-msg")?.after(div);
+
+  } catch (e) {
+    console.error("Upload error:", e);
+    toast("Upload failed: " + e.message, "error");
   }
 }
 
