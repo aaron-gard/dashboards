@@ -226,7 +226,7 @@ const FORMATS=[
 ];
 
 let selectedFormat="hero";
-let selectedModel="openai";
+let selectedModel="openai"; // Default — Imagen requires Google billing
 let uploadedImageBase64=null;
 let uploadedImageMime=null;
 let history=JSON.parse(localStorage.getItem("cg_history")||"[]");
@@ -403,9 +403,9 @@ async function generateImagen(prompt,fmt,key){
     instances:[{prompt:prompt}],
     parameters:{sampleCount:1,aspectRatio:aspectRatio}
   };
-  // Imagen supports image editing via referenceImages
   if(uploadedImageBase64){
     body.instances[0].referenceImages=[{
+      referenceId:1,
       referenceImage:{bytesBase64Encoded:uploadedImageBase64},
       referenceType:"STYLE_IMAGE"
     }];
