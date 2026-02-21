@@ -967,28 +967,39 @@ async function uploadAndGetUrl() {
   const img = document.querySelector("#resultArea img");
   if (!img || !img.src) { toast("No image to upload", "error"); return; }
 
-  toast("Uploading...", "info", 10000);
+  toast("Uploading to Imgur...", "info", 15000);
 
   try {
-    // Extract base64 data (strip data URL prefix)
-    const b64 = img.src.includes(",") ? img.src.split(",")[1] : img.src;
+    // Convert to PNG blob first (handles any format, avoids massive JSON strings)
+    const canvas = document.createElement("canvas");
+    canvas.width = img.naturalWidth || img.width || 1024;
+    canvas.height = img.naturalHeight || img.height || 1024;
+    canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
 
-    const resp = await fetch("https://api.imgur.com/3/image", {
+    const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png"));
+    if (!blob) throw new Error("Failed to convert image");
+
+    // Use FormData (avoids JSON size limits, better CORS support)
+    const formData = new FormData();
+    formData.append("image", blob);
+    formData.append("type", "file");
+
+    const resp = await fetchWithTimeout("https://api.imgur.com/3/image", {
       method: "POST",
-      headers: {
-        "Authorization": "Client-ID 546c25a59c58ad7",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ image: b64, type: "base64" })
-    });
+      headers: { "Authorization": "Client-ID 546c25a59c58ad7" },
+      body: formData
+    }, 30000);
 
-    if (!resp.ok) throw new Error(`Imgur error (${resp.status})`);
+    if (!resp.ok) {
+      const errBody = await resp.text().catch(() => "");
+      throw new Error(`Imgur error ${resp.status}: ${errBody.slice(0, 100)}`);
+    }
 
     const data = await resp.json();
     const url = data.data?.link;
-    if (!url) throw new Error("No URL returned");
+    if (!url) throw new Error("No URL in response");
 
-    await navigator.clipboard.writeText(url);
+    await navigator.clipboard.writeText(url).catch(() => {});
     toast("URL copied to clipboard ✓", "success", 3000);
 
     // Show URL below the image
@@ -997,7 +1008,7 @@ async function uploadAndGetUrl() {
     const div = document.createElement("div");
     div.id = "imgUrlDisplay";
     div.style.cssText = "margin-top:8px;padding:8px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;font-size:12px;word-break:break-all;display:flex;align-items:center;gap:8px";
-    div.innerHTML = `<a href="${url}" target="_blank" style="color:var(--accent);flex:1">${url}</a><button onclick="navigator.clipboard.writeText('${url}');toast('Copied ✓','success',1500)" style="padding:4px 8px;background:var(--accent);color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:11px;white-space:nowrap">Copy</button>`;
+    div.innerHTML = `<a href="${escHtml(url)}" target="_blank" style="color:var(--accent);flex:1">${escHtml(url)}</a><button onclick="navigator.clipboard.writeText('${escHtml(url)}');toast('Copied ✓','success',1500)" style="padding:4px 8px;background:var(--accent);color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:11px;white-space:nowrap">Copy</button>`;
     document.querySelector("#resultArea .status-msg")?.after(div);
 
   } catch (e) {
