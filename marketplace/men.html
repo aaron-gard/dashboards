@@ -1217,4 +1217,4 @@ var html=results.map(function(p){return'<a class="srch-result" href="'+p.u+'"><i
 if(results.length||q)html+='<a class="srch-viewall" href="search.html?q='+encodeURIComponent(q)+'">View all results &rarr;</a>';
 box.innerHTML=html;
 }
-</script></body></html>
+</script><script>if(location.hash){var h=decodeURIComponent(location.hash.slice(1)).toLowerCase();var opts=document.querySelectorAll(".plp-filter-opt");opts.forEach(function(o){if(o.textContent.trim().toLowerCase().indexOf(h)===0)o.classList.add("checked")})}</script></body></html>
