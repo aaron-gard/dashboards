@@ -593,7 +593,7 @@ body.light-mode
 .cart-pay-badge{font-size:10px;font-weight:700;padding:4px 10px;border:1px solid var(--bd);border-radius:3px;color:var(--gy)}
 .cart-continue{display:block;text-align:center;margin-top:12px;font-size:12px;color:var(--gy);text-decoration:underline;text-underline-offset:2px}
 .cart-continue:hover{color:var(--bk)}
-</style></head><body>
+.qf{display:flex;gap:8px;padding:0 28px 16px;flex-wrap:wrap}.qf-chip{padding:8px 20px;font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;border:1px solid var(--bd,#ddd);background:transparent;color:var(--bk,#000);cursor:pointer;transition:all .2s;font-family:inherit}.qf-chip:hover{border-color:var(--bk,#000)}.qf-chip.active{background:var(--bk,#000);color:var(--wh,#fff);border-color:var(--bk,#000)}</style></head><body>
 <div class="cart-backdrop" id="cartBackdrop" onclick="closeCart()"></div>
 <div class="cart-drawer" id="cartDrawer">
 <div class="cart-header">
@@ -671,7 +671,7 @@ body.light-mode
 </div><div id="bc-header"></div><script src="header.js"></script>
 <div class="plp-hero"><h1>Sale</h1><div class="plp-count">172 Products</div></div>
 <nav class="plp-bc" aria-label="Breadcrumb"><a href="index.html">Home</a><span>›</span><strong>Sale</strong></nav>
-<div class="plp-fb">
+<div class="qf"><button class="qf-chip active" onclick="quickFilter(this,'All')">All</button><button class="qf-chip" onclick="quickFilter(this,'Dresses')">Dresses</button><button class="qf-chip" onclick="quickFilter(this,'Tops')">Tops</button><button class="qf-chip" onclick="quickFilter(this,'Knitwear')">Knitwear</button><button class="qf-chip" onclick="quickFilter(this,'Jackets')">Jackets</button><button class="qf-chip" onclick="quickFilter(this,'Pants')">Pants</button><button class="qf-chip" onclick="quickFilter(this,'Shoes')">Shoes</button><button class="qf-chip" onclick="quickFilter(this,'Accessories')">Accessories</button></div><div class="plp-fb">
 <div class="plp-filters-left">
 <button class="plp-sidebar-toggle active" onclick="toggleSidebar()" id="sidebarToggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h10M4 18h16"/></svg> Filters</button>
 </div>
@@ -697,7 +697,7 @@ body.light-mode
 <div class="plp-filter-group"><div class="plp-filter-head" onclick="this.classList.toggle('open')">Colour <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="plp-filter-body"><div class="plp-filter-opt" onclick="this.classList.toggle('checked')"><span class="plp-filter-cb"></span>Black</div><div class="plp-filter-opt" onclick="this.classList.toggle('checked')"><span class="plp-filter-cb"></span>White</div><div class="plp-filter-opt" onclick="this.classList.toggle('checked')"><span class="plp-filter-cb"></span>Blue</div><div class="plp-filter-opt" onclick="this.classList.toggle('checked')"><span class="plp-filter-cb"></span>Red</div><div class="plp-filter-opt" onclick="this.classList.toggle('checked')"><span class="plp-filter-cb"></span>Green</div><div class="plp-filter-opt" onclick="this.classList.toggle('checked')"><span class="plp-filter-cb"></span>Grey</div><div class="plp-filter-opt" onclick="this.classList.toggle('checked')"><span class="plp-filter-cb"></span>Brown</div><div class="plp-filter-opt" onclick="this.classList.toggle('checked')"><span class="plp-filter-cb"></span>Pink</div><div class="plp-filter-opt" onclick="this.classList.toggle('checked')"><span class="plp-filter-cb"></span>Navy</div><div class="plp-filter-opt" onclick="this.classList.toggle('checked')"><span class="plp-filter-cb"></span>Beige</div></div></div>
 </aside>
 <div class="plp-main">
-<div class="plp-grid"><a href="women.html" class="pc">
+<div class="plp-grid"><a href="women.html" class="pc" data-type="Dresses">
 <div class="pim"><img src="img/products/review-australia_1.jpg" alt="Yorkville Ponte Dress by Review" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 56%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -707,7 +707,7 @@ body.light-mode
 <div class="pna">Yorkville Ponte Dress</div>
 <div class="ppr"><span class="plp-price-old">$179.95</span> <span class="plp-price-sale">$79.00</span></div>
 </a>
-<a href="women.html" class="pc">
+<a href="women.html" class="pc" data-type="Dresses">
 <div class="pim"><img src="img/products/review-australia_2.jpg" alt="Florentine Mini Dress by Review" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 40%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -717,7 +717,7 @@ body.light-mode
 <div class="pna">Florentine Mini Dress</div>
 <div class="ppr"><span class="plp-price-old">$249.95</span> <span class="plp-price-sale">$149.00</span></div>
 </a>
-<a href="women.html" class="pc">
+<a href="women.html" class="pc" data-type="Dresses">
 <div class="pim"><img src="img/products/review-australia_3.jpg" alt="Soho Dress by Review" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 31%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -727,7 +727,7 @@ body.light-mode
 <div class="pna">Soho Dress</div>
 <div class="ppr"><span class="plp-price-old">$229.95</span> <span class="plp-price-sale">$159.00</span></div>
 </a>
-<a href="women.html" class="pc">
+<a href="women.html" class="pc" data-type="Skirts">
 <div class="pim"><img src="img/products/review-australia_4.jpg" alt="Bastille Spot Skirt by Review" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 47%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -737,7 +737,7 @@ body.light-mode
 <div class="pna">Bastille Spot Skirt</div>
 <div class="ppr"><span class="plp-price-old">$149.95</span> <span class="plp-price-sale">$79.00</span></div>
 </a>
-<a href="women.html" class="pc">
+<a href="women.html" class="pc" data-type="Dresses">
 <div class="pim"><img src="img/products/review-australia_5.jpg" alt="Le Fleur Dress by Review" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 40%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -747,7 +747,7 @@ body.light-mode
 <div class="pna">Le Fleur Dress</div>
 <div class="ppr"><span class="plp-price-old">$279.95</span> <span class="plp-price-sale">$169.00</span></div>
 </a>
-<a href="women.html" class="pc">
+<a href="women.html" class="pc" data-type="Dresses">
 <div class="pim"><img src="img/products/review-australia_6.jpg" alt="Yorkville Ponte Dress by Review" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 51%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -757,7 +757,7 @@ body.light-mode
 <div class="pna">Yorkville Ponte Dress</div>
 <div class="ppr"><span class="plp-price-old">$179.95</span> <span class="plp-price-sale">$89.00</span></div>
 </a>
-<a href="women.html" class="pc">
+<a href="women.html" class="pc" data-type="Tops">
 <div class="pim"><img src="img/products/review-australia_7.jpg" alt="Giulia Blouse by Review" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 47%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -767,7 +767,7 @@ body.light-mode
 <div class="pna">Giulia Blouse</div>
 <div class="ppr"><span class="plp-price-old">$129.95</span> <span class="plp-price-sale">$69.00</span></div>
 </a>
-<a href="shoes.html" class="pc">
+<a href="shoes.html" class="pc" data-type="Other">
 <div class="pim"><img src="img/products/clarks_0.jpg" alt="Back To School Kit Non Defined by Clarks" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 17%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -777,7 +777,7 @@ body.light-mode
 <div class="pna">Back To School Kit Non Defined</div>
 <div class="ppr"><span class="plp-price-old">$22.95</span> <span class="plp-price-sale">$19.00</span></div>
 </a>
-<a href="shoes.html" class="pc">
+<a href="shoes.html" class="pc" data-type="Other">
 <div class="pim"><img src="img/products/clarks_1.jpg" alt="Linoso Monk Grey Snake Lea by Clarks" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 59%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -787,7 +787,7 @@ body.light-mode
 <div class="pna">Linoso Monk Grey Snake Lea</div>
 <div class="ppr"><span class="plp-price-old">$239.95</span> <span class="plp-price-sale">$99.00</span></div>
 </a>
-<a href="shoes.html" class="pc">
+<a href="shoes.html" class="pc" data-type="Tops">
 <div class="pim"><img src="img/products/clarks_2.jpg" alt="Cassiano Top Mid Tan Suede by Clarks" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 65%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -797,7 +797,7 @@ body.light-mode
 <div class="pna">Cassiano Top Mid Tan Suede</div>
 <div class="ppr"><span class="plp-price-old">$279.95</span> <span class="plp-price-sale">$99.00</span></div>
 </a>
-<a href="shoes.html" class="pc">
+<a href="shoes.html" class="pc" data-type="Shoes">
 <div class="pim"><img src="img/products/clarks_3.jpg" alt="Shoe Brush Natural by Clarks" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 23%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -807,7 +807,7 @@ body.light-mode
 <div class="pna">Shoe Brush Natural</div>
 <div class="ppr"><span class="plp-price-old">$12.95</span> <span class="plp-price-sale">$10.00</span></div>
 </a>
-<a href="shoes.html" class="pc">
+<a href="shoes.html" class="pc" data-type="Shoes">
 <div class="pim"><img src="img/products/clarks_5.jpg" alt="Cur Oxford 1 W Orange Int Lea by Clarks" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 50%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -817,7 +817,7 @@ body.light-mode
 <div class="pna">Cur Oxford 1 W Orange Int Lea</div>
 <div class="ppr"><span class="plp-price-old">$499.95</span> <span class="plp-price-sale">$249.00</span></div>
 </a>
-<a href="shoes.html" class="pc">
+<a href="shoes.html" class="pc" data-type="Other">
 <div class="pim"><img src="img/products/clarks_6.jpg" alt="Torhill Mocc Beige Patent by Clarks" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 66%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -827,7 +827,7 @@ body.light-mode
 <div class="pna">Torhill Mocc Beige Patent</div>
 <div class="ppr"><span class="plp-price-old">$229.95</span> <span class="plp-price-sale">$79.00</span></div>
 </a>
-<a href="shoes.html" class="pc">
+<a href="shoes.html" class="pc" data-type="Boots">
 <div class="pim"><img src="img/products/clarks_7.jpg" alt="Wallabee Boot (M) Cloud Grey by Clarks" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 65%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -837,7 +837,7 @@ body.light-mode
 <div class="pna">Wallabee Boot (M) Cloud Grey</div>
 <div class="ppr"><span class="plp-price-old">$279.95</span> <span class="plp-price-sale">$99.00</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Other">
 <div class="pim"><img src="img/products/juliusmarlow_0.jpg" alt="$349 Essentials Kit by Julius Marlow" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 27%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -847,7 +847,7 @@ body.light-mode
 <div class="pna">$349 Essentials Kit</div>
 <div class="ppr"><span class="plp-price-old">$479.75</span> <span class="plp-price-sale">$349.00</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Other">
 <div class="pim"><img src="img/products/juliusmarlow_1.jpg" alt="$199 Essentials Kit by Julius Marlow" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 25%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -857,7 +857,7 @@ body.light-mode
 <div class="pna">$199 Essentials Kit</div>
 <div class="ppr"><span class="plp-price-old">$264.85</span> <span class="plp-price-sale">$199.00</span></div>
 </a>
-<a href="product-lexicon-black.html" class="pc">
+<a href="product-lexicon-black.html" class="pc" data-type="Other">
 <div class="pim"><img src="img/products/juliusmarlow_2.jpg" alt="Lexicon  Black by Julius Marlow" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 26%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -867,7 +867,7 @@ body.light-mode
 <div class="pna">Lexicon  Black</div>
 <div class="ppr"><span class="plp-price-old">$189.95</span> <span class="plp-price-sale">$139.95</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Other">
 <div class="pim"><img src="img/products/juliusmarlow_3.jpg" alt="Lexicon Suede Brown Suede by Julius Marlow" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 26%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -877,7 +877,7 @@ body.light-mode
 <div class="pna">Lexicon Suede Brown Suede</div>
 <div class="ppr"><span class="plp-price-old">$189.95</span> <span class="plp-price-sale">$139.95</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Other">
 <div class="pim"><img src="img/products/juliusmarlow_4.jpg" alt="Alpha Black by Julius Marlow" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 23%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -887,7 +887,7 @@ body.light-mode
 <div class="pna">Alpha Black</div>
 <div class="ppr"><span class="plp-price-old">$219.95</span> <span class="plp-price-sale">$169.95</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Other">
 <div class="pim"><img src="img/products/juliusmarlow_5.jpg" alt="Axiom  Cognac by Julius Marlow" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 25%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -897,7 +897,7 @@ body.light-mode
 <div class="pna">Axiom  Cognac</div>
 <div class="ppr"><span class="plp-price-old">$199.95</span> <span class="plp-price-sale">$149.95</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Other">
 <div class="pim"><img src="img/products/juliusmarlow_6.jpg" alt="Alto  Black by Julius Marlow" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 25%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -907,7 +907,7 @@ body.light-mode
 <div class="pna">Alto  Black</div>
 <div class="ppr"><span class="plp-price-old">$199.95</span> <span class="plp-price-sale">$149.95</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Other">
 <div class="pim"><img src="img/products/juliusmarlow_7.jpg" alt="Alto  Brown by Julius Marlow" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 25%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -917,7 +917,7 @@ body.light-mode
 <div class="pna">Alto  Brown</div>
 <div class="ppr"><span class="plp-price-old">$199.95</span> <span class="plp-price-sale">$149.95</span></div>
 </a>
-<a href="shoes.html" class="pc">
+<a href="shoes.html" class="pc" data-type="Shirts">
 <div class="pim"><img src="img/products/volley_6.jpg" alt="Play Shirt by Volley" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 25%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -927,7 +927,7 @@ body.light-mode
 <div class="pna">Play Shirt</div>
 <div class="ppr"><span class="plp-price-old">$79.99</span> <span class="plp-price-sale">$59.99</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Other">
 <div class="pim"><img src="img/products/umbro_47.jpg" alt="Umbro Classic Hoodie by Umbro" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 50%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -937,7 +937,7 @@ body.light-mode
 <div class="pna">Umbro Classic Hoodie</div>
 <div class="ppr"><span class="plp-price-old">$79.99</span> <span class="plp-price-sale">$39.99</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Pants">
 <div class="pim"><img src="img/products/umbro_48.jpg" alt="Umbro Classic Track Pants by Umbro" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 50%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -947,7 +947,7 @@ body.light-mode
 <div class="pna">Umbro Classic Track Pants</div>
 <div class="ppr"><span class="plp-price-old">$79.99</span> <span class="plp-price-sale">$39.99</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Other">
 <div class="pim"><img src="img/products/umbro_49.jpg" alt="Printed Long Sleeve Jersey by Umbro" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 50%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -957,7 +957,7 @@ body.light-mode
 <div class="pna">Printed Long Sleeve Jersey</div>
 <div class="ppr"><span class="plp-price-old">$79.99</span> <span class="plp-price-sale">$39.99</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Shirts">
 <div class="pim"><img src="img/products/umbro_50.jpg" alt="Panelled Raglan Shirt by Umbro" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 50%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -967,7 +967,7 @@ body.light-mode
 <div class="pna">Panelled Raglan Shirt</div>
 <div class="ppr"><span class="plp-price-old">$69.99</span> <span class="plp-price-sale">$34.99</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Other">
 <div class="pim"><img src="img/products/umbro_51.jpg" alt="Panelled Joggers by Umbro" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 50%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -977,7 +977,7 @@ body.light-mode
 <div class="pna">Panelled Joggers</div>
 <div class="ppr"><span class="plp-price-old">$79.99</span> <span class="plp-price-sale">$39.99</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Tops">
 <div class="pim"><img src="img/products/umbro_52.jpg" alt="Summer Camp Graphic Tee by Umbro" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 50%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -987,7 +987,7 @@ body.light-mode
 <div class="pna">Summer Camp Graphic Tee</div>
 <div class="ppr"><span class="plp-price-old">$44.99</span> <span class="plp-price-sale">$22.49</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Tops">
 <div class="pim"><img src="img/products/umbro_53.jpg" alt="Taped Tee by Umbro" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 50%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -997,7 +997,7 @@ body.light-mode
 <div class="pna">Taped Tee</div>
 <div class="ppr"><span class="plp-price-old">$49.99</span> <span class="plp-price-sale">$24.99</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Shorts">
 <div class="pim"><img src="img/products/umbro_54.jpg" alt="Belted Shorts by Umbro" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 50%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -1007,7 +1007,7 @@ body.light-mode
 <div class="pna">Belted Shorts</div>
 <div class="ppr"><span class="plp-price-old">$79.99</span> <span class="plp-price-sale">$39.99</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Shirts">
 <div class="pim"><img src="img/products/umbro_55.jpg" alt="Football Shirt by Umbro" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 50%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -1017,7 +1017,7 @@ body.light-mode
 <div class="pna">Football Shirt</div>
 <div class="ppr"><span class="plp-price-old">$69.99</span> <span class="plp-price-sale">$34.99</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Shorts">
 <div class="pim"><img src="img/products/umbro_56.jpg" alt="Football Shorts by Umbro" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 50%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -1027,7 +1027,7 @@ body.light-mode
 <div class="pna">Football Shorts</div>
 <div class="ppr"><span class="plp-price-old">$69.99</span> <span class="plp-price-sale">$34.99</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Tops">
 <div class="pim"><img src="img/products/umbro_57.jpg" alt="Panelled Long Sleeve Tee by Umbro" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 50%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -1037,7 +1037,7 @@ body.light-mode
 <div class="pna">Panelled Long Sleeve Tee</div>
 <div class="ppr"><span class="plp-price-old">$79.99</span> <span class="plp-price-sale">$39.99</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Shorts">
 <div class="pim"><img src="img/products/umbro_58.jpg" alt="Trail Shorts by Umbro" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 50%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -1047,7 +1047,7 @@ body.light-mode
 <div class="pna">Trail Shorts</div>
 <div class="ppr"><span class="plp-price-old">$79.99</span> <span class="plp-price-sale">$39.99</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Pants">
 <div class="pim"><img src="img/products/umbro_59.jpg" alt="Trail Cargo Pants by Umbro" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 50%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -1057,7 +1057,7 @@ body.light-mode
 <div class="pna">Trail Cargo Pants</div>
 <div class="ppr"><span class="plp-price-old">$99.99</span> <span class="plp-price-sale">$49.99</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Pants">
 <div class="pim"><img src="img/products/umbro_60.jpg" alt="Taped Track Pants by Umbro" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 50%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -1067,7 +1067,7 @@ body.light-mode
 <div class="pna">Taped Track Pants</div>
 <div class="ppr"><span class="plp-price-old">$79.99</span> <span class="plp-price-sale">$39.99</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Tops">
 <div class="pim"><img src="img/products/umbro_61.jpg" alt="Panelled Mesh Tee by Umbro" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 50%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -1077,7 +1077,7 @@ body.light-mode
 <div class="pna">Panelled Mesh Tee</div>
 <div class="ppr"><span class="plp-price-old">$79.99</span> <span class="plp-price-sale">$39.99</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Shorts">
 <div class="pim"><img src="img/products/umbro_62.jpg" alt="Crest Shorts by Umbro" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 50%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -1087,7 +1087,7 @@ body.light-mode
 <div class="pna">Crest Shorts</div>
 <div class="ppr"><span class="plp-price-old">$79.99</span> <span class="plp-price-sale">$39.99</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Other">
 <div class="pim"><img src="img/products/umbro_63.jpg" alt="Panelled Hoodie by Umbro" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 50%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -1097,7 +1097,7 @@ body.light-mode
 <div class="pna">Panelled Hoodie</div>
 <div class="ppr"><span class="plp-price-old">$79.99</span> <span class="plp-price-sale">$39.99</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Shorts">
 <div class="pim"><img src="img/products/umbro_64.jpg" alt="Umbro Classic Sweat Shorts by Umbro" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 50%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -1107,7 +1107,7 @@ body.light-mode
 <div class="pna">Umbro Classic Sweat Shorts</div>
 <div class="ppr"><span class="plp-price-old">$49.99</span> <span class="plp-price-sale">$24.99</span></div>
 </a>
-<a href="men.html" class="pc">
+<a href="men.html" class="pc" data-type="Other">
 <div class="pim"><img src="img/products/umbro_65.jpg" alt="Umbro Classic Crew Sweat by Umbro" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 50%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -1117,7 +1117,7 @@ body.light-mode
 <div class="pna">Umbro Classic Crew Sweat</div>
 <div class="ppr"><span class="plp-price-old">$59.99</span> <span class="plp-price-sale">$29.99</span></div>
 </a>
-<a href="shoes.html" class="pc">
+<a href="shoes.html" class="pc" data-type="Pants">
 <div class="pim"><img src="img/products/volley_13.jpg" alt="Pre-Game Trackpants by Volley" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 25%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -1127,7 +1127,7 @@ body.light-mode
 <div class="pna">Pre-Game Trackpants</div>
 <div class="ppr"><span class="plp-price-old">$89.99</span> <span class="plp-price-sale">$67.49</span></div>
 </a>
-<a href="shoes.html" class="pc">
+<a href="shoes.html" class="pc" data-type="T-Shirts">
 <div class="pim"><img src="img/products/volley_14.jpg" alt="Game T-Shirt by Volley" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 25%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -1137,7 +1137,7 @@ body.light-mode
 <div class="pna">Game T-Shirt</div>
 <div class="ppr"><span class="plp-price-old">$69.99</span> <span class="plp-price-sale">$52.49</span></div>
 </a>
-<a href="shoes.html" class="pc">
+<a href="shoes.html" class="pc" data-type="Shirts">
 <div class="pim"><img src="img/products/volley_15.jpg" alt="Stripe Shirt by Volley" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 25%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -1147,7 +1147,7 @@ body.light-mode
 <div class="pna">Stripe Shirt</div>
 <div class="ppr"><span class="plp-price-old">$79.99</span> <span class="plp-price-sale">$59.99</span></div>
 </a>
-<a href="shoes.html" class="pc">
+<a href="shoes.html" class="pc" data-type="Shorts">
 <div class="pim"><img src="img/products/volley_20.jpg" alt="Stripe Shorts by Volley" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 25%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -1157,7 +1157,7 @@ body.light-mode
 <div class="pna">Stripe Shorts</div>
 <div class="ppr"><span class="plp-price-old">$69.99</span> <span class="plp-price-sale">$52.49</span></div>
 </a>
-<a href="shoes.html" class="pc">
+<a href="shoes.html" class="pc" data-type="Tops">
 <div class="pim"><img src="img/products/volley_21.jpg" alt="Boyfriend Tee by Volley" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 25%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -1167,7 +1167,7 @@ body.light-mode
 <div class="pna">Boyfriend Tee</div>
 <div class="ppr"><span class="plp-price-old">$59.99</span> <span class="plp-price-sale">$44.99</span></div>
 </a>
-<a href="shoes.html" class="pc">
+<a href="shoes.html" class="pc" data-type="Other">
 <div class="pim"><img src="img/products/volley_26.jpg" alt="Pavilion White/Green by Volley" loading="lazy">
 <div class="pho"></div><span class="pbg" style="background:#c0392b">Save 25%</span>
 <div class="pwi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -1217,4 +1217,4 @@ var html=results.map(function(p){return'<a class="srch-result" href="'+p.u+'"><i
 if(results.length||q)html+='<a class="srch-viewall" href="search.html?q='+encodeURIComponent(q)+'">View all results &rarr;</a>';
 box.innerHTML=html;
 }
-</script></body></html>
+</script><script src="quickfilter.js"></script></body></html>
